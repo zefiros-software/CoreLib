@@ -32,6 +32,7 @@
 
 #include "common/types.h"
 
+#include <condition_variable>
 #include <mutex>
 
 class SpinBarrier
