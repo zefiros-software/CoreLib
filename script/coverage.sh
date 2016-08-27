@@ -1,6 +1,6 @@
 set -e
 
-cd bsp
+cd core
 make config=coverage_x86
 cd ../
 
