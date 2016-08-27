@@ -77,18 +77,19 @@ namespace Path
         return resolve ? Path::ResolveRelative( from, path ) : path;
     }
 
-    std::string ResolveRelative( const std::string &from, const std::string &to, bool sameRoot /*= true */ )
+    std::string ResolveRelative( const std::string &cfrom, const std::string &cto, bool sameRoot /*= true */ )
     {
+        std::string from = cfrom;
+        std::string to = cto;
+#if !(OS_IS_WINDOWS)
+        from = String::Replace( cfrom, "\\", "/" );
+        to = String::Replace( cto, "\\", "/" );
+#endif
+
         if ( sameRoot )
         {
-            std::string cfrom = from;
-            std::string cto = to;
-#if !(OS_IS_WINDOWS)
-            cfrom = String::Replace( from, "\\", "/" );
-            cto = String::Replace( to, "\\", "/" );
-#endif
             // Just add the relative path to the from path an normalise :)
-            return Canonical( FixStyle( boost::filesystem::path( cfrom ).parent_path().generic_string() ) + cto );
+            return Canonical( FixStyle( boost::filesystem::path( from ).parent_path().generic_string() ) + to );
         }
         else
         {
