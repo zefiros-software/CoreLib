@@ -810,6 +810,8 @@ namespace
 
         EXPECT_TRUE( File::AreEqual( file, file2 ) );
 
+        std::cout << File::ReadAllText( file ) << std::endl << std::endl << File::ReadAllText( file2 );
+
         //! [NewValues]
 
         EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
