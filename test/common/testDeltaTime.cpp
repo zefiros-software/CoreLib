@@ -60,8 +60,8 @@ namespace
 
         time.Update();
 
-        EXPECT_LE( Mathf::GetEpsilon() * 10, time.GetDeltaTime() );
-        EXPECT_LE( Mathf::GetEpsilon() * 10, time.GetEasedDeltaTime() );
+        EXPECT_LE( 1e-5, time.GetDeltaTime() );
+        EXPECT_LE( 1e-5, time.GetEasedDeltaTime() );
     }
 
     ENGINE_TEST( DeltaTime, Update, ValueSleep )

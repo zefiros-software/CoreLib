@@ -429,7 +429,7 @@ namespace
 
     ENGINE_TEST( Directory, Create, NoBackslash )
     {
-        const std::string directory = "/common/file";
+        const std::string directory = "common/file";
 
         {
             ASSERT_FALSE( Directory::Exists( directory ) );
@@ -444,7 +444,7 @@ namespace
 
     ENGINE_TEST( Directory, Create, CreateDirectoryTruncateFile )
     {
-        const std::string directory = "/common/file-dir/file";
+        const std::string directory = "common/file-dir/file";
 
         {
             ASSERT_FALSE( Directory::Exists( directory ) );
@@ -452,14 +452,14 @@ namespace
 
         ASSERT_FALSE( Directory::Create( directory ) );
 
-        ASSERT_FALSE( Directory::Exists( "/common/file-dir/" ) );
+        ASSERT_FALSE( Directory::Exists( "common/file-dir/" ) );
 
-        ::Test::CleanUp( "/common/file-dir/" );
+        ::Test::CleanUp( "common/file-dir/" );
     }
 
     ENGINE_TEST( Directory, Create, NoParent )
     {
-        const std::string directory = "/common-dir-create-noparent/";
+        const std::string directory = "common-dir-create-noparent/";
 
         {
             ASSERT_FALSE( Directory::Exists( directory ) );
