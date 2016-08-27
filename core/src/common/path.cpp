@@ -133,6 +133,9 @@ namespace Path
             }
         }
 
+#if !(OS_IS_WINDOWS)
+        std::replace( newPath.begin(), newPath.end(), L'\\', L'/' );
+#endif
         return newPath;
     }
 
