@@ -93,6 +93,7 @@ namespace
         const std::string from = "module\\ZefirosEngine\\main.as";
         const std::string to   = "behaviour.as";
         const std::string path = Path::ResolveRelative( from, to, true );
+        std::cout << Path::Canonical( from ) << " " << Path::Canonical( to ) << std::endl;
         EXPECT_EQ( "module/ZefirosEngine/behaviour.as", path );
     }
 
