@@ -100,9 +100,8 @@ namespace Directory
         {
             return boost::filesystem::create_directory( directory );
         }
-        catch ( const std::exception &e )
+        catch ( const std::exception & )
         {
-            std::cout << e.what();
             return false;
         }
     }

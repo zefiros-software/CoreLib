@@ -435,9 +435,9 @@ namespace
             ASSERT_FALSE( Directory::Exists( directory ) );
         }
 
-        ASSERT_FALSE( Directory::Create( directory ) );
+        EXPECT_TRUE( Directory::Create( directory ) );
 
-        ASSERT_FALSE( Directory::Exists( directory ) );
+        EXPECT_TRUE( Directory::Exists( directory ) );
 
         ::Test::CleanUp( directory );
     }

@@ -86,7 +86,11 @@ namespace Environment
 
     bool RemoveVariable( const std::string &var )
     {
+#if OS_IS_WINDOWS
         return Environment::SetVariable( var, "" );
+#else
+        return unsetenv( var.c_str() ) == 0;
+#endif
     }
 
 }

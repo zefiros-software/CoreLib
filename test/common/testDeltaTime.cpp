@@ -60,8 +60,8 @@ namespace
 
         time.Update();
 
-        EXPECT_LE( 1e-5, time.GetDeltaTime() );
-        EXPECT_LE( 1e-5, time.GetEasedDeltaTime() );
+        EXPECT_LE( 1e-9, time.GetDeltaTime() );
+        EXPECT_LE( 1e-9, time.GetEasedDeltaTime() );
     }
 
     ENGINE_TEST( DeltaTime, Update, ValueSleep )
