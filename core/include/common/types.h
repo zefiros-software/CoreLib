@@ -31,6 +31,7 @@
 /// @addtogroup Types
 /// @{
 
+#include <cstddef>
 #include <stdint.h>
 
 /**
