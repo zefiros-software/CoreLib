@@ -47,6 +47,6 @@ namespace
 
     ENGINE_TEST( ApplicationFrameCountOverflowEvent, SanityCheck )
     {
-        ApplicationFrameCountOverflowEvent a;
+        ApplicationFrameCountOverflowEvent();
     }
 }

@@ -30,6 +30,8 @@
 
 #include "memory/abstract/abstractPool.h"
 
+#include <stddef.h>
+
 /// @addtogroup
 /// @{
 

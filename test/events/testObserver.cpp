@@ -50,7 +50,8 @@ namespace
     public:
 
         Callback()
-            : mWithArg( false ),
+            : mVal( 0 ),
+              mWithArg( false ),
               mNoArg( false )
         {
         }
