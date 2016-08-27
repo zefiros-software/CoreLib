@@ -660,11 +660,6 @@ size_t ConfigurationFile::GetCommentPosition( const std::string &line )
         }
         else
         {
-            if ( cur == "#" )
-            {
-                std::cout << cur << " " << countQ1 << " " << countQ2 << std::endl;
-            }
-
             if ( cur == "#" && ( countQ1 & 0x01 ) == 0 && ( countQ2 & 0x01 ) == 0 )
             {
                 return i;
