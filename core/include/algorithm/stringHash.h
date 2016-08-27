@@ -29,8 +29,11 @@
 #define __ENGINE_STRINGHASH_H__
 
 #include "common/utilClasses.h"  // for NonAssignable
-#include "algorithm/hash.h"      // for Fnv1a
 #include "common/types.h"        // for U32
+
+#include "algorithm/hash.h"      // for Fnv1a
+
+#include "preproc/inline.h"
 
 /// @addtogroup docAlgorithm Algorithm
 /// @{
@@ -95,7 +98,7 @@ public:
      * @post StringHash( ConstCharPointer( (const char *)"<string>") ) ).GetHash() == Hash::Fnv1a( "<string>" )
      */
 
-    __forceinline StringHash( ConstCharPointer str ) noexcept
+    FORCEINLINE StringHash( ConstCharPointer str ) noexcept
         : mHash( Hash::Fnv1a( str.wrappedString ) )
     {
     }
@@ -111,7 +114,7 @@ public:
      */
 
     template< U32 N >
-    __forceinline StringHash( const char( &str )[ N ] ) noexcept
+    FORCEINLINE StringHash( const char( &str )[ N ] ) noexcept
         : mHash( Fnv1a< N, N >::Hash( str ) )
     {
     }
@@ -162,7 +165,7 @@ private:
     template < U32 N, U32 I >
     struct Fnv1a
     {
-        static __forceinline U32 Hash( const char( &str )[ N ] )
+        static FORCEINLINE U32 Hash( const char( &str )[ N ] )
         {
             return ( Fnv1a < N, I - 1 >::Hash( str ) ^ str[ I - 1 ] ) * 16777619u;
         }
@@ -179,7 +182,7 @@ private:
     template < U32 N >
     struct Fnv1a< N, 1 >
     {
-        static __forceinline U32 Hash( const char( &str )[ N ] )
+        static FORCEINLINE U32 Hash( const char( &str )[ N ] )
         {
             return ( 2166136261u ^ str[ 0 ] ) * 16777619u;
         }
