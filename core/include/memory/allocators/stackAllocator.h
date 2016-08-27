@@ -30,6 +30,7 @@
 
 #include "common/types.h"
 
+#include <cstring>
 #include <vector>
 
 class StackAllocator

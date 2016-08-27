@@ -30,12 +30,9 @@
 
 #include "events/abstract/abstractObserver.h"
 
-#include "common/utilClasses.h"
-
 template< class tC, class tN >
 class Observer
-    : public AbstractObserver,
-      NonCopyable< Observer< tC, tN > >
+    : public AbstractObserver
 {
 public:
 
@@ -52,7 +49,8 @@ public:
     }
 
     Observer( const Observer &observer )
-        : mObject( observer.mObject ),
+        : AbstractObserver( observer ),
+          mObject( observer.mObject ),
           mMethod( observer.mMethod )
     {
     }
@@ -103,8 +101,7 @@ private:
 
 template< typename tC >
 class Observer< tC, void >
-    : public AbstractObserver,
-      NonCopyable< Observer< tC, void > >
+    : public AbstractObserver
 {
 public:
 
@@ -120,7 +117,8 @@ public:
     }
 
     Observer( const Observer &observer )
-        : mObject( observer.mObject ),
+        : AbstractObserver( observer ),
+          mObject( observer.mObject ),
           mMethod( observer.mMethod )
     {
     }

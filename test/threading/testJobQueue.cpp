@@ -90,9 +90,9 @@ namespace
         a.Flush();
         a.Push( &e );
         a.Flush();
-        EXPECT_EQ( 2, a.Size() );
+        EXPECT_EQ( 1, a.Size() );
         EXPECT_EQ( &e, a.Pop() );
-        EXPECT_EQ( &e, a.Pop() );
+        EXPECT_EQ( nullptr, a.Pop() );
         EXPECT_EQ( 0, a.Size() );
         EXPECT_FALSE( e.mRan );
     }
