@@ -28,6 +28,7 @@
 #include "math/vec4.h"
 
 #include <assert.h>
+#include <cstddef>
 
 Vec4I::Vec4I()
 {
