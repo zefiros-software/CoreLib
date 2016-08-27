@@ -309,8 +309,6 @@ bool ConfigurationFile::Load( const std::string &filePath, const std::string &co
             {
                 file.close();
 
-                std::cout << temp << std::endl << startComment;
-
                 return false;
             }
         }
@@ -656,6 +654,8 @@ size_t ConfigurationFile::GetCommentPosition( const std::string &line )
         }
         else
         {
+            std::cout << cur << " " << countQ1 << " " << countQ2;
+
             if ( cur == "#" && ( countQ1 & 0x01 ) == 0 && ( countQ2 & 0x01 ) == 0 )
             {
                 return i;
