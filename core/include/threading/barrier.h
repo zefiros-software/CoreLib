@@ -41,7 +41,7 @@ public:
 
     explicit SpinBarrier( U32 target ) noexcept;
 
-    bool Wait();
+    void Wait();
 };
 
 #endif
