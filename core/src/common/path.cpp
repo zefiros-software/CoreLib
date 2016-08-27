@@ -143,6 +143,10 @@ namespace Path
 
     std::string Canonical( const std::string &path, bool absolute /*= false */ )
     {
+#if !(OS_IS_WINDOWS)
+        newPath = String::Replace( newPath, "\\", "/" );
+#endif
+
         if ( ( path == "." || path == "./" ) && !absolute )
         {
             return path;
