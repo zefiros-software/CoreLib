@@ -142,6 +142,8 @@ namespace Path
 
     std::string Canonical( const std::string &path, bool absolute /*= false */ )
     {
+        std::cout << path << std::endl;
+
         if ( ( path == "." || path == "./" ) && !absolute )
         {
             return path;
