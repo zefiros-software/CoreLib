@@ -297,6 +297,12 @@ namespace
         EXPECT_EQ( "imaginary", file );
     }
 
+    ENGINE_TEST( Path, GetFileName, StripExtension2 )
+    {
+        const std::string file = Path::GetFileName( "./modules/imaginary.ext", true );
+        EXPECT_EQ( "imaginary", file );
+    }
+
     ENGINE_TEST( Path, GetDirectory )
     {
         const std::string dir = Path::GetDirectory( "./modules/imaginary.file" );
