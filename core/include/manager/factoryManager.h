@@ -29,10 +29,10 @@
 #define __ENGINE_FACTORYMANAGER_H__
 
 #include "memory/abstract/abstractTInstantiator.h"
+#include "memory/instantiator/instantiator.h"
 
 #include "manager/abstract/abstractManager.h"
-
-#include "memory/instantiator/instantiator.h"
+#include "manager/poolManager.h"
 
 #include "container/namespaceStorage.h"
 
