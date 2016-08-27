@@ -35,18 +35,17 @@ namespace
 
     ENGINE_TEST( Path, Get, ResolvesCorrectFolders )
     {
-        EXPECT_TRUE( boost::filesystem::equivalent( Path::GetProgramDirectory(), Path::Get( "./", Path::Type::Program ) ) );
-        EXPECT_TRUE( boost::filesystem::equivalent( Path::GetProgramDataDirectory(), Path::Get( "./", Path::Type::Data ) ) );
-        EXPECT_TRUE( boost::filesystem::equivalent( Path::GetProgramSharedDataDirectory(), Path::Get( "./",
-                                                                                                      Path::Type::SharedData ) ) );
-        EXPECT_TRUE( boost::filesystem::equivalent( Path::GetProgramTempDirectory(), Path::Get( "./", Path::Type::Temp ) ) );
+        EXPECT_EQ( Path::GetProgramDirectory(), Path::Get( "./", Path::Type::Program ) );
+        EXPECT_EQ( Path::GetProgramDataDirectory(), Path::Get( "./", Path::Type::Data ) );
+        EXPECT_EQ( Path::GetProgramSharedDataDirectory(), Path::Get( "./", Path::Type::SharedData ) );
+        EXPECT_EQ( Path::GetProgramTempDirectory(), Path::Get( "./", Path::Type::Temp ) );
         EXPECT_EQ( "./", Path::Get( "./", Path::Type::None ) );
     }
 
     ENGINE_TEST( Path, Get, CorrectDefault )
     {
-        EXPECT_TRUE( boost::filesystem::equivalent( Path::GetProgramDirectory(), Path::Get( "./", Path::Type::Program ) ) );
-        EXPECT_TRUE( boost::filesystem::equivalent( Path::GetProgramDirectory(), Path::Get( "./" ) ) );
+        EXPECT_EQ( Path::GetProgramDirectory(), Path::Get( "./", Path::Type::Program ) );
+        EXPECT_EQ( Path::GetProgramDirectory(), Path::Get( "./" ) );
     }
 
     ENGINE_TEST( Path, Get, DifferentFolders )
