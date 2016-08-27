@@ -294,7 +294,7 @@ namespace
     ENGINE_TEST( Path, GetFileName, StripExtension )
     {
         const std::string file = Path::GetFileName( "./modules/imaginary", true );
-        EXPECT_EQ( "imaginary", file );
+        EXPECT_EQ( ".", file );
     }
 
     ENGINE_TEST( Path, GetFileName, StripExtension2 )

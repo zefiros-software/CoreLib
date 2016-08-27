@@ -132,7 +132,7 @@ namespace Path
         const boost::filesystem::path path( filePath );
         std::string newPath = path.generic_string();
 
-        if ( !( path.has_stem() && path.has_extension() && path.has_filename() ) )
+        if ( !path.has_extension() )
         {
             if ( path.empty() || newPath.back() != '/' )
             {
