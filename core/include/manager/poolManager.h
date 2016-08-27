@@ -28,7 +28,7 @@
 #ifndef __ENGINE_POOLMANAGER_H__
 #define __ENGINE_POOLMANAGER_H__
 
-#include "manager/abstract/abstractManager.h"
+#include "manager/factoryManager.h"
 
 #include "container/namespaceStorage.h"
 

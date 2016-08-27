@@ -29,7 +29,6 @@
 #define __ENGINE_FACTORYMANAGER_H__
 
 #include "manager/abstract/abstractManager.h"
-#include "manager/poolManager.h"
 
 #include "memory/abstract/abstractTInstantiator.h"
 #include "memory/instantiator/instantiator.h"
