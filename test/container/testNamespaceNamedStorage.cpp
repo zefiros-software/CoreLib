@@ -28,8 +28,6 @@
 
 #include "engineTest.h"
 
-#include <vector>
-
 namespace
 {
 
