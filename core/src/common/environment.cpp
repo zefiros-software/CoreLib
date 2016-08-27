@@ -55,8 +55,8 @@ namespace Environment
 
         return result;
 #else
-        const char *var = getenv( var.c_str() );
-        return var ? var : "";
+        const char *svar = getenv( var.c_str() );
+        return svar ? svar : "";
 #endif
     }
 
