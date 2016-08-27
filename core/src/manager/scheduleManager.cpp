@@ -35,7 +35,7 @@
 #if OS_IS_WINDOWS
 __declspec( thread ) ThreadID gThreadID = Thread::MainThreadID;
 #else
-#   error
+__thread ThreadID gThreadID = Thread::MainThreadID;
 #endif
 
 ScheduleManager::ScheduleManager()
