@@ -82,7 +82,8 @@ namespace Path
         if ( sameRoot )
         {
             // Just add the relative path to the from path an normalise :)
-            return Canonical( FixStyle( boost::filesystem::path( Canonical( from ) ).parent_path().generic_string() ) + to );
+            return Canonical( FixStyle( boost::filesystem::path( Canonical( from ) ).parent_path().generic_string() )
+                              + Canonical( to ) );
         }
         else
         {
@@ -142,8 +143,6 @@ namespace Path
 
     std::string Canonical( const std::string &path, bool absolute /*= false */ )
     {
-        std::cout << path << std::endl;
-
         if ( ( path == "." || path == "./" ) && !absolute )
         {
             return path;
@@ -162,7 +161,6 @@ namespace Path
         for ( auto it = fsPath.begin(), end = fsPath.end(); it != end; ++it )
         {
             const std::string part = it->generic_string();
-            std::cout << "*" << part << std::endl;
 
             if ( part == ".." )
             {
