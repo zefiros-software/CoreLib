@@ -82,7 +82,7 @@ namespace Path
         if ( sameRoot )
         {
             // Just add the relative path to the from path an normalise :)
-            return Canonical( FixStyle( boost::filesystem::path( FixStyle( from ) ).parent_path().generic_string() ) + to );
+            return Canonical( FixStyle( boost::filesystem::path( Canonical( from ) ).parent_path().generic_string() ) + to );
         }
         else
         {
