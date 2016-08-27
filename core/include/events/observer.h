@@ -37,12 +37,13 @@ class Observer
 public:
 
     Observer()
-        : mMethod( nullptr )
+        : mObject( nullptr ),
+          mMethod( nullptr )
     {
     }
 
     template< typename tC2 >
-    Observer( tC *const object, void ( tC2::*method )( const tN & ) )
+    Observer( tC *const object, void ( tC2:: * method )( const tN & ) )
         : mObject( object ),
           mMethod( static_cast< void ( tC::* )( const tN & ) >( method ) )
     {
@@ -106,7 +107,8 @@ class Observer< tC, void >
 public:
 
     Observer()
-        : mMethod( nullptr )
+        : mObject( nullptr ),
+          mMethod( nullptr )
     {
     }
 
