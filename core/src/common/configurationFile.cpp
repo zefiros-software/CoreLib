@@ -309,6 +309,8 @@ bool ConfigurationFile::Load( const std::string &filePath, const std::string &co
             {
                 file.close();
 
+                std::cout << temp << std::endl << startComment;
+
                 return false;
             }
         }
