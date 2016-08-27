@@ -95,10 +95,9 @@ public:
     /// @{
 
     template <typename... Args>
-    auto Printp( Args &&... args )
-    -> decltype( Printf( String::Place( std::forward<Args>( args )... ) ) )
+    void Printp( Args &&... args )
     {
-        return Printf( String::Place( std::forward<Args>( args )... ) );
+        Printf( String::Place( std::forward<Args>( args )... ) );
     }
 
     /// @}
@@ -187,10 +186,9 @@ public:
     /// @{
 
     template <typename... Args>
-    auto Errorp( Args &&... args )
-    -> decltype( Errorf( String::Place( std::forward<Args>( args )... ) ) )
+    void Errorp( Args &&... args )
     {
-        return Errorf( String::Place( std::forward<Args>( args )... ) );
+        Errorf( String::Place( std::forward<Args>( args )... ) );
     }
 
     /// @}
@@ -279,10 +277,9 @@ public:
     /// @{
 
     template <typename... Args>
-    auto Warningp( Args &&... args )
-    -> decltype( Warningf( String::Place( std::forward<Args>( args )... ) ) )
+    void Warningp( Args &&... args )
     {
-        return Warningf( String::Place( std::forward<Args>( args )... ) );
+        Warningf( String::Place( std::forward<Args>( args )... ) );
     }
 
     /// @}
@@ -371,10 +368,9 @@ public:
     /// @{
 
     template <typename... Args>
-    auto Initp( Args &&... args )
-    -> decltype( Initf( String::Place( std::forward<Args>( args )... ) ) )
+    void Initp( Args &&... args )
     {
-        return Initf( String::Place( std::forward<Args>( args )... ) );
+        Initf( String::Place( std::forward<Args>( args )... ) );
     }
 
     /// @}
