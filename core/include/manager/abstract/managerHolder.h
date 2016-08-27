@@ -1,0 +1,67 @@
+/**
+ * @cond ___LICENSE___
+ *
+ * Copyright (c) 2016 Koen Visscher, Paul Visscher and individual contributors.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @endcond
+ */
+
+#pragma once
+#ifndef __ENGINE_MANAGERHOLDER_H__
+#define __ENGINE_MANAGERHOLDER_H__
+
+class ThreadingVariableManager;
+class ConfigurationManager;
+class ApplicationManager;
+class ScheduleManager;
+class ProfilerManager;
+class MemoryManager;
+class FactoryManager;
+class SystemManager;
+class EventManager;
+class PoolManager;
+class LogManager;
+
+/// @addtogroup Managers
+/// @{
+
+/**
+ * The manager holder holds pointers to all managers.
+ */
+
+struct ManagerHolder
+{
+    ThreadingVariableManager *threadingVariable;
+    ConfigurationManager    *configuration;
+    ApplicationManager    *application;
+    ScheduleManager  *schedule;
+    ProfilerManager  *profile;
+    MemoryManager    *memory;
+    FactoryManager   *factory;
+    SystemManager    *system;
+    EventManager    *event;
+    PoolManager     *pool;
+    LogManager      *log;
+};
+
+/// @}
+
+#endif

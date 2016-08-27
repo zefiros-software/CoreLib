@@ -1,0 +1,37 @@
+{
+    "name": "Zefiros-Software/CoreLib",
+    "dev": {
+        "modules": [
+            "Zefiros-Software/Zefiros-Defaults"
+        ]
+    },
+    "requires": [
+        {
+            "name": "Zefiros-Software/GoogleTest",
+            "version": "@head"
+        },
+        {
+            "name": "Zefiros-Software/BSPLib",
+            "version": "^1.1.0"
+        },
+        {
+            "name": "Zefiros-Software/SerLib",
+            "version": "^1.0.0"
+        },
+        {
+            "name": "Zefiros-Software/BenchLib",
+            "version": "^1.0.0"
+        },
+        {
+            "name": "Zefiros-Software/Boost",
+            "version": "^1.61.0",
+            "options": {
+                "Filesystem": true
+            }
+        },
+        {
+            "name": "Zefiros-Software/Fmt",
+            "version": "^3.0.0"
+        }
+    ]
+}

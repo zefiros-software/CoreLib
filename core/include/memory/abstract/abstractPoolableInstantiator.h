@@ -1,0 +1,96 @@
+/**
+ * @cond ___LICENSE___
+ *
+ * Copyright (c) 2016 Koen Visscher, Paul Visscher and individual contributors.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @endcond
+ */
+
+#pragma once
+#ifndef __ENGINE_ABSTRACTPOOLABLEINSTANTIATOR_H__
+#define __ENGINE_ABSTRACTPOOLABLEINSTANTIATOR_H__
+
+#include "memory/abstract/abstractTInstantiator.h"
+
+/// @addtogroup Instantiators
+/// @{
+
+/**
+ * A pool instantiator type, that should be used by pools since it defines
+ * how objects should be created, initialised, deleted and released.
+ *
+ *
+ * @tParam tBase    The type of the base class the instantiated type
+ *                  should derive from.
+ *
+ * @sa  AbstractTInstantiator<tT>
+ */
+
+template< typename tBase >
+class AbstractPoolableInstantiator
+    : public AbstractTInstantiator< tBase >
+{
+public:
+
+    /// @name Deletion
+    /// @{
+
+    /**
+     * Destroys the object, by releasing the memory.
+     *
+     * @param [in,out]  object  The object.
+     */
+
+    virtual void DestroyObject( tBase *object ) = 0;
+
+    /// @}
+
+    /// @name Initialisation
+    /// @{
+
+    /**
+     * Initialises the object.
+     *
+     * @param [in,out]  object  The object.
+     */
+
+    virtual void InitialiseObject( tBase *const object ) = 0;
+
+    /// @}
+
+    /// @name Releasing
+    /// @{
+
+    /**
+     * Releases the object.
+     *
+     * @param [in,out]  object  The object.
+     */
+
+    virtual void ReleaseObject( tBase *const object ) = 0;
+
+    /// @}
+
+};
+
+/// @}
+
+#endif
