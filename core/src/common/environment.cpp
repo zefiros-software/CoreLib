@@ -64,7 +64,7 @@ namespace Environment
 #if OS_IS_WINDOWS
         return _putenv( ( var + "=" + value ).c_str() ) == 0;
 #else
-        return putenv( ( var + "=" + value ).c_str() ) == 0;
+        return setenv( ar.c_str(), value.c_str(), 1 ) == 0;
 #endif
     }
 
