@@ -25,16 +25,30 @@
  */
 
 #pragma once
-#ifndef __ENGINE_TEST_H__
-#define __ENGINE_TEST_H__
+#ifndef __CONVERSIONNULL_H__
+#define __CONVERSIONNULL_H__
 
-#include "warnings/push.h"
-#include "warnings/integerToSmallPointer.h"
-#include "warnings/conversionNull.h"
+#pragma once
+#ifndef __ENGINE_DUPLICATEFRIEND_H__
+#define __ENGINE_DUPLICATEFRIEND_H__
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wconversion-null"
+#endif
 
-#include "warnings/pop.h"
+#if defined(_MSC_VER)
+//#   pragma warning(disable: 4100)
+#endif
+
+#if defined(__GNUC__) && !defined(__clang__)
+#   pragma GCC diagnostic ignored "-Wconversion-null"
+#endif
+
+#if defined(__ICL)
+//#   pragma warning(disable:367)
+#endif
+
+#endif
+
 
 #endif
