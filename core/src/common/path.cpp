@@ -162,6 +162,7 @@ namespace Path
         for ( auto it = fsPath.begin(), end = fsPath.end(); it != end; ++it )
         {
             const std::string part = it->generic_string();
+            std::cout << "*" << part << std::endl;
 
             if ( part == ".." )
             {
