@@ -82,7 +82,7 @@ namespace Path
         if ( sameRoot )
         {
             // Just add the relative path to the from path an normalise :)
-            return Canonical( FixStyle( boost::filesystem::path( from ).parent_path().generic_string() ) + to );
+            return Canonical( FixStyle( boost::filesystem::path( FixStyle( from ) ).parent_path().generic_string() ) + to );
         }
         else
         {
@@ -204,7 +204,7 @@ namespace Path
 
     std::string GetFileName( const std::string &path, const bool stripExtension /*= false */ )
     {
-        const boost::filesystem::path fsPath( path );
+        const boost::filesystem::path fsPath( FixStyle( path ) );
         std::string filename;
 
         if ( !stripExtension )
