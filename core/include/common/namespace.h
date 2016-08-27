@@ -30,6 +30,8 @@
 
 #include "common/types.h"
 
+#include <functional>
+
 /// @addtogroup docCommon
 /// @{
 
