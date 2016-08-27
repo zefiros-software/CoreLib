@@ -1,7 +1,7 @@
 set -e
 
 premake5 install-package --allow-install --allow-module
-premake5 gmake
+premake5 gmake --allow-install
 cd core
 make config=debug_x86
 make config=debug_x86_64
