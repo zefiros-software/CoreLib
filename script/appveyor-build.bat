@@ -6,7 +6,7 @@ msbuild bsp/CoreLib.sln /property:Configuration=Release /property:Platform=x64 |
 ::msbuild bsp/CoreLib.sln /property:Configuration=Debug /property:Platform=x64 || exit /b 1
 
 cd test/
-premake5 vs2015 || exit /b 1
+premake5 vs2015 --allow-install || exit /b 1
 msbuild zpm/CoreLib-ZPM.sln || exit /b 1
 
 cd ../

@@ -12,7 +12,7 @@ make config=release_x86_64
 
 cd ../test/
 
-premake5 gmake
+premake5 gmake --allow-install
 
 cd zpm/
 make
