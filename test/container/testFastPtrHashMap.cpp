@@ -24,7 +24,7 @@
  * @endcond
  */
 
-#include "container/fastPtrHashmap.h"
+#include "container/fastPtrHashMap.h"
 
 #include "engineTest.h"
 
