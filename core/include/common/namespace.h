@@ -30,8 +30,6 @@
 
 #include "common/types.h"
 
-#include <xhash>
-
 /// @addtogroup docCommon
 /// @{
 
