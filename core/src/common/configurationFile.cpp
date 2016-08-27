@@ -34,6 +34,11 @@ ConfigurationFile::ConfigurationFile() noexcept
 {
 }
 
+ConfigurationFile::~ConfigurationFile() noexcept
+{
+
+}
+
 std::string ConfigurationFile::GetString( const std::string &key ) const
 {
     auto it = mStrings.find( key );

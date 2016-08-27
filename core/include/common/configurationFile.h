@@ -154,6 +154,8 @@ public:
 
     ConfigurationFile() noexcept;
 
+    virtual ~ConfigurationFile() noexcept;
+
     /// @name Lookup
     /// @{
 
