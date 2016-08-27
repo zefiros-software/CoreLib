@@ -81,9 +81,14 @@ namespace Path
     {
         if ( sameRoot )
         {
+            std::string cfrom = from;
+            std::string cto = to;
+#if !(OS_IS_WINDOWS)
+            std::string cfrom = String::Replace( from, "\\", "/" );
+            std::string cto = String::Replace( to, "\\", "/" );
+#endif
             // Just add the relative path to the from path an normalise :)
-            return Canonical( FixStyle( boost::filesystem::path( Canonical( from ) ).parent_path().generic_string() )
-                              + Canonical( to ) );
+            return Canonical( FixStyle( boost::filesystem::path( cfrom ).parent_path().generic_string() ) + cto );
         }
         else
         {
