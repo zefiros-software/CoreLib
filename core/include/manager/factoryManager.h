@@ -32,6 +32,8 @@
 
 #include "manager/abstract/abstractManager.h"
 
+#include "memory/instantiator/instantiator.h"
+
 #include "container/namespaceStorage.h"
 
 #include "api/console.h"
