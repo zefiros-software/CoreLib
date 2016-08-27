@@ -147,7 +147,7 @@ F32 Mathf::Round( const F32 f )
 
 F32 Mathf::FMod( const F32 f, const F32 m )
 {
-    return std::fmodf( f, m );
+    return fmodf( f, m );
 }
 
 F32 Mathf::Log( const F32 f )
