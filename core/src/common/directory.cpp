@@ -25,6 +25,7 @@
  */
 
 #include "common/file.h"
+#include <iostream>
 
 namespace Directory
 {
@@ -99,8 +100,9 @@ namespace Directory
         {
             return boost::filesystem::create_directory( directory );
         }
-        catch ( ... )
+        catch ( const std::exception &e )
         {
+            std::cout << e.what();
             return false;
         }
     }
