@@ -134,7 +134,8 @@ namespace Path
         }
 
 #if !(OS_IS_WINDOWS)
-        std::replace( newPath.begin(), newPath.end(), L'\\', L'/' );
+        newPath = String::Replace( newPath, "\\", "/" );
+        newPath = String::Replace( newPath, "//", "/" );
 #endif
         return newPath;
     }
