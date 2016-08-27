@@ -23,17 +23,24 @@
  *
  * @endcond
  */
-
 #pragma once
-#ifndef __ENGINE_ATOMIC_H__
-#define __ENGINE_ATOMIC_H__
+#ifndef __MISSINGINITIALISER_H__
+#define __MISSINGINITIALISER_H__
 
-#include "warnings/push.h"
-#include "warnings/nonConstRValue.h"
-#include "warnings/missingInitialiser.h"
+#if defined(__clang__)
+/ #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#endif
 
-#include <boost/atomic.hpp>
+#if defined(_MSC_VER)
+//#   pragma warning(disable: 4100)
+#endif
 
-#include "warnings/pop.h"
+#if defined(__GNUC__) && !defined(__clang__)
+#   pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#endif
+
+#if defined(__ICL)
+//#   pragma warning(disable:1195)
+#endif
 
 #endif

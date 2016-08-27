@@ -121,7 +121,7 @@ void SystemManager::Update()
     SynchroniseManagers();
 }
 
-ManagerHolder *const SystemManager::GetManagers()
+ManagerHolder *SystemManager::GetManagers()
 {
     return &mManagerHolder;
 }

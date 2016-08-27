@@ -81,7 +81,7 @@ public:
      * @return  The manager holder.
      */
 
-    ManagerHolder *const GetManagers();
+    ManagerHolder *GetManagers();
 
     /**
      * Registers the managers.
