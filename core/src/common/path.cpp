@@ -271,7 +271,7 @@ namespace Path
 #if OS_IS_WINDOWS
         return FixStyle( Environment::GetVariable( "APPDATA" ) );
 #elif OS_IS_LINUX
-        return FixStyle( Environment::GetVariable( "ALLUSERSPROFILE" ) + "/local/share/" );
+        return FixStyle( "~/local/share/" );
 #elif OS_IS_MACOS
         return "~/Library/Application Support/";
 #endif
