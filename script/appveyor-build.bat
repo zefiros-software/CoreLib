@@ -1,9 +1,9 @@
 premake5 install-package --allow-install --allow-module  || exit /b 1
 premake5 vs2015 --allow-install || exit /b 1
-msbuild bsp/CoreLib.sln /property:Configuration=Release /property:Platform=Win32 || exit /b 1
-::msbuild bsp/CoreLib.sln /property:Configuration=Debug /property:Platform=Win32 || exit /b 1
-msbuild bsp/CoreLib.sln /property:Configuration=Release /property:Platform=x64 || exit /b 1
-::msbuild bsp/CoreLib.sln /property:Configuration=Debug /property:Platform=x64 || exit /b 1
+msbuild core/CoreLib.sln /property:Configuration=Release /property:Platform=Win32 || exit /b 1
+::msbuild core/CoreLib.sln /property:Configuration=Debug /property:Platform=Win32 || exit /b 1
+msbuild core/CoreLib.sln /property:Configuration=Release /property:Platform=x64 || exit /b 1
+::msbuild core/CoreLib.sln /property:Configuration=Debug /property:Platform=x64 || exit /b 1
 
 cd test/
 premake5 vs2015 --allow-install || exit /b 1
