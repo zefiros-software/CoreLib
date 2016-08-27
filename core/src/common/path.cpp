@@ -273,7 +273,7 @@ namespace Path
 #elif OS_IS_LINUX
         return FixStyle( Environment::GetVariable( "ALLUSERSPROFILE" ) + "/local/share/" );
 #elif OS_IS_MACOS
-        return "~/Library/Application Support/"
+        return "~/Library/Application Support/";
 #endif
     }
 
@@ -282,9 +282,9 @@ namespace Path
 #if OS_IS_WINDOWS
         return FixStyle( Environment::GetVariable( "ALLUSERSPROFILE" ) );
 #elif OS_IS_LINUX
-        return "/usr/local/"
+        return "/usr/local/";
 #elif OS_IS_MACOS
-        return "/usr/local/"
+        return "/usr/local/";
 #endif
     }
 
@@ -305,7 +305,8 @@ namespace Path
 
     std::string GetProgramSharedDataDirectory()
     {
-        return String::Format( "%s%s/%s/", GetSharedDataDirectory(), std::string( PROGRAM_COMPANY ),
+        return String::Format( "%s%s/%s/", GetSharedDataDirectory(),
+                               std::string( PROGRAM_COMPANY ),
                                std::string( PROGRAM_NAME ) );
     }
 
