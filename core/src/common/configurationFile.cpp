@@ -645,12 +645,18 @@ size_t ConfigurationFile::GetCommentPosition( const std::string &line )
         // filter out comments in strings such as: '#'
         if ( cur == "'" )
         {
-            ++countQ1;
+            if ( ( countQ2 & 0x01 ) == 0 )
+            {
+                ++countQ1;
+            }
         }
         // filter out comments in strings such as: "#"
         else if ( cur == "\"" )
         {
-            ++countQ2;
+            if ( ( countQ1 & 0x01 ) == 0 )
+            {
+                ++countQ2;
+            }
         }
         else
         {
