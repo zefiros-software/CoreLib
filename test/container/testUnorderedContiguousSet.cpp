@@ -63,7 +63,7 @@ namespace
         EXPECT_EQ( 0, f.Size() );
         EXPECT_TRUE( f.Insert( 2 ) );
         EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::ElementsAre< U8, U8 >( 2u, 4u );
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
         EXPECT_THAT( f.GetValues(), matcher );
     }
 
@@ -73,7 +73,7 @@ namespace
         EXPECT_EQ( 0, f.Size() );
         EXPECT_TRUE( f.Insert( 2 ) );
         EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::ElementsAre< U8, U8 >( 2u, 4u );
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
     }
 
@@ -82,13 +82,13 @@ namespace
         UnorderedContiguousSet< U8 > f;
         EXPECT_TRUE( f.Insert( 2 ) );
         EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::ElementsAre< U8, U8 >( 2u, 4u );
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
 
         EXPECT_TRUE( f.Delete( 4 ) );
         EXPECT_FALSE( f.Has( 4 ) );
         EXPECT_EQ( 1, f.Size() );
-        auto matcher2 = ::testing::ElementsAre< U8 >( 2u );
+        auto matcher2 = ::testing::UnorderedElementsAre< U8 >( 2u );
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher2 );
     }
 
@@ -97,7 +97,7 @@ namespace
         UnorderedContiguousSet< U8 > f;
         EXPECT_TRUE( f.Insert( 2 ) );
         EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::ElementsAre< U8, U8 >( 2u, 4u );
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
 
         EXPECT_FALSE( f.Delete( 20 ) );
@@ -110,7 +110,7 @@ namespace
         UnorderedContiguousSet< U8 > f;
         EXPECT_TRUE( f.Insert( 2 ) );
         EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::ElementsAre< U8, U8 >( 2u, 4u );
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
 
         f.Clear();
