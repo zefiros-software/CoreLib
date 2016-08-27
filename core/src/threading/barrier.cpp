@@ -35,6 +35,6 @@ SpinBarrier::SpinBarrier( U32 target ) noexcept
 
 void SpinBarrier::Wait()
 {
-    const std::atomic_bool b = false;
+    const std::atomic_bool b{false};
     MixedBarrier::Wait( b );
 }
