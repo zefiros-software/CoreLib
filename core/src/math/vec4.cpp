@@ -26,7 +26,7 @@
 
 
 #include "math/mathf.h"
-#include "math/vec4I.h"
+#include "math/vec4i.h"
 #include "math/vec4.h"
 #include "math/vec3.h"
 #include "math/vec2.h"
