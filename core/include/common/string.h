@@ -31,6 +31,7 @@
 
 #include "external/stringAlgorithm.h"
 
+#include <sstream>
 #include <vector>
 #include <string>
 
