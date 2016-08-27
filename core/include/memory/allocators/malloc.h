@@ -28,6 +28,7 @@
 #ifndef __ENGINE_MALLOC_H__
 #define __ENGINE_MALLOC_H__
 
+#include <stddef.h>
 #include <stdint.h>
 
 // Based on
