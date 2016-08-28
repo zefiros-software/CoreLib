@@ -26,7 +26,11 @@
 
 #include "manager/poolManager.h"
 
+#include "api/factory.h"
+#include "api/system.h"
+
 #include "engineTest.h"
+#include "managers.h"
 
 namespace
 {
@@ -64,6 +68,28 @@ namespace
         EXPECT_EQ( pool, m.GetPool< PoolTest >() );
 
         EXPECT_TRUE( m.HasPools( 0 ) );
+    }
+
+    ENGINE_TEST( PoolManager, AddPoolFromFactory )
+    {
+        PoolManager m;
+
+        FactoryManager f;
+        f.AddFactory< U32 >();
+
+        ManagerHolder h = {};
+        h.factory = &f;
+        m.SetManagers( &h );
+
+        auto pool = m.AddPoolFromFactory< U32 >();
+
+        EXPECT_TRUE( m.HasPool< U32 >() );
+        EXPECT_EQ( pool, m.GetPool< U32 >() );
+
+        EXPECT_TRUE( m.HasPools( 0 ) );
+
+        f.ReleaseFactories();
+        ASSERT_FALSE( f.HasFactory< U32 >() );
     }
 
     ENGINE_TEST( PoolManager, AddPoolTwice )

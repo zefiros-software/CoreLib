@@ -109,6 +109,10 @@ public:
 
     /// @}
 
+    virtual AbstractInstantiator *Copy() override
+    {
+        return new SimplePoolableInstantiator< tT, tBase >();
+    }
 };
 
 /// @}

@@ -60,7 +60,7 @@ public:
             Console::Errorf( LOG( "Factory already registered." ) );
         }
 
-        return instantiator;
+        return static_cast< AbstractTInstantiator< tBase > * >( instantiator );
     }
 
     template< typename tT, typename tBase = tT>
@@ -88,7 +88,7 @@ public:
         mFactories.RemoveObjectByName( typeid( tT ), ns );
     }
 
-    void ReleaseFactories( Namespace ns );
+    void ReleaseFactories( Namespace ns = 0u );
 
     template< typename tT >
     bool HasFactory( Namespace ns = 0u ) const

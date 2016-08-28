@@ -34,6 +34,8 @@ void Managers::InitialisePoolManager()
 {
     PoolManager *const pool = SystemManager::Get()->GetManagers()->pool;
 
+    pool->SetManagers( SystemManager::Get()->GetManagers() );
+
     pool->PreInitialise();
     pool->Initialise();
 }
@@ -44,4 +46,21 @@ void Managers::ReleasePoolManager()
 
     pool->Release();
     pool->PostRelease();
+}
+
+void Managers::InitialiseFactoryManager()
+{
+    FactoryManager *const factory = SystemManager::Get()->GetManagers()->factory;
+
+    factory->SetManagers( SystemManager::Get()->GetManagers() );
+    factory->PreInitialise();
+    factory->Initialise();
+}
+
+void Managers::ReleaseFactoryManager()
+{
+    FactoryManager *const factory = SystemManager::Get()->GetManagers()->factory;
+
+    factory->Release();
+    factory->PostRelease();
 }

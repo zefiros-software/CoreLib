@@ -35,7 +35,7 @@ namespace
         EXPECT_EQ( "Error", Console::GetName( Console::LogMode::Error ) );
         EXPECT_EQ( "Warning", Console::GetName( Console::LogMode::Warning ) );
         EXPECT_EQ( "Print", Console::GetName( Console::LogMode::Print ) );
-        EXPECT_EQ( "Initialisation", Console::GetName( Console::LogMode::Initialisation ) );
+        EXPECT_EQ( "Init", Console::GetName( Console::LogMode::Initialisation ) );
         EXPECT_EQ( "", Console::GetName( Console::LogMode::All ) );
     }
 }

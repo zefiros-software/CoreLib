@@ -128,6 +128,11 @@ public:
 
     /// @}
 
+    virtual AbstractInstantiator *Copy() override
+    {
+        return new PoolableInstantiator< tT, tBase >();
+    }
+
 };
 
 /// @}

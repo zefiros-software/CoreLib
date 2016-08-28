@@ -106,6 +106,13 @@ namespace
 
         }
 
+        ImplPoolableInstantiator( const ImplPoolableInstantiator &other )
+            : created( other.created ),
+              destroyed( other.destroyed )
+        {
+
+        }
+
         virtual U32 *CreateInstance() override
         {
             created = true;
@@ -126,6 +133,11 @@ namespace
         virtual void ReleaseObject( U32 *const object ) override
         {
             *object = 0;
+        }
+
+        virtual AbstractInstantiator *Copy() override
+        {
+            return new ImplPoolableInstantiator( *this );
         }
 
         bool created;

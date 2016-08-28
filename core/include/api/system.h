@@ -24,41 +24,29 @@
  * @endcond
  */
 
-#include "memory/abstract/abstractParamInstantiator.h"
+#pragma once
+#ifndef __SYSTEM_H__
+#define __SYSTEM_H__
 
-#include "engineTest.h"
+#include "manager/systemManager.h"
 
-namespace
+#include "api/expose.h"
+
+namespace System
 {
-    class ImplParamInstantiator
-        : public AbstractParamInstantiator< U32, U32 >
-    {
-    public:
+    EXPOSE_API( system, Initialise );
 
-        U32 *CreateInstance( const U32 &param ) override
-        {
-            return new U32( param );
-        }
+    EXPOSE_API( system, Release );
 
-        virtual AbstractInstantiator *Copy() override
-        {
-            return new ImplParamInstantiator;
-        }
-    };
+    EXPOSE_API( system, Update );
 
-    ENGINE_TEST( AbstractParamInstantiator, ConstructDeconstruct )
-    {
-        ImplParamInstantiator inst;
-    }
+    EXPOSE_API( system, GetManagers );
 
-    ENGINE_TEST( AbstractParamInstantiator, CreateInstance )
-    {
-        AbstractParamInstantiator< U32, U32 > *inst = new ImplParamInstantiator;
-        U32 *ptr = inst->CreateInstance( 42 );
+    EXPOSE_API( system, RegisterManagers );
 
-        EXPECT_EQ( 42, *ptr );
-        delete ptr;
-        delete inst;
-    }
+    EXPOSE_API( system, GetArgc );
 
+    EXPOSE_API( system, GetArgv );
 }
+
+#endif

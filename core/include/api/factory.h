@@ -24,41 +24,31 @@
  * @endcond
  */
 
-#include "memory/abstract/abstractParamInstantiator.h"
+#include "manager/factoryManager.h"
 
-#include "engineTest.h"
+#include "api/expose.h"
 
-namespace
+#pragma once
+#ifndef __FACTORY_H__
+#define __FACTORY_H__
+
+namespace Factory
 {
-    class ImplParamInstantiator
-        : public AbstractParamInstantiator< U32, U32 >
-    {
-    public:
+    EXPOSE_API( factory, AddFactory );
+    EXPOSE_API_NOARG( factory, AddFactory );
 
-        U32 *CreateInstance( const U32 &param ) override
-        {
-            return new U32( param );
-        }
+    EXPOSE_API( factory, ReleaseFactory );
 
-        virtual AbstractInstantiator *Copy() override
-        {
-            return new ImplParamInstantiator;
-        }
-    };
+    EXPOSE_API( factory, ReleaseFactories );
 
-    ENGINE_TEST( AbstractParamInstantiator, ConstructDeconstruct )
-    {
-        ImplParamInstantiator inst;
-    }
+    EXPOSE_API( factory, HasFactory );
+    EXPOSE_API_NOARG( factory, HasFactory );
 
-    ENGINE_TEST( AbstractParamInstantiator, CreateInstance )
-    {
-        AbstractParamInstantiator< U32, U32 > *inst = new ImplParamInstantiator;
-        U32 *ptr = inst->CreateInstance( 42 );
+    EXPOSE_API( factory, GetFactory );
+    EXPOSE_API_NOARG( factory, GetFactory );
 
-        EXPECT_EQ( 42, *ptr );
-        delete ptr;
-        delete inst;
-    }
-
+    EXPOSE_API( factory, CreateInstance );
+    EXPOSE_API_NOARG( factory, CreateInstance );
 }
+
+#endif

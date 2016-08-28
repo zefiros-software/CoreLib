@@ -46,6 +46,11 @@ namespace
             delete object;
         }
 
+        virtual AbstractInstantiator *Copy() override
+        {
+            return new ImplMemoryPooledInstantiator;
+        }
+
     };
 
     ENGINE_TEST( AbstractMemoryPoolInstantiator, ConstructDeconstruct )

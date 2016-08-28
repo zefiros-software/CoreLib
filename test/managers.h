@@ -31,4 +31,8 @@ namespace Managers
 
     void ReleasePoolManager();
 
+    void InitialiseFactoryManager();
+
+    void ReleaseFactoryManager();
+
 }

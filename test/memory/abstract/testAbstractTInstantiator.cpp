@@ -40,6 +40,11 @@ namespace
         {
             return new U32( 42 );
         }
+
+        virtual AbstractInstantiator *Copy() override
+        {
+            return new ImplTInstantiator;
+        }
     };
 
     ENGINE_TEST( AbstractTInstantiator, ConstructDeconstruct )

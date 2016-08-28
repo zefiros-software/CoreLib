@@ -167,6 +167,11 @@ public:
 
     /// @}
 
+    virtual AbstractInstantiator *Copy() override
+    {
+        return new MemoryPoolInstantiator< tT, tBase >( mBlockSize, mMaxBlocks );
+    }
+
 private:
 
     MemoryPoolInstantiator( const MemoryPoolInstantiator & );

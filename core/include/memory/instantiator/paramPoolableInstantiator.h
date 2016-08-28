@@ -77,6 +77,12 @@ public:
                        "ParamPoolableInstantiator::ParamPoolableInstantiator():\n\tInstantiated type should be default constructible." );
     }
 
+
+    ParamPoolableInstantiator( const ParamPoolableInstantiator &other )
+        : mParameter( other.mParameter )
+    {
+    }
+
     /// @name Creation
     /// @{
 
@@ -142,6 +148,11 @@ public:
     }
 
     /// @}
+
+    virtual AbstractInstantiator *Copy() override
+    {
+        return new ParamPoolableInstantiator< tT, tParam, tBase >( *this );
+    }
 
 protected:
 

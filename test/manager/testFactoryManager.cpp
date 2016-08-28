@@ -34,4 +34,64 @@ namespace
     {
         FactoryManager m;
     }
+
+    ENGINE_TEST( FactoryManager, AddFactory )
+    {
+        FactoryManager m;
+        auto fac = m.AddFactory< U32 >();
+
+        EXPECT_TRUE( m.HasFactory< U32 >() );
+        EXPECT_EQ( fac, m.GetFactory< U32 >() );
+    }
+
+    ENGINE_TEST( FactoryManager, AddFactoryInst )
+    {
+        FactoryManager m;
+        auto instantiator = new Instantiator< U32 >();
+        EXPECT_TRUE( m.AddFactory< U32 >( instantiator ) );
+
+        EXPECT_TRUE( m.HasFactory< U32 >() );
+        EXPECT_EQ( instantiator, m.GetFactory< U32 >() );
+    }
+
+    ENGINE_TEST( FactoryManager, AddFactoryInstTwice )
+    {
+        FactoryManager m;
+        auto instantiator = new Instantiator< U32 >();
+        EXPECT_TRUE( m.AddFactory< U32 >( instantiator ) );
+        EXPECT_ANY_THROW( m.AddFactory< U32 >( instantiator ) );
+    }
+
+    ENGINE_TEST( FactoryManager, CreateInstance )
+    {
+        FactoryManager m;
+        auto fac = m.AddFactory< U32 >();
+
+        EXPECT_TRUE( m.HasFactory< U32 >() );
+        EXPECT_EQ( fac, m.GetFactory< U32 >() );
+        delete m.CreateInstance< U32 >();
+    }
+
+    ENGINE_TEST( FactoryManager, AddFactoryTwice )
+    {
+        FactoryManager m;
+        auto fac = m.AddFactory< U32 >();
+        EXPECT_EQ( fac, m.GetFactory< U32 >() );
+        EXPECT_ANY_THROW( m.AddFactory< U32 >() );
+    }
+
+    ENGINE_TEST( FactoryManager, ReleaseFactory )
+    {
+        FactoryManager m;
+        auto fac = m.AddFactory< U32 >();
+
+        EXPECT_TRUE( m.HasFactory< U32 >() );
+        EXPECT_EQ( fac, m.GetFactory< U32 >() );
+
+        m.ReleaseFactory< U32 >();
+
+        EXPECT_FALSE( m.HasFactory< U32 >() );
+        EXPECT_EQ( nullptr, m.GetFactory< U32 >() );
+    }
+
 }

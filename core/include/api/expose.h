@@ -30,12 +30,22 @@
 
 #include "manager/systemManager.h"
 
+#include <boost/tti/has_member_function.hpp>
+
 #define EXPOSE_API( manager, func )                                                                 \
 template <typename... Args>                                                                         \
 auto func(Args &&... args)                                                                          \
 -> decltype(SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...))        \
 {                                                                                                   \
     return SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...);         \
+}
+
+#define EXPOSE_API_NOARG( manager, func )                                                           \
+template < typename... Args >                                                                       \
+auto func()                                                                                         \
+-> decltype( SystemManager::Get()->GetManagers()->manager->func< Args... >() )                      \
+{                                                                                                   \
+    return SystemManager::Get()->GetManagers()->manager->func< Args... >();                         \
 }
 
 #endif

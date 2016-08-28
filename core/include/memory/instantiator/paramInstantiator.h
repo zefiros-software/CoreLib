@@ -66,6 +66,11 @@ public:
     }
 
     /// @}
+
+    virtual AbstractInstantiator *Copy() override
+    {
+        return new ParamInstantiator< tT, tParam, tBase >();
+    }
 };
 
 /// @}

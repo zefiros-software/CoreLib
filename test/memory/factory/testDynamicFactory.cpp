@@ -90,6 +90,11 @@ namespace
         {
             return new Child;
         }
+
+        virtual AbstractInstantiator *Copy() override
+        {
+            return new ImplInstantiator;
+        }
     };
 
     class ImplInstantiator2
@@ -100,6 +105,11 @@ namespace
         virtual Base *CreateInstance() override
         {
             return new Child2;
+        }
+
+        virtual AbstractInstantiator *Copy() override
+        {
+            return new ImplInstantiator2;
         }
     };
 

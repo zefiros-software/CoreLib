@@ -48,6 +48,8 @@ public:
     AbstractInstantiator();
 
     virtual ~AbstractInstantiator();
+
+    virtual AbstractInstantiator *Copy() = 0;
 };
 
 /// @}

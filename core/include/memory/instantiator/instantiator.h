@@ -44,7 +44,7 @@
  * @sa  AbstractTInstantiator<tBase>
  */
 
-template < typename tT, typename tBase >
+template < typename tT, typename tBase = tT >
 class Instantiator
     : public AbstractTInstantiator< tBase >
 {
@@ -65,6 +65,12 @@ public:
     }
 
     /// @}
+
+    virtual AbstractInstantiator *Copy() override
+    {
+        return new Instantiator< tT, tBase >();
+    }
+
 };
 
 /// @}

@@ -52,6 +52,11 @@ public:
         mMemoryPool.DestroyObject( object );
     }
 
+    virtual AbstractInstantiator *Copy() override
+    {
+        return new UnsynchronisedMemoryPoolableInstantiator< tT, tBase >( mMemoryPool.mBlockSize, mMemoryPool.mMaxBlocks );
+    }
+
 private:
 
     UnsychronisedMemoryPoolInstantiator< tT, tBase > mMemoryPool;

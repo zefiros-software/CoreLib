@@ -56,6 +56,11 @@ namespace
             *object = 0;
         }
 
+        virtual AbstractInstantiator *Copy() override
+        {
+            return new ImplPoolableInstantiator;
+        }
+
     };
 
     ENGINE_TEST( AbstractPoolableInstantiator, SanityCheck )

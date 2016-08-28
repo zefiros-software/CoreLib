@@ -46,13 +46,18 @@ namespace
             delete mInt;
         }
 
+        virtual AbstractInstantiator *Copy() override
+        {
+            return new ImplInstantiator();
+        }
+
     private:
         U32 *mInt;
     };
 
     ENGINE_TEST( AbstractInstantiator, ConstructDeconstruct )
     {
-        AbstractInstantiator instantiator;
+        ImplInstantiator instantiator;
     }
 
     ENGINE_TEST( AbstractInstantiator, DeriveNoMemleak )
