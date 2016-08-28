@@ -4,6 +4,6 @@ cd core
 make config=coverage_x86
 cd ../
 
-./coverage-testcd
+./core-testcd
 
 codecov
