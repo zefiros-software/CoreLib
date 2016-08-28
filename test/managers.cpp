@@ -24,6 +24,7 @@
  * @endcond
  */
 
+#include "manager/threadingVariableManager.h"
 #include "manager/systemManager.h"
 #include "manager/poolManager.h"
 

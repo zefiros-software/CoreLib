@@ -24,32 +24,9 @@
  * @endcond
  */
 
-#include "manager/factoryManager.h"
+#include "manager/eventManager.h"
 
-#include "api/expose.h"
-
-#pragma once
-#ifndef __FACTORY_H__
-#define __FACTORY_H__
-
-namespace Factory
+EventManager::EventManager()
+    : mClassIDCounter( 0 )
 {
-    EXPOSE_API( factory, AddFactory );
-    EXPOSE_API_NOARG( factory, AddFactory );
-
-    EXPOSE_API( factory, ReleaseFactory );
-    EXPOSE_API_NOARG( factory, ReleaseFactory );
-
-    EXPOSE_API( factory, ReleaseFactories );
-
-    EXPOSE_API( factory, HasFactory );
-    EXPOSE_API_NOARG( factory, HasFactory );
-
-    EXPOSE_API( factory, GetFactory );
-    EXPOSE_API_NOARG( factory, GetFactory );
-
-    EXPOSE_API( factory, CreateInstance );
-    EXPOSE_API_NOARG( factory, CreateInstance );
 }
-
-#endif

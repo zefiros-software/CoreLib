@@ -184,4 +184,10 @@ namespace
         inst.DestroyObject( child );
     }
 
+    ENGINE_TEST( ParamPoolableInstantiator, Copy )
+    {
+        ParamPoolableInstantiatorImpl instantiator( 42 );
+        delete instantiator.Copy();
+    }
+
 }

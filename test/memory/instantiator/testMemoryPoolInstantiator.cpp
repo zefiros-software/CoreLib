@@ -144,4 +144,10 @@ namespace
             inst.DestroyObject( ptr );
         }
     }
+
+    ENGINE_TEST( MemoryPoolInstantiator, Copy )
+    {
+        MemoryPoolInstantiatorImpl instantiator;
+        delete instantiator.Copy();
+    }
 }

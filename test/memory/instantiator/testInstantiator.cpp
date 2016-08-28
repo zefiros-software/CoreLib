@@ -80,6 +80,12 @@ namespace
         volatile Instantiator< Child, Base > instantiator;
     }
 
+    ENGINE_TEST( Instantiator, Copy )
+    {
+        Instantiator< Child, Base > instantiator;
+        delete instantiator.Copy();
+    }
+
     ENGINE_TEST( Instantiator, CreateInstance )
     {
         Instantiator< Child, Base > instantiator;

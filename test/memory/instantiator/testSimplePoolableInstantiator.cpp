@@ -83,4 +83,10 @@ namespace
         inst.DestroyObject( child );
     }
 
+    ENGINE_TEST( SimplePoolableInstantiator, Copy )
+    {
+        SimplePoolableInstantiatorImpl instantiator;
+        delete instantiator.Copy();
+    }
+
 }

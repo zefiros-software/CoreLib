@@ -24,32 +24,38 @@
  * @endcond
  */
 
-#include "manager/factoryManager.h"
+#include "manager/threadingVariableManager.h"
 
-#include "api/expose.h"
+#include "threading/threadPtr.h"
 
-#pragma once
-#ifndef __FACTORY_H__
-#define __FACTORY_H__
+#include "api/system.h"
 
-namespace Factory
+#include "engineTest.h"
+
+namespace
 {
-    EXPOSE_API( factory, AddFactory );
-    EXPOSE_API_NOARG( factory, AddFactory );
+    ENGINE_TEST( ThreadingVariableManager, Sanity )
+    {
+        ThreadingVariableManager m;
+        m.OnRelease();
+    }
 
-    EXPOSE_API( factory, ReleaseFactory );
-    EXPOSE_API_NOARG( factory, ReleaseFactory );
+    ENGINE_TEST( ThreadingVariableManager, OnSynchroniseMngr )
+    {
+        auto old = SystemManager::Get()->GetManagers()->threadingVariable;
+        ThreadingVariableManager m;
 
-    EXPOSE_API( factory, ReleaseFactories );
+        SystemManager::Get()->GetManagers()->threadingVariable = &m;
 
-    EXPOSE_API( factory, HasFactory );
-    EXPOSE_API_NOARG( factory, HasFactory );
+        U8 val = 0;
+        ThreadPtr< U8 > p;
 
-    EXPOSE_API( factory, GetFactory );
-    EXPOSE_API_NOARG( factory, GetFactory );
+        p.Set( &val );
 
-    EXPOSE_API( factory, CreateInstance );
-    EXPOSE_API_NOARG( factory, CreateInstance );
+        m.OnUpdate();
+
+        EXPECT_EQ( &val, p.Get() );
+
+        SystemManager::Get()->GetManagers()->threadingVariable = old;
+    }
 }
-
-#endif

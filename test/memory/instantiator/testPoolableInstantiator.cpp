@@ -171,4 +171,9 @@ namespace
         inst.DestroyObject( child );
     }
 
+    ENGINE_TEST( PoolableInstantiator, Copy )
+    {
+        PoolableInstantiatorImpl instantiator;
+        delete instantiator.Copy();
+    }
 }

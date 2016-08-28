@@ -76,6 +76,10 @@ namespace Application
     EXPOSE_API( application, Quit );
 
     /// @}
+
+    EXPOSE_API( application, IsDebug );
+
+    EXPOSE_API( application, GetVersion );
 }
 
 /// @}

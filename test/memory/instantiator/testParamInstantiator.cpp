@@ -101,4 +101,10 @@ namespace
         delete child2;
     }
 
+    ENGINE_TEST( ParamInstantiator, Copy )
+    {
+        ParamInstantiatorImpl instantiator;
+        delete instantiator.Copy();
+    }
+
 }

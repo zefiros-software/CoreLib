@@ -145,4 +145,10 @@ namespace
         }
     }
 
+    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, Copy )
+    {
+        UnsychronisedMemoryPoolInstantiatorImpl instantiator;
+        delete instantiator.Copy();
+    }
+
 }

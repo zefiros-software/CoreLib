@@ -46,11 +46,7 @@ class EventManager
 {
 public:
 
-    EventManager()
-        : mClassIDCounter( 0 )
-    {
-
-    }
+    EventManager();
 
     template< typename tT >
     const tT *AddObserver( AbstractObserver *observer )
