@@ -71,7 +71,8 @@ void ThreadPool::Init()
     {
         try
         {
-            mThreads.emplace_back( std::move( std::thread( &Worker::OnPooledRun, it, std::make_pair( &mNotification, &mMutex ),
+            mThreads.emplace_back( std::move( std::thread( &Worker::OnPooledRun, it,
+                                                           std::make_pair( &mNotification, &mMutex ),
                                                            std::make_pair( &mRespond, &mRespondMutex ), threadID ) ) );
         }
         catch ( const std::system_error & )

@@ -24,17 +24,25 @@
  * @endcond
  */
 
-#include "threading/barrier.h"
+#include "threading/spinlock.h"
 
+#include "engineTest.h"
 
-SpinBarrier::SpinBarrier( U32 target ) noexcept
-    : MixedBarrier( target )
+#include "gtest/gtest.h"
+
+namespace
 {
+    ENGINE_TEST( SpinLock, Sanity )
+    {
+        SpinLock l;
+        l.lock();
+        l.unlock();
+    }
 
-}
-
-void SpinBarrier::Wait()
-{
-    const std::atomic_bool b{false};
-    MixedBarrier::Wait( b );
+    ENGINE_TEST( SpinLock, Sanity2 )
+    {
+        SpinLock l;
+        l.try_lock();
+        l.unlock();
+    }
 }

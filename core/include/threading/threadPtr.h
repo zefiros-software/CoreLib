@@ -42,7 +42,7 @@ class ThreadPtr
 {
 public:
 
-    ThreadPtr()
+    ThreadPtr() noexcept
         : mPtr( nullptr ),
           mNewPtr( nullptr ),
           mThreadID( Thread::InvalidID )
@@ -50,7 +50,7 @@ public:
         mScheduled.clear( boost::memory_order_relaxed );
     }
 
-    explicit ThreadPtr( tT *ptr )
+    explicit ThreadPtr( tT *ptr ) noexcept
         : mPtr( ptr ),
           mNewPtr( nullptr ),
           mThreadID( Thread::InvalidID )
@@ -86,9 +86,9 @@ public:
         return Get();
     }
 
-    tT *operator*() const
+    tT &operator*() const
     {
-        return Get();
+        return *Get();
     }
 
     tT *operator->() const

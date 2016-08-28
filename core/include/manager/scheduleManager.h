@@ -30,7 +30,7 @@
 
 #include "threading/threadPool.h"
 #include "threading/jobQueue.h"
-#include "threading/barrier.h"
+#include "threading/spinBarrier.h"
 #include "threading/worker.h"
 
 #include "manager/abstract/abstractManager.h"

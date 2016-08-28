@@ -33,9 +33,9 @@
 #include "config.h"
 
 #if OS_IS_WINDOWS
-__declspec( thread ) ThreadID gThreadID = Thread::MainThreadID;
+__declspec( thread ) ThreadID gThreadID = Thread::InvalidID;
 #else
-__thread ThreadID gThreadID = Thread::MainThreadID;
+__thread ThreadID gThreadID = Thread::InvalidID;
 #endif
 
 ScheduleManager::ScheduleManager()
