@@ -45,9 +45,4 @@ private:
     bool mIsActive;
 };
 
-class ApplicationFrameCountOverflowEvent
-    : public IEvent
-{
-};
-
 #endif

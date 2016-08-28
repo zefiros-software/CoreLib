@@ -53,34 +53,8 @@ public:
 
     void ReleasePools( const Namespace ns );
 
-    template< typename tT, typename tBase >
-    bool AddPoolExt( AbstractObjectPool< tBase > *const pool, const Namespace ns = 0u )
-    {
-        const std::type_index typeID = typeid( tT );
-
-        if ( !mPools.HasName( typeID, ns ) )
-        {
-            mPools.Add( pool, typeID, ns );
-
-            return true;
-        }
-        else
-        {
-            Console::Errorf( LOG( "Pool already registered." ) );
-        }
-
-        // never happens
-        return false;
-    }
-
-    template< typename tT >
-    AbstractObjectPool< tT > *AddPoolExt( const Namespace ns = 0U, size_t capacity = 500 )
-    {
-        return AddPoolExt< tT, tT >( ns, capacity );
-    }
-
-    template< typename tT, typename tBase >
-    AbstractObjectPool< tBase > *AddPoolExt( const Namespace ns = 0U, size_t capacity = 500 )
+    template< typename tT, typename tBase = tT >
+    AbstractObjectPool< tBase > *AddPoolFromFactory( const Namespace ns = 0U, size_t capacity = 500 )
     {
         const std::type_index typeID = typeid( tT );
         ObjectPool< tT, tBase > *pool = nullptr;
@@ -90,23 +64,15 @@ public:
             pool = new ObjectPool< tT, tBase >( GetManagers()->factory->GetFactory< tT >(), capacity );
             mPools.Add( pool, typeID, ns );
         }
+        else
+        {
+            Console::Errorf( LOG( "Pool already registered." ) );
+        }
 
         return pool;
     }
 
-    template< typename tT >
-    AbstractObjectPool< tT > *AddPool( const Namespace ns = 0U, size_t capacity = 500 )
-    {
-        return AddPool< tT, tT>( ns, capacity );
-    }
-
-    template< typename tT, typename tBase >
-    AbstractObjectPool< tBase > *AddPool( const Namespace ns = 0U, size_t capacity = 500 )
-    {
-        return AddPool< tT, tBase, PoolableInstantiator< tT, tBase > >( ns, capacity );
-    }
-
-    template< typename tT, typename tBase, typename tInstantiator >
+    template< typename tT, typename tBase = tT, typename tInstantiator = PoolableInstantiator< tT, tBase > >
     AbstractObjectPool< tBase > *AddPool( const Namespace ns = 0U, size_t capacity = 500 )
     {
         const std::type_index typeID = typeid( tT );
@@ -117,26 +83,24 @@ public:
             pool = new ObjectPool< tT, tBase, tInstantiator >( capacity );
             mPools.Add( pool, typeID, ns );
         }
+        else
+        {
+            Console::Errorf( LOG( "Pool already registered." ) );
+        }
 
         return pool;
     }
 
-    template< typename tT >
-    AbstractObjectPool< tT > *GetPool( const Namespace ns = 0u ) const
-    {
-        return GetPool< tT, tT >( ns );
-    }
-
-    template< typename tT, typename tBase >
+    template< typename tT, typename tBase = tT >
     AbstractObjectPool< tBase > *GetPool( const Namespace ns = 0u ) const
     {
         return static_cast< AbstractObjectPool< tBase > * >( mPools.Get( typeid( tT ), ns ) );
     }
 
-    bool HasIdentifiedPool( const Namespace ns );
+    bool HasPools( const Namespace ns ) const;
 
     template< typename tT >
-    bool HasPool( const Namespace ns = 0u )
+    bool HasPool( const Namespace ns = 0u ) const
     {
         return mPools.HasName( typeid( tT ), ns );
     }

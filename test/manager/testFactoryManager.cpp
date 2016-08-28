@@ -24,36 +24,14 @@
  * @endcond
  */
 
-#include "api/console.h"
+#include "manager/factoryManager.h"
 
-namespace Console
+#include "engineTest.h"
+
+namespace
 {
-    void PrintTitle( const std::string &title, const U8 headerLength /* = 70 */ )
+    ENGINE_TEST( FactoryManager, Sanity )
     {
-        const size_t titleLength = title.length();
-        // Find the start of the header output
-        const size_t midoffset = ( headerLength - titleLength ) / 2 ;
-        std::stringstream ss;
-
-        // Fill up the header
-        for ( U8 i = 0; i < headerLength; ++i )
-        {
-            if ( i < midoffset || i > midoffset + titleLength )
-            {
-                ss << "-";
-            }
-            else
-            {
-                // We have come to the part where the title can be
-                // inserted into the header, after that we skip to the
-                // last part of the header.
-                ss << title;
-                i += static_cast< U8 >( titleLength );
-            }
-        }
-
-        /// Output the header as an init statement
-        Initf( ss.str() );
+        FactoryManager m;
     }
-
 }

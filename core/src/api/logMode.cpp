@@ -41,7 +41,10 @@ std::string Console::GetName( LogMode mode )
 
     case LogMode::Initialisation:
         return "Init";
-    }
 
-    return "";
+    case LogMode::Disabled:
+    case LogMode::All:
+    default:
+        return "";
+    }
 }

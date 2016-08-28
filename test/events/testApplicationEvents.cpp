@@ -44,9 +44,4 @@ namespace
         ApplicationActivateEvent a( false );
         EXPECT_FALSE( a.IsActive() );
     }
-
-    ENGINE_TEST( ApplicationFrameCountOverflowEvent, SanityCheck )
-    {
-        ApplicationFrameCountOverflowEvent();
-    }
 }

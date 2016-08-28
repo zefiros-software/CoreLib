@@ -24,36 +24,42 @@
  * @endcond
  */
 
-#include "api/console.h"
+#include "threading/mtQueue.h"
 
-namespace Console
+#include "engineTest.h"
+
+#include "gtest/gtest.h"
+
+namespace
 {
-    void PrintTitle( const std::string &title, const U8 headerLength /* = 70 */ )
+    ENGINE_TEST( MtQueue, SanityCheck )
     {
-        const size_t titleLength = title.length();
-        // Find the start of the header output
-        const size_t midoffset = ( headerLength - titleLength ) / 2 ;
-        std::stringstream ss;
-
-        // Fill up the header
-        for ( U8 i = 0; i < headerLength; ++i )
-        {
-            if ( i < midoffset || i > midoffset + titleLength )
-            {
-                ss << "-";
-            }
-            else
-            {
-                // We have come to the part where the title can be
-                // inserted into the header, after that we skip to the
-                // last part of the header.
-                ss << title;
-                i += static_cast< U8 >( titleLength );
-            }
-        }
-
-        /// Output the header as an init statement
-        Initf( ss.str() );
+        MtQueue< U32 > a;
+        EXPECT_EQ( 0, a.Size() );
+        EXPECT_TRUE( a.Empty() );
     }
 
+    ENGINE_TEST( MtQueue, Push )
+    {
+        MtQueue< U32 > a;
+        a.Push( 51 );
+        EXPECT_EQ( 1, a.Size() );
+        EXPECT_FALSE( a.Empty() );
+    }
+
+    ENGINE_TEST( MtQueue, WaitAndPop )
+    {
+        MtQueue< U32 > a;
+        a.Push( 51 );
+        EXPECT_EQ( 51, a.WaitAndPop() );
+    }
+
+    ENGINE_TEST( MtQueue, TryPop )
+    {
+        MtQueue< U32 > a;
+        a.Push( 51 );
+        U32 val;
+        EXPECT_TRUE( a.TryPop( val ) );
+        EXPECT_EQ( 51, val );
+    }
 }

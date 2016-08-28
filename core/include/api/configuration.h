@@ -28,9 +28,10 @@
 #ifndef __ENGINE_CONFIGURATION_H__
 #define __ENGINE_CONFIGURATION_H__
 
-#include "common/types.h"
+#include "manager/configurationManager.h"
 
-#include <string>
+#include "api/expose.h"
+
 
 class ConfigurationFile;
 
@@ -45,7 +46,7 @@ namespace Configuration
 
     std::string GetCopyright();
 
-    void SetGlobalConfig( const std::string &path );
+    EXPOSE_API( configuration, SetGlobalConfig );
 
     /// @name Get Value
     /// @{
@@ -54,25 +55,26 @@ namespace Configuration
      * @see ConfigurationManager::GetString()
      */
 
-    std::string GetString( const std::string &key, const std::string &configName = "" );
+
+    EXPOSE_API( configuration, GetString );
 
     /**
      * @see ConfigurationManager::GetBool()
      */
 
-    bool GetBool( const std::string &key, const std::string &configName = "" );
+    EXPOSE_API( configuration, GetBool );
 
     /**
      * @see ConfigurationManager::GetFloat()
      */
 
-    F32 GetFloat( const std::string &key, const std::string &configName = "" );
+    EXPOSE_API( configuration, GetFloat );
 
     /**
      * @see ConfigurationManager::GetInt()
      */
 
-    S32 GetInt( const std::string &keyin, const std::string &configName = "" );
+    EXPOSE_API( configuration, GetInt );
 
     /// @}
 
@@ -83,29 +85,25 @@ namespace Configuration
      * @see ConfigurationManager::SetString()
      */
 
-    void SetString( const std::string &key, const std::string &value, const bool changeInFile,
-                    const std::string &configName = "" );
+    EXPOSE_API( configuration, SetString );
 
     /**
      * @see ConfigurationManager::SetBool()
      */
 
-    void SetBool( const std::string &key, const bool value, const bool changeInFile,
-                  const std::string &configName = "" );
+    EXPOSE_API( configuration, SetBool );
 
     /**
      * @see ConfigurationManager::SetFloat()
      */
 
-    void SetFloat( const std::string &key, const F32 value, const bool changeInFile,
-                   const std::string &configName = "" );
+    EXPOSE_API( configuration, SetFloat );
 
     /**
      * @see ConfigurationManager::SetInt()
      */
 
-    void SetInt( const std::string &key, const S32 value, const bool changeInFile,
-                 const std::string &configName = "" );
+    EXPOSE_API( configuration, SetInt );
 
     /// @}
 
@@ -120,7 +118,7 @@ namespace Configuration
      *          the configuration file.
      */
 
-    void Load( ConfigurationFile *const configurationFile, const std::string &filePath, const std::string &configName );
+    EXPOSE_API( configuration, Load );
 }
 
 /// @}

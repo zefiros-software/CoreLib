@@ -54,10 +54,6 @@ public:
 
     virtual void OnInit() override;
 
-    virtual void OnRelease() override;
-
-    virtual void OnProcessEvents() override;
-
     /// @}
 
 
@@ -68,15 +64,6 @@ public:
      */
 
     bool IsRunning() const;
-
-    bool IsInEditor() const
-    {
-#ifdef ENGINE_EDITOR
-        return true;
-#else
-        return false;
-#endif
-    }
 
     /**
      * Query if the application is active.
@@ -93,17 +80,12 @@ public:
 
     void Quit();
 
-    size_t GetFrameCount() const;
+    bool IsDebug();
 
-    size_t *GetFrameCountPtr();
-
-    static bool IsDebug();
-
-    static std::string GetVersion();
+    std::string GetVersion();
 
 private:
 
-    size_t mFrameCount;
     mutable std::mutex mMutex;
 
     // Holds whether the application is currently running, or shutting down

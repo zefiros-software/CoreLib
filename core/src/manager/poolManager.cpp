@@ -41,7 +41,7 @@ void PoolManager::ReleasePools( const Namespace ns )
     mPools.RemoveObjectsByNamespace( ns );
 }
 
-bool PoolManager::HasIdentifiedPool( const Namespace ns )
+bool PoolManager::HasPools( const Namespace ns ) const
 {
     return mPools.HasNamespace( ns );
 }

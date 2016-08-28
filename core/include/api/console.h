@@ -28,19 +28,14 @@
 #ifndef __ENGINE_CONSOLE_H__
 #define __ENGINE_CONSOLE_H__
 
-#include "manager/systemManager.h"
 #include "manager/logManager.h"
 
 #include "common/format.h"
 #include "common/string.h"
-#include "common/types.h"
-#include "common/util.h"
 
 #include "preproc/config.h"
 
-#include "api/logMode.h"
-
-#include "external/currentFunction.h"
+#include "api/expose.h"
 
 #if IS_DEBUG
 #   define LOG( str ) ( String::Format("%s( %u ):\n\t%s:\n\t\t%s", std::string(__FILE__), (U32)__LINE__, std::string(BOOST_CURRENT_FUNCTION), String::Replace( str, "\n","\n\t\t")))
@@ -67,7 +62,7 @@ namespace Console
     * @param   mode The mode.
     */
 
-    void SetMode( LogMode mode );
+    EXPOSE_API( log, SetMode );
 
     /**
     * Gets the logging mode.
@@ -75,7 +70,7 @@ namespace Console
     * @return The mode.
     */
 
-    LogMode GetMode();
+    EXPOSE_API( log, GetMode );
 
     /// @}
 
@@ -94,11 +89,7 @@ namespace Console
 
     /// @{
 
-    template <typename... Args>
-    void Printp( Args &&... args )
-    {
-        SystemManager::Get()->GetManagers()->log->Printp( std::forward<Args>( args )... );
-    }
+    EXPOSE_API( log, Printp );
 
     /// @}
 
@@ -114,59 +105,7 @@ namespace Console
 
     /// @{
 
-    void Printf( const std::string &fmt );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7,
-                 const boost::any &v8 );
+    EXPOSE_API( log, Printf );
 
     /// @}
 
@@ -185,11 +124,7 @@ namespace Console
 
     /// @{
 
-    template <typename... Args>
-    void Errorp( Args &&... args )
-    {
-        SystemManager::Get()->GetManagers()->log->Errorp( std::forward<Args>( args )... );
-    }
+    EXPOSE_API( log, Errorp );
 
     /// @}
 
@@ -202,59 +137,7 @@ namespace Console
     */
     /// @{
 
-    void Errorf( const std::string &fmt );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7,
-                 const boost::any &v8 );
+    EXPOSE_API( log, Errorf );
 
     /// @}
 
@@ -273,11 +156,7 @@ namespace Console
 
     /// @{
 
-    template <typename... Args>
-    void Warningp( Args &&... args )
-    {
-        SystemManager::Get()->GetManagers()->log->Warningp( std::forward<Args>( args )... );
-    }
+    EXPOSE_API( log, Warningp );
 
     /// @}
 
@@ -290,59 +169,7 @@ namespace Console
     */
     /// @{
 
-    void Warningf( const std::string &fmt );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5,
-                   const boost::any &v6 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5,
-                   const boost::any &v6,
-                   const boost::any &v7 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5,
-                   const boost::any &v6,
-                   const boost::any &v7,
-                   const boost::any &v8 );
+    EXPOSE_API( log, Warningf );
 
     /// @}
 
@@ -361,11 +188,7 @@ namespace Console
 
     /// @{
 
-    template <typename... Args>
-    void Initp( Args &&... args )
-    {
-        SystemManager::Get()->GetManagers()->log->Initp( std::forward<Args>( args )... );
-    }
+    EXPOSE_API( log, Initp );
 
     /// @}
 
@@ -378,60 +201,7 @@ namespace Console
     */
     /// @{
 
-    void Initf( const std::string &fmt );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5,
-                const boost::any &v6 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5,
-                const boost::any &v6,
-                const boost::any &v7 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5,
-                const boost::any &v6,
-                const boost::any &v7,
-                const boost::any &v8 );
-
+    EXPOSE_API( log, Initf );
 
     /// @}
 

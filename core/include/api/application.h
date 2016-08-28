@@ -28,6 +28,11 @@
 #ifndef __ENGINE_APPLICATION_H__
 #define __ENGINE_APPLICATION_H__
 
+#include "manager/applicationManager.h"
+
+#include "api/expose.h"
+
+
 /// @addtogroup Application
 /// @{
 
@@ -44,9 +49,7 @@ namespace Application
      * @see ApplicationManager::IsRunning()
      */
 
-    bool IsRunning();
-
-    bool IsInEditor();
+    EXPOSE_API( application, IsRunning );
 
     /**
      * Query if the application is active.
@@ -56,7 +59,7 @@ namespace Application
      * @see ApplicationManager::IsActive()
      */
 
-    bool IsActive();
+    EXPOSE_API( application, IsActive );
 
     /// @}
 
@@ -70,7 +73,7 @@ namespace Application
      * @see ApplicationManager::Quit()
      */
 
-    void Quit();
+    EXPOSE_API( application, Quit );
 
     /// @}
 }

@@ -44,13 +44,7 @@ public:
 
     virtual void OnRelease() override;
 
-    template< typename tT >
-    AbstractTInstantiator< tT > *AddFactory( Namespace ns = 0U )
-    {
-        return AddFactory< tT, tT >( ns );
-    }
-
-    template< typename tT, typename tBase >
+    template< typename tT, typename tBase = tT >
     AbstractTInstantiator< tBase > *AddFactory( Namespace ns = 0U )
     {
         const std::type_index typeID = typeid( tT );
@@ -69,14 +63,8 @@ public:
         return instantiator;
     }
 
-    template< typename tT >
-    bool AddFactoryExt( AbstractTInstantiator< tT > *instantiator, Namespace ns = 0u )
-    {
-        return AddFactoryExt< tT, tT >( instantiator, ns );
-    }
-
-    template< typename tT, typename tBase >
-    bool AddFactoryExt( AbstractTInstantiator< tBase > *instantiator, Namespace ns = 0u )
+    template< typename tT, typename tBase = tT>
+    bool AddFactory( AbstractTInstantiator< tBase > *instantiator, Namespace ns = 0u )
     {
         const std::type_index typeID = typeid( tT );
 
@@ -103,31 +91,19 @@ public:
     void ReleaseFactories( Namespace ns );
 
     template< typename tT >
-    bool HasFactory( Namespace ns = 0u )
+    bool HasFactory( Namespace ns = 0u ) const
     {
         return mFactories.HasName( typeid( tT ), ns );
     }
 
-    template< typename tT >
-    AbstractTInstantiator< tT > *GetFactory( Namespace ns = 0u ) const
-    {
-        return GetFactory< tT, tT >( ns );
-    }
-
-    template< typename tT, typename tBase >
+    template< typename tT, typename tBase = tT >
     AbstractTInstantiator< tBase > *GetFactory( Namespace ns = 0u ) const
     {
         return static_cast< AbstractTInstantiator< tBase > * >( mFactories.Get( typeid( tT ), ns ) );
     }
 
-    template< typename tT>
-    tT *CreateInstance( Namespace ns = 0u )
-    {
-        return CreateInstance< tT, tT >( ns );
-    }
-
-    template< typename tT, typename tBase >
-    tT *CreateInstance( Namespace ns = 0u )
+    template< typename tT, typename tBase = tT >
+    tT * CreateInstance( Namespace ns = 0u )
     {
         return GetFactory< tT, tBase >( ns )->CreateInstance();
     }

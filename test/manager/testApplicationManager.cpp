@@ -24,36 +24,36 @@
  * @endcond
  */
 
-#include "api/console.h"
+#include "manager/applicationManager.h"
 
-namespace Console
+#include "engineTest.h"
+
+namespace
 {
-    void PrintTitle( const std::string &title, const U8 headerLength /* = 70 */ )
+    ENGINE_TEST( ApplicationManager, Sanity )
     {
-        const size_t titleLength = title.length();
-        // Find the start of the header output
-        const size_t midoffset = ( headerLength - titleLength ) / 2 ;
-        std::stringstream ss;
-
-        // Fill up the header
-        for ( U8 i = 0; i < headerLength; ++i )
-        {
-            if ( i < midoffset || i > midoffset + titleLength )
-            {
-                ss << "-";
-            }
-            else
-            {
-                // We have come to the part where the title can be
-                // inserted into the header, after that we skip to the
-                // last part of the header.
-                ss << title;
-                i += static_cast< U8 >( titleLength );
-            }
-        }
-
-        /// Output the header as an init statement
-        Initf( ss.str() );
+        ApplicationManager m;
+        EXPECT_TRUE( m.IsRunning() );
+        EXPECT_TRUE( m.IsActive() );
     }
 
+    ENGINE_TEST( ApplicationManager, Quit )
+    {
+        ApplicationManager m;
+        m.Quit();
+        EXPECT_FALSE( m.IsRunning() );
+        EXPECT_TRUE( m.IsActive() );
+    }
+
+    ENGINE_TEST( ApplicationManager, OnInit )
+    {
+        ApplicationManager m;
+        m.OnInit();
+    }
+
+    ENGINE_TEST( ApplicationManager, IsDebug )
+    {
+        ApplicationManager m;
+        EXPECT_EQ( ( bool )IS_DEBUG, m.IsDebug() );
+    }
 }

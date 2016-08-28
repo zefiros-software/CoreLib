@@ -24,36 +24,28 @@
  * @endcond
  */
 
-#include "api/console.h"
+#pragma once
+#ifndef __POOL_H__
+#define __POOL_H__
 
-namespace Console
+#include "manager/poolManager.h"
+#include "api/expose.h"
+
+namespace Pool
 {
-    void PrintTitle( const std::string &title, const U8 headerLength /* = 70 */ )
-    {
-        const size_t titleLength = title.length();
-        // Find the start of the header output
-        const size_t midoffset = ( headerLength - titleLength ) / 2 ;
-        std::stringstream ss;
+    EXPOSE_API( pool, ReleasePool );
 
-        // Fill up the header
-        for ( U8 i = 0; i < headerLength; ++i )
-        {
-            if ( i < midoffset || i > midoffset + titleLength )
-            {
-                ss << "-";
-            }
-            else
-            {
-                // We have come to the part where the title can be
-                // inserted into the header, after that we skip to the
-                // last part of the header.
-                ss << title;
-                i += static_cast< U8 >( titleLength );
-            }
-        }
+    EXPOSE_API( pool, ReleasePools );
 
-        /// Output the header as an init statement
-        Initf( ss.str() );
-    }
+    EXPOSE_API( pool, AddPoolFromFactory );
 
+    EXPOSE_API( pool, AddPool );
+
+    EXPOSE_API( pool, GetPool );
+
+    EXPOSE_API( pool, HasPools );
+
+    EXPOSE_API( pool, HasPool );
 }
+
+#endif

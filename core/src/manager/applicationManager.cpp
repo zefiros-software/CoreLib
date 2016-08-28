@@ -36,8 +36,7 @@
 
 
 ApplicationManager::ApplicationManager()
-    : mFrameCount( 0 ),
-      mApplicationIsRunning( true ),
+    : mApplicationIsRunning( true ),
       mApplicationIsActive( true )
 {
 }
@@ -54,20 +53,6 @@ void ApplicationManager::OnInit()
     Console::Initf( "Temporary directory:\t'%s'.", Path::GetProgramTempDirectory() );
     Console::Initf( "Data directory:\t\t\t'%s'.", Path::GetProgramDataDirectory() );
     Console::Initf( "Shared data directory:\t'%s'.", Path::GetProgramSharedDataDirectory() );
-}
-
-void ApplicationManager::OnRelease()
-{
-}
-
-void ApplicationManager::OnProcessEvents()
-{
-    const size_t oldFrameCount = mFrameCount++;
-
-    if ( oldFrameCount > mFrameCount )
-    {
-        GetManagers()->event->PostEvent( ApplicationFrameCountOverflowEvent() );
-    }
 }
 
 bool ApplicationManager::IsRunning() const
@@ -89,16 +74,6 @@ void ApplicationManager::Quit()
     std::lock_guard< std::mutex > lock( mMutex );
 
     mApplicationIsRunning = false;
-}
-
-size_t ApplicationManager::GetFrameCount() const
-{
-    return mFrameCount;
-}
-
-size_t *ApplicationManager::GetFrameCountPtr()
-{
-    return &mFrameCount;
 }
 
 bool ApplicationManager::IsDebug()

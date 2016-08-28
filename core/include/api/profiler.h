@@ -28,6 +28,10 @@
 #ifndef __ENGINE_PROFILER_H__
 #define __ENGINE_PROFILER_H__
 
+#include "manager/profilerManager.h"
+
+#include "api/expose.h"
+
 /**
  * Prefer the macros over the functions, so we can
  * filter out the profiling when we actually ship a
@@ -45,11 +49,11 @@
 
 namespace Profiler
 {
-    void Start( const std::string &name );
+    EXPOSE_API( profile, Start );
 
-    void Waypoint( const std::string &name, const std::string &comment );
+    EXPOSE_API( profile, Waypoint );
 
-    void End( const std::string &name );
+    EXPOSE_API( profile, End );
 }
 
 #endif

@@ -24,25 +24,18 @@
  * @endcond
  */
 
-#include "manager/profilerManager.h"
-#include "manager/systemManager.h"
+#include "api/logMode.h"
 
-namespace Profiler
+#include "engineTest.h"
+
+namespace
 {
-    void Start( const std::string &name )
+    ENGINE_TEST( LogMode, GetName )
     {
-        SystemManager::Get()->GetManagers()->profile->Start( name );
+        EXPECT_EQ( "Error", Console::GetName( Console::LogMode::Error ) );
+        EXPECT_EQ( "Warning", Console::GetName( Console::LogMode::Warning ) );
+        EXPECT_EQ( "Print", Console::GetName( Console::LogMode::Print ) );
+        EXPECT_EQ( "Initialisation", Console::GetName( Console::LogMode::Initialisation ) );
+        EXPECT_EQ( "", Console::GetName( Console::LogMode::All ) );
     }
-
-    void Waypoint( const std::string &name, const std::string &comment )
-    {
-        SystemManager::Get()->GetManagers()->profile->Waypoint( name, comment );
-    }
-
-    void End( const std::string &name )
-    {
-        SystemManager::Get()->GetManagers()->profile->End( name );
-    }
-
 }
-

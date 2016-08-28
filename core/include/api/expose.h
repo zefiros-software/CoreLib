@@ -24,30 +24,18 @@
  * @endcond
  */
 
-#include "manager/abstract/managerHolder.h"
-#include "manager/applicationManager.h"
+#pragma once
+#ifndef __EXPOSE_H__
+#define __EXPOSE_H__
+
 #include "manager/systemManager.h"
 
-namespace Application
-{
-    bool IsRunning()
-    {
-        return SystemManager::Get()->GetManagers()->application->IsRunning();
-    }
-
-    bool IsInEditor()
-    {
-        return SystemManager::Get()->GetManagers()->application->IsInEditor();
-    }
-
-    bool IsActive()
-    {
-        return SystemManager::Get()->GetManagers()->application->IsActive();
-    }
-
-    void Quit()
-    {
-        SystemManager::Get()->GetManagers()->application->Quit();
-    }
-
+#define EXPOSE_API( manager, func )                                                                 \
+template <typename... Args>                                                                         \
+auto func(Args &&... args)                                                                          \
+-> decltype(SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...))        \
+{                                                                                                   \
+    return SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...);         \
 }
+
+#endif
