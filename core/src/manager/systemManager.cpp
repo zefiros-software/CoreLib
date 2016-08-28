@@ -29,9 +29,11 @@
 #include "manager/configurationManager.h"
 #include "manager/applicationManager.h"
 #include "manager/profilerManager.h"
+#include "manager/scheduleManager.h"
 #include "manager/factoryManager.h"
 #include "manager/memoryManager.h"
 #include "manager/systemManager.h"
+#include "manager/eventManager.h"
 #include "manager/poolManager.h"
 #include "manager/logManager.h"
 
@@ -145,10 +147,14 @@ void SystemManager::RegisterManagers()
                               static_cast< U32 >( AbstractManager::Type::Critical ) );
 
     AddManager< FactoryManager >( &mManagerHolder.factory, "Factory" );
+
     AddManager< PoolManager >( &mManagerHolder.pool, "Pool" );
 
     AddManager< EventManager >( &mManagerHolder.event, "Event" );
+
     AddManager< ThreadingVariableManager >( &mManagerHolder.threadingVariable, "Threading Variable" );
+
+    AddManager< ScheduleManager >( &mManagerHolder.schedule, "Schedule" );
 }
 
 SystemManager *SystemManager::Get( SystemManager *systemManager /* = nullptr */ )
@@ -158,6 +164,7 @@ SystemManager *SystemManager::Get( SystemManager *systemManager /* = nullptr */ 
     if ( systemManager )
     {
         mSystemManager = systemManager;
+        mSystemManager->mManagerHolder.system = systemManager;
     }
 
     return mSystemManager;

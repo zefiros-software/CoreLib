@@ -197,21 +197,6 @@ protected:
     ManagerHolder *mManagerHolder;
 };
 
-#include "manager/eventManager.h"
-
-template <class tC, class tN>
-void AbstractManager::Observe( void( tC::* method )( const tN & ) )
-{
-    GetManagers()->event->AddObserver< tN >( new Observer< tC, tN >( static_cast< tC *const >( this ), method ) );
-}
-
-template< class tC, class tN >
-void AbstractManager::Unobserve( void ( tC::*method )( const tN & ) )
-{
-    Observer< tC, tN > observer( static_cast< tC *const >( this ), method );
-    GetManagers()->event->RemoveObserver< tN >( &observer );
-}
-
 /// @}
 
 #endif

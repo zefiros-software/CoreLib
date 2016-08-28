@@ -30,6 +30,8 @@
 
 #include "manager/abstract/abstractManager.h"
 
+#include <mutex>
+
 class WindowActivateEvent;
 
 /// @addtogroup Application

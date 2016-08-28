@@ -30,8 +30,10 @@
 
 #include "manager/abstract/abstractManager.h"
 
+#include <unordered_map>
 #include <chrono>
 #include <string>
+#include <mutex>
 
 /// @addtogroup Profiling
 /// @{

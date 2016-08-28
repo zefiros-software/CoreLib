@@ -46,6 +46,7 @@
 
 #include <vector>
 #include <string>
+#include <ctime>
 
 /// @addtogroup docCommon
 /// @{

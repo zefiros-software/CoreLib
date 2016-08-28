@@ -33,6 +33,7 @@
 #include "common/configurationFile.h"
 
 #include <unordered_set>
+#include <mutex>
 
 /// @addtogroup Configuration
 /// @{

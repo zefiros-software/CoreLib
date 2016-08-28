@@ -25,6 +25,7 @@
  */
 
 #include "manager/profilerManager.h"
+#include "manager/eventManager.h"
 
 #include "events/profileEvents.h"
 

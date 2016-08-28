@@ -37,6 +37,8 @@
 
 #include "api/console.h"
 
+#include <typeindex>
+
 class FactoryManager
     : public AbstractManager
 {

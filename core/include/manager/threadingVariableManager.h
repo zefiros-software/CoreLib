@@ -32,6 +32,8 @@
 
 #include "container/unorderedContiguousSet.h"
 
+#include <mutex>
+
 class IThreadPtr;
 
 class ThreadingVariableManager

@@ -35,6 +35,7 @@
 
 #include "manager/abstract/abstractManager.h"
 
+#include <unordered_map>
 #include <future>
 
 class ScheduleManager

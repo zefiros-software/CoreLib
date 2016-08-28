@@ -60,7 +60,7 @@ void LogManager::OnInit()
 #include "warnings/unsafeFunction.h"
 
     std::time_t t = std::time( nullptr );
-    Echo( String::Place( "Log file opened on '{%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) ),
+    Echo( String::Place( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) ),
           Console::LogMode::Initialisation );
 
 #include "warnings/pop.h"
@@ -72,7 +72,7 @@ void LogManager::OnInit()
         File::Clear( logFile );
     }
 
-    Console::Initp( "Log file opened on '{%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) );
+    Console::Initp( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) );
 
     Log( mStartupBuffer.str() );
     mStartupBuffer.clear();
@@ -590,7 +590,7 @@ void LogManager::Echo( const std::string &str, Console::LogMode type )
 
     std::time_t t = std::time( nullptr );
     std::string result =
-        String::Place( "[{%Y-%m-%dT%H:%M:%SZ}] {}: {}\n", *std::localtime( &t ), Console::GetName( type ), str );
+        String::Place( "[{:%Y-%m-%dT%H:%M:%SZ}] {}: {}\n", *std::localtime( &t ), Console::GetName( type ), str );
 
 #include "warnings/pop.h"
 

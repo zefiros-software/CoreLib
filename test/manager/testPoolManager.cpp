@@ -92,6 +92,21 @@ namespace
         ASSERT_FALSE( f.HasFactory< U32 >() );
     }
 
+    ENGINE_TEST( PoolManager, AddPoolFromFactory2 )
+    {
+        PoolManager m;
+
+        FactoryManager f;
+        f.AddFactory< U32 >();
+
+        ManagerHolder h = {};
+        h.factory = &f;
+        m.SetManagers( &h );
+
+        m.AddPoolFromFactory< U32 >();
+        EXPECT_ANY_THROW( m.AddPoolFromFactory< U32 >() );
+    }
+
     ENGINE_TEST( PoolManager, AddPoolTwice )
     {
         PoolManager m;

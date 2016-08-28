@@ -50,15 +50,7 @@ public:
         BlockAllocator blockAlloc;
     };
 
-    MemoryManager();
-
-    virtual void OnInit() override;
-
-    virtual void OnRelease() override;
-
     virtual void OnUpdate() override;
-
-    virtual void OnPostUpdate() override;
 
     template< class T >
     BlockAllocator::BlockLocation TempAlloc( ThreadID tid )

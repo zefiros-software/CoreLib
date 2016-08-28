@@ -38,21 +38,6 @@ void MemoryManager::ThreadAllocators::Clear()
     blockAlloc.Clear();
 }
 
-MemoryManager::MemoryManager()
-{
-
-}
-
-void MemoryManager::OnInit()
-{
-
-}
-
-void MemoryManager::OnRelease()
-{
-
-}
-
 //Clear all temp memory for a new frame
 void MemoryManager::OnUpdate()
 {
@@ -61,9 +46,3 @@ void MemoryManager::OnUpdate()
         mTempThreadAllocators[i].Clear();
     }
 }
-
-void MemoryManager::OnPostUpdate()
-{
-
-}
-

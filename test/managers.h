@@ -35,4 +35,8 @@ namespace Managers
 
     void ReleaseFactoryManager();
 
+    void InitialiseEventManager();
+
+    void ReleaseEventManager();
+
 }

@@ -24,8 +24,8 @@
  * @endcond
  */
 
-#include "manager/threadingVariableManager.h"
 #include "manager/systemManager.h"
+#include "manager/eventManager.h"
 #include "manager/poolManager.h"
 
 #include "managers.h"
@@ -64,4 +64,21 @@ void Managers::ReleaseFactoryManager()
 
     factory->Release();
     factory->PostRelease();
+}
+
+void Managers::InitialiseEventManager()
+{
+    EventManager *const ev = SystemManager::Get()->GetManagers()->event;
+
+    ev->SetManagers( SystemManager::Get()->GetManagers() );
+    ev->PreInitialise();
+    ev->Initialise();
+}
+
+void Managers::ReleaseEventManager()
+{
+    EventManager *const ev = SystemManager::Get()->GetManagers()->event;
+
+    ev->Release();
+    ev->PostRelease();
 }

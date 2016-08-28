@@ -24,22 +24,57 @@
  * @endcond
  */
 
-#include "manager/eventManager.h"
+#include "manager/systemManager.h"
 
-EventManager::EventManager()
-    : mClassIDCounter( 0 )
-{
-}
+#include "api/console.h"
+#include "api/system.h"
 
-void EventManager::OnRelease()
+#include "engineTest.h"
+
+namespace
 {
-    for ( auto &observers : mOberservers )
+    ENGINE_TEST( SystemManager, Sanity )
     {
-        for ( auto it = observers.second.begin(), end = observers.second.end(); it != end; ++it )
-        {
-            delete *it;
-        }
+        SystemManager m( 0, nullptr );
     }
 
-    mOberservers.clear();
+    ENGINE_TEST( SystemManager, FullCycle )
+    {
+        System::Release();
+
+        SystemManager *sysmgr = new SystemManager( 0, nullptr );
+        SystemManager::Get( sysmgr );
+
+        sysmgr->RegisterManagers();
+
+        Console::SetMode( Console::LogMode::Disabled );
+
+        sysmgr->Initialise();
+        sysmgr->Update();
+        sysmgr->Release();
+
+        sysmgr = new SystemManager( 0, nullptr );
+        SystemManager::Get( sysmgr );
+        sysmgr->RegisterManagers();
+
+        Console::SetMode( Console::LogMode::Disabled );
+    }
+
+    ENGINE_TEST( SystemManager, ReleaseNS )
+    {
+        SystemManager m( 0, nullptr );
+        m.Release( 1 );
+    }
+
+    ENGINE_TEST( SystemManager, GetArgc )
+    {
+        SystemManager m( 0, nullptr );
+        EXPECT_EQ( 0, m.GetArgc() );
+    }
+
+    ENGINE_TEST( SystemManager, GetArgv )
+    {
+        SystemManager m( 0, nullptr );
+        EXPECT_EQ( nullptr, m.GetArgv() );
+    }
 }

@@ -24,22 +24,20 @@
  * @endcond
  */
 
-#include "manager/eventManager.h"
+#include "manager/scheduleManager.h"
 
-EventManager::EventManager()
-    : mClassIDCounter( 0 )
-{
-}
+#include "engineTest.h"
 
-void EventManager::OnRelease()
+namespace
 {
-    for ( auto &observers : mOberservers )
+    ENGINE_TEST( ScheduleManager, Sanity )
     {
-        for ( auto it = observers.second.begin(), end = observers.second.end(); it != end; ++it )
-        {
-            delete *it;
-        }
+        ScheduleManager m;
     }
 
-    mOberservers.clear();
+    ENGINE_TEST( ScheduleManager, GetMainThreadID )
+    {
+        ScheduleManager m;
+        EXPECT_EQ( 0, m.GetMainThreadID() );
+    }
 }

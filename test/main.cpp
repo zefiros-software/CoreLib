@@ -29,6 +29,7 @@
 #include "preproc/os.h"
 
 #include "api/console.h"
+#include "api/system.h"
 
 #include "engineTest.h"
 
@@ -55,7 +56,7 @@ int main( int argc, char **argv )
 
     U32 result = RUN_ALL_TESTS();
 
-    sysmgr->Release();
+    System::Release();
 
     return result;
 }

@@ -24,22 +24,23 @@
  * @endcond
  */
 
+#pragma once
+#ifndef __ENGINE_EVENT_H__
+#define __ENGINE_EVENT_H__
+
 #include "manager/eventManager.h"
 
-EventManager::EventManager()
-    : mClassIDCounter( 0 )
+#include "api/expose.h"
+
+namespace Event
 {
+    EXPOSE_API( event, AddObserver );
+
+    EXPOSE_API( event, RemoveObserver );
+
+    EXPOSE_API( event, PostEvent );
+
+    EXPOSE_API( event, GetClassID );
 }
 
-void EventManager::OnRelease()
-{
-    for ( auto &observers : mOberservers )
-    {
-        for ( auto it = observers.second.begin(), end = observers.second.end(); it != end; ++it )
-        {
-            delete *it;
-        }
-    }
-
-    mOberservers.clear();
-}
+#endif

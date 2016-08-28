@@ -48,6 +48,8 @@ public:
 
     EventManager();
 
+    void OnRelease() override;
+
     template< typename tT >
     const tT *AddObserver( AbstractObserver *observer )
     {
@@ -58,7 +60,7 @@ public:
     }
 
     template< typename tT >
-    const tT *RemoveObserver( const AbstractObserver *observer )
+    const tT *RemoveObserver( const AbstractObserver *observer, bool allowDelete = true )
     {
         std::lock_guard< SpinLock > lock( mLock );
 
@@ -68,7 +70,11 @@ public:
         {
             if ( *observer == **it )
             {
-                delete *it;
+                if ( allowDelete )
+                {
+                    delete *it;
+                }
+
                 observers.erase( it );
                 break;
             }
@@ -82,7 +88,7 @@ public:
     {
         mLock.lock();
 
-        std::vector< AbstractObserver * > observers = mOberservers[ GetClassID< tT >() ];
+        std::vector< AbstractObserver * > observers = mOberservers[GetClassID< tT >()];
 
         mLock.unlock();
 
@@ -101,7 +107,6 @@ public:
 private:
 
     std::unordered_map< U32, std::vector< AbstractObserver * > > mOberservers;
-    std::unordered_map< std::type_index, U32 > mClassIDCache;
 
     SpinLock mClassIDLock;
     U32 mClassIDCounter;
@@ -111,32 +116,27 @@ private:
     template< typename tT >
     static U32 AssignClassID( EventManager &eventManager )
     {
-        static U32 mClassId = CacheClassID< tT >( eventManager );
+        static U32 mClassId = ++eventManager.mClassIDCounter;
 
         assert( mClassId > 0 && "A class ID of 0 is not allowed." );
 
         return mClassId;
     }
 
-    template< typename tT >
-    static U32 CacheClassID( EventManager &eventManager )
-    {
-        const std::type_index typeIndex = std::type_index( typeid( tT ) );
-
-        std::lock_guard< SpinLock > lock( eventManager.mClassIDLock );
-
-        auto it = eventManager.mClassIDCache.find( typeIndex );
-
-        if ( it == eventManager.mClassIDCache.end() )
-        {
-            eventManager.mClassIDCache.insert( std::make_pair( typeIndex, ++eventManager.mClassIDCounter ) );
-            return eventManager.mClassIDCounter;
-        }
-
-        return it->second;
-    }
-
 };
+
+template <class tC, class tN>
+void AbstractManager::Observe( void( tC::* method )( const tN & ) )
+{
+    GetManagers()->event->AddObserver< tN >( new Observer< tC, tN >( static_cast<tC *const>( this ), method ) );
+}
+
+template< class tC, class tN >
+void AbstractManager::Unobserve( void ( tC::*method )( const tN & ) )
+{
+    Observer< tC, tN > observer( static_cast<tC *const>( this ), method );
+    GetManagers()->event->RemoveObserver< tN >( &observer );
+}
 
 /// @}
 
