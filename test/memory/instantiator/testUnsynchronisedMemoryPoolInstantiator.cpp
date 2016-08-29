@@ -26,7 +26,7 @@
 
 #include "memory/instantiator/unsynchronisedMemoryPoolInstantiator.h"
 
-#include "math/mathf.h"
+#include "math/scalar/mathf.h"
 
 #include "engineTest.h"
 
@@ -112,7 +112,7 @@ namespace
         inst.DestroyObject( child );
         inst.DestroyObject( child2 );
 
-        EXPECT_EQ( 1, Mathf::Abs( static_cast< U32 >( child2 - child ) ) );
+        EXPECT_EQ( 1, Mathf::Abs( static_cast< S32 >( child2 - child ) ) );
     }
 
     ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, MultipleBlocks )

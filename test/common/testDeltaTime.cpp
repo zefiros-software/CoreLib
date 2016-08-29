@@ -24,9 +24,9 @@
  * @endcond
  */
 
-#include "common/deltaTime.h"
+#include "math/scalar/mathf.h"
 
-#include "math/mathf.h"
+#include "common/deltaTime.h"
 
 #include "engineTest.h"
 
@@ -41,8 +41,8 @@ namespace
         //! [Get]
         DeltaTime time;
 
-        EXPECT_FLOAT_EQ( Mathf::GetEpsilon(), time.GetDeltaTime() );
-        EXPECT_FLOAT_EQ( Mathf::GetEpsilon(), time.GetEasedDeltaTime() );
+        EXPECT_FLOAT_EQ( Mathf::GetEpsilon< F32 >(), time.GetDeltaTime() );
+        EXPECT_FLOAT_EQ( Mathf::GetEpsilon< F32 >(), time.GetEasedDeltaTime() );
         //! [Get]
     }
 
@@ -50,7 +50,7 @@ namespace
     {
         //! [GetMS]
         DeltaTime time;
-        EXPECT_LE( Mathf::GetEpsilon(), time.GetElapsedMilliseconds() );
+        EXPECT_LE( Mathf::GetEpsilon< F32 >(), time.GetElapsedMilliseconds() );
         //! [GetMS]
     }
 
@@ -77,7 +77,7 @@ namespace
         // however, so we should check with >= comparison.
         EXPECT_LE( 16 / 1000.0f, time.GetDeltaTime() );
         EXPECT_LE( 16 / 1000.0f, time.GetEasedDeltaTime() );
-        EXPECT_LE( Mathf::GetEpsilon(), time.GetElapsedMilliseconds() );
+        EXPECT_LE( Mathf::GetEpsilon< F32 >(), time.GetElapsedMilliseconds() );
         //! [Update]
     }
 

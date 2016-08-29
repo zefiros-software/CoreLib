@@ -42,5 +42,5 @@ size_t Util::HashCombine( size_t seed, size_t val )
 
 U32 Util::BitExponent( const U64 in )
 {
-    return Mathf::Log2( in );
+    return ( U32 )Mathf::Log2( in );
 }

@@ -25,31 +25,73 @@
  */
 
 #pragma once
-#ifndef __ENGINE_BOUNDINGBOX_H__
-#define __ENGINE_BOUNDINGBOX_H__
+#ifndef __ENGINE_GAMEINSTANCE_H__
+#define __ENGINE_GAMEINSTANCE_H__
 
-#include "math/vec3.h"
+#include "common/types.h"
 
-class BoundingBox
+/// @addtogroup docCommon
+/// @{
+
+/// @addtogroup docCommon_Game
+/// @{
+
+/**
+ * A game instance.
+ */
+class Program
 {
 public:
 
-    BoundingBox();
-    BoundingBox( const Vec3 &minAxis, const Vec3 &maxAxis, const Vec3 &offset );
+    /// @name Construction
+    /// @{
 
-    const Vec3 &GetMinAxis() const;
-    const Vec3 &GetMaxAxis() const;
+    /**
+     * Constructor.
+     *
+     * @param   argc         The commandline argument count.
+     * @param [in,out]  argv The arguments array.
+     */
 
-    Vec3 GetCentreOfMass() const;
+    Program( S32 argc, char **argv ) noexcept;
 
-    F32 GetBoundingSphereR2() const;
+    ~Program();
+
+    /// @}
+
+    /// @name Start & Run
+    /// @{
+
+
+    void Update() const;
+
+    bool IsRunning() const;
+
+protected:
+
+    /**
+     * Initialize the game instance by setting the working directory and handle command line arguments.
+     */
+
+    void Init() const;
+
+    /**
+     * Shuts down the application and frees any resources it is using.
+     */
+
+    static void Shutdown();
+
+    /// @}
 
 private:
 
-    Vec3 mMinAxis;
-    Vec3 mMaxAxis;
-    Vec3 mOffset;
+    S32 mArgc;
+    char **mArgv;
+
 };
 
+/// @}
+
+/// @}
 
 #endif

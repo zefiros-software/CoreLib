@@ -24,17 +24,17 @@
  * @endcond
  */
 
-#include "common/deltaTime.h"
+#include "math/scalar/mathf.h"
 
-#include "math/mathf.h"
+#include "common/deltaTime.h"
 
 DeltaTime::DeltaTime( U8 maxsize /* = 60 */ ) noexcept
     : mTotalDeltaTimeValue( 0 ),
 
       // Give the delta times a really small value, to prevent
       // a division by zero.
-      mEasedDeltaTime( Mathf::GetEpsilon() ),
-      mDeltaTime( Mathf::GetEpsilon() ),
+      mEasedDeltaTime( Mathf::GetEpsilon< F32 >() ),
+      mDeltaTime( Mathf::GetEpsilon< F32 >() ),
       mMaxSize( maxsize )
 {
     assert( maxsize > 1 );
@@ -60,7 +60,7 @@ F32 DeltaTime::GetElapsedMilliseconds() const
 
     const F32 elapsed = static_cast< F32 >( diff.count() / 1000.0f );
 
-    return elapsed != 0.0 ? elapsed : Mathf::GetEpsilon();
+    return elapsed != 0.0 ? elapsed : Mathf::GetEpsilon< F32 >();
 }
 
 F32 DeltaTime::GetDeltaTime() const
@@ -89,7 +89,7 @@ void DeltaTime::UpdateDeltaTime()
     mDeltaTime = diff.count();
 
     // Prevent delta time from being zero
-    mDeltaTime = mDeltaTime != 0.0 ? mDeltaTime : Mathf::GetEpsilon();
+    mDeltaTime = mDeltaTime != 0.0 ? mDeltaTime : Mathf::GetEpsilon< F32 >();
 
     // Update our time, so we can calculate the amount
     // of milliseconds since our last update

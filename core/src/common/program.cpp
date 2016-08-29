@@ -24,84 +24,48 @@
  * @endcond
  */
 
-#pragma once
-#ifndef __ENGINE_GAMEINSTANCE_H__
-#define __ENGINE_GAMEINSTANCE_H__
+#include "manager/applicationManager.h"
+#include "manager/systemManager.h"
 
-#include "common/types.h"
+#include "common/program.h"
 
-/// @addtogroup docCommon
-/// @{
-
-/// @addtogroup docCommon_Game
-/// @{
-
-/**
- * A game instance.
- */
-class SimulInstance
+Program::Program( S32 argc, char **argv ) noexcept
+    : mArgc( argc ),
+      mArgv( argv )
 {
-public:
+    Init();
+}
 
-    /// @name Construction
-    /// @{
+Program::~Program()
+{
+    Shutdown();
+}
 
-    /**
-     * Constructor.
-     *
-     * @param   argc         The commandline argument count.
-     * @param [in,out]  argv The arguments array.
-     */
+void Program::Update() const
+{
+    SystemManager::Get()->GetManagers()->system->Update();
+}
 
-    SimulInstance( S32 argc, char **argv ) noexcept;
+bool Program::IsRunning() const
+{
+    return SystemManager::Get()->GetManagers()->application->IsRunning();
+}
 
-    /// @}
+void Program::Init() const
+{
+    // Create a system manager and provide it for global access
+    // using the service locater pattern.
+    SystemManager *systemManager = new SystemManager( mArgc, mArgv );
 
-    /// @name Start & Run
-    /// @{
+    // Provide our service locator
+    SystemManager::Get( systemManager );
 
-    /**
-     * Calls Init();, DoMainLoop(); and Shutdown(); in that order. Thus it literally runs the game.
-     *
-     * @post
-     *   * Init() Called.
-     *   * DoMainloop() Called.
-     *   * Shutdown() Called.
-     */
+    systemManager->RegisterManagers();
 
-    void Run() const;
+    systemManager->Initialise();
+}
 
-protected:
-
-    /**
-     * Initialize the game instance by setting the working directory and handle command line arguments.
-     */
-
-    void Init() const;
-
-    /**
-     * Shuts down the application and frees any resources it is using.
-     */
-
-    static void Shutdown();
-
-    /**
-     * Executes the mainloop.
-     */
-
-    static void DoMainloop();
-
-    /// @}
-
-private:
-
-    S32 mArgc;
-    char **mArgv;
-
-};
-
-/// @}
-
-/// @}
-
-#endif
+void Program::Shutdown()
+{
+    SystemManager::Get()->Release();
+}

@@ -30,7 +30,7 @@
 
 #include "container/denseBitset.h"
 
-#include "math/mathf.h"
+#include "math/scalar/mathf.h"
 
 template< typename tPtr, typename tValue >
 class FastPtrHashMap

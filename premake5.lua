@@ -9,6 +9,7 @@ workspace "CoreLib"
             "Zefiros-Software/GoogleTest",
             "Zefiros-Software/BSPLib",
             "Zefiros-Software/SerLib",
+            "Zefiros-Software/MathLib",
             "Zefiros-Software/BenchLib",
             "Zefiros-Software/Boost",
             "Zefiros-Software/Fmt"
@@ -19,6 +20,7 @@ workspace "CoreLib"
             "Zefiros-Software/GoogleTest",
             "Zefiros-Software/BSPLib",
             "Zefiros-Software/SerLib",
+            "Zefiros-Software/MathLib",
             "Zefiros-Software/BenchLib",
             "Zefiros-Software/Boost",
             "Zefiros-Software/Fmt"

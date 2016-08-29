@@ -28,11 +28,11 @@
 #ifndef __UTIL_H__
 #define __UTIL_H__
 
+#include "math/scalar/mathf.h"
+
 #include "preproc/config.h"
 
 #include "common/types.h"
-
-#include "math/mathf.h"
 
 #include <iostream>
 #include <sstream>
@@ -401,7 +401,7 @@ namespace Util
     tT NearestPower2( tT in )
     {
         static_assert( std::is_integral<tT>::value, "The type should be integral to have meaning." );
-        return static_cast< tT >( Mathf::Pow( 2, static_cast< F32 >( BitExponent( in ) ) ) );
+        return Mathf::Pow< tT >( 2, static_cast< F32 >( BitExponent( in ) ) );
     }
 
 
