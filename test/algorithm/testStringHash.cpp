@@ -25,10 +25,8 @@
  */
 
 #include "algorithm/stringHash.h"
-#include "algorithm/hash.h"
 
 #include "engineTest.h"
-#include <boost/preprocessor/arithmetic/add.hpp>
 
 namespace
 {

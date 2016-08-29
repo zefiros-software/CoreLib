@@ -25,7 +25,6 @@
  */
 
 #include "common/file.h"
-#include "preproc/config.h"
 
 #include "engineTest.h"
 

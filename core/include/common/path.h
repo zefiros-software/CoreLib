@@ -31,7 +31,6 @@
 #include "external/filesystem.h"
 
 #include <vector>
-#include <string>
 
 /// @addtogroup docFilesystem
 /// @{

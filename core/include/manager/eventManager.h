@@ -28,12 +28,13 @@
 #ifndef __ENGINE_EVENTMANAGER_H__
 #define __ENGINE_EVENTMANAGER_H__
 
+#include "events/abstract/abstractObserver.h"
+
 #include "manager/abstract/abstractManager.h"
 
 #include "threading/spinlock.h"
 
 #include <unordered_map>
-#include <typeindex>
 #include <assert.h>
 #include <vector>
 #include <mutex>

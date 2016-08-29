@@ -34,7 +34,6 @@
 
 #include "common/types.h"
 
-#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -401,7 +400,7 @@ namespace Util
     tT NearestPower2( tT in )
     {
         static_assert( std::is_integral<tT>::value, "The type should be integral to have meaning." );
-        return Mathf::Pow< tT >( 2, static_cast< tT >( BitExponent( in ) ) );
+        return Mathf::Pow( 2, static_cast< F64 >( BitExponent( in ) ) );
     }
 
 

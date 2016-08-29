@@ -26,14 +26,10 @@
 
 #include "common/utilClasses.h"
 
-#include "warnings/push.h"
-#include "warnings/integerToSmallPointer.h"
 
 #include "engineTest.h"
 
-#include "warnings/pop.h"
 
-#include <type_traits>
 
 namespace
 {

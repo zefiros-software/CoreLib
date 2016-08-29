@@ -25,6 +25,7 @@
  */
 
 #include "manager/eventManager.h"
+#include "events/observer.h"
 
 #include "api/system.h"
 #include "api/event.h"

@@ -29,7 +29,6 @@
 #define __ENGINE_NULLABLE_H__
 
 #include <cassert>
-#include <utility>
 
 template< typename tT >
 class Nullable

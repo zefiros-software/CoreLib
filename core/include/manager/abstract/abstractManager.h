@@ -32,8 +32,6 @@
 
 #include "common/namespace.h"
 
-#include "events/observer.h"
-
 #include <string>
 
 /// @addtogroup Managers

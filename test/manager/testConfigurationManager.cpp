@@ -26,7 +26,6 @@
 
 #include "manager/configurationManager.h"
 
-#include "common/path.h"
 #include "common/file.h"
 
 #include "engineTest.h"

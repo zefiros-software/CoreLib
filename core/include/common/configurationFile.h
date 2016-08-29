@@ -31,11 +31,8 @@
 #include "common/types.h"
 
 #include <unordered_map>
-
-#include <stddef.h>
 #include <vector>
 #include <string>
-#include <memory>
 
 /// @addtogroup docConfiguration
 /// @{

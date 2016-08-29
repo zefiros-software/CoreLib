@@ -25,12 +25,7 @@
  */
 
 
-#include "warnings/push.h"
-#include "warnings/integerToSmallPointer.h"
-
 #include "engineTest.h"
-
-#include "warnings/pop.h"
 
 namespace
 {
