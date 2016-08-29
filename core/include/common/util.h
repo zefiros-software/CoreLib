@@ -401,7 +401,7 @@ namespace Util
     tT NearestPower2( tT in )
     {
         static_assert( std::is_integral<tT>::value, "The type should be integral to have meaning." );
-        return Mathf::Pow< tT >( 2, static_cast< F32 >( BitExponent( in ) ) );
+        return Mathf::Pow< tT >( 2, static_cast< tT >( BitExponent( in ) ) );
     }
 
 
