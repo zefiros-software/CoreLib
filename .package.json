@@ -11,6 +11,10 @@
             "version": "@head"
         },
         {
+            "name": "Zefiros-Software/GoogleBenchmark",
+            "version": "^1.0.0"
+        },
+        {
             "name": "Zefiros-Software/DocoptCpp",
             "version": "@head"
         },
