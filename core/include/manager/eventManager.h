@@ -32,6 +32,8 @@
 
 #include "manager/abstract/abstractManager.h"
 
+#include "events/observer.h"
+
 #include "threading/spinlock.h"
 
 #include <unordered_map>
