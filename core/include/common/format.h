@@ -131,6 +131,8 @@ namespace String
 
     ///@{
 
+    std::string Format( const std::string &fmt );
+
     std::string Format( const std::string &fmt, const boost::any &value );
 
     std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2 );

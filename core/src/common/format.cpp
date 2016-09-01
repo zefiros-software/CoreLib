@@ -376,6 +376,11 @@ namespace String
         }
     }
 
+    std::string Format( const std::string &fmt )
+    {
+        return fmt;
+    }
+
     std::string Format( const std::string &fmt, const boost::any &value )
     {
         std::vector<boost::any> args;

@@ -29,7 +29,7 @@
 #define __ENGINE_UNIMPLEMENTEDPRAGMA_H__
 
 #if defined(__clang__)
-#   pragma clang diagnostic ignored "-Wno-unknown-pragmas"
+#   pragma clang diagnostic ignored "-Wunknown-pragmas"
 #endif
 
 #if defined(_MSC_VER)
@@ -37,7 +37,7 @@
 #endif
 
 #if defined(__GNUC__) && !defined(__clang__)
-#   pragma GCC diagnostic ignored "-Wno-unknown-pragmas"
+#   pragma GCC diagnostic ignored "-Wunknown-pragmas"
 #endif
 
 #if defined(__ICL)

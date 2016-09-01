@@ -114,59 +114,15 @@ public:
 
     /// @{
 
-    void Printf( const std::string &fmt );
 
-    void Printf( const std::string &fmt,
-                 const boost::any &v1 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7 );
-
-    void Printf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7,
-                 const boost::any &v8 );
+    template <typename... Args>
+    void Printf( Args &&... args )
+    {
+        if ( MayReport( Console::LogMode::Print ) )
+        {
+            Echo( String::Place( std::forward<Args>( args )... ), Console::LogMode::Print );
+        }
+    }
 
     /// @}
 
@@ -205,59 +161,20 @@ public:
 
     /// @{
 
-    void Errorf( const std::string &fmt );
+    template <typename... Args>
+    void Errorf( const std::string &fmt, Args &&... args )
+    {
+        const std::string str = String::Format( fmt, std::forward<Args>( args )... );
 
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1 );
+        if ( MayReport( Console::LogMode::Error ) )
+        {
+            Echo( str, Console::LogMode::Error );
+        }
 
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7 );
-
-    void Errorf( const std::string &fmt,
-                 const boost::any &v1,
-                 const boost::any &v2,
-                 const boost::any &v3,
-                 const boost::any &v4,
-                 const boost::any &v5,
-                 const boost::any &v6,
-                 const boost::any &v7,
-                 const boost::any &v8 );
+#ifndef ENGINE_SHIPVERSION
+        throw std::runtime_error( str );
+#endif
+    }
 
     /// @}
 
@@ -296,59 +213,14 @@ public:
 
     /// @{
 
-    void Warningf( const std::string &fmt );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5,
-                   const boost::any &v6 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5,
-                   const boost::any &v6,
-                   const boost::any &v7 );
-
-    void Warningf( const std::string &fmt,
-                   const boost::any &v1,
-                   const boost::any &v2,
-                   const boost::any &v3,
-                   const boost::any &v4,
-                   const boost::any &v5,
-                   const boost::any &v6,
-                   const boost::any &v7,
-                   const boost::any &v8 );
+    template <typename... Args>
+    void Warningf( Args &&... args )
+    {
+        if ( MayReport( Console::LogMode::Warning ) )
+        {
+            Echo( String::Place( std::forward<Args>( args )... ), Console::LogMode::Warning );
+        }
+    }
 
     /// @}
 
@@ -387,59 +259,14 @@ public:
 
     /// @{
 
-    void Initf( const std::string &fmt );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5,
-                const boost::any &v6 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5,
-                const boost::any &v6,
-                const boost::any &v7 );
-
-    void Initf( const std::string &fmt,
-                const boost::any &v1,
-                const boost::any &v2,
-                const boost::any &v3,
-                const boost::any &v4,
-                const boost::any &v5,
-                const boost::any &v6,
-                const boost::any &v7,
-                const boost::any &v8 );
+    template <typename... Args>
+    void Initf( Args &&... args )
+    {
+        if ( MayReport( Console::LogMode::Initialisation ) )
+        {
+            Echo( String::Place( std::forward<Args>( args )... ), Console::LogMode::Initialisation );
+        }
+    }
 
     /// @}
 
