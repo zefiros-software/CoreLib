@@ -1057,7 +1057,7 @@ namespace
 
         EXPECT_FALSE( config.HasKey( "" ) );
         EXPECT_FALSE( config.AddBoolKey( "", value ) );
-        EXPECT_EQ( false, config.GetBool( "" ) );
+        EXPECT_FALSE( config.GetBool( "" ) );
         EXPECT_FALSE( config.HasKey( "" ) );
     }
 
