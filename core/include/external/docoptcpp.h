@@ -25,9 +25,14 @@
  */
 
 #pragma once
-#ifndef __CURRENTFUNCTION_H__
-#define __CURRENTFUNCTION_H__
+#ifndef __DOCOPT_H__
+#define __DOCOPT_H__
 
-#include "boost/current_function.hpp"
+#include "warnings/push.h"
+#include "warnings/unimplementedPragma.h"
+
+#include "docopt.h"
+
+#include "warnings/pop.h"
 
 #endif

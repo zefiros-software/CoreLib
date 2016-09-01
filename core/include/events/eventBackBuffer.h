@@ -30,6 +30,8 @@
 
 #include "container/fastQueue.h"
 
+#include "threading/spinlock.h"
+
 #include "events/observer.h"
 
 #include <mutex>
@@ -39,24 +41,24 @@ class EventBackBuffer
 {
 public:
 
-    void SetObserver( void( tC::* method )( const tN & ), tC *object )
+    void Observe( void( tC::* method )( const tN & ), tC *object )
     {
-        mObserver = Observer< tC, tN >( static_cast< tC *const >( object ), method );
+        mObserver = Observer< tC, tN >( static_cast<tC *const>( object ), method );
     }
 
-    void RemoveObserver()
+    void Unobserve()
     {
         mObserver = Observer< tC, tN >();
     }
 
-    void PostEvent( tN command )
+    void Notify( tN command )
     {
         std::lock_guard< SpinLock > lock( mLock );
 
         mCommands.Queue( command );
     }
 
-    void FlushAll()
+    void Flush()
     {
         FastQueue< tN > commands;
         {

@@ -29,15 +29,15 @@
 #define __ENGINE_UNIMPLEMENTEDPRAGMA_H__
 
 #if defined(__clang__)
-//#   pragma clang diagnostic ignored "-Wunused-parameter"
+#   pragma clang diagnostic ignored "-Wno-unknown-pragmas"
 #endif
 
 #if defined(_MSC_VER)
-//#   pragma warning(disable: 4100)
+#   pragma warning(disable: 4068)
 #endif
 
 #if defined(__GNUC__) && !defined(__clang__)
-//#   pragma GCC diagnostic ignored "-W"
+#   pragma GCC diagnostic ignored "-Wno-unknown-pragmas"
 #endif
 
 #if defined(__ICL)

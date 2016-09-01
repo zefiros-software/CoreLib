@@ -51,6 +51,13 @@ bool Program::IsRunning() const
     return SystemManager::Get()->GetManagers()->application->IsRunning();
 }
 
+std::map<std::string, docopt::value> Program::ParseCLI( const std::string &usage, bool help /*= true*/,
+                                                        bool optionsFirst /*= false */ ) const
+{
+    return docopt::docopt( usage, { mArgv + 1, mArgv + mArgc }, help,
+                           SystemManager::Get()->GetManagers()->application->GetVersion(), optionsFirst );
+}
+
 void Program::Init() const
 {
     // Create a system manager and provide it for global access

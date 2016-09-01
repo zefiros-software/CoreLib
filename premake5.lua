@@ -7,6 +7,7 @@ workspace "CoreLib"
     project "core"
         zpm.uses {
             "Zefiros-Software/GoogleTest",
+            "Zefiros-Software/DocoptCpp",
             "Zefiros-Software/BSPLib",
             "Zefiros-Software/SerLib",
             "Zefiros-Software/MathLib",
@@ -18,6 +19,7 @@ workspace "CoreLib"
     project "core-test"
         zpm.uses {
             "Zefiros-Software/GoogleTest",
+            "Zefiros-Software/DocoptCpp",
             "Zefiros-Software/BSPLib",
             "Zefiros-Software/SerLib",
             "Zefiros-Software/MathLib",

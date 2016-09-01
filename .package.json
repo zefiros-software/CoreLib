@@ -11,6 +11,10 @@
             "version": "@head"
         },
         {
+            "name": "Zefiros-Software/DocoptCpp",
+            "version": "@head"
+        },
+        {
             "name": "Zefiros-Software/BSPLib",
             "version": "^1.1.0"
         },
