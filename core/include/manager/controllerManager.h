@@ -25,75 +25,64 @@
  */
 
 #pragma once
-#ifndef __ENGINE_APPLICATIONMANAGER_H__
-#define __ENGINE_APPLICATIONMANAGER_H__
+#ifndef __CONTROLLERMANAGER_H__
+#define __CONTROLLERMANAGER_H__
 
 #include "manager/abstract/abstractManager.h"
 
-#include <mutex>
+#include "container/namespaceNamedStorage.h"
 
-/// @addtogroup Application
-/// @{
+#include "api/console.h"
 
-/**
- * Controls the application on the most basic level, for example
- * it allows the application to shutdown.
- *
- * @sa  Manager<ApplicationManager>
- */
+#include <typeindex>
 
-class ApplicationManager
+class ControllerManager
     : public AbstractManager
 {
 public:
 
-    ApplicationManager();
-
-    /// @name Events
-    /// @{
-
     virtual void OnInit() override;
+    virtual void OnPostInit() override;
+    virtual void OnPreUpdate() override;
+    virtual void OnUpdate() override;
+    virtual void OnPostUpdate() override;
+    virtual void OnRelease() override;
+    virtual void OnPostRelease() override;
 
-    /// @}
+    virtual void OnRelease( Namespace ns ) override;
 
+    template< typename tT>
+    tT *AddController( Namespace ns = 0U )
+    {
+        const std::type_index typeID = typeid( tT );
+        tT *controller = nullptr;
 
-    /**
-     * Query if the application is running or shutting down.
-     *
-     * @return  true if running, false if it is shutting down.
-     */
+        if ( !mControllers.Has( typeID ) )
+        {
+            controller = new tT();
+            mControllers.Add( controller, typeID, ns );
+            mControllerCache.push_back( controller );
+        }
+        else
+        {
+            Console::Errorf( LOG( "Factory already registered." ) );
+        }
 
-    bool IsRunning() const;
+        return controller;
+    }
 
-    /**
-     * Query if the application is active.
-     *
-     * @return  true if active, false if not.
-     */
-
-    bool IsActive() const;
-
-    /**
-     * Quits the application, by setting the Application::IsRunning() to false, which will stop the
-     * mainloop from running.
-     */
-
-    void Quit();
-
-    bool IsDebug();
-
-    std::string GetVersion();
+    template< typename tT>
+    tT *Get()
+    {
+        return static_cast< tT * >( mControllers.Get( typeid( tT ) ) );
+    }
 
 private:
 
-    mutable std::mutex mMutex;
+    NamespaceNamedStorage< std::type_index, AbstractManager > mControllers;
+    std::vector< AbstractManager * > mControllerCache;
 
-    // Holds whether the application is currently running, or shutting down
-    bool mApplicationIsRunning;
-    bool mApplicationIsActive;
 };
 
-/// @}
 
 #endif
-

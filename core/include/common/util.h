@@ -346,27 +346,6 @@
 namespace Util
 {
 
-    /// @name Hashes
-    /// @{
-
-    /**
-     * Combine two hashes to a new hash.
-     *
-     * @param   seed The seed.
-     * @param   val  The value.
-     *
-     * @return The combined seed.
-     *
-     * @details
-     * @examples
-     *
-     * @snippet testUtil.cpp HashCombine
-     */
-
-    size_t HashCombine( size_t seed, size_t val );
-
-    /// @}
-
     /**
      * Get the most significant set bit.
      *
@@ -436,6 +415,8 @@ namespace Util
 
     /// @}
 
+
+    std::tm Now();
 };
 
 /// @}

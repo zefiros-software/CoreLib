@@ -99,14 +99,8 @@ void LogManager::Echo( const std::string &str, Console::LogMode type )
 {
     std::lock_guard< std::recursive_mutex > lock( mMutex );
 
-#include "warnings/push.h"
-#include "warnings/unsafeFunction.h"
 
-    std::time_t t = std::time( nullptr );
-    std::string result =
-        String::Place( "[{:%Y-%m-%dT%H:%M:%SZ}] {}: {}\n", *std::localtime( &t ), Console::GetName( type ), str );
-
-#include "warnings/pop.h"
+    std::string result = String::Place( "[{:%Y-%m-%dT%H:%M:%SZ}] {}: {}\n", Util::Now(), Console::GetName( type ), str );
 
     if ( !IsInitialised() )
     {

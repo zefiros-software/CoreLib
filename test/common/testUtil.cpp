@@ -333,21 +333,6 @@ namespace
         //! [SAFE_ARRAY_DELETE nullptr]
     }
 
-    ENGINE_TEST( Util, HashCombine, NULL )
-    {
-        EXPECT_NE( 0u, Util::HashCombine( 0, 0 ) );
-    }
-
-    ENGINE_TEST( Util, HashCombine, Combine )
-    {
-        //! [HashCombine]
-        const std::vector< U32 > hashes = ::Test::GenerateUniqueU32s< 2 >();
-        const size_t hash = Util::HashCombine( hashes[0], hashes[1] );
-        EXPECT_NE( hashes[0], hash );
-        EXPECT_NE( hashes[1], hash );
-        //! [HashCombine]
-    }
-
     ENGINE_TEST( Util, BitExponent )
     {
         //! [BitExponent]

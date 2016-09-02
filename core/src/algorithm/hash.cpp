@@ -48,4 +48,10 @@ namespace Hash
         return hash;
     }
 
+    size_t Combine( size_t seed, size_t val )
+    {
+        //rotating hash combine!
+        return seed ^ ( val + 0x9e3779b9 + ( seed << 6 ) + ( seed >> 2 ) );
+    }
+
 }

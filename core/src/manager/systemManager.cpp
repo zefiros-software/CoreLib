@@ -28,6 +28,7 @@
 
 #include "manager/configurationManager.h"
 #include "manager/applicationManager.h"
+#include "manager/controllerManager.h"
 #include "manager/profilerManager.h"
 #include "manager/scheduleManager.h"
 #include "manager/factoryManager.h"
@@ -155,6 +156,10 @@ void SystemManager::RegisterManagers()
     AddManager< ThreadingVariableManager >( &mManagerHolder.threadingVariable, "Threading Variable" );
 
     AddManager< ScheduleManager >( &mManagerHolder.schedule, "Schedule" );
+
+
+    // should be last!
+    AddManager< ControllerManager >( &mManagerHolder.controller, "Controller" );
 }
 
 SystemManager *SystemManager::Get( SystemManager *systemManager /* = nullptr */ )

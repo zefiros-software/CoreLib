@@ -56,4 +56,19 @@ namespace
         EXPECT_EQ( Hash::Fnv1a( string.c_str() ), Hash::Fnv1a( string.c_str() ) );
     }
 
+    ENGINE_TEST( Hash, HashCombine, NULL )
+    {
+        EXPECT_NE( 0u, Hash::Combine( 0, 0 ) );
+    }
+
+    ENGINE_TEST( Hash, HashCombine, Combine )
+    {
+        //! [HashCombine]
+        const std::vector< U32 > hashes = ::Test::GenerateUniqueU32s< 2 >();
+        const size_t hash = Hash::Combine( hashes[0], hashes[1] );
+        EXPECT_NE( hashes[0], hash );
+        EXPECT_NE( hashes[1], hash );
+        //! [HashCombine]
+    }
+
 }

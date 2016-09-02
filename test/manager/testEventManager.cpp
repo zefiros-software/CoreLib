@@ -137,11 +137,11 @@ namespace
     ENGINE_TEST( EventManager, RemoveObserverNonExistent )
     {
         Callback c;
-        Observer< Callback, TestEvent > *o = new Observer< Callback, TestEvent >( &c, &Callback::OnArg );
+        Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
 
         EventManager m;
 
-        EXPECT_EQ( nullptr, m.RemoveObserver< TestEvent >( o ) );
+        EXPECT_EQ( nullptr, m.RemoveObserver< TestEvent >( &o ) );
 
         EXPECT_FALSE( c.mArg );
     }

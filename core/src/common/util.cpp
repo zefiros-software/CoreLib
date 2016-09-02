@@ -26,6 +26,8 @@
 
 #include "common/util.h"
 
+#include <ctime>
+
 namespace boost
 {
     void throw_exception( std::exception const &e )
@@ -34,13 +36,19 @@ namespace boost
     }
 }
 
-size_t Util::HashCombine( size_t seed, size_t val )
-{
-    //rotating hash combine!
-    return seed ^ ( val + 0x9e3779b9 + ( seed << 6 ) + ( seed >> 2 ) );
-}
-
 U32 Util::BitExponent( const U64 in )
 {
     return ( U32 )Mathf::Log2( in );
+}
+
+std::tm Util::Now()
+{
+#include "warnings/push.h"
+#include "warnings/unsafeFunction.h"
+
+    std::time_t t = std::time( nullptr );
+    return *std::localtime( &t );
+
+#include "warnings/pop.h"
+
 }

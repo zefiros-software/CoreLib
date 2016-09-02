@@ -78,6 +78,21 @@ namespace Hash
      */
 
     U32 Fnv1a( const char *str );
+
+    /**
+     * Combine two hashes to a new hash.
+     *
+     * @param   seed The seed.
+     * @param   val  The value.
+     *
+     * @return The combined seed.
+     *
+     * @details
+     * @examples
+     *
+     * @snippet testUtil.cpp HashCombine
+     */
+    size_t Combine( size_t seed, size_t val );
 }
 
 /// @}

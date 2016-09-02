@@ -24,46 +24,34 @@
  * @endcond
  */
 
-#pragma once
-#ifndef __ENGINE_MANAGERHOLDER_H__
-#define __ENGINE_MANAGERHOLDER_H__
+#include "manager/controllerManager.h"
 
-class ThreadingVariableManager;
-class ConfigurationManager;
-class ApplicationManager;
-class ControllerManager;
-class ScheduleManager;
-class ProfilerManager;
-class MemoryManager;
-class FactoryManager;
-class SystemManager;
-class EventManager;
-class PoolManager;
-class LogManager;
+#include "engineTest.h"
 
-/// @addtogroup Managers
-/// @{
-
-/**
- * The manager holder holds pointers to all managers.
- */
-
-struct ManagerHolder
+namespace
 {
-    ThreadingVariableManager *threadingVariable;
-    ConfigurationManager    *configuration;
-    ApplicationManager    *application;
-    ControllerManager    *controller;
-    ScheduleManager  *schedule;
-    ProfilerManager  *profile;
-    MemoryManager    *memory;
-    FactoryManager   *factory;
-    SystemManager    *system;
-    EventManager    *event;
-    PoolManager     *pool;
-    LogManager      *log;
-};
+    class TestManager
+        : public AbstractManager
+    {
+    };
 
-/// @}
+    ENGINE_TEST( ControllerManager, Sanity )
+    {
+        ControllerManager m;
+    }
 
-#endif
+    ENGINE_TEST( ControllerManager, AddGet )
+    {
+        ControllerManager m;
+        AbstractManager *cn = m.AddController< TestManager >();
+        EXPECT_EQ( cn, m.Get<TestManager>() );
+    }
+
+    ENGINE_TEST( ControllerManager, ReleaseNS )
+    {
+        ControllerManager m;
+        AbstractManager *cn = m.AddController< TestManager >();
+        m.OnRelease( 0 );
+        EXPECT_EQ( nullptr, m.Get<TestManager>() );
+    }
+}
