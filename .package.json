@@ -47,7 +47,7 @@
         },
         {
             "name": "Zefiros-Software/libsimdpp",
-            "version": "^2.0.0"
+            "version": "@head"
         }
     ]
 }
