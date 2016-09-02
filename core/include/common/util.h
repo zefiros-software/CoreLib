@@ -37,6 +37,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <ctime>
+
 
 /// @addtogroup docCommon
 /// @{

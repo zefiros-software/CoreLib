@@ -25,9 +25,6 @@
  */
 
 #include "common/util.h"
-
-#include <ctime>
-
 namespace boost
 {
     void throw_exception( std::exception const &e )
