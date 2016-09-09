@@ -48,6 +48,10 @@
         {
             "name": "Zefiros-Software/libsimdpp",
             "version": "@head"
+        },
+        {
+            "name": "Zefiros-Software/Slacking",
+            "version": "@head"
         }
     ]
 }

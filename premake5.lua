@@ -15,7 +15,8 @@ workspace "CoreLib"
             "Zefiros-Software/BenchLib",
             "Zefiros-Software/Boost",
             "Zefiros-Software/Fmt",
-            "Zefiros-Software/libsimdpp"
+            "Zefiros-Software/libsimdpp",
+            "Zefiros-Software/Slacking"
         }
      
     project "core-test"
@@ -29,5 +30,6 @@ workspace "CoreLib"
             "Zefiros-Software/BenchLib",
             "Zefiros-Software/Boost",
             "Zefiros-Software/Fmt",
-            "Zefiros-Software/libsimdpp"
+            "Zefiros-Software/libsimdpp",
+            "Zefiros-Software/Slacking"
         }

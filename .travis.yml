@@ -10,6 +10,15 @@ matrix:
         #- os: osx
         #  osx_image: xcode8
         #  language: generic
+before_install:
+    # install gcc 5
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+    - sudo apt-get update -y
+    - sudo apt-get install gcc-5 g++-5 -y
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
+    - sudo update-alternatives --config gcc
+    - sudo update-alternatives --config g++
 install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo pip install codecov; fi
     - wget -O - https://raw.githubusercontent.com/Zefiros-Software/ZPM/master/script/install-zpm-travis.sh | bash
