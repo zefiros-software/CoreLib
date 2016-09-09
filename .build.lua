@@ -18,5 +18,6 @@ project "CoreLib"
         "Zefiros-Software/BenchLib",
         "Zefiros-Software/Boost",
         "Zefiros-Software/Fmt",
-        "Zefiros-Software/libsimdpp"
+        "Zefiros-Software/libsimdpp",
+        "Zefiros-Software/Slacking"
     }
