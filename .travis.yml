@@ -19,6 +19,7 @@ before_install:
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
     - sudo update-alternatives --config gcc
     - sudo update-alternatives --config g++
+    - sudo apt-get install gcc-5-multilib g++-5-multilib
 install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo pip install codecov; fi
     - wget -O - https://raw.githubusercontent.com/Zefiros-Software/ZPM/master/script/install-zpm-travis.sh | bash
