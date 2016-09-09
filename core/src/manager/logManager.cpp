@@ -35,6 +35,7 @@
 
 #include "api/console.h"
 
+#define INSECURE_CURL
 #include "slacking/slacking.hpp"
 
 #if OS_IS_WINDOWS
