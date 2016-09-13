@@ -28,7 +28,7 @@
 #define __MISSINGINITIALISER_H__
 
 #if defined(__clang__)
-/ #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+// #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
 #endif
 
 #if defined(_MSC_VER)
