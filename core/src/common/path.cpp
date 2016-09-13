@@ -36,8 +36,10 @@
 
 #if OS_IS_WINDOWS
 #   include <windows.h>
-#else
+#elif OS_IS_LINUX
 #   include <unistd.h>
+#elif OS_IS_MACOS
+#   include <mach-o/dyld.h>
 #endif
 
 namespace Path
@@ -277,8 +279,15 @@ namespace Path
         char result[ PATH_MAX ];
         size_t count = readlink( "/proc/self/exe", result, PATH_MAX );
         return std::string( result, ( count > 0 ) ? count : 0 );
-#else
-#error
+#elif OS_IS_MACOS
+        char result[ PATH_MAX ];
+        unsigned int count = 0;
+        unsigned int buffl = PATH_MAX;
+        // fetch the required buffer size
+        _NSGetExecutablePath( result, &count );
+        _NSGetExecutablePath( result, &buffl );
+ 
+        return std::string( result, ( count <= PATH_MAX ) ? count : 0 );
 #endif
     }
 
