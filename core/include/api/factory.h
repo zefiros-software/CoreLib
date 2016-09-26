@@ -34,22 +34,22 @@
 
 namespace Factory
 {
-    EXPOSE_API( factory, AddFactory );
-    EXPOSE_API_NOARG( factory, AddFactory );
+    EXPOSE_API( factory, Add );
+    EXPOSE_API_NOARG( factory, Add );
 
-    EXPOSE_API( factory, ReleaseFactory );
-    EXPOSE_API_NOARG( factory, ReleaseFactory );
+    EXPOSE_API( factory, Release );
+    EXPOSE_API_NOARG( factory, Release );
 
-    EXPOSE_API( factory, ReleaseFactories );
+    EXPOSE_API( factory, ReleaseAll );
 
-    EXPOSE_API( factory, HasFactory );
-    EXPOSE_API_NOARG( factory, HasFactory );
+    EXPOSE_API( factory, Has );
+    EXPOSE_API_NOARG( factory, Has );
 
-    EXPOSE_API( factory, GetFactory );
-    EXPOSE_API_NOARG( factory, GetFactory );
+    EXPOSE_API( factory, Get );
+    EXPOSE_API_NOARG( factory, Get );
 
-    EXPOSE_API( factory, CreateInstance );
-    EXPOSE_API_NOARG( factory, CreateInstance );
+    EXPOSE_API( factory, Create );
+    EXPOSE_API_NOARG( factory, Create );
 }
 
 #endif

@@ -62,7 +62,7 @@ public:
         if ( !mPools.HasName( typeID, ns ) )
         {
             AbstractPoolableInstantiator<tBase> *inst = static_cast< AbstractPoolableInstantiator<tBase> *>
-                                                        ( GetManagers()->factory->GetFactory< tT >()->Copy() );
+                                                        ( GetManagers()->factory->Get< tT >()->Copy() );
             pool = new ObjectPool< tT, tBase >( inst, capacity );
             mPools.Add( pool, typeID, ns );
         }

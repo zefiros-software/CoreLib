@@ -72,7 +72,7 @@ namespace
         PoolManager m;
 
         FactoryManager f;
-        f.AddFactory< U32 >();
+        f.Add< U32 >();
 
         ManagerHolder h = {};
         h.factory = &f;
@@ -85,8 +85,8 @@ namespace
 
         EXPECT_TRUE( m.HasPools( 0 ) );
 
-        f.ReleaseFactories();
-        ASSERT_FALSE( f.HasFactory< U32 >() );
+        f.ClearAll();
+        ASSERT_FALSE( f.Has< U32 >() );
     }
 
     ENGINE_TEST( PoolManager, AddPoolFromFactory2 )
@@ -94,7 +94,7 @@ namespace
         PoolManager m;
 
         FactoryManager f;
-        f.AddFactory< U32 >();
+        f.Add< U32 >();
 
         ManagerHolder h = {};
         h.factory = &f;

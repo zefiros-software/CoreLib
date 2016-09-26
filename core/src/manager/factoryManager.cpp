@@ -31,7 +31,7 @@ void FactoryManager::OnRelease()
     mFactories.RemoveObjects();
 }
 
-void FactoryManager::ReleaseFactories( const Namespace ns )
+void FactoryManager::ClearAll( const Namespace ns )
 {
     mFactories.RemoveObjectsByNamespace( ns );
 }

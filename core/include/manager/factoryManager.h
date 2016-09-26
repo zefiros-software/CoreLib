@@ -47,7 +47,7 @@ public:
     virtual void OnRelease() override;
 
     template< typename tT, typename tBase = tT >
-    AbstractTInstantiator< tBase > *AddFactory( Namespace ns = 0U )
+    AbstractTInstantiator< tBase > *Add( Namespace ns = 0U )
     {
         const std::type_index typeID = typeid( tT );
         AbstractInstantiator *instantiator = nullptr;
@@ -66,7 +66,7 @@ public:
     }
 
     template< typename tT, typename tBase = tT>
-    bool AddFactory( AbstractTInstantiator< tBase > *instantiator, Namespace ns = 0u )
+    bool Add( AbstractTInstantiator< tBase > *instantiator, Namespace ns = 0u )
     {
         const std::type_index typeID = typeid( tT );
 
@@ -85,29 +85,29 @@ public:
     }
 
     template< typename tT >
-    void ReleaseFactory( Namespace ns = 0u )
+    void Clear( Namespace ns = 0u )
     {
         mFactories.RemoveObjectByName( typeid( tT ), ns );
     }
 
-    void ReleaseFactories( Namespace ns = 0u );
+    void ClearAll( Namespace ns = 0u );
 
     template< typename tT >
-    bool HasFactory( Namespace ns = 0u ) const
+    bool Has( Namespace ns = 0u ) const
     {
         return mFactories.HasName( typeid( tT ), ns );
     }
 
     template< typename tT, typename tBase = tT >
-    AbstractTInstantiator< tBase > *GetFactory( Namespace ns = 0u ) const
+    AbstractTInstantiator< tBase > *Get( Namespace ns = 0u ) const
     {
         return static_cast< AbstractTInstantiator< tBase > * >( mFactories.Get( typeid( tT ), ns ) );
     }
 
     template< typename tT, typename tBase = tT >
-    tT * CreateInstance( Namespace ns = 0u )
+    tT * Create( Namespace ns = 0u )
     {
-        return GetFactory< tT, tBase >( ns )->CreateInstance();
+        return Get< tT, tBase >( ns )->CreateInstance();
     }
 
 private:
