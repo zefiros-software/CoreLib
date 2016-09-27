@@ -172,6 +172,16 @@ public:
         return new MemoryPoolInstantiator< tT, tBase >( mBlockSize, mMaxBlocks );
     }
 
+    size_t GetBlockSize() const
+    {
+        return mBlockSize;
+    }
+
+    size_t GetMaxBlocks() const
+    {
+        return mMaxBlocks;
+    }
+
 private:
 
     MemoryPoolInstantiator( const MemoryPoolInstantiator & );

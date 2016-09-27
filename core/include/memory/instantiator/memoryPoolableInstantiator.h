@@ -49,12 +49,12 @@ public:
 
     virtual void Destroy( tBase *object ) override
     {
-        mMemoryPool.DestroyObject( object );
+        mMemoryPool.Destroy( object );
     }
 
     virtual AbstractInstantiator *Copy() override
     {
-        return new MemoryPoolableInstantiator< tT, tBase >( mMemoryPool.mBlockSize, mMemoryPool.mMaxBlocks );
+        return new MemoryPoolableInstantiator< tT, tBase >( mMemoryPool.GetBlockSize(), mMemoryPool.GetMaxBlocks() );
     }
 
 private:
