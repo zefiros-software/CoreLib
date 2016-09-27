@@ -34,11 +34,11 @@
 
 namespace Event
 {
-    EXPOSE_API( event, AddObserver );
+    EXPOSE_API( event, Add );
 
-    EXPOSE_API( event, RemoveObserver );
+    EXPOSE_API( event, Remove );
 
-    EXPOSE_API( event, PostEvent );
+    EXPOSE_API( event, Post );
 
     EXPOSE_API( event, GetClassID );
 }

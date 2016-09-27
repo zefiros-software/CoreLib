@@ -23,25 +23,16 @@
  *
  * @endcond
  */
-
 #pragma once
-#ifndef __CONVERSIONNULL_H__
-#define __CONVERSIONNULL_H__
+#ifndef __SLACKING_H__
+#define __SLACKING_H__
 
-#if defined(__clang__)
-#   pragma clang diagnostic ignored "-Wconversion-null"
-#endif
+#include "warnings/push.h"
+#include "warnings/hidesParameter.h"
 
-#if defined(_MSC_VER)
-//#   pragma warning(disable: 4100)
-#endif
+#define INSECURE_CURL
+#include "slacking/slacking.hpp"
 
-#if defined(__GNUC__) && !defined(__clang__)
-#   pragma GCC diagnostic ignored "-Wconversion-null"
-#endif
-
-#if defined(__ICL)
-//#   pragma warning(disable:367)
-#endif
+#include "warnings/pop.h"
 
 #endif

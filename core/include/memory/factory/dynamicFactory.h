@@ -72,13 +72,13 @@ public:
      * @return  The new instance, NULL if there is no instantiator stored under the given name.
      */
 
-    tBase *CreateInstance( const tName &name ) const
+    tBase *Create( const tName &name ) const
     {
         const auto it = mInstantiators.find( name );
 
         if ( it != mInstantiators.end() )
         {
-            return it->second->CreateInstance();
+            return it->second->Create();
         }
 
         return nullptr;
@@ -150,7 +150,7 @@ public:
      * @param   name    Identifier for the instantiator.
      */
 
-    void Unregister( const tName &name )
+    void Remove( const tName &name )
     {
         const auto it = mInstantiators.find( name );
 
@@ -175,7 +175,7 @@ public:
      * @return  true if registered, false if not.
      */
 
-    bool IsRegistered( const tName &name ) const
+    bool Has( const tName &name ) const
     {
         return mInstantiators.find( name ) != mInstantiators.end();
     }

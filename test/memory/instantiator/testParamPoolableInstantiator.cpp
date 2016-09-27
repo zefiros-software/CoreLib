@@ -123,11 +123,11 @@ namespace
         volatile ParamPoolableInstantiatorImpl inst( 42u );
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, CreateInstance )
+    ENGINE_TEST( ParamPoolableInstantiator, Create )
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
         child->OnInit();
 
         EXPECT_TRUE( child->IsDerived() );
@@ -141,9 +141,9 @@ namespace
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
-        inst.InitialiseObject( child );
+        inst.Initialise( child );
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_EQ( 42u, *child->GetValue() );
@@ -152,36 +152,36 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, ReleaseObject )
+    ENGINE_TEST( ParamPoolableInstantiator, Release )
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
-        inst.InitialiseObject( child );
+        inst.Initialise( child );
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_EQ( 42u, *child->GetValue() );
 
-        inst.ReleaseObject( child );
+        inst.Release( child );
 
         delete child;
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, DestroyObject )
+    ENGINE_TEST( ParamPoolableInstantiator, Destroy )
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
-        inst.InitialiseObject( child );
+        inst.Initialise( child );
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_EQ( 42u, *child->GetValue() );
 
-        inst.ReleaseObject( child );
+        inst.Release( child );
 
-        inst.DestroyObject( child );
+        inst.Destroy( child );
     }
 
     ENGINE_TEST( ParamPoolableInstantiator, Copy )

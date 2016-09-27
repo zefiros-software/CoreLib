@@ -87,19 +87,19 @@ namespace
     {
         NamespaceDynamicParamFactoryImpl factory;
 
-        EXPECT_EQ( NULL, factory.CreateInstance( 0, 0 ) );
+        EXPECT_EQ( NULL, factory.Create( 0, 0 ) );
     }
 
-    ENGINE_TEST( NamespaceDynamicParamFactory, CreateInstance )
+    ENGINE_TEST( NamespaceDynamicParamFactory, Create )
     {
         NamespaceDynamicParamFactoryImpl factory;
         factory.Register< Base >( 0 );
         factory.Register< Child >( 1 );
 
-        Base *base = factory.CreateInstance( 0, 42 );
-        Base *base2 = factory.CreateInstance( 0, 0 );
-        Base *child = factory.CreateInstance( 1, 42 );
-        Base *child2 = factory.CreateInstance( 1, 0 );
+        Base *base = factory.Create( 0, 42 );
+        Base *base2 = factory.Create( 0, 0 );
+        Base *child = factory.Create( 1, 42 );
+        Base *child2 = factory.Create( 1, 0 );
 
         EXPECT_FALSE( base->IsDerived() );
         EXPECT_EQ( 42, base->GetValue() );

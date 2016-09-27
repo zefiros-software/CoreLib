@@ -25,23 +25,16 @@
  */
 
 #pragma once
-#ifndef __CONVERSIONNULL_H__
-#define __CONVERSIONNULL_H__
+#ifndef __CONTROLLER_H__
+#define __CONTROLLER_H__
 
-#if defined(__clang__)
-#   pragma clang diagnostic ignored "-Wconversion-null"
-#endif
+#include "manager/controllerManager.h"
 
-#if defined(_MSC_VER)
-//#   pragma warning(disable: 4100)
-#endif
+#include "api/expose.h"
 
-#if defined(__GNUC__) && !defined(__clang__)
-#   pragma GCC diagnostic ignored "-Wconversion-null"
-#endif
-
-#if defined(__ICL)
-//#   pragma warning(disable:367)
-#endif
+namespace Controller
+{
+    EXPOSE_API( controller, Add );
+}
 
 #endif

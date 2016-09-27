@@ -36,7 +36,7 @@ namespace
     {
     public:
 
-        U32 *CreateInstance() override
+        U32 *Create() override
         {
             return new U32( 42 );
         }
@@ -52,10 +52,10 @@ namespace
         ImplTInstantiator inst;
     }
 
-    ENGINE_TEST( AbstractTInstantiator, CreateInstance )
+    ENGINE_TEST( AbstractTInstantiator, Create )
     {
         AbstractTInstantiator< U32 > *inst = new ImplTInstantiator;
-        delete inst->CreateInstance();
+        delete inst->Create();
         delete inst;
     }
 
@@ -63,7 +63,7 @@ namespace
     ENGINE_TEST( AbstractTInstantiator, CreateTypeCheck )
     {
         AbstractTInstantiator< U32 > *inst = new ImplTInstantiator;
-        U32 *integer =  inst->CreateInstance();
+        U32 *integer =  inst->Create();
 
         EXPECT_EQ( 42, *integer );
 

@@ -99,7 +99,7 @@ public:
     ~NamespaceStorage() noexcept
     {
         // On deconstruction we should delete all the objects we have taken ownership over.
-        RemoveObjects();
+        Clear();
     }
 
     /// @name Modifiers
@@ -167,7 +167,7 @@ public:
      * @threadsafe
      */
 
-    void RemoveObjects()
+    void Clear()
     {
         std::lock_guard< std::recursive_mutex > lock( mMutex );
 
@@ -204,7 +204,7 @@ public:
      * @param   ns  The namespace.
      */
 
-    void RemoveObjectsByNamespace( const Namespace ns )
+    void Clear( const Namespace ns )
     {
         if ( ns.IsAddin() )
         {
@@ -225,7 +225,7 @@ public:
      * @param   ns      (optional) The namespace.
      */
 
-    void RemoveObjectByName( const tName &name, const Namespace ns = 0u )
+    void Remove( const tName &name, const Namespace ns = 0u )
     {
         std::unordered_map< tName, tStoredType * > *nameMap = nullptr;
 
@@ -334,7 +334,7 @@ public:
      * @return  true if it has an object stored under this name, false if not.
      */
 
-    bool HasName( const tName &name, const Namespace ns = 0u ) const
+    bool Has( const tName &name, const Namespace ns = 0u ) const
     {
         const std::unordered_map< tName, tStoredType * > *nameMap = nullptr;
 

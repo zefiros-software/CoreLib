@@ -52,7 +52,7 @@ public:
         const std::type_index typeID = typeid( tT );
         AbstractInstantiator *instantiator = nullptr;
 
-        if ( !mFactories.HasName( typeID, ns ) )
+        if ( !mFactories.Has( typeID, ns ) )
         {
             instantiator = new Instantiator< tT, tBase >();
             mFactories.Add( instantiator, typeID, ns );
@@ -70,7 +70,7 @@ public:
     {
         const std::type_index typeID = typeid( tT );
 
-        if ( !mFactories.HasName( typeID, ns ) )
+        if ( !mFactories.Has( typeID, ns ) )
         {
             mFactories.Add( instantiator, typeID, ns );
 
@@ -87,7 +87,7 @@ public:
     template< typename tT >
     void Clear( Namespace ns = 0u )
     {
-        mFactories.RemoveObjectByName( typeid( tT ), ns );
+        mFactories.Remove( typeid( tT ), ns );
     }
 
     void ClearAll( Namespace ns = 0u );
@@ -95,7 +95,7 @@ public:
     template< typename tT >
     bool Has( Namespace ns = 0u ) const
     {
-        return mFactories.HasName( typeid( tT ), ns );
+        return mFactories.Has( typeid( tT ), ns );
     }
 
     template< typename tT, typename tBase = tT >
@@ -107,7 +107,7 @@ public:
     template< typename tT, typename tBase = tT >
     tT * Create( Namespace ns = 0u )
     {
-        return Get< tT, tBase >( ns )->CreateInstance();
+        return Get< tT, tBase >( ns )->Create();
     }
 
 private:

@@ -54,7 +54,7 @@ public:
     void OnRelease() override;
 
     template< typename tT >
-    const tT *AddObserver( AbstractObserver *observer )
+    const tT *Add( AbstractObserver *observer )
     {
         std::lock_guard< SpinLock > lock( mLock );
         mOberservers[ GetClassID< tT >() ].push_back( observer );
@@ -63,7 +63,7 @@ public:
     }
 
     template< typename tT >
-    const tT *RemoveObserver( const AbstractObserver *observer, bool allowDelete = true )
+    const tT *Remove( const AbstractObserver *observer, bool allowDelete = true )
     {
         std::lock_guard< SpinLock > lock( mLock );
 
@@ -87,7 +87,7 @@ public:
     }
 
     template< typename tT >
-    void PostEvent( const tT &event )
+    void Post( const tT &event )
     {
         mLock.lock();
 
@@ -131,14 +131,14 @@ private:
 template <class tC, class tN>
 void AbstractManager::Observe( void( tC::* method )( const tN & ) )
 {
-    GetManagers()->event->AddObserver< tN >( new Observer< tC, tN >( static_cast<tC *const>( this ), method ) );
+    GetManagers()->event->Add< tN >( new Observer< tC, tN >( static_cast<tC *const>( this ), method ) );
 }
 
 template< class tC, class tN >
 void AbstractManager::Unobserve( void ( tC::*method )( const tN & ) )
 {
     Observer< tC, tN > observer( static_cast<tC *const>( this ), method );
-    GetManagers()->event->RemoveObserver< tN >( &observer );
+    GetManagers()->event->Remove< tN >( &observer );
 }
 
 /// @}

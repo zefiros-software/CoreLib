@@ -59,7 +59,7 @@ public:
     /// @name Object creation
     /// @{
 
-    virtual tBase *CreateInstance() override
+    virtual tBase *Create() override
     {
         return new tT;
     }

@@ -43,14 +43,14 @@ namespace
     ENGINE_TEST( ControllerManager, AddGet )
     {
         ControllerManager m;
-        AbstractManager *cn = m.AddController< TestManager >();
+        AbstractManager *cn = m.Add< TestManager >();
         EXPECT_EQ( cn, m.Get<TestManager>() );
     }
 
     ENGINE_TEST( ControllerManager, ReleaseNS )
     {
         ControllerManager m;
-        AbstractManager *cn = m.AddController< TestManager >();
+        AbstractManager *cn = m.Add< TestManager >();
         m.OnRelease( 0 );
         EXPECT_EQ( nullptr, m.Get<TestManager>() );
     }

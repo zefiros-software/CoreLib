@@ -37,7 +37,7 @@
 namespace Environment
 {
 
-    std::string GetVariable( const std::string &var )
+    std::string Get( const std::string &var )
     {
 #if OS_IS_WINDOWS
         char *buf = nullptr;
@@ -60,7 +60,7 @@ namespace Environment
 #endif
     }
 
-    bool SetVariable( const std::string &var, const std::string &value )
+    bool Set( const std::string &var, const std::string &value )
     {
 #if OS_IS_WINDOWS
         return _putenv( ( var + "=" + value ).c_str() ) == 0;
@@ -69,7 +69,7 @@ namespace Environment
 #endif
     }
 
-    bool HasVariable( const std::string &var )
+    bool Has( const std::string &var )
     {
 #if OS_IS_WINDOWS
         char *buf = nullptr;
@@ -84,10 +84,10 @@ namespace Environment
 #endif
     }
 
-    bool RemoveVariable( const std::string &var )
+    bool Remove( const std::string &var )
     {
 #if OS_IS_WINDOWS
-        return Environment::SetVariable( var, "" );
+        return Environment::Set( var, "" );
 #else
         return unsetenv( var.c_str() ) == 0;
 #endif

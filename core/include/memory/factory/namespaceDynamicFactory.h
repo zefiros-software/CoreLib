@@ -70,13 +70,13 @@ public:
      * @return  The new instance, NULL if no factory is found, or if the creation fails.
      */
 
-    tBase *CreateInstance( const tName &name ) const
+    tBase *Create( const tName &name ) const
     {
         tInstantiator *const factory = mFactories.Get( name );
 
         if ( factory )
         {
-            return factory->CreateInstance();
+            return factory->Create();
         }
 
         return nullptr;
@@ -97,7 +97,7 @@ public:
      * @return  null if it fails, else the factory.
      */
 
-    tInstantiator *GetFactory( const tName &name ) const
+    tInstantiator *Get( const tName &name ) const
     {
         return mFactories.Get( name );
     }
@@ -112,9 +112,9 @@ public:
      * @return  The registered names by namespace.
      */
 
-    std::vector< tName > GetRegisteredNamesByNamespace( Namespace ns ) const
+    std::vector< tName > GetByNamespace( Namespace ns ) const
     {
-        return mFactories.GetNamesByNamespace( ns );
+        return mFactories.GetNames( ns );
     }
 
     /// @}
@@ -171,9 +171,9 @@ public:
      * @param   ns  The ns.
      */
 
-    void UnregisterClassesByNamespace( Namespace ns )
+    void Clear( Namespace ns )
     {
-        mFactories.RemoveObjectsByNamespace( ns );
+        mFactories.Clear( ns );
     }
 
     /**
@@ -182,9 +182,9 @@ public:
      * @threadsafe
      */
 
-    void UnregisterClasses()
+    void Clear()
     {
-        mFactories.RemoveObjects();
+        mFactories.Clear();
     }
 
     /**
@@ -195,9 +195,9 @@ public:
      * @param   name    The name.
      */
 
-    void UnregisterClassByName( const tName &name )
+    void Remove( const tName &name )
     {
-        mFactories.RemoveObjectByName( name );
+        mFactories.Remove( name );
     }
 
     /// @}
@@ -215,7 +215,7 @@ public:
      * @return  true if registered, false if not.
      */
 
-    bool IsRegistered( const tName &name ) const
+    bool Has( const tName &name ) const
     {
         return mFactories.Has( name );
     }

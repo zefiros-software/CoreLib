@@ -114,7 +114,7 @@ public:
      * @return  The new instance.
      */
 
-    virtual tBase *CreateInstance() override
+    virtual tBase *Create() override
     {
         std::lock_guard< SpinLock > lock( mLock );
 
@@ -146,7 +146,7 @@ public:
      * @param [in,out]  object  If non-null, the object.
      */
 
-    virtual void DestroyObject( tBase *object ) override
+    virtual void Destroy( tBase *object ) override
     {
         {
             std::lock_guard< SpinLock > lock( mLock );

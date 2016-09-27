@@ -69,7 +69,7 @@ namespace
     {
     public:
 
-        Base *CreateInstance() override
+        Base *Create() override
         {
             return new Child;
         }
@@ -86,11 +86,11 @@ namespace
         delete instantiator.Copy();
     }
 
-    ENGINE_TEST( Instantiator, CreateInstance )
+    ENGINE_TEST( Instantiator, Create )
     {
         Instantiator< Child, Base > instantiator;
 
-        Base *child = instantiator.CreateInstance();
+        Base *child = instantiator.Create();
         EXPECT_EQ( 42, child->GetValue() );
         EXPECT_TRUE( child->IsDerived() );
 

@@ -72,19 +72,19 @@ namespace
         volatile NamespaceDynamicFactoryImpl factory;
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, CreateInstanceNone )
+    ENGINE_TEST( NamespaceDynamicFactory, CreateNone )
     {
         NamespaceDynamicFactoryImpl factory;
 
-        EXPECT_EQ( NULL, factory.CreateInstance( 0 ) );
+        EXPECT_EQ( NULL, factory.Create( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, CreateInstance )
+    ENGINE_TEST( NamespaceDynamicFactory, Create )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.Register< Base >( 0 );
 
-        Base *base = factory.CreateInstance( 0 );
+        Base *base = factory.Create( 0 );
 
         EXPECT_FALSE( base->IsDerived() );
         EXPECT_EQ( 0, base->GetValue() );
@@ -93,12 +93,12 @@ namespace
     }
 
 
-    ENGINE_TEST( NamespaceDynamicFactory, CreateInstanceFactory )
+    ENGINE_TEST( NamespaceDynamicFactory, CreateFactory )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.Register< Base >( 0 );
 
-        Base *base = factory.GetFactory( 0 )->CreateInstance();
+        Base *base = factory.Get( 0 )->Create();
 
         EXPECT_FALSE( base->IsDerived() );
         EXPECT_EQ( 0, base->GetValue() );
@@ -111,7 +111,7 @@ namespace
         NamespaceDynamicFactoryImpl factory;
         factory.RegisterExt( new Instantiator< Child, Base>, 0 );
 
-        Base *child = factory.CreateInstance( 0 );
+        Base *child = factory.Create( 0 );
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_EQ( 42, child->GetValue() );
@@ -126,8 +126,8 @@ namespace
         factory.RegisterExt( new Instantiator< Child, Base>, 1, Namespace( 1, 1 ) );
         factory.RegisterExt( new Instantiator< Child, Base>, 2, Namespace( 1, 2 ) );
 
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
     }
 
     ENGINE_TEST( NamespaceDynamicFactory, UnregisterClassesByNamespace )
@@ -137,13 +137,13 @@ namespace
         factory.RegisterExt( new Instantiator< Child, Base>, 1, Namespace( 1, 1 ) );
         factory.RegisterExt( new Instantiator< Child, Base>, 2, Namespace( 1, 2 ) );
 
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
-        factory.UnregisterClassesByNamespace( { 1, 1 } );
-        EXPECT_EQ( 0, factory.GetRegisteredNamesByNamespace( { 1, 1 } ).size() );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
+        factory.Clear( { 1, 1 } );
+        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 1 } ).size() );
 
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
-        factory.UnregisterClassesByNamespace( { 1, 2 } );
-        EXPECT_EQ( 0, factory.GetRegisteredNamesByNamespace( { 1, 2 } ).size() );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
+        factory.Clear( { 1, 2 } );
+        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 
     ENGINE_TEST( NamespaceDynamicFactory, UnregisterClasses )
@@ -153,13 +153,13 @@ namespace
         factory.RegisterExt( new Instantiator< Child, Base>, 1, Namespace( 1, 1 ) );
         factory.RegisterExt( new Instantiator< Child, Base>, 2, Namespace( 1, 2 ) );
 
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
 
-        factory.UnregisterClasses();
+        factory.Clear();
 
-        EXPECT_EQ( 0, factory.GetRegisteredNamesByNamespace( { 1, 1 } ).size() );
-        EXPECT_EQ( 0, factory.GetRegisteredNamesByNamespace( { 1, 2 } ).size() );
+        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 1 } ).size() );
+        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 
     ENGINE_TEST( NamespaceDynamicFactory, UnregisterClassByName )
@@ -169,16 +169,16 @@ namespace
         factory.RegisterExt( new Instantiator< Child, Base>, 1, Namespace( 1, 1 ) );
         factory.RegisterExt( new Instantiator< Child, Base>, 2, Namespace( 1, 2 ) );
 
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
 
-        factory.UnregisterClassByName( 2 );
+        factory.Remove( 2 );
 
-        EXPECT_FALSE( factory.IsRegistered( 2 ) );
-        EXPECT_TRUE( factory.IsRegistered( 0 ) );
-        EXPECT_TRUE( factory.IsRegistered( 1 ) );
+        EXPECT_FALSE( factory.Has( 2 ) );
+        EXPECT_TRUE( factory.Has( 0 ) );
+        EXPECT_TRUE( factory.Has( 1 ) );
 
-        EXPECT_THAT( factory.GetRegisteredNamesByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
-        EXPECT_EQ( 0, factory.GetRegisteredNamesByNamespace( { 1, 2 } ).size() );
+        EXPECT_THAT( factory.GetByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
+        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 }

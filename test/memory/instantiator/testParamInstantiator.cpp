@@ -84,12 +84,12 @@ namespace
         volatile ParamInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( ParamInstantiator, CreateInstance )
+    ENGINE_TEST( ParamInstantiator, Create )
     {
         ParamInstantiatorImpl inst;
 
-        Base *child = inst.CreateInstance( 0u );
-        Base *child2 = inst.CreateInstance( 42u );
+        Base *child = inst.Create( 0u );
+        Base *child2 = inst.Create( 42u );
 
         EXPECT_EQ( 0u, child->GetValue() );
         EXPECT_EQ( 42u, child2->GetValue() );

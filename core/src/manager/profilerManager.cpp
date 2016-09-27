@@ -45,8 +45,8 @@ void ProfilerManager::OnUpdate()
 {
     std::chrono::time_point< std::chrono::high_resolution_clock > time = std::chrono::high_resolution_clock::now();
 
-    GetManagers()->event->PostEvent( ProfileUpdateEvent( time,
-                                                         std::chrono::duration_cast< std::chrono::microseconds >( mLastUpdate - time ) ) );
+    GetManagers()->event->Post( ProfileUpdateEvent( time,
+                                                    std::chrono::duration_cast< std::chrono::microseconds >( mLastUpdate - time ) ) );
 
     mLastUpdate = time;
 }
@@ -69,7 +69,7 @@ void ProfilerManager::Start( const std::string &name )
         }
     }
 
-    GetManagers()->event->PostEvent( ProfileStartEvent( name, time ) );
+    GetManagers()->event->Post( ProfileStartEvent( name, time ) );
 }
 
 void ProfilerManager::Waypoint( const std::string &name, const std::string &comment )
@@ -85,7 +85,7 @@ void ProfilerManager::Waypoint( const std::string &name, const std::string &comm
         {
             duration = std::chrono::duration_cast<std::chrono::microseconds>( time - it->second );
 
-            GetManagers()->event->PostEvent( ProfileWaypointEvent( name, comment, time, duration ) );
+            GetManagers()->event->Post( ProfileWaypointEvent( name, comment, time, duration ) );
         }
         else
         {
@@ -109,7 +109,7 @@ void ProfilerManager::End( const std::string &name )
             duration = std::chrono::duration_cast< std::chrono::microseconds >( time - it->second );
             mTimings.erase( it );
 
-            GetManagers()->event->PostEvent( ProfileEndEvent( name, time, duration ) );
+            GetManagers()->event->Post( ProfileEndEvent( name, time, duration ) );
         }
         else
         {

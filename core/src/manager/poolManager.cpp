@@ -28,17 +28,17 @@
 
 void PoolManager::OnRelease()
 {
-    mPools.RemoveObjects();
+    mPools.Clear();
 }
 
 void PoolManager::OnRelease( Namespace ns )
 {
-    ReleasePools( ns );
+    ClearAll( ns );
 }
 
-void PoolManager::ReleasePools( const Namespace ns )
+void PoolManager::ClearAll( const Namespace ns )
 {
-    mPools.RemoveObjectsByNamespace( ns );
+    mPools.Clear( ns );
 }
 
 bool PoolManager::HasPools( const Namespace ns ) const

@@ -46,24 +46,25 @@ public:
     virtual void OnRelease( Namespace ns ) override;
 
     template< typename tT >
-    void ReleasePool( const Namespace ns = 0u )
+    void Remove( const Namespace ns = 0u )
     {
-        mPools.RemoveObjectByName( typeid( tT ), ns );
+        mPools.Remove( typeid( tT ), ns );
     }
 
-    void ReleasePools( const Namespace ns );
+    void ClearAll( const Namespace ns );
 
     template< typename tT, typename tBase = tT >
-    AbstractObjectPool< tBase > *AddPoolFromFactory( const Namespace ns = 0U, size_t capacity = 500 )
+    AbstractObjectPool< tBase > *AddFromFactory( const Namespace ns = 0U, size_t capacity = 500 )
     {
         const std::type_index typeID = typeid( tT );
-        ObjectPool< tT, tBase > *pool = nullptr;
+        ObjectPool< tT, tBase, AbstractPoolableInstantiator<tBase> > *pool = nullptr;
 
-        if ( !mPools.HasName( typeID, ns ) )
+        if ( !mPools.Has( typeID, ns ) )
         {
             AbstractPoolableInstantiator<tBase> *inst = static_cast< AbstractPoolableInstantiator<tBase> *>
                                                         ( GetManagers()->factory->Get< tT >()->Copy() );
-            pool = new ObjectPool< tT, tBase >( inst, capacity );
+
+            pool = new ObjectPool< tT, tBase, AbstractPoolableInstantiator<tBase> >( inst, capacity );
             mPools.Add( pool, typeID, ns );
         }
         else
@@ -75,12 +76,12 @@ public:
     }
 
     template< typename tT, typename tBase = tT, typename tInstantiator = PoolableInstantiator< tT, tBase > >
-    AbstractObjectPool< tBase > *AddPool( const Namespace ns = 0U, size_t capacity = 500 )
+    AbstractObjectPool< tBase > *Add( const Namespace ns = 0U, size_t capacity = 500 )
     {
         const std::type_index typeID = typeid( tT );
         ObjectPool< tT, tBase, tInstantiator > *pool = nullptr;
 
-        if ( !mPools.HasName( typeID, ns ) )
+        if ( !mPools.Has( typeID, ns ) )
         {
             pool = new ObjectPool< tT, tBase, tInstantiator >( capacity );
             mPools.Add( pool, typeID, ns );
@@ -94,7 +95,7 @@ public:
     }
 
     template< typename tT, typename tBase = tT >
-    AbstractObjectPool< tBase > *GetPool( const Namespace ns = 0u ) const
+    AbstractObjectPool< tBase > *Get( const Namespace ns = 0u ) const
     {
         return static_cast< AbstractObjectPool< tBase > * >( mPools.Get( typeid( tT ), ns ) );
     }
@@ -102,9 +103,9 @@ public:
     bool HasPools( const Namespace ns ) const;
 
     template< typename tT >
-    bool HasPool( const Namespace ns = 0u ) const
+    bool Has( const Namespace ns = 0u ) const
     {
-        return mPools.HasName( typeid( tT ), ns );
+        return mPools.Has( typeid( tT ), ns );
     }
 
 

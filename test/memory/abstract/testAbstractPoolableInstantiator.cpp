@@ -36,22 +36,22 @@ namespace
     {
     public:
 
-        virtual U32 *CreateInstance() override
+        virtual U32 *Create() override
         {
             return new U32( 0 );
         }
 
-        virtual void DestroyObject( U32 *object ) override
+        virtual void Destroy( U32 *object ) override
         {
             delete object;
         }
 
-        virtual void InitialiseObject( U32 *const object ) override
+        virtual void Initialise( U32 *const object ) override
         {
             *object = 42;
         }
 
-        virtual void ReleaseObject( U32 *const object ) override
+        virtual void Release( U32 *const object ) override
         {
             *object = 0;
         }
@@ -68,42 +68,42 @@ namespace
         volatile ImplPoolableInstantiator inst;
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, CreateInstance )
+    ENGINE_TEST( AbstractPoolableInstantiator, Create )
     {
         ImplPoolableInstantiator inst;
 
-        U32 *obj = inst.CreateInstance();
+        U32 *obj = inst.Create();
 
         EXPECT_EQ( 0, *obj );
 
         delete obj;
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, DestroyObject )
+    ENGINE_TEST( AbstractPoolableInstantiator, Destroy )
     {
         ImplPoolableInstantiator inst;
 
-        inst.DestroyObject( new U32 );
+        inst.Destroy( new U32 );
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, InitialiseObject )
+    ENGINE_TEST( AbstractPoolableInstantiator, Initialise )
     {
         ImplPoolableInstantiator inst;
 
         U32 num = 0;
 
-        inst.InitialiseObject( &num );
+        inst.Initialise( &num );
 
         EXPECT_EQ( 42, num );
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, ReleaseObject )
+    ENGINE_TEST( AbstractPoolableInstantiator, Release )
     {
         ImplPoolableInstantiator inst;
 
         U32 num = 42;
 
-        inst.ReleaseObject( &num );
+        inst.Release( &num );
 
         EXPECT_EQ( 0, num );
     }

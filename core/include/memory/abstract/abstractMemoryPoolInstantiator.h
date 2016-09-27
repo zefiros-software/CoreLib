@@ -60,7 +60,7 @@ public:
      * @param [in,out]  object  If non-null, the object.
      */
 
-    virtual void DestroyObject( tBase *object ) = 0;
+    virtual void Destroy( tBase *object ) = 0;
 
     /// @}
 };

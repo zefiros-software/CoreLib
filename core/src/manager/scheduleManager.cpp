@@ -81,7 +81,7 @@ void ScheduleManager::OnUpdate()
     // workers are clock synchronised so join them
     mThreadPool.JoinAll();
 
-    GetManagers()->event->PostEvent( ThreadingEvent( false ) );
+    GetManagers()->event->Post( ThreadingEvent( false ) );
 }
 
 void ScheduleManager::OnSynchronise()
@@ -240,7 +240,7 @@ void ScheduleManager::RunWorkerJobs()
     mWorkerQueue.Flush();
     mThreadPool.Run( &mWorkerQueue );
 
-    GetManagers()->event->PostEvent( ThreadingEvent( true ) );
+    GetManagers()->event->Post( ThreadingEvent( true ) );
 }
 
 void ScheduleManager::RunEventJobs()

@@ -70,7 +70,7 @@ public:
 
     ~NamespaceNamedStorage() noexcept
     {
-        RemoveObjects();
+        Clear();
     }
 
     /// @name Modifiers
@@ -135,7 +135,7 @@ public:
      * @threadsafe
      */
 
-    void RemoveObjects()
+    void Clear()
     {
         std::lock_guard< std::recursive_mutex > lock( mMutex );
 
@@ -159,7 +159,7 @@ public:
      * @param   ns  The namespace.
      */
 
-    void RemoveObjectsByNamespace( const Namespace ns )
+    void Clear( const Namespace ns )
     {
         if ( ns.IsAddin() )
         {
@@ -180,7 +180,7 @@ public:
      * @param   name    The name.
      */
 
-    void RemoveObjectByName( const tName &name )
+    void Remove( const tName &name )
     {
         std::lock_guard< std::recursive_mutex > lock( mMutex );
 
@@ -269,7 +269,7 @@ public:
      * @return  The names used by this namespace.
      */
 
-    std::vector< tName > GetNamesByNamespace( const Namespace ns ) const
+    std::vector< tName > GetNames( const Namespace ns ) const
     {
         std::vector< tName > objects;
 

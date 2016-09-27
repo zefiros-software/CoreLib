@@ -86,7 +86,7 @@ namespace
     {
     public:
 
-        virtual Base *CreateInstance() override
+        virtual Base *Create() override
         {
             return new Child;
         }
@@ -102,7 +102,7 @@ namespace
     {
     public:
 
-        virtual Base *CreateInstance() override
+        virtual Base *Create() override
         {
             return new Child2;
         }
@@ -132,7 +132,7 @@ namespace
         DynamicFactoryImpl factory;
         EXPECT_TRUE( factory.Register< Child >( 0 ) );
 
-        Base *first = factory.CreateInstance( 0 );
+        Base *first = factory.Create( 0 );
 
         EXPECT_EQ( 42, first->GetValue() );
 
@@ -148,8 +148,8 @@ namespace
         EXPECT_TRUE( factory.Register< Child >( 0 ) );
         EXPECT_FALSE( factory.Register< Child2 >( 0 ) );
 
-        Base *first = factory.CreateInstance( 0 );
-        Base *second = factory.CreateInstance( 0 );
+        Base *first = factory.Create( 0 );
+        Base *second = factory.Create( 0 );
 
         EXPECT_EQ( 42u, first->GetValue() );
         EXPECT_NE( 84u, second->GetValue() );
@@ -162,7 +162,7 @@ namespace
     {
         DynamicFactoryImpl factory;
 
-        EXPECT_EQ( NULL, factory.CreateInstance( 0 ) );
+        EXPECT_EQ( NULL, factory.Create( 0 ) );
     }
 
     ENGINE_TEST( DynamicFactory, DifferentKeys )
@@ -172,9 +172,9 @@ namespace
         EXPECT_TRUE( factory.Register< Child2 >( 1 ) );
         EXPECT_TRUE( factory.Register< Base >( 2 ) );
 
-        Base *first = factory.CreateInstance( 0 );
-        Base *second = factory.CreateInstance( 1 );
-        Base *base = factory.CreateInstance( 2 );
+        Base *first = factory.Create( 0 );
+        Base *second = factory.Create( 1 );
+        Base *base = factory.Create( 2 );
 
         EXPECT_EQ( 42, first->GetValue() );
         EXPECT_EQ( 84, second->GetValue() );
@@ -199,11 +199,11 @@ namespace
         EXPECT_TRUE( factory.RegisterExt( new ImplInstantiator2, 2 ) );
         EXPECT_TRUE( factory.Register< Child2 >( 3 ) );
 
-        Base *firstExt = factory.CreateInstance( 0 );
-        Base *first = factory.CreateInstance( 1 );
+        Base *firstExt = factory.Create( 0 );
+        Base *first = factory.Create( 1 );
 
-        Base *secondExt = factory.CreateInstance( 2 );
-        Base *second = factory.CreateInstance( 3 );
+        Base *secondExt = factory.Create( 2 );
+        Base *second = factory.Create( 3 );
 
         EXPECT_EQ( 42, first->GetValue() );
         EXPECT_EQ( 84, second->GetValue() );
@@ -218,7 +218,7 @@ namespace
         delete second;
     }
 
-    ENGINE_TEST( DynamicFactory,  Unregister )
+    ENGINE_TEST( DynamicFactory, Remove )
     {
         DynamicFactoryImpl factory;
 
@@ -229,11 +229,11 @@ namespace
         EXPECT_TRUE( factory.Register< Child2 >( 3 ) );
 
         {
-            Base *firstExt = factory.CreateInstance( 0 );
-            Base *first = factory.CreateInstance( 1 );
+            Base *firstExt = factory.Create( 0 );
+            Base *first = factory.Create( 1 );
 
-            Base *secondExt = factory.CreateInstance( 2 );
-            Base *second = factory.CreateInstance( 3 );
+            Base *secondExt = factory.Create( 2 );
+            Base *second = factory.Create( 3 );
 
             EXPECT_EQ( 42, first->GetValue() );
             EXPECT_EQ( 84, second->GetValue() );
@@ -248,10 +248,10 @@ namespace
             delete second;
         }
 
-        factory.Unregister( 0 );
-        factory.Unregister( 1 );
-        factory.Unregister( 2 );
-        factory.Unregister( 3 );
+        factory.Remove( 0 );
+        factory.Remove( 1 );
+        factory.Remove( 2 );
+        factory.Remove( 3 );
 
         EXPECT_TRUE( factory.Register< Child2 >( 0 ) );
         EXPECT_TRUE( factory.RegisterExt( new ImplInstantiator2, 1 ) );
@@ -260,11 +260,11 @@ namespace
         EXPECT_TRUE( factory.RegisterExt( new ImplInstantiator, 3 ) );
 
         {
-            Base *secondExt = factory.CreateInstance( 1 );
-            Base *second = factory.CreateInstance( 0 );
+            Base *secondExt = factory.Create( 1 );
+            Base *second = factory.Create( 0 );
 
-            Base *first = factory.CreateInstance( 2 );
-            Base *firstExt = factory.CreateInstance( 3 );
+            Base *first = factory.Create( 2 );
+            Base *firstExt = factory.Create( 3 );
 
             EXPECT_EQ( 42, firstExt->GetValue() );
             EXPECT_EQ( 84, secondExt->GetValue() );
@@ -280,34 +280,34 @@ namespace
         }
     }
 
-    ENGINE_TEST( DynamicFactory, IsRegisteredNone )
+    ENGINE_TEST( DynamicFactory, HasNone )
     {
         DynamicFactoryImpl factory;
 
-        EXPECT_FALSE( factory.IsRegistered( 0 ) );
+        EXPECT_FALSE( factory.Has( 0 ) );
     }
 
-    ENGINE_TEST( DynamicFactory, IsRegistered )
+    ENGINE_TEST( DynamicFactory, Has )
     {
         DynamicFactoryImpl factory;
         factory.Register< Child >( 0 );
 
-        EXPECT_TRUE( factory.IsRegistered( 0 ) );
+        EXPECT_TRUE( factory.Has( 0 ) );
     }
 
-    ENGINE_TEST( DynamicFactory, UnregisterNonExisting )
+    ENGINE_TEST( DynamicFactory, RemoveNonExisting )
     {
         DynamicFactoryImpl factory;
 
-        factory.Unregister( 0 );
+        factory.Remove( 0 );
     }
 
-    ENGINE_TEST( DynamicFactory, IsRegisteredRemoved )
+    ENGINE_TEST( DynamicFactory, HasRemoved )
     {
         DynamicFactoryImpl factory;
         factory.Register< Child >( 0 );
-        factory.Unregister( 0 );
+        factory.Remove( 0 );
 
-        EXPECT_FALSE( factory.IsRegistered( 0 ) );
+        EXPECT_FALSE( factory.Has( 0 ) );
     }
 }

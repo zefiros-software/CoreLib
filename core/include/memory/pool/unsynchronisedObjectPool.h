@@ -107,7 +107,7 @@ public:
     {
         for ( auto it = mPool.begin(); it != mPool.end(); ++it )
         {
-            mInstantiator->DestroyObject( *it );
+            mInstantiator->Destroy( *it );
         }
 
         assert( GetBorrowedCount() == GetReturnedCount() );
@@ -128,7 +128,7 @@ public:
     {
         tBase *const object = FastGet();
 
-        mInstantiator->InitialiseObject( object );
+        mInstantiator->Initialise( object );
 
         return object;
     }
@@ -143,7 +143,7 @@ public:
     {
         ++mBorrowedObjectsCount;
 
-        return CreateInstance();
+        return Create();
     }
 
     /// @}
@@ -153,14 +153,14 @@ public:
 
     /**
      * Returns the object to the pool and optionally releases the managed resources, when the object
-     * pool wants to do so. Also calls ReleaseObject() on the instantiator
+     * pool wants to do so. Also calls Release() on the instantiator
      *
      * @param [in,out]  object  The object.
      */
 
     virtual void Dispose( tBase *object ) override
     {
-        mInstantiator->ReleaseObject( object );
+        mInstantiator->Release( object );
 
         ++mReturnedObjectsCount;
 
@@ -170,7 +170,7 @@ public:
         }
         else
         {
-            mInstantiator->DestroyObject( object );
+            mInstantiator->Destroy( object );
         }
     }
 
@@ -191,7 +191,7 @@ public:
         }
         else
         {
-            mInstantiator->DestroyObject( object );
+            mInstantiator->Destroy( object );
         }
     }
 
@@ -248,7 +248,7 @@ private:
      * @return The object.
      */
 
-    tBase *CreateInstance()
+    tBase *Create()
     {
         tBase *object;
 
@@ -259,7 +259,7 @@ private:
         }
         else
         {
-            object = mInstantiator->CreateInstance();
+            object = mInstantiator->Create();
         }
 
         return object;

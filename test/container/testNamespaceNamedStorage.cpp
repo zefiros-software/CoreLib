@@ -197,7 +197,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueC2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueD2, 7, Namespace( 1, 2 ) ) );
 
-        storage.RemoveObjects();
+        storage.Clear();
 
         EXPECT_EQ( nullptr, storage.Get( 0 ) );
         EXPECT_EQ( nullptr, storage.Get( 1 ) );
@@ -209,8 +209,8 @@ namespace
         EXPECT_EQ( nullptr, storage.Get( 6 ) );
         EXPECT_EQ( nullptr, storage.Get( 7 ) );
 
-        std::vector< U32 > result = storage.GetNamesByNamespace( 0u );
-        std::vector< U32 > result2 = storage.GetNamesByNamespace( 1u );
+        std::vector< U32 > result = storage.GetNames( 0u );
+        std::vector< U32 > result2 = storage.GetNames( 1u );
 
         EXPECT_EQ( 0, result.size() );
         EXPECT_EQ( 0, result2.size() );
@@ -253,7 +253,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueE2, 10, Namespace( 1, 0 ) ) );
         EXPECT_TRUE( storage.Add( valueF2, 11, Namespace( 1, 0 ) ) );
 
-        storage.RemoveObjectsByNamespace( 0u );
+        storage.Clear( 0u );
 
         EXPECT_FALSE( storage.Has( 0 ) );
         EXPECT_FALSE( storage.Has( 1 ) );
@@ -291,8 +291,8 @@ namespace
         names.push_back( 10 );
         names.push_back( 11 );
 
-        std::vector< U32 > result = storage.GetNamesByNamespace( 0 );
-        std::vector< U32 > result2 = storage.GetNamesByNamespace( 1u );
+        std::vector< U32 > result = storage.GetNames( 0 );
+        std::vector< U32 > result2 = storage.GetNames( 1u );
 
         EXPECT_EQ( 0, result.size() );
         EXPECT_TRUE( std::is_permutation( names.begin(), names.end(), result2.begin() ) );
@@ -334,7 +334,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueE2, 10, Namespace( 1, 0 ) ) );
         EXPECT_TRUE( storage.Add( valueF2, 11, Namespace( 1, 0 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 0, 1 ) );
+        storage.Clear( Namespace( 0, 1 ) );
 
         EXPECT_FALSE( storage.Has( 0 ) );
         EXPECT_TRUE( storage.Has( 1 ) );
@@ -379,8 +379,8 @@ namespace
         names2.push_back( 10 );
         names2.push_back( 11 );
 
-        std::vector< U32 > result = storage.GetNamesByNamespace( 0 );
-        std::vector< U32 > result2 = storage.GetNamesByNamespace( 1u );
+        std::vector< U32 > result = storage.GetNames( 0 );
+        std::vector< U32 > result2 = storage.GetNames( 1u );
 
         EXPECT_EQ( 4, result.size() );
         EXPECT_EQ( 6, result2.size() );
@@ -405,7 +405,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 0 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 0 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 0, 0 ) );
+        storage.Clear( Namespace( 0, 0 ) );
 
         EXPECT_FALSE( storage.Has( 0 ) );
         EXPECT_FALSE( storage.Has( 2 ) );
@@ -436,7 +436,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 1, 1 ) );
+        storage.Clear( Namespace( 1, 1 ) );
 
         EXPECT_TRUE( storage.Has( 0 ) );
         EXPECT_TRUE( storage.Has( 2 ) );
@@ -467,7 +467,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 2, 1 ) );
+        storage.Clear( Namespace( 2, 1 ) );
 
         EXPECT_TRUE( storage.Has( 0 ) );
         EXPECT_TRUE( storage.Has( 2 ) );
@@ -498,7 +498,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 0, 2 ) );
+        storage.Clear( Namespace( 0, 2 ) );
 
         EXPECT_TRUE( storage.Has( 0 ) );
         EXPECT_TRUE( storage.Has( 2 ) );
@@ -529,7 +529,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 2, 0 ) );
+        storage.Clear( Namespace( 2, 0 ) );
 
         EXPECT_TRUE( storage.Has( 0 ) );
         EXPECT_TRUE( storage.Has( 2 ) );
@@ -544,7 +544,7 @@ namespace
         EXPECT_EQ( *valueB2, *storage.Get( 8 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectByName )
+    ENGINE_TEST( NamespaceNamedStorage, Remove )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -552,11 +552,11 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        storage.RemoveObjectByName( 0 );
+        storage.Remove( 0 );
         EXPECT_FALSE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectByName2 )
+    ENGINE_TEST( NamespaceNamedStorage, Remove2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -566,11 +566,11 @@ namespace
         EXPECT_TRUE( storage.Add( value, 0, Namespace( 2, 1 ) ) );
         EXPECT_TRUE( storage.Add( value2, 1, Namespace( 2, 2 ) ) );
 
-        storage.RemoveObjectByName( 0 );
+        storage.Remove( 0 );
         EXPECT_FALSE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectByNameNotExists )
+    ENGINE_TEST( NamespaceNamedStorage, RemoveNotExists )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -578,7 +578,7 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        storage.RemoveObjectByName( 1 );
+        storage.Remove( 1 );
         EXPECT_TRUE( storage.Has( 0 ) );
     }
 
@@ -622,7 +622,7 @@ namespace
         EXPECT_FALSE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesByNamespace )
+    ENGINE_TEST( NamespaceNamedStorage, GetNames )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -630,14 +630,14 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        std::vector< U32 > names = storage.GetNamesByNamespace( 0u );
+        std::vector< U32 > names = storage.GetNames( 0u );
 
         EXPECT_EQ( 1, names.size() );
 
         EXPECT_EQ( 0, names[0] );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesByNamespaceNotExists )
+    ENGINE_TEST( NamespaceNamedStorage, GetNamesNotExists )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -645,12 +645,12 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        std::vector< U32 > names = storage.GetNamesByNamespace( 1u );
+        std::vector< U32 > names = storage.GetNames( 1u );
 
         EXPECT_EQ( 0, names.size() );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesByNamespaceNotExists2 )
+    ENGINE_TEST( NamespaceNamedStorage, GetNamesNotExists2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -658,12 +658,12 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        std::vector< U32 > names = storage.GetNamesByNamespace( Namespace( 0, 1 ) );
+        std::vector< U32 > names = storage.GetNames( Namespace( 0, 1 ) );
 
         EXPECT_EQ( 0, names.size() );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesByNamespace2 )
+    ENGINE_TEST( NamespaceNamedStorage, GetNames2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -671,7 +671,7 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0, Namespace( 0, 1 ) ) );
 
-        std::vector< U32 > names = storage.GetNamesByNamespace( Namespace( 0, 1 ) );
+        std::vector< U32 > names = storage.GetNames( Namespace( 0, 1 ) );
 
         EXPECT_EQ( 1, names.size() );
 
@@ -679,7 +679,7 @@ namespace
     }
 
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesByNamespaceMultiple )
+    ENGINE_TEST( NamespaceNamedStorage, GetNamesMultiple )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -723,7 +723,7 @@ namespace
         names.push_back( 4 );
         names.push_back( 5 );
 
-        std::vector< U32 > result = storage.GetNamesByNamespace( 0 );
+        std::vector< U32 > result = storage.GetNames( 0 );
 
         EXPECT_EQ( 6, result.size() );
 

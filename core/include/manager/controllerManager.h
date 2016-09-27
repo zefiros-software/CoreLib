@@ -52,7 +52,7 @@ public:
     virtual void OnRelease( Namespace ns ) override;
 
     template< typename tT>
-    tT *AddController( Namespace ns = 0U )
+    tT *Add( Namespace ns = 0U )
     {
         const std::type_index typeID = typeid( tT );
         tT *controller = nullptr;

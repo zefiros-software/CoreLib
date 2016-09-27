@@ -25,19 +25,19 @@
  */
 
 #pragma once
-#ifndef __CONVERSIONNULL_H__
-#define __CONVERSIONNULL_H__
+#ifndef __HIDESPARAMETER_H__
+#define __HIDESPARAMETER_H__
 
 #if defined(__clang__)
-#   pragma clang diagnostic ignored "-Wconversion-null"
+//#   pragma clang diagnostic ignored "-Wconversion-null"
 #endif
 
 #if defined(_MSC_VER)
-//#   pragma warning(disable: 4100)
+#   pragma warning(disable: 4457)
 #endif
 
 #if defined(__GNUC__) && !defined(__clang__)
-#   pragma GCC diagnostic ignored "-Wconversion-null"
+//#   pragma GCC diagnostic ignored "-Wconversion-null"
 #endif
 
 #if defined(__ICL)

@@ -37,10 +37,10 @@ namespace Factory
     EXPOSE_API( factory, Add );
     EXPOSE_API_NOARG( factory, Add );
 
-    EXPOSE_API( factory, Release );
-    EXPOSE_API_NOARG( factory, Release );
+    EXPOSE_API( factory, Clear );
+    EXPOSE_API_NOARG( factory, Clear );
 
-    EXPOSE_API( factory, ReleaseAll );
+    EXPOSE_API( factory, ClearAll );
 
     EXPOSE_API( factory, Has );
     EXPOSE_API_NOARG( factory, Has );

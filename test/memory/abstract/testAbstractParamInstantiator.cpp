@@ -35,7 +35,7 @@ namespace
     {
     public:
 
-        U32 *CreateInstance( const U32 &param ) override
+        U32 *Create( const U32 &param ) override
         {
             return new U32( param );
         }
@@ -51,10 +51,10 @@ namespace
         ImplParamInstantiator inst;
     }
 
-    ENGINE_TEST( AbstractParamInstantiator, CreateInstance )
+    ENGINE_TEST( AbstractParamInstantiator, Create )
     {
         AbstractParamInstantiator< U32, U32 > *inst = new ImplParamInstantiator;
-        U32 *ptr = inst->CreateInstance( 42 );
+        U32 *ptr = inst->Create( 42 );
 
         EXPECT_EQ( 42, *ptr );
         delete ptr;

@@ -59,7 +59,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    std::string GetVariable( const std::string &var );
+    std::string Get( const std::string &var );
 
     /**
      * Sets an environment variable with the given value.
@@ -79,7 +79,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    bool SetVariable( const std::string &var, const std::string &value );
+    bool Set( const std::string &var, const std::string &value );
 
     /**
      * Query whether the given variable name exists.
@@ -94,7 +94,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    bool HasVariable( const std::string &var );
+    bool Has( const std::string &var );
 
     /**
      * Removes the environment variable.
@@ -113,7 +113,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    bool RemoveVariable( const std::string &var );
+    bool Remove( const std::string &var );
 
     /// @}
 };

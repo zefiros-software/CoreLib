@@ -110,11 +110,11 @@ namespace
         volatile PoolableInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( PoolableInstantiator, CreateInstance )
+    ENGINE_TEST( PoolableInstantiator, Create )
     {
         PoolableInstantiatorImpl inst;
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
         child->OnInit();
 
         EXPECT_TRUE( child->IsDerived() );
@@ -128,9 +128,9 @@ namespace
     {
         PoolableInstantiatorImpl inst;
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
-        inst.InitialiseObject( child );
+        inst.Initialise( child );
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_EQ( 84u, *child->GetValue() );
@@ -139,36 +139,36 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( PoolableInstantiator, ReleaseObject )
+    ENGINE_TEST( PoolableInstantiator, Release )
     {
         PoolableInstantiatorImpl inst;
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
-        inst.InitialiseObject( child );
+        inst.Initialise( child );
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_EQ( 84u, *child->GetValue() );
 
-        inst.ReleaseObject( child );
+        inst.Release( child );
 
         delete child;
     }
 
-    ENGINE_TEST( PoolableInstantiator, DestroyObject )
+    ENGINE_TEST( PoolableInstantiator, Destroy )
     {
         PoolableInstantiatorImpl inst;
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
-        inst.InitialiseObject( child );
+        inst.Initialise( child );
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_EQ( 84u, *child->GetValue() );
 
-        inst.ReleaseObject( child );
+        inst.Release( child );
 
-        inst.DestroyObject( child );
+        inst.Destroy( child );
     }
 
     ENGINE_TEST( PoolableInstantiator, Copy )

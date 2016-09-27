@@ -110,7 +110,7 @@ public:
     {
         for ( auto it = mPool.begin(); it != mPool.end(); ++it )
         {
-            mInstantiator->DestroyObject( *it );
+            mInstantiator->Destroy( *it );
         }
 
         if ( GetBorrowedCount() != GetReturnedCount() )
@@ -136,7 +136,7 @@ public:
     {
         tBase *const object = FastGet();
 
-        mInstantiator->InitialiseObject( object );
+        mInstantiator->Initialise( object );
 
         return object;
     }
@@ -165,7 +165,7 @@ public:
 
     /**
      * Returns the object to the pool and optionally releases the managed resources, when the object
-     * pool wants to do so. Also calls ReleaseObject() on the instantiator
+     * pool wants to do so. Also calls Release() on the instantiator
      *
      * @partthreadsafe
      *
@@ -174,7 +174,7 @@ public:
 
     void Dispose( tBase *object ) override
     {
-        mInstantiator->ReleaseObject( object );
+        mInstantiator->Release( object );
 
         FastDispose( object );
     }
@@ -202,7 +202,7 @@ public:
         else
         {
             mSpinLock.unlock();
-            mInstantiator->DestroyObject( object );
+            mInstantiator->Destroy( object );
         }
     }
 
@@ -280,7 +280,7 @@ private:
         }
         else
         {
-            object = mInstantiator->CreateInstance();
+            object = mInstantiator->Create();
         }
 
         return object;

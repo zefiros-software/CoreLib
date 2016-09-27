@@ -57,7 +57,7 @@ public:
 
     explicit Local( ManagerHolder *const managerHolder, Namespace ns = 0u )
     {
-        mPool = managerHolder->pool->GetPool< tT >( ns );
+        mPool = managerHolder->pool->Get< tT >( ns );
         mPooledObject = mPool->Get();
     }
 
@@ -83,7 +83,7 @@ public:
 
     explicit Local( Namespace ns = 0u )
     {
-        mPool = SystemManager::Get()->GetManagers()->pool->GetPool< tT >( ns );
+        mPool = SystemManager::Get()->GetManagers()->pool->Get< tT >( ns );
         mPooledObject = mPool->Get();
     }
 
@@ -124,7 +124,7 @@ public:
      * @return  The object.
      */
 
-    tBase *GetObject()
+    tBase *Get()
     {
         return mPooledObject;
     }
@@ -135,7 +135,7 @@ public:
      * @return  The object.
      */
 
-    const tBase *GetObject() const
+    const tBase *Get() const
     {
         return mPooledObject;
     }

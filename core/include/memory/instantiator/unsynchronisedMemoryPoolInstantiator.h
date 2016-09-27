@@ -104,7 +104,7 @@ public:
      * @return  The new instance.
      */
 
-    virtual tBase *CreateInstance() override
+    virtual tBase *Create() override
     {
         if ( !mAvailablePtrs.empty() )
         {
@@ -133,7 +133,7 @@ public:
      * @param [in,out]  object  If non-null, the object.
      */
 
-    virtual void DestroyObject( tBase *object ) override
+    virtual void Destroy( tBase *object ) override
     {
         for ( auto it = mMemoryBlocks.begin(), end = mMemoryBlocks.end(); it != end; ++it )
         {

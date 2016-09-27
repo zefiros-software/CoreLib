@@ -28,10 +28,10 @@
 
 void FactoryManager::OnRelease()
 {
-    mFactories.RemoveObjects();
+    mFactories.Clear();
 }
 
 void FactoryManager::ClearAll( const Namespace ns )
 {
-    mFactories.RemoveObjectsByNamespace( ns );
+    mFactories.Clear( ns );
 }

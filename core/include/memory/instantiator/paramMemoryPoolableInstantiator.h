@@ -43,16 +43,16 @@ public:
     {
     }
 
-    virtual tBase *CreateInstance() override
+    virtual tBase *Create() override
     {
-        tBase *obj = mMemoryPool.CreateInstance();
+        tBase *obj = mMemoryPool.Create();
         obj->Initialise( this->mParameter );
         return obj;
     }
 
-    virtual void DestroyObject( tBase *object ) override
+    virtual void Destroy( tBase *object ) override
     {
-        mMemoryPool.DestroyObject( object );
+        mMemoryPool.Destroy( object );
     }
 
     virtual AbstractInstantiator *Copy() override

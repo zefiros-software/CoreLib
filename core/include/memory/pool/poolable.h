@@ -38,12 +38,12 @@ public:
 
     void Dispose( ManagerHolder *const managerHolder, const Namespace ns = 0u )
     {
-        managerHolder->pool->GetPool< tT >( ns )->Dispose( static_cast< tT * >( this ) );
+        managerHolder->pool->Get< tT >( ns )->Dispose( static_cast< tT * >( this ) );
     }
 
     void Dispose( const Namespace ns = 0u )
     {
-        SystemManager::Get()->GetManagers()->pool->GetPool< tT >( ns )->Dispose( static_cast< tT * >( this ) );
+        SystemManager::Get()->GetManagers()->pool->Get< tT >( ns )->Dispose( static_cast< tT * >( this ) );
     }
 };
 

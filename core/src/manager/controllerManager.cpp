@@ -84,7 +84,7 @@ void ControllerManager::OnPostRelease()
 
 void ControllerManager::OnRelease( Namespace ns )
 {
-    std::vector< std::type_index > removed = mControllers.GetNamesByNamespace( ns );
+    std::vector< std::type_index > removed = mControllers.GetNames( ns );
 
     // cache values
     for ( auto cont : std::vector< AbstractManager * >( mControllerCache ) )
@@ -101,5 +101,5 @@ void ControllerManager::OnRelease( Namespace ns )
         }
     }
 
-    mControllers.RemoveObjectsByNamespace( ns );
+    mControllers.Clear( ns );
 }

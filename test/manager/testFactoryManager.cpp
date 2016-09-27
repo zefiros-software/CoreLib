@@ -62,7 +62,7 @@ namespace
         EXPECT_ANY_THROW( m.Add< U32 >( instantiator ) );
     }
 
-    ENGINE_TEST( FactoryManager, CreateInstance )
+    ENGINE_TEST( FactoryManager, Create )
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();

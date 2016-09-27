@@ -60,7 +60,7 @@ public:
     /// @name Object creation
     /// @{
 
-    virtual tBase *CreateInstance( const tParam &param ) override
+    virtual tBase *Create( const tParam &param ) override
     {
         return new tT( param );
     }

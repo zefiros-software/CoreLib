@@ -59,7 +59,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void DestroyObject( tBase *object ) = 0;
+    virtual void Destroy( tBase *object ) = 0;
 
     /// @}
 
@@ -72,7 +72,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void InitialiseObject( tBase *const object ) = 0;
+    virtual void Initialise( tBase *const object ) = 0;
 
     /// @}
 
@@ -85,7 +85,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void ReleaseObject( tBase *const object ) = 0;
+    virtual void Release( tBase *const object ) = 0;
 
     /// @}
 

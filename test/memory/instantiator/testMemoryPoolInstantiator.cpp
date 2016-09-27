@@ -62,54 +62,54 @@ namespace
         volatile MemoryPoolInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, CreateInstance )
+    ENGINE_TEST( MemoryPoolInstantiator, Create )
     {
         MemoryPoolInstantiatorImpl inst;
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
         EXPECT_TRUE( child->IsDerived() );
 
-        inst.DestroyObject( child );
+        inst.Destroy( child );
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, EmptyCreateInstance )
+    ENGINE_TEST( MemoryPoolInstantiator, EmptyCreate )
     {
         MemoryPoolInstantiatorImpl inst( 0, 0 );
 
-        Base *child = inst.CreateInstance();
+        Base *child = inst.Create();
 
         EXPECT_TRUE( child->IsDerived() );
 
-        inst.DestroyObject( child );
+        inst.Destroy( child );
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, NearEmptyCreateInstance )
+    ENGINE_TEST( MemoryPoolInstantiator, NearEmptyCreate )
     {
         MemoryPoolInstantiatorImpl inst( 1, 1 );
 
-        Base *child = inst.CreateInstance();
-        Base *child2 = inst.CreateInstance();
+        Base *child = inst.Create();
+        Base *child2 = inst.Create();
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_TRUE( child2->IsDerived() );
 
-        inst.DestroyObject( child );
-        inst.DestroyObject( child2 );
+        inst.Destroy( child );
+        inst.Destroy( child2 );
     }
 
     ENGINE_TEST( MemoryPoolInstantiator, ContiguousMemoryCheck )
     {
         MemoryPoolInstantiatorImpl inst( 2, 1 );
 
-        Base *child = inst.CreateInstance();
-        Base *child2 = inst.CreateInstance();
+        Base *child = inst.Create();
+        Base *child2 = inst.Create();
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_TRUE( child2->IsDerived() );
 
-        inst.DestroyObject( child );
-        inst.DestroyObject( child2 );
+        inst.Destroy( child );
+        inst.Destroy( child2 );
 
         EXPECT_EQ( 1, Mathf::Abs( static_cast< S32 >( child2 - child ) ) );
     }
@@ -118,14 +118,14 @@ namespace
     {
         MemoryPoolInstantiatorImpl inst( 1, 2 );
 
-        Base *child = inst.CreateInstance();
-        Base *child2 = inst.CreateInstance();
+        Base *child = inst.Create();
+        Base *child2 = inst.Create();
 
         EXPECT_TRUE( child->IsDerived() );
         EXPECT_TRUE( child2->IsDerived() );
 
-        inst.DestroyObject( child );
-        inst.DestroyObject( child2 );
+        inst.Destroy( child );
+        inst.Destroy( child2 );
     }
 
     ENGINE_TEST( MemoryPoolInstantiator, MemoryLeaks )
@@ -135,12 +135,12 @@ namespace
 
         for ( U32 i = 0; i < 500; ++i )
         {
-            ptrs.push_back( inst.CreateInstance() );
+            ptrs.push_back( inst.Create() );
         }
 
         for ( Base *ptr : ptrs )
         {
-            inst.DestroyObject( ptr );
+            inst.Destroy( ptr );
         }
     }
 

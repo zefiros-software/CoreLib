@@ -31,12 +31,12 @@
 namespace
 {
 
-    ENGINE_TEST( Environment, GetVariable, NonExisting )
+    ENGINE_TEST( Environment, Get, NonExisting )
     {
         const std::string var = "ENGINE_TEST_VAR";
 
-        EXPECT_FALSE( Environment::HasVariable( var ) );
-        EXPECT_EQ( "", Environment::GetVariable( var ) );
+        EXPECT_FALSE( Environment::Has( var ) );
+        EXPECT_EQ( "", Environment::Get( var ) );
     }
 
     ENGINE_TEST( Environment, Combo )
@@ -45,18 +45,18 @@ namespace
         const std::string var = "ENGINE_TEST_VAR";
         const std::string value = ::Test::GenerateRandomString();
 
-        ASSERT_FALSE( Environment::HasVariable( var ) );
-        ASSERT_EQ( "", Environment::GetVariable( var ) );
+        ASSERT_FALSE( Environment::Has( var ) );
+        ASSERT_EQ( "", Environment::Get( var ) );
 
-        Environment::SetVariable( var, value );
+        Environment::Set( var, value );
 
-        EXPECT_EQ( value, Environment::GetVariable( var ) );
-        ASSERT_TRUE( Environment::HasVariable( var ) );
+        EXPECT_EQ( value, Environment::Get( var ) );
+        ASSERT_TRUE( Environment::Has( var ) );
 
-        Environment::RemoveVariable( var );
+        Environment::Remove( var );
 
-        EXPECT_EQ( "", Environment::GetVariable( var ) );
-        ASSERT_FALSE( Environment::HasVariable( var ) );
+        EXPECT_EQ( "", Environment::Get( var ) );
+        ASSERT_FALSE( Environment::Has( var ) );
         // ![Combo]
     }
 

@@ -60,13 +60,13 @@ public:
      * @return  The new instance.
      */
 
-    virtual tBase *CreateInstance( const Param &param ) = 0;
+    virtual tBase *Create( const Param &param ) = 0;
 
     /// @}
 
 private:
 
-    virtual tBase *CreateInstance() override
+    virtual tBase *Create() override
     {
         // just do something, we wont use it anyway
         return nullptr;

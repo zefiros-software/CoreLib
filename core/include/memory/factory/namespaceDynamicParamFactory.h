@@ -85,13 +85,13 @@ public:
      * @return  The new instance.
      */
 
-    tBase *CreateInstance( const tName &name, const tParam &parameter ) const
+    tBase *Create( const tName &name, const tParam &parameter ) const
     {
         tInstantiator *const factory = this->mFactories.Get( name );
 
         if ( factory )
         {
-            return factory->CreateInstance( parameter );
+            return factory->Create( parameter );
         }
 
         return nullptr;

@@ -64,7 +64,7 @@ public:
      * @return  The new object.
      */
 
-    virtual tBase *CreateInstance() = 0;
+    virtual tBase *Create() = 0;
 
     /// @}
 };

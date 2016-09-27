@@ -68,7 +68,7 @@ public:
      * @return  The new instance.
      */
 
-    virtual tBase *CreateInstance() override
+    virtual tBase *Create() override
     {
         return new tT;
     }
@@ -84,7 +84,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void DestroyObject( tBase *object ) override
+    virtual void Destroy( tBase *object ) override
     {
         delete object;
     }
@@ -94,7 +94,7 @@ public:
     /// @name Initialisation
     /// @{
 
-    virtual void InitialiseObject( tBase *const ) override
+    virtual void Initialise( tBase *const ) override
     {
     }
 
@@ -103,7 +103,7 @@ public:
     /// @name Releasing
     /// @{
 
-    virtual void ReleaseObject( tBase *const ) override
+    virtual void Release( tBase *const ) override
     {
     }
 

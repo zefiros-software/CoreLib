@@ -83,7 +83,7 @@ namespace
         PoolManager *const poolMngr = holder->pool;
 
         U32Pool *const pool = static_cast< U32Pool * >
-                              ( poolMngr->AddPool< U32, U32, SimplePoolableInstantiator< U32, U32> >() );
+                              ( poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32> >() );
 
         {
             Local< U32 > local;
@@ -103,7 +103,7 @@ namespace
         PoolManager *const poolMngr = holder->pool;
 
         U32Pool *const pool = static_cast< U32Pool * >
-                              ( poolMngr->AddPool< U32, U32, SimplePoolableInstantiator< U32, U32 > >() );
+                              ( poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32 > >() );
 
         {
             Local< U32 > local( holder );
@@ -132,7 +132,7 @@ namespace
         ImplObjectPool pool;
         Local< U32 > local( &pool );
 
-        U32 *const obj = local.GetObject();
+        U32 *const obj = local.Get();
         EXPECT_EQ( obj, ( U32 * const )local );
         EXPECT_EQ( obj, *local );
         EXPECT_EQ( obj, local.operator->() );
@@ -205,7 +205,7 @@ namespace
         ImplObjectPoolNullptr pool;
         const Local< U32 > local( &pool );
 
-        const U32 *const obj = local.GetObject();
+        const U32 *const obj = local.Get();
         EXPECT_EQ( obj, nullptr );
     }
 

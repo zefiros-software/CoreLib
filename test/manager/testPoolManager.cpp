@@ -56,18 +56,18 @@ namespace
         EXPECT_FALSE( m.HasPools( 0 ) );
     }
 
-    ENGINE_TEST( PoolManager, AddPool )
+    ENGINE_TEST( PoolManager, Add )
     {
         PoolManager m;
-        auto pool = m.AddPool< PoolTest >();
+        auto pool = m.Add< PoolTest >();
 
-        EXPECT_TRUE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( pool, m.GetPool< PoolTest >() );
+        EXPECT_TRUE( m.Has< PoolTest >() );
+        EXPECT_EQ( pool, m.Get< PoolTest >() );
 
         EXPECT_TRUE( m.HasPools( 0 ) );
     }
 
-    ENGINE_TEST( PoolManager, AddPoolFromFactory )
+    ENGINE_TEST( PoolManager, AddFromFactory )
     {
         PoolManager m;
 
@@ -78,10 +78,10 @@ namespace
         h.factory = &f;
         m.SetManagers( &h );
 
-        auto pool = m.AddPoolFromFactory< U32 >();
+        auto pool = m.AddFromFactory< U32 >();
 
-        EXPECT_TRUE( m.HasPool< U32 >() );
-        EXPECT_EQ( pool, m.GetPool< U32 >() );
+        EXPECT_TRUE( m.Has< U32 >() );
+        EXPECT_EQ( pool, m.Get< U32 >() );
 
         EXPECT_TRUE( m.HasPools( 0 ) );
 
@@ -89,7 +89,7 @@ namespace
         ASSERT_FALSE( f.Has< U32 >() );
     }
 
-    ENGINE_TEST( PoolManager, AddPoolFromFactory2 )
+    ENGINE_TEST( PoolManager, AddFromFactory2 )
     {
         PoolManager m;
 
@@ -100,98 +100,98 @@ namespace
         h.factory = &f;
         m.SetManagers( &h );
 
-        m.AddPoolFromFactory< U32 >();
-        EXPECT_ANY_THROW( m.AddPoolFromFactory< U32 >() );
+        m.AddFromFactory< U32 >();
+        EXPECT_ANY_THROW( m.AddFromFactory< U32 >() );
     }
 
     ENGINE_TEST( PoolManager, AddPoolTwice )
     {
         PoolManager m;
-        m.AddPool< PoolTest >();
-        EXPECT_ANY_THROW( m.AddPool< PoolTest >() );
+        m.Add< PoolTest >();
+        EXPECT_ANY_THROW( m.Add< PoolTest >() );
     }
 
-    ENGINE_TEST( PoolManager, ReleasePool )
+    ENGINE_TEST( PoolManager, Release )
     {
         PoolManager m;
-        auto pool = m.AddPool< PoolTest >();
+        auto pool = m.Add< PoolTest >();
 
-        EXPECT_TRUE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( pool, m.GetPool< PoolTest >() );
+        EXPECT_TRUE( m.Has< PoolTest >() );
+        EXPECT_EQ( pool, m.Get< PoolTest >() );
 
-        m.ReleasePool< PoolTest >();
+        m.Remove< PoolTest >();
 
-        EXPECT_FALSE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( nullptr, m.GetPool< PoolTest >() );
+        EXPECT_FALSE( m.Has< PoolTest >() );
+        EXPECT_EQ( nullptr, m.Get< PoolTest >() );
     }
 
     ENGINE_TEST( PoolManager, ReleasePoolNS )
     {
         PoolManager m;
-        auto pool = m.AddPool< PoolTest >();
+        auto pool = m.Add< PoolTest >();
 
-        EXPECT_TRUE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( pool, m.GetPool< PoolTest >() );
+        EXPECT_TRUE( m.Has< PoolTest >() );
+        EXPECT_EQ( pool, m.Get< PoolTest >() );
 
 
-        auto pool2 = m.AddPool< PoolTest >( 1 );
+        auto pool2 = m.Add< PoolTest >( 1 );
 
-        EXPECT_TRUE( m.HasPool< PoolTest >( 1 ) );
-        EXPECT_EQ( pool2, m.GetPool< PoolTest >( 1 ) );
+        EXPECT_TRUE( m.Has< PoolTest >( 1 ) );
+        EXPECT_EQ( pool2, m.Get< PoolTest >( 1 ) );
 
-        m.ReleasePool< PoolTest >();
+        m.Remove< PoolTest >();
 
-        EXPECT_FALSE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( nullptr, m.GetPool< PoolTest >() );
+        EXPECT_FALSE( m.Has< PoolTest >() );
+        EXPECT_EQ( nullptr, m.Get< PoolTest >() );
 
-        EXPECT_TRUE( m.HasPool< PoolTest >( 1 ) );
-        EXPECT_EQ( pool2, m.GetPool< PoolTest >( 1 ) );
+        EXPECT_TRUE( m.Has< PoolTest >( 1 ) );
+        EXPECT_EQ( pool2, m.Get< PoolTest >( 1 ) );
     }
 
     ENGINE_TEST( PoolManager, ReleasePools )
     {
         PoolManager m;
-        auto pool = m.AddPool< PoolTest >();
+        auto pool = m.Add< PoolTest >();
 
-        EXPECT_TRUE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( pool, m.GetPool< PoolTest >() );
+        EXPECT_TRUE( m.Has< PoolTest >() );
+        EXPECT_EQ( pool, m.Get< PoolTest >() );
 
 
-        auto pool2 = m.AddPool< PoolTest >( 1 );
+        auto pool2 = m.Add< PoolTest >( 1 );
 
-        EXPECT_TRUE( m.HasPool< PoolTest >( 1 ) );
-        EXPECT_EQ( pool2, m.GetPool< PoolTest >( 1 ) );
+        EXPECT_TRUE( m.Has< PoolTest >( 1 ) );
+        EXPECT_EQ( pool2, m.Get< PoolTest >( 1 ) );
 
-        m.ReleasePools( 1 );
+        m.ClearAll( 1 );
 
-        EXPECT_FALSE( m.HasPool< PoolTest >( 1 ) );
-        EXPECT_EQ( nullptr, m.GetPool< PoolTest >( 1 ) );
+        EXPECT_FALSE( m.Has< PoolTest >( 1 ) );
+        EXPECT_EQ( nullptr, m.Get< PoolTest >( 1 ) );
 
-        EXPECT_TRUE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( pool, m.GetPool< PoolTest >() );
+        EXPECT_TRUE( m.Has< PoolTest >() );
+        EXPECT_EQ( pool, m.Get< PoolTest >() );
     }
 
     ENGINE_TEST( PoolManager, OnReleaseNS )
     {
         PoolManager m;
-        auto pool = m.AddPool< PoolTest >();
+        auto pool = m.Add< PoolTest >();
 
-        EXPECT_TRUE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( pool, m.GetPool< PoolTest >() );
+        EXPECT_TRUE( m.Has< PoolTest >() );
+        EXPECT_EQ( pool, m.Get< PoolTest >() );
 
 
-        auto pool2 = m.AddPool< PoolTest >( 1 );
+        auto pool2 = m.Add< PoolTest >( 1 );
 
-        EXPECT_TRUE( m.HasPool< PoolTest >( 1 ) );
-        EXPECT_EQ( pool2, m.GetPool< PoolTest >( 1 ) );
+        EXPECT_TRUE( m.Has< PoolTest >( 1 ) );
+        EXPECT_EQ( pool2, m.Get< PoolTest >( 1 ) );
 
         m.OnRelease( 1 );
 
-        EXPECT_FALSE( m.HasPool< PoolTest >( 1 ) );
-        EXPECT_EQ( nullptr, m.GetPool< PoolTest >( 1 ) );
+        EXPECT_FALSE( m.Has< PoolTest >( 1 ) );
+        EXPECT_EQ( nullptr, m.Get< PoolTest >( 1 ) );
 
-        EXPECT_TRUE( m.HasPool< PoolTest >() );
-        EXPECT_EQ( pool, m.GetPool< PoolTest >() );
+        EXPECT_TRUE( m.Has< PoolTest >() );
+        EXPECT_EQ( pool, m.Get< PoolTest >() );
 
         EXPECT_TRUE( m.HasPools( 0 ) );
         EXPECT_FALSE( m.HasPools( 1 ) );

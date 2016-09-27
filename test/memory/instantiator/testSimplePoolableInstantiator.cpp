@@ -38,11 +38,11 @@ namespace
         volatile SimplePoolableInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( SimplePoolableInstantiator, CreateInstance )
+    ENGINE_TEST( SimplePoolableInstantiator, Create )
     {
         SimplePoolableInstantiatorImpl inst;
 
-        U32 *child = inst.CreateInstance();
+        U32 *child = inst.Create();
 
         delete child;
     }
@@ -51,36 +51,36 @@ namespace
     {
         SimplePoolableInstantiatorImpl inst;
 
-        U32 *child = inst.CreateInstance();
+        U32 *child = inst.Create();
 
-        inst.InitialiseObject( child );
-
-        delete child;
-    }
-
-    ENGINE_TEST( SimplePoolableInstantiator, ReleaseObject )
-    {
-        SimplePoolableInstantiatorImpl inst;
-
-        U32 *child = inst.CreateInstance();
-
-        inst.InitialiseObject( child );
-        inst.ReleaseObject( child );
+        inst.Initialise( child );
 
         delete child;
     }
 
-    ENGINE_TEST( SimplePoolableInstantiator, DestroyObject )
+    ENGINE_TEST( SimplePoolableInstantiator, Release )
     {
         SimplePoolableInstantiatorImpl inst;
 
-        U32 *child = inst.CreateInstance();
+        U32 *child = inst.Create();
 
-        inst.InitialiseObject( child );
+        inst.Initialise( child );
+        inst.Release( child );
 
-        inst.ReleaseObject( child );
+        delete child;
+    }
 
-        inst.DestroyObject( child );
+    ENGINE_TEST( SimplePoolableInstantiator, Destroy )
+    {
+        SimplePoolableInstantiatorImpl inst;
+
+        U32 *child = inst.Create();
+
+        inst.Initialise( child );
+
+        inst.Release( child );
+
+        inst.Destroy( child );
     }
 
     ENGINE_TEST( SimplePoolableInstantiator, Copy )

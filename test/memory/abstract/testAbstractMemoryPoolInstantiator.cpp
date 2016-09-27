@@ -36,12 +36,12 @@ namespace
     {
     public:
 
-        U32 *CreateInstance() override
+        U32 *Create() override
         {
             return new U32;
         }
 
-        void DestroyObject( U32 *object ) override
+        void Destroy( U32 *object ) override
         {
             delete object;
         }
@@ -58,24 +58,24 @@ namespace
         ImplMemoryPooledInstantiator inst;
     }
 
-    ENGINE_TEST( AbstractMemoryPoolInstantiator, CreateInstance )
+    ENGINE_TEST( AbstractMemoryPoolInstantiator, Create )
     {
         AbstractMemoryPoolInstantiator< U32 > *inst = new ImplMemoryPooledInstantiator;
-        delete inst->CreateInstance();
+        delete inst->Create();
         delete inst;
     }
 
-    ENGINE_TEST( AbstractMemoryPoolInstantiator, DestroyObject )
+    ENGINE_TEST( AbstractMemoryPoolInstantiator, Destroy )
     {
         AbstractMemoryPoolInstantiator< U32 > *inst = new ImplMemoryPooledInstantiator;
-        inst->DestroyObject( new U32 );
+        inst->Destroy( new U32 );
         delete inst;
     }
 
     ENGINE_TEST( AbstractMemoryPoolInstantiator, CreateDestroy )
     {
         AbstractMemoryPoolInstantiator< U32 > *inst = new ImplMemoryPooledInstantiator;
-        inst->DestroyObject( inst->CreateInstance() );
+        inst->Destroy( inst->Create() );
         delete inst;
     }
 

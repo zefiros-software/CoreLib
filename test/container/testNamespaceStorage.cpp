@@ -251,7 +251,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueC2, 4, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueD2, 5, Namespace( 1, 2 ) ) );
 
-        storage.RemoveObjects();
+        storage.Clear();
 
         EXPECT_EQ( nullptr, storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( nullptr, storage.Get( 1, Namespace( 0, 2 ) ) );
@@ -291,7 +291,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueC2, 4, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueD2, 5, Namespace( 1, 2 ) ) );
 
-        storage.RemoveObjectsByNamespace( 0u );
+        storage.Clear( 0u );
 
         EXPECT_FALSE( storage.HasNamespace( 0u ) );
         EXPECT_FALSE( storage.HasNamespace( Namespace( 0, 1 ) ) );
@@ -301,15 +301,15 @@ namespace
         EXPECT_TRUE( storage.HasNamespace( Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.HasNamespace( Namespace( 1, 2 ) ) );
 
-        EXPECT_FALSE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_FALSE( storage.HasName( 1, Namespace( 0, 2 ) ) );
-        EXPECT_FALSE( storage.HasName( 2, Namespace( 0, 1 ) ) );
-        EXPECT_FALSE( storage.HasName( 3, Namespace( 0, 2 ) ) );
+        EXPECT_FALSE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_FALSE( storage.Has( 1, Namespace( 0, 2 ) ) );
+        EXPECT_FALSE( storage.Has( 2, Namespace( 0, 1 ) ) );
+        EXPECT_FALSE( storage.Has( 3, Namespace( 0, 2 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 1, Namespace( 1, 2 ) ) );
-        EXPECT_TRUE( storage.HasName( 4, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 5, Namespace( 1, 2 ) ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 1, Namespace( 1, 2 ) ) );
+        EXPECT_TRUE( storage.Has( 4, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 5, Namespace( 1, 2 ) ) );
 
         EXPECT_EQ( nullptr, storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( nullptr, storage.Get( 1, Namespace( 0, 2 ) ) );
@@ -353,7 +353,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueC2, 4, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueD2, 5, Namespace( 1, 2 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 0, 1 ) );
+        storage.Clear( Namespace( 0, 1 ) );
 
         EXPECT_TRUE( storage.HasNamespace( 0u ) );
         EXPECT_FALSE( storage.HasNamespace( Namespace( 0, 1 ) ) );
@@ -363,15 +363,15 @@ namespace
         EXPECT_TRUE( storage.HasNamespace( Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.HasNamespace( Namespace( 1, 2 ) ) );
 
-        EXPECT_FALSE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 1, Namespace( 0, 2 ) ) );
-        EXPECT_FALSE( storage.HasName( 2, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 3, Namespace( 0, 2 ) ) );
+        EXPECT_FALSE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 1, Namespace( 0, 2 ) ) );
+        EXPECT_FALSE( storage.Has( 2, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 3, Namespace( 0, 2 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 1, Namespace( 1, 2 ) ) );
-        EXPECT_TRUE( storage.HasName( 4, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 5, Namespace( 1, 2 ) ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 1, Namespace( 1, 2 ) ) );
+        EXPECT_TRUE( storage.Has( 4, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 5, Namespace( 1, 2 ) ) );
 
         EXPECT_EQ( nullptr, storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( *valueB, *storage.Get( 1, Namespace( 0, 2 ) ) );
@@ -408,13 +408,13 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 0 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 0 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 0, 0 ) );
+        storage.Clear( Namespace( 0, 0 ) );
 
-        EXPECT_FALSE( storage.HasName( 0, Namespace( 0, 0 ) ) );
-        EXPECT_FALSE( storage.HasName( 2, Namespace( 0, 0 ) ) );
+        EXPECT_FALSE( storage.Has( 0, Namespace( 0, 0 ) ) );
+        EXPECT_FALSE( storage.Has( 2, Namespace( 0, 0 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 6, Namespace( 1, 0 ) ) );
-        EXPECT_TRUE( storage.HasName( 8, Namespace( 1, 0 ) ) );
+        EXPECT_TRUE( storage.Has( 6, Namespace( 1, 0 ) ) );
+        EXPECT_TRUE( storage.Has( 8, Namespace( 1, 0 ) ) );
 
         EXPECT_EQ( nullptr, storage.Get( 0, Namespace( 0, 0 ) ) );
         EXPECT_EQ( nullptr, storage.Get( 2, Namespace( 0, 0 ) ) );
@@ -439,13 +439,13 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 1, 1 ) );
+        storage.Clear( Namespace( 1, 1 ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 2, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 2, Namespace( 0, 1 ) ) );
 
-        EXPECT_FALSE( storage.HasName( 6, Namespace( 1, 1 ) ) );
-        EXPECT_FALSE( storage.HasName( 8, Namespace( 1, 1 ) ) );
+        EXPECT_FALSE( storage.Has( 6, Namespace( 1, 1 ) ) );
+        EXPECT_FALSE( storage.Has( 8, Namespace( 1, 1 ) ) );
 
         EXPECT_EQ( *valueA, *storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( *valueB, *storage.Get( 2, Namespace( 0, 1 ) ) );
@@ -470,13 +470,13 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 2, 1 ) );
+        storage.Clear( Namespace( 2, 1 ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 2, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 2, Namespace( 0, 1 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 6, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 8, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 6, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 8, Namespace( 1, 1 ) ) );
 
         EXPECT_EQ( *valueA, *storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( *valueB, *storage.Get( 2, Namespace( 0, 1 ) ) );
@@ -501,13 +501,13 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 0, 2 ) );
+        storage.Clear( Namespace( 0, 2 ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 2, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 2, Namespace( 0, 1 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 6, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 8, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 6, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 8, Namespace( 1, 1 ) ) );
 
         EXPECT_EQ( *valueA, *storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( *valueB, *storage.Get( 2, Namespace( 0, 1 ) ) );
@@ -532,13 +532,13 @@ namespace
         EXPECT_TRUE( storage.Add( valueA2, 6, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueB2, 8, Namespace( 1, 1 ) ) );
 
-        storage.RemoveObjectsByNamespace( Namespace( 2, 0 ) );
+        storage.Clear( Namespace( 2, 0 ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 2, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 2, Namespace( 0, 1 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 6, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 8, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 6, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 8, Namespace( 1, 1 ) ) );
 
         EXPECT_EQ( *valueA, *storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( *valueB, *storage.Get( 2, Namespace( 0, 1 ) ) );
@@ -573,7 +573,7 @@ namespace
         EXPECT_TRUE( storage.Add( valueC2, 4, Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.Add( valueD2, 5, Namespace( 1, 2 ) ) );
 
-        storage.RemoveObjectByName( 0, Namespace( 0, 1 ) );
+        storage.Remove( 0, Namespace( 0, 1 ) );
 
         EXPECT_TRUE( storage.HasNamespace( 0u ) );
         EXPECT_TRUE( storage.HasNamespace( Namespace( 0, 1 ) ) );
@@ -583,15 +583,15 @@ namespace
         EXPECT_TRUE( storage.HasNamespace( Namespace( 1, 1 ) ) );
         EXPECT_TRUE( storage.HasNamespace( Namespace( 1, 2 ) ) );
 
-        EXPECT_FALSE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 1, Namespace( 0, 2 ) ) );
-        EXPECT_TRUE( storage.HasName( 2, Namespace( 0, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 3, Namespace( 0, 2 ) ) );
+        EXPECT_FALSE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 1, Namespace( 0, 2 ) ) );
+        EXPECT_TRUE( storage.Has( 2, Namespace( 0, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 3, Namespace( 0, 2 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 1, Namespace( 1, 2 ) ) );
-        EXPECT_TRUE( storage.HasName( 4, Namespace( 1, 1 ) ) );
-        EXPECT_TRUE( storage.HasName( 5, Namespace( 1, 2 ) ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 1, Namespace( 1, 2 ) ) );
+        EXPECT_TRUE( storage.Has( 4, Namespace( 1, 1 ) ) );
+        EXPECT_TRUE( storage.Has( 5, Namespace( 1, 2 ) ) );
 
         EXPECT_EQ( nullptr, storage.Get( 0, Namespace( 0, 1 ) ) );
         EXPECT_EQ( *valueB, *storage.Get( 1, Namespace( 0, 2 ) ) );
@@ -622,8 +622,8 @@ namespace
         EXPECT_TRUE( storage.Add( value, 0, Namespace( 2, 1 ) ) );
         EXPECT_TRUE( storage.Add( value2, 1, Namespace( 2, 2 ) ) );
 
-        storage.RemoveObjectByName( 0, Namespace( 2, 1 ) );
-        EXPECT_FALSE( storage.HasName( 0, Namespace( 2, 1 ) ) );
+        storage.Remove( 0, Namespace( 2, 1 ) );
+        EXPECT_FALSE( storage.Has( 0, Namespace( 2, 1 ) ) );
     }
 
     ENGINE_TEST( NamespaceStorage, RemoveObjectByNameNotExists )
@@ -634,8 +634,8 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        storage.RemoveObjectByName( 1 );
-        EXPECT_TRUE( storage.HasName( 0 ) );
+        storage.Remove( 1 );
+        EXPECT_TRUE( storage.Has( 0 ) );
     }
 
     ENGINE_TEST( NamespaceStorage, RemoveObjectByNameNotExists2 )
@@ -646,8 +646,8 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        storage.RemoveObjectByName( 1, Namespace( 2, 1 ) );
-        EXPECT_TRUE( storage.HasName( 0 ) );
+        storage.Remove( 1, Namespace( 2, 1 ) );
+        EXPECT_TRUE( storage.Has( 0 ) );
     }
 
     ENGINE_TEST( NamespaceStorage, HasName )
@@ -658,7 +658,7 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0 ) );
 
-        EXPECT_TRUE( storage.HasName( 0 ) );
+        EXPECT_TRUE( storage.Has( 0 ) );
     }
 
     ENGINE_TEST( NamespaceStorage, HasNamePlugin )
@@ -669,7 +669,7 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0, 1u ) );
 
-        EXPECT_TRUE( storage.HasName( 0, 1u ) );
+        EXPECT_TRUE( storage.Has( 0, 1u ) );
     }
 
     ENGINE_TEST( NamespaceStorage, HasNameAddin )
@@ -680,15 +680,15 @@ namespace
 
         EXPECT_TRUE( storage.Add( value, 0, Namespace( 0, 1 ) ) );
 
-        EXPECT_TRUE( storage.HasName( 0, Namespace( 0, 1 ) ) );
-        EXPECT_FALSE( storage.HasName( 0 ) );
+        EXPECT_TRUE( storage.Has( 0, Namespace( 0, 1 ) ) );
+        EXPECT_FALSE( storage.Has( 0 ) );
     }
 
     ENGINE_TEST( NamespaceStorage, HasNameNotExisting )
     {
         NamespaceStorage< U32, U32 > storage;
 
-        EXPECT_FALSE( storage.HasName( 0 ) );
+        EXPECT_FALSE( storage.Has( 0 ) );
     }
 
     ENGINE_TEST( NamespaceStorage, HasNamespace )

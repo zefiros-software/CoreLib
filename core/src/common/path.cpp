@@ -286,7 +286,7 @@ namespace Path
         // fetch the required buffer size
         _NSGetExecutablePath( result, &count );
         _NSGetExecutablePath( result, &buffl );
- 
+
         return std::string( result, ( count <= PATH_MAX ) ? count : 0 );
 #endif
     }
@@ -294,7 +294,7 @@ namespace Path
     std::string GetDataDirectory()
     {
 #if OS_IS_WINDOWS
-        return FixStyle( Environment::GetVariable( "APPDATA" ) );
+        return FixStyle( Environment::Get( "APPDATA" ) );
 #elif OS_IS_LINUX
         return FixStyle( "~/local/share/" );
 #elif OS_IS_MACOS
@@ -305,7 +305,7 @@ namespace Path
     std::string GetSharedDataDirectory()
     {
 #if OS_IS_WINDOWS
-        return FixStyle( Environment::GetVariable( "ALLUSERSPROFILE" ) );
+        return FixStyle( Environment::Get( "ALLUSERSPROFILE" ) );
 #elif OS_IS_LINUX
         return "/usr/local/";
 #elif OS_IS_MACOS

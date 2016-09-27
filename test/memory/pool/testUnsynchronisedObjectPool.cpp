@@ -113,24 +113,24 @@ namespace
 
         }
 
-        virtual U32 *CreateInstance() override
+        virtual U32 *Create() override
         {
             created = true;
             return new U32( 0 );
         }
 
-        virtual void DestroyObject( U32 *object ) override
+        virtual void Destroy( U32 *object ) override
         {
             destroyed = true;
             delete object;
         }
 
-        virtual void InitialiseObject( U32 *const object ) override
+        virtual void Initialise( U32 *const object ) override
         {
             *object = 42;
         }
 
-        virtual void ReleaseObject( U32 *const object ) override
+        virtual void Release( U32 *const object ) override
         {
             *object = 0;
         }
