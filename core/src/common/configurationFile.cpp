@@ -39,7 +39,7 @@ ConfigurationFile::~ConfigurationFile() noexcept
 
 }
 
-std::string ConfigurationFile::GetString( const std::string &key ) const
+std::string ConfigurationFile::GetString( const std::string &key ) const noexcept
 {
     auto it = mStrings.find( key );
 
@@ -56,7 +56,7 @@ std::string ConfigurationFile::GetString( const std::string &key ) const
 }
 
 
-bool ConfigurationFile::GetBool( const std::string &key ) const
+bool ConfigurationFile::GetBool( const std::string &key ) const noexcept
 {
     auto it = mBools.find( key );
 
@@ -72,7 +72,7 @@ bool ConfigurationFile::GetBool( const std::string &key ) const
     return false;
 }
 
-F32 ConfigurationFile::GetFloat( const std::string &key ) const
+F32 ConfigurationFile::GetFloat( const std::string &key ) const noexcept
 {
     auto it = mFloats.find( key );
 
@@ -88,7 +88,7 @@ F32 ConfigurationFile::GetFloat( const std::string &key ) const
     return 0.0f;
 }
 
-S32 ConfigurationFile::GetInt( const std::string &key ) const
+S32 ConfigurationFile::GetInt( const std::string &key ) const noexcept
 {
     auto it = mInts.find( key );
 
@@ -104,27 +104,27 @@ S32 ConfigurationFile::GetInt( const std::string &key ) const
     return 0;
 }
 
-bool ConfigurationFile::IsStringKey( const std::string &key ) const
+bool ConfigurationFile::IsStringKey( const std::string &key ) const noexcept
 {
     return mStrings.find( key ) != mStrings.end();
 }
 
-bool ConfigurationFile::IsFloatKey( const std::string &key ) const
+bool ConfigurationFile::IsFloatKey( const std::string &key ) const noexcept
 {
     return mFloats.find( key ) != mFloats.end();
 }
 
-bool ConfigurationFile::IsBoolKey( const std::string &key ) const
+bool ConfigurationFile::IsBoolKey( const std::string &key ) const noexcept
 {
     return mBools.find( key ) != mBools.end();
 }
 
-bool ConfigurationFile::IsIntKey( const std::string &key ) const
+bool ConfigurationFile::IsIntKey( const std::string &key ) const noexcept
 {
     return mInts.find( key ) != mInts.end();
 }
 
-bool ConfigurationFile::HasKey( const std::string &key ) const
+bool ConfigurationFile::HasKey( const std::string &key ) const noexcept
 {
     return mKeysUsed.find( key ) != mKeysUsed.end();
 }
@@ -221,7 +221,7 @@ ConfigurationFile::ParseError ConfigurationFile::SetInt( const std::string &key,
 }
 
 bool ConfigurationFile::AddStringKey( const std::string &key, const std::string &defaultValue,
-                                      const std::string &comment /*= ""*/ )
+                                      const std::string &comment /*= ""*/ ) noexcept
 {
     if ( HasKey( key ) || key.empty() )
     {
@@ -237,7 +237,8 @@ bool ConfigurationFile::AddStringKey( const std::string &key, const std::string 
     return true;
 }
 
-bool ConfigurationFile::AddBoolKey( const std::string &key, bool defaultValue, const std::string &comment /*= ""*/ )
+bool ConfigurationFile::AddBoolKey( const std::string &key, bool defaultValue,
+                                    const std::string &comment /*= ""*/ ) noexcept
 {
     if ( HasKey( key ) || key.empty() )
     {
@@ -253,7 +254,8 @@ bool ConfigurationFile::AddBoolKey( const std::string &key, bool defaultValue, c
     return true;
 }
 
-bool ConfigurationFile::AddFloatKey( const std::string &key, F32 defaultValue, const std::string &comment /*= ""*/ )
+bool ConfigurationFile::AddFloatKey( const std::string &key, F32 defaultValue,
+                                     const std::string &comment /*= ""*/ ) noexcept
 {
     if ( HasKey( key ) || key.empty() )
     {
@@ -269,7 +271,8 @@ bool ConfigurationFile::AddFloatKey( const std::string &key, F32 defaultValue, c
     return true;
 }
 
-bool ConfigurationFile::AddIntKey( const std::string &key, S32 defaultValue, const std::string &comment /*= ""*/ )
+bool ConfigurationFile::AddIntKey( const std::string &key, S32 defaultValue,
+                                   const std::string &comment /*= ""*/ ) noexcept
 {
     if ( HasKey( key ) || key.empty() )
     {
@@ -637,7 +640,7 @@ bool ConfigurationFile::FixUnsetKeys( const std::string &lastLine )
     return success;
 }
 
-size_t ConfigurationFile::GetCommentPosition( const std::string &line )
+size_t ConfigurationFile::GetCommentPosition( const std::string &line ) noexcept
 {
     std::string cur = "";
     S32 countQ1 = 0;
@@ -676,7 +679,7 @@ size_t ConfigurationFile::GetCommentPosition( const std::string &line )
     return line.npos;
 }
 
-size_t ConfigurationFile::RemoveComment( std::string &line )
+size_t ConfigurationFile::RemoveComment( std::string &line ) noexcept
 {
     if ( line.find( '\'' ) != line.npos || line.find( '\"' ) != line.npos )
     {
@@ -689,15 +692,13 @@ size_t ConfigurationFile::RemoveComment( std::string &line )
 
         return commentPos;
     }
-    else
+
+    const size_t pos = line.find( '#' );
+
+    if ( pos != line.npos )
     {
-        const size_t pos = line.find( '#' );
-
-        if ( pos != line.npos )
-        {
-            line.erase( pos, line.npos );
-        }
-
-        return line.npos;
+        line.erase( pos, line.npos );
     }
+
+    return line.npos;
 }

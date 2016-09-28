@@ -85,7 +85,7 @@ bool ApplicationManager::IsDebug()
 #endif
 }
 
-std::string ApplicationManager::GetVersion()
+std::string ApplicationManager::GetVersion() const
 {
     return String::Format( "%i.%i.%i", PROGRAM_VERSION_MAJOR, PROGRAM_VERSION_MINOR, PROGRAM_VERSION_REVISION );
 }

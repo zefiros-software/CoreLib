@@ -37,7 +37,7 @@ class UnsynchronisedMemoryPoolableInstantiator
 {
 public:
 
-    UnsynchronisedMemoryPoolableInstantiator( size_t blocksize = 1000, size_t maxBlocks = 1000 )
+    UnsynchronisedMemoryPoolableInstantiator( size_t blocksize = 1000, size_t maxBlocks = 1000 ) noexcept
         : mMemoryPool( blocksize, maxBlocks )
     {
     }

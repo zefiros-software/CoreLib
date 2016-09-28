@@ -79,14 +79,14 @@ public:
         return true;
     }
 
-    size_t Size() const
+    size_t Size() const noexcept
     {
         std::unique_lock< std::mutex > mlocalLock( mLock );
 
         return mInternalQueue.size();
     }
 
-    bool Empty() const
+    bool Empty() const noexcept
     {
         std::unique_lock< std::mutex > mlocalLock( mLock );
 

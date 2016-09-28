@@ -25,56 +25,9 @@
  */
 
 #pragma once
-#ifndef __ENGINE_UTILCLASSES_H__
-#define __ENGINE_UTILCLASSES_H__
+#ifndef __PLUGIN_H__
+#define __PLUGIN_H__
 
-/// @addtogroup docCommon
-/// @{
-
-/// @addtogroup docCommon_Utility
-/// @{
-
-/// @addtogroup docCommon_Utility_Classes
-/// @{
-
-/**
- * Derive from this class to prohibit copy construction and copy assignment.
- */
-template< typename tT >
-class NonCopyable
-{
-protected:
-
-    NonCopyable() noexcept
-    {
-    }
-
-    ~NonCopyable()
-    {
-    }
-
-private:
-
-    NonCopyable &operator=( const NonCopyable & );
-    NonCopyable( const NonCopyable & );
-};
-
-/**
- * Derive from this class to prohibit copy assignment.
- */
-
-template< typename tT >
-class NonAssignable
-{
-private:
-
-    NonAssignable &operator=( const NonAssignable & );
-};
-
-/// @}
-
-/// @}
-
-/// @}
+#define API extern "C" BOOST_SYMBOL_EXPORT
 
 #endif

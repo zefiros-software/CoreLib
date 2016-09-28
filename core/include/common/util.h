@@ -361,7 +361,7 @@ namespace Util
      * @snippet testUtil.cpp HashCombine
      */
 
-    U32 BitExponent( U64 in );
+    U32 BitExponent( U64 in ) noexcept;
 
     /**
      * Nearest power of 2 of the given value.
@@ -378,7 +378,7 @@ namespace Util
      */
 
     template< class tT >
-    tT NearestPower2( tT in )
+    tT NearestPower2( tT in ) noexcept
     {
         static_assert( std::is_integral<tT>::value, "The type should be integral to have meaning." );
         return  static_cast< tT >( Mathf::Pow( 2, static_cast< F64 >( BitExponent( in ) ) ) );
@@ -418,7 +418,7 @@ namespace Util
     /// @}
 
 
-    std::tm Now();
+    std::tm Now() noexcept;
 };
 
 /// @}

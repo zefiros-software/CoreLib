@@ -124,7 +124,7 @@ public:
      * @return  The object.
      */
 
-    tBase *Get()
+    tBase *Get() noexcept
     {
         return mPooledObject;
     }
@@ -135,7 +135,7 @@ public:
      * @return  The object.
      */
 
-    const tBase *Get() const
+    const tBase *Get() const noexcept
     {
         return mPooledObject;
     }
@@ -146,7 +146,7 @@ public:
      * @return  The object.
      */
 
-    operator tBase *()
+    operator tBase *() noexcept
     {
         return mPooledObject;
     }
@@ -157,7 +157,7 @@ public:
      * @return  The object.
      */
 
-    tBase *operator*()
+    tBase *operator*() noexcept
     {
         return mPooledObject;
     }
@@ -168,7 +168,7 @@ public:
      * @return  The object.
      */
 
-    tBase *operator->()
+    tBase *operator->() noexcept
     {
         return mPooledObject;
     }
@@ -179,7 +179,7 @@ public:
      * @return  The object.
      */
 
-    const tBase *operator->() const
+    const tBase *operator->() const noexcept
     {
         return mPooledObject;
     }

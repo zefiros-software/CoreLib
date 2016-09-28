@@ -36,11 +36,11 @@ public:
 
     SpinLock() noexcept;
 
-    void lock();
+    void lock() noexcept;
 
-    bool try_lock();
+    bool try_lock() noexcept;
 
-    void unlock();
+    void unlock() noexcept;
 
 private:
 

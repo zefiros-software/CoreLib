@@ -44,7 +44,7 @@
 
 namespace Path
 {
-    std::string Get( const std::string &path, Type type /*= Type::Game */ )
+    std::string Get( const std::string &path, Type type /*= Type::Game */ ) noexcept
     {
         std::string from;
         bool resolve = true;
@@ -79,7 +79,7 @@ namespace Path
         return resolve ? Path::ResolveRelative( from, path ) : path;
     }
 
-    std::string ResolveRelative( const std::string &cfrom, const std::string &cto, bool sameRoot /*= true */ )
+    std::string ResolveRelative( const std::string &cfrom, const std::string &cto, bool sameRoot /*= true */ ) noexcept
     {
         std::string from = cfrom;
         std::string to = cto;
@@ -129,7 +129,7 @@ namespace Path
     }
 
 
-    std::string FixStyle( const std::string &filePath )
+    std::string FixStyle( const std::string &filePath ) noexcept
     {
         const boost::filesystem::path path( filePath );
         std::string newPath = path.generic_string();
@@ -149,7 +149,7 @@ namespace Path
         return newPath;
     }
 
-    std::string Canonical( const std::string &opath, bool absolute /*= false */ )
+    std::string Canonical( const std::string &opath, bool absolute /*= false */ ) noexcept
     {
         std::string path = opath;
 #if !(OS_IS_WINDOWS)
@@ -207,7 +207,7 @@ namespace Path
         return FixStyle( result.generic_string() );
     }
 
-    bool IsParent( const std::string &from, const std::string &to )
+    bool IsParent( const std::string &from, const std::string &to ) noexcept
     {
         const std::string canFrom = Canonical( from, true );
         const std::string canTo = Canonical( to, true );
@@ -216,7 +216,7 @@ namespace Path
         return relative.find( canFrom ) == 0;
     }
 
-    std::string GetFileName( const std::string &path, const bool stripExtension /*= false */ )
+    std::string GetFileName( const std::string &path, const bool stripExtension /*= false */ ) noexcept
     {
         const boost::filesystem::path fsPath( FixStyle( path ) );
         std::string filename;
@@ -233,44 +233,44 @@ namespace Path
         return filename;
     }
 
-    std::string GetDirectory( const std::string &path )
+    std::string GetDirectory( const std::string &path ) noexcept
     {
         return FixStyle( boost::filesystem::path( path ).parent_path().generic_string() );
     }
 
-    std::string GetExtension( const std::string &filepath, const bool addDot /*= false */ )
+    std::string GetExtension( const std::string &filepath, const bool addDot /*= false */ ) noexcept
     {
         const std::string fullExtension = boost::filesystem::path( filepath ).extension().generic_string();
 
         return addDot || fullExtension == "" ? fullExtension : fullExtension.substr( 1 );
     }
 
-    bool HasExtension( const std::string &filepath )
+    bool HasExtension( const std::string &filepath ) noexcept
     {
         return boost::filesystem::path( filepath ).has_extension();
     }
 
-    std::string GetUniqueFileName( const std::string &extension /*= ".tmp" */ )
+    std::string GetUniqueFileName( const std::string &extension /*= ".tmp" */ ) noexcept
     {
         return FixStyle( boost::filesystem::unique_path( "%%%%-%%%%-%%%%-%%%%" + extension ).generic_string() );
     }
 
-    std::string GetUniqueDirectory()
+    std::string GetUniqueDirectory() noexcept
     {
         return FixStyle( boost::filesystem::unique_path( "%%%%-%%%%-%%%%" ).generic_string() );
     }
 
-    std::string GetTempDirectory()
+    std::string GetTempDirectory() noexcept
     {
         return FixStyle( boost::filesystem::temp_directory_path().generic_string() );
     }
 
-    std::string GetExeDirectory()
+    std::string GetExeDirectory() noexcept
     {
         return FixStyle( boost::filesystem::path( GetExeFile() ).parent_path().generic_string() );
     }
 
-    std::string GetExeFile()
+    std::string GetExeFile() noexcept
     {
 #if OS_IS_WINDOWS
         char result[ MAX_PATH ];
@@ -291,7 +291,7 @@ namespace Path
 #endif
     }
 
-    std::string GetDataDirectory()
+    std::string GetDataDirectory() noexcept
     {
 #if OS_IS_WINDOWS
         return FixStyle( Environment::Get( "APPDATA" ) );
@@ -302,7 +302,7 @@ namespace Path
 #endif
     }
 
-    std::string GetSharedDataDirectory()
+    std::string GetSharedDataDirectory() noexcept
     {
 #if OS_IS_WINDOWS
         return FixStyle( Environment::Get( "ALLUSERSPROFILE" ) );
@@ -313,29 +313,29 @@ namespace Path
 #endif
     }
 
-    std::string GetProgramDirectory()
+    std::string GetProgramDirectory() noexcept
     {
         return GetExeDirectory();
     }
 
-    std::string GetProgramTempDirectory()
+    std::string GetProgramTempDirectory() noexcept
     {
         return String::Format( "%s%s/%s/", GetTempDirectory(), std::string( PROGRAM_COMPANY ), std::string( PROGRAM_NAME ) );
     }
 
-    std::string GetProgramDataDirectory()
+    std::string GetProgramDataDirectory() noexcept
     {
         return String::Format( "%s%s/%s/", GetDataDirectory(), std::string( PROGRAM_COMPANY ), std::string( PROGRAM_NAME ) );
     }
 
-    std::string GetProgramSharedDataDirectory()
+    std::string GetProgramSharedDataDirectory() noexcept
     {
         return String::Format( "%s%s/%s/", GetSharedDataDirectory(),
                                std::string( PROGRAM_COMPANY ),
                                std::string( PROGRAM_NAME ) );
     }
 
-    std::vector< boost::filesystem::path > List( const std::string &directory, bool recursive /*= false */ )
+    std::vector< boost::filesystem::path > List( const std::string &directory, bool recursive /*= false */ ) noexcept
     {
         std::vector< boost::filesystem::path > contents;
 
@@ -366,7 +366,7 @@ namespace Path
         return contents;
     }
 
-    std::vector< std::string > ListContent( const std::string &directory, bool recursive /*= false */ )
+    std::vector< std::string > ListContent( const std::string &directory, bool recursive /*= false */ ) noexcept
     {
         const std::vector< boost::filesystem::path > contents = List( directory, recursive );
         std::vector< std::string > result;
@@ -380,12 +380,12 @@ namespace Path
         return result;
     }
 
-    std::string GetWorkingDirectory()
+    std::string GetWorkingDirectory() noexcept
     {
         return Path::FixStyle( boost::filesystem::current_path().generic_string() );
     }
 
-    bool SetWorkingDirectory( const std::string &workingDirectory )
+    bool SetWorkingDirectory( const std::string &workingDirectory ) noexcept
     {
         bool success = true;
 
@@ -401,7 +401,7 @@ namespace Path
         return success;
     }
 
-    void DeleteAll( const std::string &path )
+    void DeleteAll( const std::string &path ) noexcept
     {
         boost::filesystem::remove_all( path );
     }

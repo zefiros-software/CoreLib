@@ -81,7 +81,7 @@ void ThreadPool::Init()
     }
 }
 
-bool ThreadPool::IsRunning() const
+bool ThreadPool::IsRunning() const noexcept
 {
     for ( auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it )
     {

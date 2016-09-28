@@ -27,25 +27,25 @@
 #include "events/profileEvents.h"
 
 ProfileEvent::ProfileEvent( const std::string &name,
-                            std::chrono::time_point< std::chrono::high_resolution_clock > time )
+                            std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept
     : mName( name ),
       mTime( time )
 {
 
 }
 
-std::string ProfileEvent::GetName() const
+std::string ProfileEvent::GetName() const noexcept
 {
     return mName;
 }
 
-std::chrono::time_point< std::chrono::high_resolution_clock > ProfileEvent::GetTime() const
+std::chrono::time_point< std::chrono::high_resolution_clock > ProfileEvent::GetTime() const noexcept
 {
     return mTime;
 }
 
 ProfileStartEvent::ProfileStartEvent( const std::string &name,
-                                      std::chrono::time_point< std::chrono::high_resolution_clock > time )
+                                      std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept
     : ProfileEvent( name, time )
 {
 
@@ -53,46 +53,46 @@ ProfileStartEvent::ProfileStartEvent( const std::string &name,
 
 ProfileEndEvent::ProfileEndEvent( const std::string &name,
                                   std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                                  std::chrono::microseconds duration )
+                                  std::chrono::microseconds duration ) noexcept
     : ProfileEvent( name, time ),
       mDuration( duration )
 {
 
 }
 
-std::chrono::microseconds ProfileEndEvent::GetDuration() const
+std::chrono::microseconds ProfileEndEvent::GetDuration() const noexcept
 {
     return mDuration;
 }
 
 ProfileWaypointEvent::ProfileWaypointEvent( const std::string &name, const std::string &comment,
                                             std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                                            std::chrono::microseconds duration )
+                                            std::chrono::microseconds duration ) noexcept
     : ProfileEndEvent( name, time, duration ),
       mComment( comment )
 {
 
 }
 
-std::string ProfileWaypointEvent::GetCommment() const
+std::string ProfileWaypointEvent::GetCommment() const noexcept
 {
     return mComment;
 }
 
 ProfileUpdateEvent::ProfileUpdateEvent( std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                                        std::chrono::microseconds duration )
+                                        std::chrono::microseconds duration ) noexcept
     : mDuration( duration ),
       mTime( time )
 {
 
 }
 
-std::chrono::time_point< std::chrono::high_resolution_clock > ProfileUpdateEvent::GetTime() const
+std::chrono::time_point< std::chrono::high_resolution_clock > ProfileUpdateEvent::GetTime() const noexcept
 {
     return mTime;
 }
 
-std::chrono::microseconds ProfileUpdateEvent::GetDuration() const
+std::chrono::microseconds ProfileUpdateEvent::GetDuration() const noexcept
 {
     return mDuration;
 }

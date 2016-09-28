@@ -68,7 +68,7 @@ private:
      * Starts memory leak detection.
      */
 
-    void StartMemoryLeakDetection();
+    static void StartMemoryLeakDetection();
 };
 
 /// @}

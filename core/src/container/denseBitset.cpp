@@ -63,17 +63,17 @@ DenseBitset::DenseBitset( size_t size /*= 0 */ ) noexcept
     Resize( size );
 }
 
-void DenseBitset::Reset()
+void DenseBitset::Reset() noexcept
 {
     std::fill( mBits.begin(), mBits.end(), 0x00 );
 }
 
-void DenseBitset::Resize( size_t size )
+void DenseBitset::Resize( size_t size ) noexcept
 {
     mBits.resize( ( size >> 6 ) + 1 );
 }
 
-bool DenseBitset::operator[]( size_t bit ) const
+bool DenseBitset::operator[]( size_t bit ) const noexcept
 {
     return ( ( mBits[( bit >> 6 )] ) & ( static_cast< U64 >( 1 ) << ( bit & 63 ) ) ) != 0;
 }

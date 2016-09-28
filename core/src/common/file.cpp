@@ -48,7 +48,7 @@ namespace File
         stream.open( Get( relFilepath, type ), mode );
     }
 
-    std::string TempGet()
+    std::string TempGet() noexcept
     {
         return String::Format( "%s/%s", Path::GetProgramTempDirectory(), Path::GetUniqueFileName() );
     }
@@ -66,12 +66,12 @@ namespace File
         Open( stream, filePath, Path::Type::None, mode );
     }
 
-    bool Exists( const std::string &filepath )
+    bool Exists( const std::string &filepath ) noexcept
     {
         return boost::filesystem::exists( filepath ) && boost::filesystem::is_regular_file( filepath );
     }
 
-    U64 Size( const std::string &filepath )
+    U64 Size( const std::string &filepath ) noexcept
     {
         if ( Exists( filepath ) )
         {
@@ -81,7 +81,7 @@ namespace File
         return 0;
     }
 
-    bool IsEmpty( const std::string &filepath )
+    bool IsEmpty( const std::string &filepath ) noexcept
     {
         return boost::filesystem::is_empty( filepath );
     }
@@ -139,7 +139,7 @@ namespace File
         return content;
     }
 
-    std::time_t GetLastModified( const std::string &path )
+    std::time_t GetLastModified( const std::string &path ) noexcept
     {
         if ( File::Exists( path ) )
         {
@@ -149,7 +149,7 @@ namespace File
         return 0;
     }
 
-    std::vector< std::string > List( const std::string &directory, bool recursive /*= false */ )
+    std::vector< std::string > List( const std::string &directory, bool recursive /*= false */ ) noexcept
     {
         const std::vector< boost::filesystem::path > contents = Path::List( directory, recursive );
         std::vector< std::string > resultContents;
@@ -173,7 +173,7 @@ namespace File
         }
     }
 
-    void Clear( const std::string &filepath )
+    void Clear( const std::string &filepath ) noexcept
     {
         // only if the file exists
         if ( Exists( filepath ) )
@@ -183,7 +183,7 @@ namespace File
         }
     }
 
-    void Delete( const std::string &filepath )
+    void Delete( const std::string &filepath ) noexcept
     {
         if ( Exists( filepath ) )
         {

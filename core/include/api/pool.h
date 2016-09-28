@@ -33,24 +33,24 @@
 
 namespace Pool
 {
-    EXPOSE_API( pool, ReleasePool );
-    EXPOSE_API_NOARG( pool, ReleasePool );
+    EXPOSE_API( pool, Remove );
+    EXPOSE_API_NOARG( pool, Remove );
 
-    EXPOSE_API( pool, ReleasePools );
+    EXPOSE_API( pool, ClearAll );
 
-    EXPOSE_API( pool, AddPoolFromFactory );
-    EXPOSE_API_NOARG( pool, AddPoolFromFactory );
+    EXPOSE_API( pool, AddFromFactory );
+    EXPOSE_API_NOARG( pool, AddFromFactory );
 
-    EXPOSE_API( pool, AddPool );
-    EXPOSE_API_NOARG( pool, AddPool );
+    EXPOSE_API( pool, Add );
+    EXPOSE_API_NOARG( pool, Add );
 
-    EXPOSE_API( pool, GetPool );
-    EXPOSE_API_NOARG( pool, GetPool );
+    EXPOSE_API( pool, Get );
+    EXPOSE_API_NOARG( pool, Get );
 
     EXPOSE_API( pool, HasPools );
 
-    EXPOSE_API( pool, HasPool );
-    EXPOSE_API_NOARG( pool, HasPool );
+    EXPOSE_API( pool, Has );
+    EXPOSE_API_NOARG( pool, Has );
 }
 
 #endif

@@ -64,7 +64,7 @@ public:
      * @param   maxBlocks   (optional) the maximum amount of blocks.
      */
 
-    explicit UnsychronisedMemoryPoolInstantiator( const size_t blocksize = 1000, const size_t maxBlocks = 1000 )
+    explicit UnsychronisedMemoryPoolInstantiator( const size_t blocksize = 1000, const size_t maxBlocks = 1000 ) noexcept
         : mBlockSize( blocksize ),
           mMaxBlocks( maxBlocks )
     {

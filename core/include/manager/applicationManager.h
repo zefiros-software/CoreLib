@@ -80,9 +80,9 @@ public:
 
     void Quit();
 
-    bool IsDebug();
+    static bool IsDebug();
 
-    std::string GetVersion();
+    std::string GetVersion() const;
 
 private:
 

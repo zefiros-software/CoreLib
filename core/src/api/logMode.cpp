@@ -26,7 +26,7 @@
 
 #include "api/logMode.h"
 
-std::string Console::GetName( LogMode mode )
+std::string Console::GetName( LogMode mode ) noexcept
 {
     switch ( mode )
     {

@@ -23,14 +23,13 @@
  *
  * @endcond
  */
+#pragma once
+#ifndef __FACTORY_H__
+#define __FACTORY_H__
 
 #include "manager/factoryManager.h"
 
 #include "api/expose.h"
-
-#pragma once
-#ifndef __FACTORY_H__
-#define __FACTORY_H__
 
 namespace Factory
 {

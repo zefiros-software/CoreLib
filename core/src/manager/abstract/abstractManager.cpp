@@ -121,7 +121,7 @@ void AbstractManager::SetName( const std::string &name )
     mName = name;
 }
 
-const std::string &AbstractManager::GetName()
+const std::string &AbstractManager::GetName() const
 {
     return mName;
 }

@@ -238,7 +238,7 @@ namespace String
      * @snippet testUtil.cpp Trim
      */
 
-    std::string Trim( const std::string &str );
+    std::string Trim( const std::string &str ) noexcept;
 
     /**
      * Split a string into parts seperated by the given seperator.
@@ -263,7 +263,7 @@ namespace String
      * @snippet testUtil.cpp StringSplit Trimmed
      */
 
-    std::vector< std::string > Split( const std::string &str, char sep, bool trim = false );
+    std::vector< std::string > Split( const std::string &str, char sep, bool trim = false ) noexcept;
 
     /**
      * Replaces all occurrences of a certain string, in a larger string by an other given string.
@@ -282,7 +282,7 @@ namespace String
      * @snippet testUtil.cpp Replace
      */
 
-    std::string Replace( const std::string &str, const std::string &search, const std::string &format );
+    std::string Replace( const std::string &str, const std::string &search, const std::string &format ) noexcept;
 
     /**
      * Capitalises the given string, by uppercasing the first letter.
@@ -299,7 +299,7 @@ namespace String
      * @snippet testUtil.cpp Capitalise
      */
 
-    std::string Capitalise( const std::string &str );
+    std::string Capitalise( const std::string &str ) noexcept;
 
     /// @}
 

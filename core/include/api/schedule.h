@@ -34,37 +34,37 @@
 
 namespace Schedule
 {
-    API_EXPOSE( schedule, RunEventJobs );
+    EXPOSE_API( schedule, RunEventJobs );
 
-    API_EXPOSE( schedule, RegisterJob );
+    EXPOSE_API( schedule, RegisterJob );
 
-    API_EXPOSE( schedule, RegisterJob );
+    EXPOSE_API( schedule, RegisterJob );
 
-    API_EXPOSE( schedule, RegisterSynchronisationJob );
+    EXPOSE_API( schedule, RegisterSynchronisationJob );
 
-    API_EXPOSE( schedule, RunMainJobs );
+    EXPOSE_API( schedule, RunMainJobs );
 
-    API_EXPOSE( schedule, RunWorkerJobs );
+    EXPOSE_API( schedule, RunWorkerJobs );
 
-    API_EXPOSE( schedule, RunSynchronisationJobs );
+    EXPOSE_API( schedule, RunSynchronisationJobs );
 
-    API_EXPOSE( schedule, RunLoaderJobs );
+    EXPOSE_API( schedule, RunLoaderJobs );
 
-    API_EXPOSE( schedule, RunWorkerThreadGroupJobs );
+    EXPOSE_API( schedule, RunWorkerThreadGroupJobs );
 
-    API_EXPOSE( schedule, RunSynchronisationThreadGroupJobs );
+    EXPOSE_API( schedule, RunSynchronisationThreadGroupJobs );
 
-    API_EXPOSE( schedule, RunMainWorkerQueue );
+    EXPOSE_API( schedule, RunMainWorkerQueue );
 
-    API_EXPOSE( schedule, GetCurrentThreadID );
+    EXPOSE_API( schedule, GetCurrentThreadID );
 
-    API_EXPOSE( schedule, SetCurrentThreadID );
+    EXPOSE_API( schedule, SetCurrentThreadID );
 
-    API_EXPOSE( schedule, GetMainThreadID );
+    EXPOSE_API( schedule, GetMainThreadID );
 
-    API_EXPOSE( schedule,  GetThreadCount );
+    EXPOSE_API( schedule,  GetThreadCount );
 
-    API_EXPOSE( schedule, SetGlobalThreadID );
+    EXPOSE_API( schedule, SetGlobalThreadID );
 }
 
 #endif

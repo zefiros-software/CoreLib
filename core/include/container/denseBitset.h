@@ -59,11 +59,11 @@ public:
 
     DenseBitset( size_t size = 0 ) noexcept;
 
-    void Reset();
+    void Reset() noexcept;
 
-    void Resize( size_t size );
+    void Resize( size_t size ) noexcept;
 
-    bool operator[]( size_t bit ) const;
+    bool operator[]( size_t bit ) const noexcept;
 
     BitReference operator[]( size_t bit ) noexcept;
 

@@ -41,7 +41,7 @@ public:
 
     }
 
-    bool Insert( const tItem item )
+    bool Insert( const tItem item ) noexcept
     {
         auto it = mSearchBlock.find( item );
 
@@ -56,7 +56,7 @@ public:
         return false;
     }
 
-    bool Delete( const tItem item )
+    bool Delete( const tItem item ) noexcept
     {
         auto it = mSearchBlock.find( item );
 
@@ -76,29 +76,29 @@ public:
         return false;
     }
 
-    bool Has( const tItem item ) const
+    bool Has( const tItem item ) const noexcept
     {
         return mSearchBlock.find( item ) != mSearchBlock.end();
     }
 
-    void Clear()
+    void Clear() noexcept
     {
         mContiguousBlock.clear();
         mSearchBlock.clear();
         mSize = 0;
     }
 
-    size_t Size() const
+    size_t Size() const noexcept
     {
         return mSize;
     }
 
-    const std::vector< tItem > &GetValues() const
+    const std::vector< tItem > &GetValues() const noexcept
     {
         return mContiguousBlock;
     }
 
-    std::vector< tItem > &GetValues()
+    std::vector< tItem > &GetValues() noexcept
     {
         return mContiguousBlock;
     }

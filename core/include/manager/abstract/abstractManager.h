@@ -140,7 +140,7 @@ public:
      * @return  The manager name.
      */
 
-    const std::string &GetName();
+    const std::string &GetName() const;
 
     /// @}
 

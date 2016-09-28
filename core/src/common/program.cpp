@@ -46,7 +46,7 @@ void Program::Update() const
     SystemManager::Get()->GetManagers()->system->Update();
 }
 
-bool Program::IsRunning() const
+bool Program::IsRunning() const noexcept
 {
     return SystemManager::Get()->GetManagers()->application->IsRunning();
 }

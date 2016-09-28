@@ -49,11 +49,11 @@ public:
 
     void Push( IThreadExecutable * );
 
-    void Flush();
+    void Flush() noexcept;
 
     IThreadExecutable *Pop();
 
-    size_t Size();
+    size_t Size() noexcept;
 
 private:
 

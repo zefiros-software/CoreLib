@@ -26,7 +26,7 @@
 
 #include "memory/abstract/abstractInstantiator.h"
 
-AbstractInstantiator::AbstractInstantiator()
+AbstractInstantiator::AbstractInstantiator() noexcept
 {
 }
 

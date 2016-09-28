@@ -45,7 +45,7 @@ class AbstractInstantiator
 {
 public:
 
-    AbstractInstantiator();
+    AbstractInstantiator() noexcept;
 
     virtual ~AbstractInstantiator();
 

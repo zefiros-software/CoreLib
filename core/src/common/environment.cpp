@@ -37,7 +37,7 @@
 namespace Environment
 {
 
-    std::string Get( const std::string &var )
+    std::string Get( const std::string &var ) noexcept
     {
 #if OS_IS_WINDOWS
         char *buf = nullptr;
@@ -60,7 +60,7 @@ namespace Environment
 #endif
     }
 
-    bool Set( const std::string &var, const std::string &value )
+    bool Set( const std::string &var, const std::string &value ) noexcept
     {
 #if OS_IS_WINDOWS
         return _putenv( ( var + "=" + value ).c_str() ) == 0;
@@ -69,7 +69,7 @@ namespace Environment
 #endif
     }
 
-    bool Has( const std::string &var )
+    bool Has( const std::string &var ) noexcept
     {
 #if OS_IS_WINDOWS
         char *buf = nullptr;
@@ -84,7 +84,7 @@ namespace Environment
 #endif
     }
 
-    bool Remove( const std::string &var )
+    bool Remove( const std::string &var ) noexcept
     {
 #if OS_IS_WINDOWS
         return Environment::Set( var, "" );

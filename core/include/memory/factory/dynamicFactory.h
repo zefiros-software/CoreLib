@@ -105,7 +105,7 @@ public:
      */
 
     template < typename Instantiated >
-    bool Register( const tName &name )
+    bool Register( const tName &name ) noexcept
     {
         Instantiator< Instantiated, tBase > *instantiator = new Instantiator< Instantiated, tBase >;
 
@@ -130,7 +130,7 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool RegisterExt( AbstractTInstantiator< tBase > *factory, const tName &name )
+    bool RegisterExt( AbstractTInstantiator< tBase > *factory, const tName &name ) noexcept
     {
         const auto it = mInstantiators.find( name );
 
@@ -150,7 +150,7 @@ public:
      * @param   name    Identifier for the instantiator.
      */
 
-    void Remove( const tName &name )
+    void Remove( const tName &name ) noexcept
     {
         const auto it = mInstantiators.find( name );
 
@@ -175,7 +175,7 @@ public:
      * @return  true if registered, false if not.
      */
 
-    bool Has( const tName &name ) const
+    bool Has( const tName &name ) const noexcept
     {
         return mInstantiators.find( name ) != mInstantiators.end();
     }

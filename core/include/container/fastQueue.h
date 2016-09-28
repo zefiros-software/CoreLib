@@ -35,24 +35,24 @@ class FastQueue
 {
 public:
 
-    void Queue( tT item )
+    void Queue( tT item ) noexcept
     {
         mInbox.push_back( item );
     }
 
-    void Dequeue()
+    void Dequeue() noexcept
     {
         Move();
         mOutbox.pop_back();
     }
 
-    tT Front()
+    tT Front() noexcept
     {
         Move();
         return mOutbox.back();
     }
 
-    bool IsEmpty() const
+    bool IsEmpty() const noexcept
     {
         return mOutbox.empty() && mInbox.empty();
     }
@@ -62,7 +62,7 @@ private:
     std::vector<tT> mInbox;
     std::vector<tT> mOutbox;
 
-    void Move()
+    void Move() noexcept
     {
         if ( mOutbox.empty() )
         {

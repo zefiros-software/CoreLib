@@ -38,11 +38,11 @@ class ProfileEvent
 {
 public:
 
-    ProfileEvent( const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time );
+    ProfileEvent( const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept;
 
-    std::string GetName() const;
+    std::string GetName() const noexcept;
 
-    std::chrono::time_point< std::chrono::high_resolution_clock > GetTime() const;
+    std::chrono::time_point< std::chrono::high_resolution_clock > GetTime() const noexcept;
 
 private:
 
@@ -55,7 +55,8 @@ class ProfileStartEvent
 {
 public:
 
-    ProfileStartEvent( const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time );
+    ProfileStartEvent( const std::string &name,
+                       std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept;
 };
 
 class ProfileEndEvent
@@ -64,9 +65,9 @@ class ProfileEndEvent
 public:
 
     ProfileEndEvent( const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                     std::chrono::microseconds duration );
+                     std::chrono::microseconds duration ) noexcept;
 
-    std::chrono::microseconds GetDuration() const;
+    std::chrono::microseconds GetDuration() const noexcept;
 
 private:
 
@@ -81,10 +82,10 @@ public:
 
     ProfileWaypointEvent( const std::string &name, const std::string &comment,
                           std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                          std::chrono::microseconds duration );
+                          std::chrono::microseconds duration ) noexcept;
 
 
-    std::string GetCommment() const;
+    std::string GetCommment() const noexcept;
 
 private:
 
@@ -98,11 +99,11 @@ class ProfileUpdateEvent
 public:
 
     ProfileUpdateEvent( std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                        std::chrono::microseconds duration );
+                        std::chrono::microseconds duration ) noexcept;
 
-    std::chrono::time_point< std::chrono::high_resolution_clock > GetTime() const;
+    std::chrono::time_point< std::chrono::high_resolution_clock > GetTime() const noexcept;
 
-    std::chrono::microseconds GetDuration() const;
+    std::chrono::microseconds GetDuration() const noexcept;
 
 private:
 

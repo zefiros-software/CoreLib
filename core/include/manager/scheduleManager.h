@@ -75,7 +75,7 @@ public:
 
     void RunSynchronisationThreadGroupJobs();
 
-    void RunMainWorkerQueue( JobQueue *queue );
+    void RunMainWorkerQueue( JobQueue *queue ) const;
 
     static ThreadID GetCurrentThreadID();
 

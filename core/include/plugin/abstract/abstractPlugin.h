@@ -25,56 +25,19 @@
  */
 
 #pragma once
-#ifndef __ENGINE_UTILCLASSES_H__
-#define __ENGINE_UTILCLASSES_H__
+#ifndef __ABSTRACTPLUGIN_H__
+#define __ABSTRACTPLUGIN_H__
 
-/// @addtogroup docCommon
-/// @{
+#include "manager/abstract/abstractManager.h"
 
-/// @addtogroup docCommon_Utility
-/// @{
-
-/// @addtogroup docCommon_Utility_Classes
-/// @{
-
-/**
- * Derive from this class to prohibit copy construction and copy assignment.
- */
-template< typename tT >
-class NonCopyable
+class AbstractPlugin
+    : public AbstractManager
 {
-protected:
+public:
 
-    NonCopyable() noexcept
+    virtual ~AbstractPlugin()
     {
     }
-
-    ~NonCopyable()
-    {
-    }
-
-private:
-
-    NonCopyable &operator=( const NonCopyable & );
-    NonCopyable( const NonCopyable & );
 };
-
-/**
- * Derive from this class to prohibit copy assignment.
- */
-
-template< typename tT >
-class NonAssignable
-{
-private:
-
-    NonAssignable &operator=( const NonAssignable & );
-};
-
-/// @}
-
-/// @}
-
-/// @}
 
 #endif

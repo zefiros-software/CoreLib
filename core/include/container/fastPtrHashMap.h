@@ -62,24 +62,24 @@ public:
         Clear();
     }
 
-    const std::vector< Node > &Data() const
+    const std::vector< Node > &Data() const noexcept
     {
         return mNodes;
     }
 
-    std::vector< Node > &Data()
+    std::vector< Node > &Data() noexcept
     {
         return mNodes;
     }
 
-    void Clear()
+    void Clear() noexcept
     {
         mFilled.Reset();
         mNodes.clear();
         mItemCount = 0;
     }
 
-    size_t Resize( size_t newSize )
+    size_t Resize( size_t newSize ) noexcept
     {
         const size_t nextPow2 = Mathf::IsPow2( newSize ) ? newSize : Mathf::NextPow2( newSize );
 
@@ -109,7 +109,7 @@ public:
         return mSize;
     }
 
-    void Insert( tPtr *ptr, tValue element )
+    void Insert( tPtr *ptr, tValue element ) noexcept
     {
         size_t hash = FirstHash( ptr );
         const size_t step = StepHash( ptr );
@@ -139,7 +139,7 @@ public:
         }
     }
 
-    bool Find( tPtr *ptr, tValue *&value )
+    bool Find( tPtr *ptr, tValue *&value ) noexcept
     {
         size_t hash = FirstHash( ptr );
         const size_t step = StepHash( ptr );
@@ -162,7 +162,7 @@ public:
         return false;
     }
 
-    bool Has( tPtr *ptr ) const
+    bool Has( tPtr *ptr ) const noexcept
     {
         size_t hash = FirstHash( ptr );
         const size_t step = StepHash( ptr );
@@ -192,17 +192,17 @@ private:
     size_t mItemCount;
     size_t mSize;
 
-    size_t FirstHash( tPtr *ptr ) const
+    size_t FirstHash( tPtr *ptr ) const noexcept
     {
         return ( reinterpret_cast< size_t >( ptr ) * 2654435761 ) & ( mSize - 1 );
     }
 
-    size_t SecondHash( tPtr *ptr ) const
+    size_t SecondHash( tPtr *ptr ) const noexcept
     {
         return ( reinterpret_cast< size_t >( ptr ) * 33 ) & ( mSize - 1 );
     }
 
-    size_t ThirdHash( tPtr *ptr ) const
+    size_t ThirdHash( tPtr *ptr ) const noexcept
     {
         ptrdiff_t x = reinterpret_cast<ptrdiff_t>( ptr );
         x = ( ( x >> 16 ) ^ x ) * 0x45d9f3b;
@@ -211,7 +211,7 @@ private:
         return x & ( mSize - 1 );
     }
 
-    size_t StepHash( tPtr *ptr )const
+    size_t StepHash( tPtr *ptr )const noexcept
     {
         return ( SecondHash( ptr ) * ThirdHash( ptr ) ) | 0x01;
     }

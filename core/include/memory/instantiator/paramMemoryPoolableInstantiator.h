@@ -37,7 +37,7 @@ class ParamMemoryPoolableInstantiator
 {
 public:
 
-    ParamMemoryPoolableInstantiator( tParam parameter, size_t blocksize = 1000, size_t maxBlocks = 1000 )
+    ParamMemoryPoolableInstantiator( tParam parameter, size_t blocksize = 1000, size_t maxBlocks = 1000 ) noexcept
         : ParamPoolableInstantiator( parameter ),
           mMemoryPool( blocksize, maxBlocks )
     {
@@ -57,9 +57,10 @@ public:
 
     virtual AbstractInstantiator *Copy() override
     {
-        return new ParamMemoryPoolableInstantiator< tT, tParam, tBase >( ParamPoolableInstantiator::mParameter,
-                                                                         mMemoryPool.mBlockSize,
-                                                                         mMemoryPool.mMaxBlocks );
+        return new ParamMemoryPoolableInstantiator< tT, tParam, tBase >
+               ( ParamPoolableInstantiator< tT, tParam, tBase >::mParameter,
+                 mMemoryPool.mBlockSize,
+                 mMemoryPool.mMaxBlocks );
     }
 
 private:

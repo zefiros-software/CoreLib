@@ -35,9 +35,9 @@ class ThreadingEvent
 {
 public:
 
-    explicit ThreadingEvent( bool threadingActivated );
+    explicit ThreadingEvent( bool threadingActivated ) noexcept;
 
-    bool IsThreadingActive() const;
+    bool IsThreadingActive() const noexcept;
 
 private:
 

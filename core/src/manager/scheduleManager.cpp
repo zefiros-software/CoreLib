@@ -263,7 +263,7 @@ U32 ScheduleManager::GetMainThreadID()
     return Thread::MainThreadID;
 }
 
-void ScheduleManager::RunMainWorkerQueue( JobQueue *queue )
+void ScheduleManager::RunMainWorkerQueue( JobQueue *queue ) const
 {
     Worker mainThreadWorker( &queue );
     mainThreadWorker.RunJobs( Thread::MainThreadID );

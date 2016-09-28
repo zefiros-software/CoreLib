@@ -68,7 +68,7 @@ public:
 
     void Update() const;
 
-    bool IsRunning() const;
+    bool IsRunning() const noexcept;
 
     std::map<std::string, docopt::value> ParseCLI( const std::string &usage, bool help = true,
                                                    bool optionsFirst  = false ) const;

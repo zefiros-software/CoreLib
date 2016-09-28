@@ -30,19 +30,19 @@ SpinLock::SpinLock() noexcept
 {
 }
 
-void SpinLock::lock()
+void SpinLock::lock() noexcept
 {
     while ( mLockValue.test_and_set( boost::memory_order_acquire ) )
     {
     }
 }
 
-bool SpinLock::try_lock()
+bool SpinLock::try_lock() noexcept
 {
     return !mLockValue.test_and_set( boost::memory_order_acquire );
 }
 
-void SpinLock::unlock()
+void SpinLock::unlock() noexcept
 {
     mLockValue.clear( boost::memory_order_release );
 }

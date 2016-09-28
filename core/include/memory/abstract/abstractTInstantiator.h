@@ -47,7 +47,7 @@ class AbstractTInstantiator
 {
 public:
 
-    AbstractTInstantiator()
+    AbstractTInstantiator() noexcept
     {
     }
 

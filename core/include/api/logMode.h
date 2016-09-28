@@ -61,7 +61,7 @@ namespace Console
 
     /// @}
 
-    std::string GetName( LogMode mode );
+    std::string GetName( LogMode mode ) noexcept;
 };
 
 /// @}

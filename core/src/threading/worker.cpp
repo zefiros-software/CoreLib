@@ -117,7 +117,7 @@ void Worker::Terminate()
 
 void Worker::RunJobs( const ThreadID threadID ) const
 {
-    IThreadExecutable *job = nullptr;
+    IThreadExecutable *job;
 
     while ( ( job = ( *mQueueHook )->Pop() ) != nullptr )
     {

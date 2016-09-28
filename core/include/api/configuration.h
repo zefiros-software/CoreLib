@@ -40,12 +40,6 @@ class ConfigurationFile;
 
 namespace Configuration
 {
-    std::string GetProgramName();
-
-    std::string GetProgramCompany();
-
-    std::string GetCopyright();
-
     EXPOSE_API( configuration, SetGlobalConfig );
 
     /// @name Get Value

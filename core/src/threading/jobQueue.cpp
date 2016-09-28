@@ -56,7 +56,7 @@ void JobQueue::Push( IThreadExecutable *const job )
     mUpdateQueue.push( job );
 }
 
-void JobQueue::Flush()
+void JobQueue::Flush() noexcept
 {
     while ( !mJobQueue.empty() )
     {
@@ -88,7 +88,7 @@ IThreadExecutable *JobQueue::Pop()
     return job;
 }
 
-size_t JobQueue::Size()
+size_t JobQueue::Size() noexcept
 {
     mPopLock.lock();
     size_t size = mJobQueue.size();

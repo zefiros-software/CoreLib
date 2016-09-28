@@ -140,7 +140,7 @@ public:
      * @return The hash.
      */
 
-    U32 GetHash() const;
+    U32 GetHash() const noexcept;
 
     /// @}
 
@@ -165,7 +165,7 @@ private:
     template < U32 N, U32 I >
     struct Fnv1a
     {
-        static FORCEINLINE U32 Hash( const char( &str )[ N ] )
+        static FORCEINLINE U32 Hash( const char( &str )[ N ] ) noexcept
         {
             return ( Fnv1a < N, I - 1 >::Hash( str ) ^ str[ I - 1 ] ) * 16777619u;
         }
@@ -182,7 +182,7 @@ private:
     template < U32 N >
     struct Fnv1a< N, 1 >
     {
-        static FORCEINLINE U32 Hash( const char( &str )[ N ] )
+        static FORCEINLINE U32 Hash( const char( &str )[ N ] ) noexcept
         {
             return ( 2166136261u ^ str[ 0 ] ) * 16777619u;
         }

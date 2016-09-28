@@ -77,7 +77,7 @@ namespace Hash
      *    http://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function.
      */
 
-    U32 Fnv1a( const char *str );
+    U32 Fnv1a( const char *str ) noexcept;
 
     /**
      * Combine two hashes to a new hash.
@@ -92,7 +92,7 @@ namespace Hash
      *
      * @snippet testUtil.cpp HashCombine
      */
-    size_t Combine( size_t seed, size_t val );
+    size_t Combine( size_t seed, size_t val ) noexcept;
 }
 
 /// @}

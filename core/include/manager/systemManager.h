@@ -163,7 +163,7 @@ protected:
 
     void InitialiseManagers();
 
-    void InitialiseManager( AbstractManager *const manager );
+    static void InitialiseManager( AbstractManager *const manager );
 
     void PreInitialiseManagers();
 

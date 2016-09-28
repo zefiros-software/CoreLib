@@ -114,7 +114,7 @@ namespace File
      * @note To the one who finds a bug here, damn.... You are unlucky.
      */
 
-    std::string TempGet();
+    std::string TempGet() noexcept;
 
     /**
      * Gets a write/read file stream to a new temporary file.
@@ -171,7 +171,7 @@ namespace File
      * @snippet testFile.cpp Exists
      */
 
-    bool Exists( const std::string &filepath );
+    bool Exists( const std::string &filepath ) noexcept;
 
     /**
      * Gets the file size, if it exists, in bytes. If the file doesn't exists, the size returned will be 0.
@@ -188,7 +188,7 @@ namespace File
      * @snippet testFile.cpp GetSize
      */
 
-    U64 Size( const std::string &filepath );
+    U64 Size( const std::string &filepath ) noexcept;
 
     /**
      * Query if the file on the given filepath is empty. When the file doesn't exist, it will return true.
@@ -205,7 +205,7 @@ namespace File
      * @snippet testFile.cpp IsEmpty
      */
 
-    bool IsEmpty( const std::string &filepath );
+    bool IsEmpty( const std::string &filepath ) noexcept;
 
     /**
      * Check whether the contents of two files are equal, however this function is only meant to work on text files.
@@ -278,7 +278,7 @@ namespace File
      * @snippet testFile.cpp ReadAllText
      */
 
-    std::time_t GetLastModified( const std::string &path );
+    std::time_t GetLastModified( const std::string &path ) noexcept;
 
     /**
      * List al files in the given directory, either recursively or not recursive as indicated by the user. (defaults to
@@ -299,7 +299,7 @@ namespace File
      * @snippet testFile.cpp List
      */
 
-    std::vector< std::string > List( const std::string &directory, bool recursive = false );
+    std::vector< std::string > List( const std::string &directory, bool recursive = false ) noexcept;
 
     /// @}
 
@@ -334,7 +334,7 @@ namespace File
      * @snippet testFile.cpp Clear
      */
 
-    void Clear( const std::string &filepath );
+    void Clear( const std::string &filepath ) noexcept;
 
     /**
      * Deletes the file, if it exists, described by filepath.
@@ -349,7 +349,7 @@ namespace File
      * @snippet testFile.cpp Delete
      */
 
-    void Delete( const std::string &filepath );
+    void Delete( const std::string &filepath ) noexcept;
 
     /**
      * Moves a file from the given path to the new path. When there is already a file on the new path, the overwrite

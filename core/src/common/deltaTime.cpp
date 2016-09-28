@@ -43,7 +43,7 @@ DeltaTime::DeltaTime( U8 maxsize /* = 60 */ ) noexcept
     mTime = boost::chrono::high_resolution_clock::now();
 }
 
-void DeltaTime::Update()
+void DeltaTime::Update() noexcept
 {
     // We need to update the normal delta time first,
     // since the eased delta time depends on it
@@ -51,7 +51,7 @@ void DeltaTime::Update()
     UpdateEasedDeltaTime();
 }
 
-F32 DeltaTime::GetElapsedMilliseconds() const
+F32 DeltaTime::GetElapsedMilliseconds() const noexcept
 {
     const boost::chrono::time_point< boost::chrono::high_resolution_clock> now =
         boost::chrono::high_resolution_clock::now();
@@ -63,12 +63,12 @@ F32 DeltaTime::GetElapsedMilliseconds() const
     return elapsed != 0.0 ? elapsed : Mathf::GetEpsilon< F32 >();
 }
 
-F32 DeltaTime::GetDeltaTime() const
+F32 DeltaTime::GetDeltaTime() const noexcept
 {
     return mDeltaTime;
 }
 
-F32 DeltaTime::GetEasedDeltaTime() const
+F32 DeltaTime::GetEasedDeltaTime() const noexcept
 {
     // If we don't have any records, just return the normal delta time
     if ( mPreviousDeltaTimes.empty() )
@@ -79,7 +79,7 @@ F32 DeltaTime::GetEasedDeltaTime() const
     return mEasedDeltaTime;
 }
 
-void DeltaTime::UpdateDeltaTime()
+void DeltaTime::UpdateDeltaTime() noexcept
 {
     const boost::chrono::time_point< boost::chrono::high_resolution_clock > now =
         boost::chrono::high_resolution_clock::now();
@@ -96,7 +96,7 @@ void DeltaTime::UpdateDeltaTime()
     mTime = now;
 }
 
-void DeltaTime::UpdateEasedDeltaTime()
+void DeltaTime::UpdateEasedDeltaTime() noexcept
 {
     mPreviousDeltaTimes.push_back( mDeltaTime );
 

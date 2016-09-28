@@ -26,13 +26,13 @@
 
 #include "events/threadEvents.h"
 
-ThreadingEvent::ThreadingEvent( const bool threadingActivated )
+ThreadingEvent::ThreadingEvent( const bool threadingActivated ) noexcept
     : mThreadingActivated( threadingActivated )
 {
 
 }
 
-bool ThreadingEvent::IsThreadingActive() const
+bool ThreadingEvent::IsThreadingActive() const noexcept
 {
     return mThreadingActivated;
 }

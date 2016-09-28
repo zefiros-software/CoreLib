@@ -33,12 +33,12 @@ namespace boost
     }
 }
 
-U32 Util::BitExponent( const U64 in )
+U32 Util::BitExponent( const U64 in ) noexcept
 {
-    return ( U32 )Mathf::Log2( in );
+    return static_cast<U32>( Mathf::Log2( in ) );
 }
 
-std::tm Util::Now()
+std::tm Util::Now() noexcept
 {
 #include "warnings/push.h"
 #include "warnings/unsafeFunction.h"

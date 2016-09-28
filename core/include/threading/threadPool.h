@@ -51,7 +51,7 @@ public:
 
     void Init();
 
-    bool IsRunning() const;
+    bool IsRunning() const noexcept;
 
     void Run( JobQueue *jobs );
 

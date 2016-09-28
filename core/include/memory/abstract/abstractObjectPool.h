@@ -96,7 +96,7 @@ public:
      * @return  The borrowed count.
     */
 
-    virtual size_t GetBorrowedCount() const = 0;
+    virtual size_t GetBorrowedCount() const noexcept = 0;
 
     /**
      * Gets the amount of returned objects from this pool.
@@ -104,7 +104,7 @@ public:
      * @return  The returned count.
      */
 
-    virtual size_t GetReturnedCount() const = 0;
+    virtual size_t GetReturnedCount() const noexcept = 0;
 
     /// @}
 };

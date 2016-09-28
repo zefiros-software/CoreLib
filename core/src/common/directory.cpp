@@ -30,12 +30,12 @@
 namespace Directory
 {
 
-    bool Exists( const std::string &directory )
+    bool Exists( const std::string &directory ) noexcept
     {
         return boost::filesystem::exists( directory ) && boost::filesystem::is_directory( directory );
     }
 
-    bool IsEmpty( const std::string &directory, bool includeDirectories /*= true */ )
+    bool IsEmpty( const std::string &directory, bool includeDirectories /*= true */ ) noexcept
     {
         if ( includeDirectories )
         {
@@ -45,7 +45,7 @@ namespace Directory
         return File::List( directory, false ).empty();
     }
 
-    std::vector< std::string > List( const std::string &directory, bool recursive /*= false */ )
+    std::vector< std::string > List( const std::string &directory, bool recursive /*= false */ ) noexcept
     {
         const std::vector< boost::filesystem::path > contents = Path::List( directory, recursive );
         std::vector< std::string > directories;
@@ -61,22 +61,26 @@ namespace Directory
         return directories;
     }
 
-    void Delete( const std::string &directory )
+    bool Delete( const std::string &directory ) noexcept
     {
         if ( Exists( directory ) )
         {
             try
             {
                 boost::filesystem::remove( directory );
+
+                return true;
             }
             catch ( const boost::filesystem::filesystem_error & )
             {
                 // We tried to delete a non empty folder, which is not allowed with this function
             }
         }
+
+        return false;
     }
 
-    bool DeleteAll( const std::string &directory )
+    bool DeleteAll( const std::string &directory ) noexcept
     {
         if ( Exists( directory ) )
         {
@@ -87,14 +91,14 @@ namespace Directory
             }
             catch ( boost::filesystem::filesystem_error & )
             {
-                return false;
+                // also false
             }
         }
 
         return false;
     }
 
-    bool Create( const std::string &directory )
+    bool Create( const std::string &directory ) noexcept
     {
         try
         {
@@ -106,7 +110,7 @@ namespace Directory
         }
     }
 
-    bool CreateAll( const std::string &directories )
+    bool CreateAll( const std::string &directories ) noexcept
     {
         try
         {
@@ -120,7 +124,7 @@ namespace Directory
         return Exists( directories );
     }
 
-    bool Copy( const std::string &from, const std::string &to )
+    bool Copy( const std::string &from, const std::string &to ) noexcept
     {
         if ( Exists( from ) && !Exists( to ) )
         {
@@ -136,7 +140,7 @@ namespace Directory
         return false;
     }
 
-    bool Move( const std::string &from, const std::string &to )
+    bool Move( const std::string &from, const std::string &to ) noexcept
     {
         if ( Exists( from ) && !Exists( to ) )
         {

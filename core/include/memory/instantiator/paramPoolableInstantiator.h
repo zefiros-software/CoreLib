@@ -68,7 +68,7 @@ public:
      * @param [in,out]  parameter   If non-null, the parameter.
      */
 
-    ParamPoolableInstantiator( tParam parameter )
+    ParamPoolableInstantiator( tParam parameter ) noexcept
         : mParameter( parameter )
     {
         static_assert( Util::IsChildParent< tT, tBase >::value,
@@ -78,7 +78,7 @@ public:
     }
 
 
-    ParamPoolableInstantiator( const ParamPoolableInstantiator &other )
+    ParamPoolableInstantiator( const ParamPoolableInstantiator &other ) noexcept
         : mParameter( other.mParameter )
     {
     }

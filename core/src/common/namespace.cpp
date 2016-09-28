@@ -51,47 +51,47 @@ Namespace::Namespace( const Namespace pluginNamespace, const Namespace addinName
 {
 }
 
-U16 Namespace::GetAddinNamespace() const
+U16 Namespace::GetAddinNamespace() const noexcept
 {
     return mAddinNamespace;
 }
 
-U16 Namespace::GetPluginNamespace() const
+U16 Namespace::GetPluginNamespace() const noexcept
 {
     return mPluginNamespace;
 }
 
-Namespace Namespace::GetAddin() const
+Namespace Namespace::GetAddin() const noexcept
 {
     return Namespace( 0, mAddinNamespace );
 }
 
-Namespace Namespace::GetPlugin() const
+Namespace Namespace::GetPlugin() const noexcept
 {
     return Namespace( mPluginNamespace, 0 );
 }
 
-U32 Namespace::GetNamespace() const
+U32 Namespace::GetNamespace() const noexcept
 {
     return ( mAddinNamespace << 16 ) | mPluginNamespace;
 }
 
-bool Namespace::IsAddin() const
+bool Namespace::IsAddin() const noexcept
 {
     return mAddinNamespace != 0;
 }
 
-bool Namespace::operator!=( const Namespace &other ) const
+bool Namespace::operator!=( const Namespace &other ) const noexcept
 {
     return mAddinNamespace != other.mAddinNamespace || mPluginNamespace != other.mPluginNamespace;
 }
 
-bool Namespace::operator==( const Namespace &other ) const
+bool Namespace::operator==( const Namespace &other ) const noexcept
 {
     return mAddinNamespace == other.mAddinNamespace && mPluginNamespace == other.mPluginNamespace;
 }
 
-U32 Namespace::operator()() const
+U32 Namespace::operator()() const noexcept
 {
     return GetNamespace();
 }

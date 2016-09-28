@@ -57,32 +57,32 @@ public:
     {
     }
 
-    Nullable &operator=( const tT &value )
+    Nullable &operator=( const tT &value ) noexcept
     {
         return Assign( value );
     }
 
-    Nullable &operator=( const Nullable &other )
+    Nullable &operator=( const Nullable &other ) noexcept
     {
         return Assign( other );
     }
 
-    bool operator==( const Nullable<tT> &other ) const
+    bool operator==( const Nullable<tT> &other ) const noexcept
     {
         return ( !mIsSet && !other.mIsSet ) || ( !mIsSet == !other.mIsSet && mValue == other.mValue );
     }
 
-    bool operator!=( const Nullable<tT> &other ) const
+    bool operator!=( const Nullable<tT> &other ) const noexcept
     {
         return !( *this == other );
     }
 
-    bool operator>( const Nullable<tT> &other ) const
+    bool operator>( const Nullable<tT> &other ) const noexcept
     {
         return *this != other  && *this >= other;
     }
 
-    bool operator<( const Nullable<tT> &other ) const
+    bool operator<( const Nullable<tT> &other ) const noexcept
     {
         if ( mIsSet && other.mIsSet )
         {
@@ -102,24 +102,24 @@ public:
         return false;
     }
 
-    operator tT &()
+    operator tT &() noexcept
     {
         return Get();
     }
 
-    operator const tT &() const
+    operator const tT &() const noexcept
     {
         return Get();
     }
 
-    Nullable &Assign( const tT &value )
+    Nullable &Assign( const tT &value ) noexcept
     {
         mValue = value;
         mIsSet = true;
         return *this;
     }
 
-    Nullable &Assign( const Nullable &other )
+    Nullable &Assign( const Nullable &other ) noexcept
     {
         Nullable tmp( other );
         mValue = other.mValue;
@@ -127,36 +127,36 @@ public:
         return *this;
     }
 
-    Nullable &SetNull()
+    Nullable &SetNull() noexcept
     {
         mIsSet = false;
         return *this;
     }
 
-    bool IsNull() const
+    bool IsNull() const noexcept
     {
         return !mIsSet;
     }
 
-    tT &Get()
+    tT &Get() noexcept
     {
         assert( mIsSet );
         return mValue;
     }
 
-    const tT &Get() const
+    const tT &Get() const noexcept
     {
         assert( mIsSet );
         return mValue;
     }
 
-    const tT &Get( const tT &deflt ) const
+    const tT &Get( const tT &deflt ) const noexcept
     {
         return !mIsSet ? deflt : mValue;
     }
 
 
-    void Clear()
+    void Clear() noexcept
     {
         mIsSet = false;
     }

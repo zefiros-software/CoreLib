@@ -27,11 +27,13 @@
 #include "algorithm/hash.h"
 
 #include <string.h>
+#include <cassert>
 
 namespace Hash
 {
-    U32 Fnv1a( const char *str )
+    U32 Fnv1a( const char *str ) noexcept
     {
+        assert( str );
         const size_t length = strlen( str ) + 1;
 
         // The FNV offset basis
@@ -48,7 +50,7 @@ namespace Hash
         return hash;
     }
 
-    size_t Combine( size_t seed, size_t val )
+    size_t Combine( size_t seed, size_t val ) noexcept
     {
         //rotating hash combine!
         return seed ^ ( val + 0x9e3779b9 + ( seed << 6 ) + ( seed >> 2 ) );

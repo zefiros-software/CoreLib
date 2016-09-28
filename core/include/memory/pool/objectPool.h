@@ -76,7 +76,7 @@ public:
      * @note    Takes ownership of the instantiator.
      */
 
-    explicit ObjectPool( AbstractPoolableInstantiator< tBase > *instantiator, size_t capacity = 500 )
+    explicit ObjectPool( AbstractPoolableInstantiator< tBase > *instantiator, size_t capacity = 500 ) noexcept
         : mCapacity( capacity ),
           mBorrowedObjectsCount( 0 ),
           mReturnedObjectsCount( 0 ),
@@ -113,7 +113,8 @@ public:
             mInstantiator->Destroy( *it );
         }
 
-        if ( GetBorrowedCount() != GetReturnedCount() )
+        if ( ObjectPool<tT, tBase, tInstantiator>::GetBorrowedCount() !=
+                ObjectPool<tT, tBase, tInstantiator>::GetReturnedCount() )
         {
             Console::Warningf( LOG( "There are more objects borrowed than returned, this can cause memory leaks." ) );
         }
@@ -219,7 +220,7 @@ public:
      * @return  The borrowed count.
      */
 
-    size_t GetBorrowedCount() const override
+    size_t GetBorrowedCount() const noexcept override
     {
         std::lock_guard< SpinLock > lock( mSpinLock );
 
@@ -234,7 +235,7 @@ public:
      * @return  The returned count.
      */
 
-    size_t GetReturnedCount() const override
+    size_t GetReturnedCount() const noexcept override
     {
         std::lock_guard< SpinLock > lock( mSpinLock );
 

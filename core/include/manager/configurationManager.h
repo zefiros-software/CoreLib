@@ -48,8 +48,8 @@ public:
     /// @name Events
     /// @{
 
-    void OnInit();
-    void OnRelease();
+    void OnInit() override;
+    void OnRelease() override;
 
     /// @}
 

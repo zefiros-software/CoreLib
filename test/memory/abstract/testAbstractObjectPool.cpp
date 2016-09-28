@@ -45,12 +45,12 @@ namespace
             delete object;
         }
 
-        size_t GetBorrowedCount() const override
+        size_t GetBorrowedCount() const noexcept override
         {
             return 1;
         }
 
-        size_t GetReturnedCount() const override
+        size_t GetReturnedCount() const noexcept override
         {
             return 1;
         }

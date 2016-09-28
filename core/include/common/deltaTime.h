@@ -73,7 +73,7 @@ public:
      * @snippet testDeltaTime.cpp Update
      */
 
-    void Update();
+    void Update() noexcept;
 
     /// @}
 
@@ -92,7 +92,7 @@ public:
      * @snippet testDeltaTime.cpp Get
      */
 
-    F32 GetDeltaTime() const;
+    F32 GetDeltaTime() const noexcept;
 
     /**
      * Gets elapsed time in miliseconds since the last Update(), so when called twice, the value of the second call
@@ -109,7 +109,7 @@ public:
      * @snippet testDeltaTime.cpp UpdateMS
      */
 
-    F32 GetElapsedMilliseconds() const;
+    F32 GetElapsedMilliseconds() const noexcept;
 
     /**
      * Gets the eased delta time between the last requested Update()'s, by using a moving average.
@@ -139,7 +139,7 @@ public:
      * @snippet testDeltaTime.cpp Get
      */
 
-    F32 GetEasedDeltaTime() const;
+    F32 GetEasedDeltaTime() const noexcept;
 
     /// @}
 
@@ -169,13 +169,13 @@ private:
      * Updates the delta time variable.
      */
 
-    void UpdateDeltaTime();
+    void UpdateDeltaTime() noexcept;
 
     /**
      * Updates the eased delta time variable.
      */
 
-    void UpdateEasedDeltaTime();
+    void UpdateEasedDeltaTime() noexcept;
 
 };
 

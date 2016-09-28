@@ -31,7 +31,7 @@ StringHash::StringHash( const U32 hash ) noexcept
 {
 }
 
-U32 StringHash::GetHash() const
+U32 StringHash::GetHash() const noexcept
 {
     return mHash;
 }

@@ -96,7 +96,7 @@ public:
         return Get();
     }
 
-    tT *UnsynchronisedGet() const
+    tT *UnsynchronisedGet() const noexcept
     {
         return mPtr;
     }

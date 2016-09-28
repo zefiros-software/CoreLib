@@ -53,7 +53,7 @@ class SimplePoolableInstantiator
 {
 public:
 
-    SimplePoolableInstantiator()
+    SimplePoolableInstantiator() noexcept
     {
         static_assert( Util::IsChildParent< tT, tBase >::value,
                        "SimplePoolableInstantiator::SimplePoolableInstantiator():\n\tThe child type should derive from the base type." );

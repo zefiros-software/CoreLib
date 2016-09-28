@@ -51,7 +51,7 @@ class ParamInstantiator
 {
 public:
 
-    ParamInstantiator()
+    ParamInstantiator() noexcept
     {
         static_assert( Util::IsChildParent< tT, tBase >::value,
                        "ParamInstantiator::ParamInstantiator():\n\tThe child type should derive from the base type." );

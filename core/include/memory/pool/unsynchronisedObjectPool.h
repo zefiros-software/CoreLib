@@ -206,7 +206,7 @@ public:
      * @return The borrowed count.
      */
 
-    virtual size_t GetBorrowedCount() const override
+    virtual size_t GetBorrowedCount() const noexcept override
     {
         return mBorrowedObjectsCount;
     }
@@ -217,7 +217,7 @@ public:
      * @return  The returned count.
      */
 
-    virtual size_t GetReturnedCount() const override
+    virtual size_t GetReturnedCount() const noexcept override
     {
         return mReturnedObjectsCount;
     }

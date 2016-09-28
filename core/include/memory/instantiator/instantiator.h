@@ -50,7 +50,7 @@ class Instantiator
 {
 public:
 
-    Instantiator()
+    Instantiator() noexcept
     {
         static_assert( Util::IsChildParent< tT, tBase >::value,
                        "Instantiator::Instantiator():\n\tThe child type should derive from the base type." );

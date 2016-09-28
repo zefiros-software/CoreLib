@@ -89,7 +89,7 @@ namespace Path
      * @return The correct path.
      */
 
-    std::string Get( const std::string &path, Type type = Type::Program );
+    std::string Get( const std::string &path, Type type = Type::Program ) noexcept;
 
     /// @}
 
@@ -115,7 +115,7 @@ namespace Path
      * @return The relative path from the 'from' path to the 'to' path.
      */
 
-    std::string ResolveRelative( const std::string &from, const std::string &to, bool sameRoot = true );
+    std::string ResolveRelative( const std::string &from, const std::string &to, bool sameRoot = true ) noexcept;
 
     /**
      * Fixes the path style to the unix style, since that is the one we use internally. All directories will have a
@@ -126,7 +126,7 @@ namespace Path
      * @return The fixed path style.
      */
 
-    std::string FixStyle( const std::string &filePath );
+    std::string FixStyle( const std::string &filePath ) noexcept;
 
     /**
      * Normalises the path.
@@ -144,7 +144,7 @@ namespace Path
      * @return A canonicalised (normalised) path.
      */
 
-    std::string Canonical( const std::string &path, bool absolute = false );
+    std::string Canonical( const std::string &path, bool absolute = false ) noexcept;
 
     /**
      * Query if 'from' is a parent path of 'to'.
@@ -155,7 +155,7 @@ namespace Path
      * @return True if parent, false if not.
      */
 
-    bool IsParent( const std::string &from, const std::string &to );
+    bool IsParent( const std::string &from, const std::string &to ) noexcept;
 
     /**
      * Gets the file name part from a full path.
@@ -172,7 +172,7 @@ namespace Path
      * @return The file name part.
      */
 
-    std::string GetFileName( const std::string &path, const bool stripExtension = false );
+    std::string GetFileName( const std::string &path, const bool stripExtension = false ) noexcept;
 
     /**
      * Gets the directory part from a full path.
@@ -187,7 +187,7 @@ namespace Path
      * @return  The directory part.
      */
 
-    std::string GetDirectory( const std::string &path );
+    std::string GetDirectory( const std::string &path ) noexcept;
 
     /**
      * Gets an extension, either with or without the ".", from a given file path. When the file has no extension, we
@@ -205,7 +205,7 @@ namespace Path
      * @return The extension.
      */
 
-    std::string GetExtension( const std::string &filepath, const bool addDot = false );
+    std::string GetExtension( const std::string &filepath, const bool addDot = false ) noexcept;
 
     /**
      * Query if the 'filepath' has an extension.
@@ -215,7 +215,7 @@ namespace Path
      * @return True if it has an extension, false if not.
      */
 
-    bool HasExtension( const std::string &filepath );
+    bool HasExtension( const std::string &filepath ) noexcept;
 
     /**
      * Generates a statistically guaranteed unique file name, with the given extension. (insert Murhpy's law joke here)
@@ -227,7 +227,7 @@ namespace Path
      * @note When an empty extension is given, "", the function will return a directory path.
      */
 
-    std::string GetUniqueFileName( const std::string &extension = ".tmp" );
+    std::string GetUniqueFileName( const std::string &extension = ".tmp" ) noexcept;
 
     /**
      * Generates a statistically guaranteed unique directory.
@@ -235,7 +235,7 @@ namespace Path
      * @return The unique directory.
      */
 
-    std::string GetUniqueDirectory();
+    std::string GetUniqueDirectory() noexcept;
 
     /**
      * Gets the OS provided temporary directory, please note that files are not to be expect to be kept between two
@@ -253,7 +253,7 @@ namespace Path
      * @return The temporary directory.
      */
 
-    std::string GetTempDirectory();
+    std::string GetTempDirectory() noexcept;
 
     /**
      * Gets the directory from where the exe resides. Do not use this function as alternative to the GetGameDirectory()
@@ -262,7 +262,7 @@ namespace Path
      * @return The executable directory.
      */
 
-    std::string GetExeDirectory();
+    std::string GetExeDirectory() noexcept;
 
     /**
      * Gets the full path to the exe. Do not use this function as alternative to the GetGameDirectory() function, since
@@ -271,7 +271,7 @@ namespace Path
      * @return The executable directory.
      */
 
-    std::string GetExeFile();
+    std::string GetExeFile() noexcept;
 
     /**
      * Gets the directory provided by the OS wherein we should store all user specific files.
@@ -288,7 +288,7 @@ namespace Path
      * @return The data directory.
      */
 
-    std::string GetDataDirectory();
+    std::string GetDataDirectory() noexcept;
 
     /**
      * Gets the directory provided by the OS wherein we should store all shared data.
@@ -305,7 +305,7 @@ namespace Path
      * @return The shared data directory.
      */
 
-    std::string GetSharedDataDirectory();
+    std::string GetSharedDataDirectory() noexcept;
 
     /**
      * Gets the root directory of our game.
@@ -319,7 +319,7 @@ namespace Path
      * files directory. TL;DR - Windows Sucks.
      */
 
-    std::string GetProgramDirectory();
+    std::string GetProgramDirectory() noexcept;
 
     /**
      * Gets the game specific temporary directory.
@@ -330,7 +330,7 @@ namespace Path
      * @return The game temporary directory.
      */
 
-    std::string GetProgramTempDirectory();
+    std::string GetProgramTempDirectory() noexcept;
 
     /**
      * Gets the game specific data directory.
@@ -341,7 +341,7 @@ namespace Path
      * @return  The game data directory.
      */
 
-    std::string GetProgramDataDirectory();
+    std::string GetProgramDataDirectory() noexcept;
 
     /**
      * Gets the game specific shared data directory.
@@ -352,7 +352,7 @@ namespace Path
      * @return The game shared data directory.
      */
 
-    std::string GetProgramSharedDataDirectory();
+    std::string GetProgramSharedDataDirectory() noexcept;
 
     /**
      * List all content, directories and files, in the given directory.
@@ -367,7 +367,7 @@ namespace Path
      * anything with it.
      */
 
-    std::vector< boost::filesystem::path > List( const std::string &directory, bool recursive = false );
+    std::vector< boost::filesystem::path > List( const std::string &directory, bool recursive = false ) noexcept;
 
     /**
      * List directory content, directories and files, in a given directory.
@@ -382,7 +382,7 @@ namespace Path
      * anything with it.
      */
 
-    std::vector< std::string > ListContent( const std::string &directory, bool recursive = false );
+    std::vector< std::string > ListContent( const std::string &directory, bool recursive = false ) noexcept;
 
     /**
      * Gets the current working directory.
@@ -390,7 +390,7 @@ namespace Path
      * @return  The working directory.
      */
 
-    std::string GetWorkingDirectory();
+    std::string GetWorkingDirectory() noexcept;
 
     /// @}
 
@@ -405,7 +405,7 @@ namespace Path
      * @return true if it succeeds, false if it fails.
      */
 
-    bool SetWorkingDirectory( const std::string &workingDirectory );
+    bool SetWorkingDirectory( const std::string &workingDirectory ) noexcept;
 
     /**
      * Recursively deletes the given path, deleting both files and directories.
@@ -413,7 +413,7 @@ namespace Path
      * @param   path Full pathname of the file.
      */
 
-    void DeleteAll( const std::string &path );
+    void DeleteAll( const std::string &path ) noexcept;
 
     /// @}
 }
