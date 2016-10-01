@@ -35,6 +35,9 @@
 namespace Controller
 {
     EXPOSE_API( controller, Add );
+
+    EXPOSE_API( controller, Get );
+    EXPOSE_API_NOARG( controller, Get );
 }
 
 #endif

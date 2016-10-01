@@ -24,58 +24,17 @@
  * @endcond
  */
 
-#pragma once
-#ifndef __CONTROLLERMANAGER_H__
-#define __CONTROLLERMANAGER_H__
+#include "plugin/plugin.h"
 
-#include "manager/abstract/abstractManager.h"
-
-#include "container/namespaceNamedStorage.h"
-
-#include "api/console.h"
-
-#include <typeindex>
-
-class ControllerManager
-    : public AbstractManager
+bool Plugin::IsSharedLibrary( const std::string &s )
 {
-public:
-
-    virtual void OnInit() override;
-    virtual void OnPostInit() override;
-    virtual void OnPreUpdate() override;
-    virtual void OnUpdate() override;
-    virtual void OnPostUpdate() override;
-    virtual void OnRelease() override;
-    virtual void OnPostRelease() override;
-
-    virtual void OnRelease( Namespace ns ) override;
-
-    template< typename tT>
-    tT *Add( Namespace ns = 0U )
-    {
-        const std::type_index typeID = typeid( tT );
-        tT *controller = new tT();
-
-        Add( typeID, controller, ns );
-
-        return controller;
-    }
-
-    void Add( std::type_index typeID, AbstractManager *mngr, Namespace ns = 0U );
-
-    template< typename tT>
-    tT *Get()
-    {
-        return static_cast< tT * >( mControllers.Get( typeid( tT ) ) );
-    }
-
-private:
-
-    NamespaceNamedStorage< std::type_index, AbstractManager > mControllers;
-    std::vector< AbstractManager * > mControllerCache;
-
-};
-
-
-#endif
+    return ( s.find( ".dll" ) != std::string::npos || s.find( ".so" ) != std::string::npos ||
+             s.find( ".dylib" ) != std::string::npos )
+           && s.find( ".lib" ) == std::string::npos
+           && s.find( ".exp" ) == std::string::npos
+           && s.find( ".pdb" ) == std::string::npos
+           && s.find( ".manifest" ) == std::string::npos
+           && s.find( ".rsp" ) == std::string::npos
+           && s.find( ".obj" ) == std::string::npos
+           && s.find( ".a" ) == std::string::npos;
+}

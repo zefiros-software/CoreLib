@@ -33,6 +33,7 @@
 #include "manager/scheduleManager.h"
 #include "manager/factoryManager.h"
 #include "manager/memoryManager.h"
+#include "manager/pluginManager.h"
 #include "manager/systemManager.h"
 #include "manager/eventManager.h"
 #include "manager/poolManager.h"
@@ -156,6 +157,8 @@ void SystemManager::RegisterManagers()
     AddManager< ThreadingVariableManager >( &mManagerHolder.threadingVariable, "Threading Variable" );
 
     AddManager< ScheduleManager >( &mManagerHolder.schedule, "Schedule" );
+
+    AddManager< PluginManager >( &mManagerHolder.plugin, "Plugin" );
 
 
     // should be last!

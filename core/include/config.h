@@ -56,8 +56,16 @@
 #   define PROGRAM_VERSION_BUILD 0
 #endif
 
-#ifndef ENGINE_MAX_THREADS
+#ifndef PROGRAM_MAX_THREADS
 #   define PROGRAM_MAX_THREADS 8
+#endif
+
+#ifndef PROGRAM_STATIC_PLUGINS
+#   define PROGRAM_STATIC_PLUGINS 0
+#endif
+
+#ifndef PROGRAM_PLUGIN_DIRECTORY
+#   define PROGRAM_PLUGIN_DIRECTORY "plugins"
 #endif
 
 #endif

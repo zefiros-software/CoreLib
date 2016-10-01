@@ -27,10 +27,6 @@
             "version": "^1.0.0"
         },
         {
-            "name": "Zefiros-Software/BenchLib",
-            "version": "^1.0.0"
-        },
-        {
             "name": "Zefiros-Software/MathLib",
             "version": "@head"
         },

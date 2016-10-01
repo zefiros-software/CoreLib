@@ -15,7 +15,6 @@ project "CoreLib"
         "Zefiros-Software/BSPLib",
         "Zefiros-Software/SerLib",
         "Zefiros-Software/MathLib",
-        "Zefiros-Software/BenchLib",
         "Zefiros-Software/Boost",
         "Zefiros-Software/Fmt",
         "Zefiros-Software/libsimdpp",

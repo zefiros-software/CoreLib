@@ -1,35 +1,174 @@
 local zefiros = require( "Zefiros-Software/Zefiros-Defaults", "@head" )
 
+
+function useCore()
+    zpm.uses {
+        "Zefiros-Software/GoogleBenchmark",
+        "Zefiros-Software/GoogleTest",
+        "Zefiros-Software/DocoptCpp",
+        "Zefiros-Software/BSPLib",
+        "Zefiros-Software/SerLib",
+        "Zefiros-Software/MathLib",
+        "Zefiros-Software/Boost",
+        "Zefiros-Software/Fmt",
+        "Zefiros-Software/libsimdpp",
+        "Zefiros-Software/Slacking"
+    }
+
+end
+
 workspace "CoreLib"
 
 	zefiros.setDefaults( "core" )
      
     project "core"
-        zpm.uses {
-            "Zefiros-Software/GoogleBenchmark",
-            "Zefiros-Software/GoogleTest",
-            "Zefiros-Software/DocoptCpp",
-            "Zefiros-Software/BSPLib",
-            "Zefiros-Software/SerLib",
-            "Zefiros-Software/MathLib",
-            "Zefiros-Software/BenchLib",
-            "Zefiros-Software/Boost",
-            "Zefiros-Software/Fmt",
-            "Zefiros-Software/libsimdpp",
-            "Zefiros-Software/Slacking"
-        }
+        useCore()
      
     project "core-test"
-        zpm.uses {
-            "Zefiros-Software/GoogleBenchmark",
-            "Zefiros-Software/GoogleTest",
-            "Zefiros-Software/DocoptCpp",
-            "Zefiros-Software/BSPLib",
-            "Zefiros-Software/SerLib",
-            "Zefiros-Software/MathLib",
-            "Zefiros-Software/BenchLib",
-            "Zefiros-Software/Boost",
-            "Zefiros-Software/Fmt",
-            "Zefiros-Software/libsimdpp",
-            "Zefiros-Software/Slacking"
+        useCore()
+        
+
+    project "core-plugin-main"
+
+        kind "ConsoleApp"   
+        
+        links "core"
+
+        useCore()        
+                
+		includedirs {
+            "core/include/",
+			"plugin/"
+			}				
+		     
+        files { 
+            "plugin/*.hpp",
+            "plugin/*.h",
+            "plugin/*.cpp"
+            }
+
+    project "core-plugin-test"        
+        targetname "Test"
+        kind "SharedLib"   
+        targetsuffix "" 
+        
+        links "core"
+        useCore()
+                
+		includedirs {
+            "core/include/"
+			}				
+		     
+        files { 
+            "plugin/include/**.hpp",
+            "plugin/include/**.h",
+            "plugin/test/src/**.cpp"
+            }
+    
+        filter "platforms:x86"
+            targetdir "bin/x86/plugins/"
+        
+        filter "platforms:x86_64"
+            targetdir "bin/x86_64/plugins/"
+
+        filter {}
+
+    project "core-plugin-test2"        
+        targetname "Test2"
+        kind "SharedLib"   
+        targetsuffix ""  
+        
+        links {
+            "core", 
+            "core-plugin-test2-lib"
         }
+
+        useCore()
+                
+		includedirs {
+            "core/include/",
+			"plugin/test2/include/"
+			}	
+
+        files { 
+            "plugin/test2/src/plugin.cpp"
+            }
+    
+        filter "platforms:x86"
+            targetdir "bin/x86/plugins/"
+        
+        filter "platforms:x86_64"
+            targetdir "bin/x86_64/plugins/"
+
+        filter {}
+
+    project "core-plugin-test2-lib"        
+        targetname "Test2"
+        kind "StaticLib"   
+        
+        links "core"
+
+        useCore()
+                
+		includedirs {
+            "core/include/",
+			"plugin/test2/include/"
+			}						     			
+		     
+        files { 
+            "plugin/include/**.hpp",
+            "plugin/include/**.h",
+            "plugin/test2/src/test2.cpp"
+            }
+
+    project "core-plugin-test3"        
+        targetname "Test3"
+        kind "SharedLib"   
+        targetsuffix "" 
+        
+        links {
+            "core",
+            "core-plugin-test3-lib"
+        }
+
+        useCore()
+                
+		includedirs {
+            "core/include/",
+			"plugin/test3/include/"
+			}				
+		     
+        files { 
+            "plugin/test3/src/plugin.cpp"
+            }
+    
+        filter "platforms:x86"
+            targetdir "bin/x86/plugins/"
+        
+        filter "platforms:x86_64"
+            targetdir "bin/x86_64/plugins/"
+
+        filter {}
+
+    project "core-plugin-test3-lib"        
+        targetname "Test3"
+        kind "StaticLib" 
+        
+        links {
+            "core", 
+            "core-plugin-test2-lib"
+        }
+
+        useCore()
+                
+		includedirs {
+            "core/include/",
+			"plugin/test3/include/",
+			"plugin/test2/include/"
+			}				
+		     
+        files { 
+            "plugin/include/**.hpp",
+            "plugin/include/**.h",
+            "plugin/test3/src/test3.cpp"
+            }

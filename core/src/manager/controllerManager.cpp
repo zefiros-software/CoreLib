@@ -74,6 +74,19 @@ void ControllerManager::OnRelease()
     }
 }
 
+void ControllerManager::Add( std::type_index typeID, AbstractManager *mngr, Namespace ns /*= 0U */ )
+{
+    if ( !mControllers.Has( typeID ) )
+    {
+        mControllers.Add( mngr, typeID, ns );
+        mControllerCache.push_back( mngr );
+    }
+    else
+    {
+        Console::Errorf( LOG( "Controller already registered." ) );
+    }
+}
+
 void ControllerManager::OnPostRelease()
 {
     for ( auto &cont : mControllerCache )
