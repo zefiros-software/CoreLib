@@ -40,15 +40,15 @@
 #define API extern "C" BOOST_SYMBOL_EXPORT
 
 #define SET_PLUGIN( type ) \
-API PluginInfo *Load ## type ## Plugin( SystemManager *sys ) { \
+API PluginInfo Load ## type ## Plugin( SystemManager *sys ) { \
 type *p = new type(); \
 p->SetName( #type); \
 SystemManager::Get(sys); \
-return new PluginInfo{p, typeid(type)}; \
+return PluginInfo{p, typeid(type)}; \
 };
 
 #define DEFINE_PLUGIN( type ) \
-API PluginInfo *Load ## type ## Plugin( SystemManager *sys );
+API PluginInfo Load ## type ## Plugin( SystemManager *sys );
 
 class PluginBase
     : public AbstractPlugin

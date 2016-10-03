@@ -56,7 +56,19 @@ public:
 #endif
     }
 
+    void OnPostRelease() override
+    {
+        for ( auto plugin : mPlugins )
+        {
+            delete plugin.second;
+        }
+
+        mPlugins.clear();
+    }
+
 private:
+
+    std::unordered_map< std::string, PluginBase * > mPlugins;
 
     void LoadPlugins( const std::vector< std::string > &plugins )
     {
@@ -68,14 +80,12 @@ private:
 
             if ( lib->has( func ) )
             {
-                PluginInfo *info = lib->get< PluginInfo *( SystemManager * )>( func )( mManagerHolder->system );
-                std::string name = info->manager->GetName();
+                PluginInfo info = lib->get< PluginInfo( SystemManager * )>( func )( mManagerHolder->system );
+                std::string name = info.manager->GetName();
 
-                Console::Initf( "Initialising library '%s' on path '%s'.", info->manager->GetName(), plugin );
+                Console::Initf( "Initialising library '%s' on path '%s'.", info.manager->GetName(), plugin );
 
-                mManagerHolder->controller->Add( info->type, info->manager );
-
-                delete info;
+                mManagerHolder->controller->Add( info.type, info.manager );
             }
             else
             {
