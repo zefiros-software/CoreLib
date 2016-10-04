@@ -55,7 +55,8 @@ int main( int argc, char **argv )
 
     U32 result = RUN_ALL_TESTS();
 
-    System::Release();
+    // may have been replaced so we dont use sysmngr
+    SystemManager::Get()->Release();
 
     return result;
 }

@@ -40,7 +40,7 @@ namespace
 
     ENGINE_TEST( SystemManager, FullCycle )
     {
-        System::Release();
+        SystemManager::Get()->Release();
 
         SystemManager *sysmgr = new SystemManager( 0, nullptr );
         SystemManager::Get( sysmgr );

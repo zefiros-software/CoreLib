@@ -34,15 +34,7 @@
 
 namespace System
 {
-    EXPOSE_API( system, Initialise );
-
-    EXPOSE_API( system, Release );
-
-    EXPOSE_API( system, Update );
-
     EXPOSE_API( system, GetManagers );
-
-    EXPOSE_API( system, RegisterManagers );
 
     EXPOSE_API( system, GetArgc );
 

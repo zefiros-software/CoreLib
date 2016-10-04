@@ -39,7 +39,7 @@ namespace
 
     ENGINE_TEST( TestPlugin, IsInit )
     {
-        System::Release();
+        SystemManager::Get()->Release();
 
         SystemManager *sysmgr = new SystemManager( 0, nullptr );
         SystemManager::Get( sysmgr );
