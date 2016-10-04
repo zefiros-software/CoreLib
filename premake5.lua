@@ -17,7 +17,9 @@ function useCore()
 
 end
 
-workspace "CoreLib"
+workspace "CoreLib"   
+        
+    pic "On"     
 
     filter "system:linux"            
         links "dl"
@@ -28,9 +30,6 @@ workspace "CoreLib"
      
     project "core"
         useCore()
-        
-        pic "On"
-     
     project "core-test"
         useCore()       
             
