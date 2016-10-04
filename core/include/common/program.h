@@ -68,18 +68,18 @@ public:
 
     void Update();
 
+    /**
+     * Initialize the game instance by setting the working directory and handle command line arguments.
+     */
+
+    void Init();
+
     bool IsRunning() const noexcept;
 
     std::map<std::string, docopt::value> ParseCLI( const std::string &usage, bool help = true,
                                                    bool optionsFirst  = false ) const;
 
 protected:
-
-    /**
-     * Initialize the game instance by setting the working directory and handle command line arguments.
-     */
-
-    void Init() const;
 
     /**
      * Shuts down the application and frees any resources it is using.

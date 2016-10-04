@@ -46,10 +46,25 @@ void Program::Update()
     if ( !mIsInitialised )
     {
         Init();
-        mIsInitialised = true;
     }
 
     SystemManager::Get()->GetManagers()->system->Update();
+}
+
+void Program::Init()
+{
+    // Create a system manager and provide it for global access
+    // using the service locater pattern.
+    SystemManager *systemManager = new SystemManager( mArgc, mArgv );
+
+    // Provide our service locator
+    SystemManager::Get( systemManager );
+
+    systemManager->RegisterManagers();
+
+    systemManager->Initialise();
+
+    mIsInitialised = true;
 }
 
 bool Program::IsRunning() const noexcept
@@ -62,20 +77,6 @@ std::map<std::string, docopt::value> Program::ParseCLI( const std::string &usage
 {
     return docopt::docopt( usage, { mArgv + 1, mArgv + mArgc }, help,
                            SystemManager::Get()->GetManagers()->application->GetVersion(), optionsFirst );
-}
-
-void Program::Init() const
-{
-    // Create a system manager and provide it for global access
-    // using the service locater pattern.
-    SystemManager *systemManager = new SystemManager( mArgc, mArgv );
-
-    // Provide our service locator
-    SystemManager::Get( systemManager );
-
-    systemManager->RegisterManagers();
-
-    systemManager->Initialise();
 }
 
 void Program::Shutdown()
