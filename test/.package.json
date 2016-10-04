@@ -6,6 +6,10 @@
     "requires": [
         {
             "name": "Zefiros-Software/CoreLib",
+            "path": "../"
+        },
+        {
+            "name": "Zefiros-Software/GoogleTest",
             "version": "@head"
         }
     ]
