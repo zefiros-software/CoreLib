@@ -30,6 +30,7 @@ workspace "CoreLib"
      
     project "core"
         useCore()
+        
     project "core-test"
         useCore()       
             

@@ -32,4 +32,32 @@ workspace "CoreLib-ZPM"
 	project "core-zpm-test"
         zpm.uses {
             "Zefiros-Software/CoreLib"
+        }            
+            
+        links {
+            "core-plugin-test4"
         }
+                    
+        includedirs {
+            "../plugin/test4/include/"
+            }	
+        
+    group( "Plugins/Test4" )
+        project "core-plugin-test4"        
+            targetname "Test4"
+            kind "StaticLib"
+            
+            links "core-zpm"
+
+            useCore()
+                    
+            includedirs {
+                "../core/include/",
+                "../plugin/test4/include/"
+                }						     			
+                
+            files { 
+                "../plugin/include/**.hpp",
+                "../plugin/include/**.h",
+                "../plugin/test4/src/**.cpp"
+                }
