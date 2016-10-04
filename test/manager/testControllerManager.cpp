@@ -50,7 +50,7 @@ namespace
     ENGINE_TEST( ControllerManager, ReleaseNS )
     {
         ControllerManager m;
-        AbstractManager *cn = m.Add< TestManager >();
+        m.Add< TestManager >();
         m.OnRelease( 0 );
         EXPECT_EQ( nullptr, m.Get<TestManager>() );
     }

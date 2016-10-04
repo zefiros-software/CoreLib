@@ -66,6 +66,7 @@ workspace "CoreLib"
             targetname "Test"
             kind "SharedLib"   
             targetsuffix "" 
+            pic "On"
             
             links "core"
             useCore()
@@ -93,6 +94,7 @@ workspace "CoreLib"
             targetname "Test2"
             kind "SharedLib"   
             targetsuffix ""  
+            pic "On"
             
             links {
                 "core", 
@@ -142,6 +144,7 @@ workspace "CoreLib"
             targetname "Test3"
             kind "SharedLib"   
             targetsuffix "" 
+            pic "On"
             
             links {
                 "core",
