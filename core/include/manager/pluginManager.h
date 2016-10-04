@@ -29,6 +29,9 @@
 #define __PLUGINMANAGER_H__
 
 #include "abstract/abstractManager.h"
+
+#include "api/console.h"
+
 #include "plugin/api.h"
 
 #include <unordered_map>
