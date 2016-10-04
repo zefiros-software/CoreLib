@@ -25,17 +25,23 @@
  */
 
 #pragma once
-#ifndef __ENGINE_TEST_H__
-#define __ENGINE_TEST_H__
+#ifndef __SIGNCOMPARE_H__
+#define __SIGNCOMPARE_H__
 
-#include "warnings/push.h"
-#include "warnings/integerToSmallPointer.h"
-#include "warnings/conversionNull.h"
-#include "warnings/signCompare.h"
+#if defined(__clang__)
+//#   pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#if defined(_MSC_VER)
+//#   pragma warning(disable: 4100)
+#endif
 
-#include "warnings/pop.h"
+#if defined(__GNUC__) && !defined(__clang__)
+#   pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
+
+#if defined(__ICL)
+//#   pragma warning(disable:111)
+#endif
 
 #endif

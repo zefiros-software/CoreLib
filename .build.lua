@@ -7,6 +7,11 @@ project "CoreLib"
     zpm.export [[
         includedirs "core/include/"
         flags "C++11"
+
+        filter "system:linux"            
+            links "dl"
+
+        filter {}
     ]]
     
     zpm.uses {

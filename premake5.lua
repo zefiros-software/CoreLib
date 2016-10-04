@@ -19,6 +19,11 @@ end
 
 workspace "CoreLib"
 
+    filter "system:linux"            
+        links "dl"
+
+    filter {}
+
 	zefiros.setDefaults( "core" )
      
     project "core"
