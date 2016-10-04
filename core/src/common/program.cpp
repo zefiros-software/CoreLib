@@ -69,6 +69,11 @@ void Program::Init()
 
 bool Program::IsRunning() const noexcept
 {
+    if ( !mIsInitialised )
+    {
+        return true;
+    }
+
     return SystemManager::Get()->GetManagers()->application->IsRunning();
 }
 
