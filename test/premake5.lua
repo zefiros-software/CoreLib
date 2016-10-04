@@ -48,8 +48,10 @@ workspace "CoreLib-ZPM"
             kind "StaticLib"
             
             links "core-zpm"
-
-            useCore()
+            
+            zpm.uses {
+                "Zefiros-Software/CoreLib"
+            }          
                     
             includedirs {
                 "../core/include/",
