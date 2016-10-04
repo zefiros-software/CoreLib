@@ -136,6 +136,8 @@ void LogManager::Echo( const std::string &str, Console::LogMode type )
     OutputDebugStringW( String::ToWString( result ).c_str() );
 
 #endif
+
+    std::cout << str << "\n";
 }
 
 void LogManager::Slack( Console::LogMode type, const std::string &str )

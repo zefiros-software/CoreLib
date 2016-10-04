@@ -30,10 +30,10 @@
 #include "common/program.h"
 
 Program::Program( S32 argc, char **argv ) noexcept
-    : mArgc( argc ),
+    : mIsInitialised( false ),
+      mArgc( argc ),
       mArgv( argv )
 {
-    Init();
 }
 
 Program::~Program()
@@ -41,8 +41,14 @@ Program::~Program()
     Shutdown();
 }
 
-void Program::Update() const
+void Program::Update()
 {
+    if ( !mIsInitialised )
+    {
+        Init();
+        mIsInitialised = true;
+    }
+
     SystemManager::Get()->GetManagers()->system->Update();
 }
 

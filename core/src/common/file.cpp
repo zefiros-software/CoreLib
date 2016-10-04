@@ -234,4 +234,17 @@ namespace File
         return false;
     }
 
+    bool IsSharedLibrary( const std::string &s )
+    {
+        return ( s.find( ".dll" ) != std::string::npos || s.find( ".so" ) != std::string::npos ||
+                 s.find( ".dylib" ) != std::string::npos )
+               && s.find( ".lib" ) == std::string::npos
+               && s.find( ".exp" ) == std::string::npos
+               && s.find( ".pdb" ) == std::string::npos
+               && s.find( ".manifest" ) == std::string::npos
+               && s.find( ".rsp" ) == std::string::npos
+               && s.find( ".obj" ) == std::string::npos
+               && s.find( ".a" ) == std::string::npos;
+    }
+
 }

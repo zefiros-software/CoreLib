@@ -25,80 +25,12 @@
  */
 
 #pragma once
-#ifndef __ENGINE_GAMEINSTANCE_H__
-#define __ENGINE_GAMEINSTANCE_H__
+#ifndef __API_H__
+#define __API_H__
 
-#include "common/types.h"
+#include <boost/dll/shared_library.hpp>
 
-#include "external/docoptcpp.h"
-#include <map>
-
-/// @addtogroup docCommon
-/// @{
-
-/// @addtogroup docCommon_Game
-/// @{
-
-/**
- * A game instance.
- */
-class Program
-{
-public:
-
-    /// @name Construction
-    /// @{
-
-    /**
-     * Constructor.
-     *
-     * @param   argc         The commandline argument count.
-     * @param [in,out]  argv The arguments array.
-     */
-
-    Program( S32 argc, char **argv ) noexcept;
-
-    ~Program();
-
-    /// @}
-
-    /// @name Start & Run
-    /// @{
-
-
-    void Update();
-
-    bool IsRunning() const noexcept;
-
-    std::map<std::string, docopt::value> ParseCLI( const std::string &usage, bool help = true,
-                                                   bool optionsFirst  = false ) const;
-
-protected:
-
-    /**
-     * Initialize the game instance by setting the working directory and handle command line arguments.
-     */
-
-    void Init() const;
-
-    /**
-     * Shuts down the application and frees any resources it is using.
-     */
-
-    static void Shutdown();
-
-    /// @}
-
-private:
-
-    bool mIsInitialised;
-    S32 mArgc;
-    char **mArgv;
-
-};
-
-/// @}
-
-/// @}
+#define CAPI extern "C" BOOST_SYMBOL_EXPORT
+#define API extern BOOST_SYMBOL_EXPORT
 
 #endif

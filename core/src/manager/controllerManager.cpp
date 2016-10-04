@@ -30,7 +30,7 @@ void ControllerManager::OnInit()
 {
     for ( auto &cont : mControllerCache )
     {
-        cont->OnInit();
+        cont->Initialise();
     }
 }
 

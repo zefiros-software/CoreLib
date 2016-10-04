@@ -25,80 +25,25 @@
  */
 
 #pragma once
-#ifndef __ENGINE_GAMEINSTANCE_H__
-#define __ENGINE_GAMEINSTANCE_H__
 
-#include "common/types.h"
+#include "manager/pluginManager.h"
+#include "plugin/api.h"
 
-#include "external/docoptcpp.h"
-#include <map>
+#include <boost/dll/alias.hpp>
 
-/// @addtogroup docCommon
-/// @{
+#include <string>
 
-/// @addtogroup docCommon_Game
-/// @{
-
-/**
- * A game instance.
- */
-class Program
-{
-public:
-
-    /// @name Construction
-    /// @{
-
-    /**
-     * Constructor.
-     *
-     * @param   argc         The commandline argument count.
-     * @param [in,out]  argv The arguments array.
-     */
-
-    Program( S32 argc, char **argv ) noexcept;
-
-    ~Program();
-
-    /// @}
-
-    /// @name Start & Run
-    /// @{
-
-
-    void Update();
-
-    bool IsRunning() const noexcept;
-
-    std::map<std::string, docopt::value> ParseCLI( const std::string &usage, bool help = true,
-                                                   bool optionsFirst  = false ) const;
-
-protected:
-
-    /**
-     * Initialize the game instance by setting the working directory and handle command line arguments.
-     */
-
-    void Init() const;
-
-    /**
-     * Shuts down the application and frees any resources it is using.
-     */
-
-    static void Shutdown();
-
-    /// @}
-
-private:
-
-    bool mIsInitialised;
-    S32 mArgc;
-    char **mArgv;
-
+#define SET_PLUGIN( type )                                      \
+CAPI PluginInfo Load ## type ## Plugin( SystemManager *sys ) {  \
+type *p = new type();                                           \
+p->SetName( #type);                                             \
+SystemManager::Get(sys);                                        \
+return PluginInfo{p, typeid(type)};                             \
 };
 
-/// @}
-
-/// @}
-
-#endif
+#define DEFINE_PLUGIN( type )                                   \
+CAPI PluginInfo Load ## type ## Plugin( SystemManager *sys );   \
+template<>                                                      \
+inline std::string PluginManager::GetName( type * ) {           \
+return #type;                                                   \
+};

@@ -128,7 +128,7 @@ public:
     {
         if ( MayReport( Console::LogMode::Print ) )
         {
-            Echo( String::Place( std::forward<Args>( args )... ), Console::LogMode::Print );
+            Echo( String::Format( std::forward<Args>( args )... ), Console::LogMode::Print );
         }
     }
 
@@ -226,7 +226,7 @@ public:
     {
         if ( MayReport( Console::LogMode::Warning ) )
         {
-            Echo( String::Place( std::forward<Args>( args )... ), Console::LogMode::Warning );
+            Echo( String::Format( std::forward<Args>( args )... ), Console::LogMode::Warning );
         }
     }
 
@@ -272,7 +272,7 @@ public:
     {
         if ( MayReport( Console::LogMode::Initialisation ) )
         {
-            Echo( String::Place( std::forward<Args>( args )... ), Console::LogMode::Initialisation );
+            Echo( String::Format( std::forward<Args>( args )... ), Console::LogMode::Initialisation );
         }
     }
 

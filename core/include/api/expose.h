@@ -48,4 +48,20 @@ auto func()                                                                     
     return SystemManager::Get()->GetManagers()->manager->func< Args... >();                         \
 }
 
+#define EXPOSE_CONTROLLER_API( controller, func )                                                   \
+template <typename... Args>                                                                         \
+auto func(Args &&... args)                                                                          \
+-> decltype(Controller::Get<controller>()->func(std::forward<Args>(args)...))                       \
+{                                                                                                   \
+    return Controller::Get<controller>()->func(std::forward<Args>(args)...);                        \
+}
+
+#define EXPOSE_CONTROLLER_API_NOARG( controller, func )                                             \
+template < typename... Args >                                                                       \
+auto func()                                                                                         \
+-> decltype( Controller::Get<controller>()->func< Args... >() )                                     \
+{                                                                                                   \
+    return Controller::Get<controller>()->func< Args... >();                                        \
+}
+
 #endif

@@ -40,6 +40,7 @@
 #include <assert.h>
 #include <vector>
 #include <mutex>
+#include <typeindex>
 
 /// @addtogroup Events
 /// @{
@@ -110,6 +111,7 @@ public:
 private:
 
     std::unordered_map< U32, std::vector< AbstractObserver * > > mOberservers;
+    std::unordered_map< std::type_index, U32 > mClassIDCache;
 
     SpinLock mClassIDLock;
     U32 mClassIDCounter;
@@ -119,11 +121,29 @@ private:
     template< typename tT >
     static U32 AssignClassID( EventManager &eventManager )
     {
-        static U32 mClassId = ++eventManager.mClassIDCounter;
+        static U32 mClassId = CacheClassID< tT >( eventManager );
 
         assert( mClassId > 0 && "A class ID of 0 is not allowed." );
 
         return mClassId;
+    }
+
+    template< typename tT >
+    static U32 CacheClassID( EventManager &eventManager )
+    {
+        const std::type_index typeIndex = std::type_index( typeid( tT ) );
+
+        std::lock_guard< SpinLock > lock( eventManager.mClassIDLock );
+
+        auto it = eventManager.mClassIDCache.find( typeIndex );
+
+        if ( it == eventManager.mClassIDCache.end() )
+        {
+            eventManager.mClassIDCache.insert( std::make_pair( typeIndex, ++eventManager.mClassIDCounter ) );
+            return eventManager.mClassIDCounter;
+        }
+
+        return it->second;
     }
 
 };

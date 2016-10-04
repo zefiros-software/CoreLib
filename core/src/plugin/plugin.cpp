@@ -24,17 +24,11 @@
  * @endcond
  */
 
+#include "manager/pluginManager.h"
+
 #include "plugin/plugin.h"
 
-bool Plugin::IsSharedLibrary( const std::string &s )
+StaticInitialiser::StaticInitialiser( std::function<void()> func )
 {
-    return ( s.find( ".dll" ) != std::string::npos || s.find( ".so" ) != std::string::npos ||
-             s.find( ".dylib" ) != std::string::npos )
-           && s.find( ".lib" ) == std::string::npos
-           && s.find( ".exp" ) == std::string::npos
-           && s.find( ".pdb" ) == std::string::npos
-           && s.find( ".manifest" ) == std::string::npos
-           && s.find( ".rsp" ) == std::string::npos
-           && s.find( ".obj" ) == std::string::npos
-           && s.find( ".a" ) == std::string::npos;
+    func();
 }

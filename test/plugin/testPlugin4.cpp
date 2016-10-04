@@ -24,81 +24,42 @@
  * @endcond
  */
 
-#pragma once
-#ifndef __ENGINE_GAMEINSTANCE_H__
-#define __ENGINE_GAMEINSTANCE_H__
+#include "api/plugin.h"
+#include "api/system.h"
 
-#include "common/types.h"
+#include "engineTest.h"
+#include "test4.h"
 
-#include "external/docoptcpp.h"
-#include <map>
-
-/// @addtogroup docCommon
-/// @{
-
-/// @addtogroup docCommon_Game
-/// @{
-
-/**
- * A game instance.
- */
-class Program
+namespace
 {
-public:
+    ENGINE_TEST( TestPlugin, Plugin4 )
+    {
+        EXPECT_EQ( 42, Test4::GetNumber() );
+    }
 
-    /// @name Construction
-    /// @{
+    ENGINE_TEST( TestPlugin, IsInit )
+    {
+        System::Release();
 
-    /**
-     * Constructor.
-     *
-     * @param   argc         The commandline argument count.
-     * @param [in,out]  argv The arguments array.
-     */
+        SystemManager *sysmgr = new SystemManager( 0, nullptr );
+        SystemManager::Get( sysmgr );
 
-    Program( S32 argc, char **argv ) noexcept;
+        sysmgr->RegisterManagers();
 
-    ~Program();
+        Plugin::Add< Test4Plugin >();
 
-    /// @}
+        Console::SetMode( Console::LogMode::Disabled );
 
-    /// @name Start & Run
-    /// @{
+        sysmgr->Initialise();
 
+        EXPECT_TRUE( Test4::IsInitialised() );
 
-    void Update();
+        sysmgr->Release();
 
-    bool IsRunning() const noexcept;
+        sysmgr = new SystemManager( 0, nullptr );
+        SystemManager::Get( sysmgr );
+        sysmgr->RegisterManagers();
 
-    std::map<std::string, docopt::value> ParseCLI( const std::string &usage, bool help = true,
-                                                   bool optionsFirst  = false ) const;
-
-protected:
-
-    /**
-     * Initialize the game instance by setting the working directory and handle command line arguments.
-     */
-
-    void Init() const;
-
-    /**
-     * Shuts down the application and frees any resources it is using.
-     */
-
-    static void Shutdown();
-
-    /// @}
-
-private:
-
-    bool mIsInitialised;
-    S32 mArgc;
-    char **mArgv;
-
-};
-
-/// @}
-
-/// @}
-
-#endif
+        Console::SetMode( Console::LogMode::Disabled );
+    }
+}

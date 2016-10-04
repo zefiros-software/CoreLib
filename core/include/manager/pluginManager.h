@@ -28,96 +28,72 @@
 #ifndef __PLUGINMANAGER_H__
 #define __PLUGINMANAGER_H__
 
-#include "manager/abstract/abstractManager.h"
+#include "abstract/abstractManager.h"
+#include "plugin/api.h"
 
-#include "plugin/plugin.h"
+#include <unordered_map>
+#include <set>
 
-#include "common/file.h"
+struct PluginInfo;
+class PluginBase;
 
-#include "preproc/os.h"
-
-#include "config.h"
-
-#include <boost/dll/runtime_symbol_info.hpp>
-#include <boost/dll/import.hpp>
-#include <boost/dll/shared_library.hpp>
+namespace boost
+{
+    namespace dll
+    {
+        class shared_library;
+    }
+}
 
 class PluginManager
     : public AbstractManager
 {
 public:
 
-    void OnPreInit() override
+    void OnPreInit() override;
+
+    void OnPostRelease() override;
+
+    template< typename tT >
+    tT *Add()
     {
-#if PROGRAM_STATIC_PLUGINS
-        boost::dll::shared_library( Path::GetExeFile() );
-#else
-        LoadPlugins( FindPlugins() );
-#endif
+        tT *p = new tT();
+        const std::string name = GetName< tT >();
+        p->SetName( name );
+        StorePlugin( PluginInfo{ p, typeid( tT )}, "static", name );
+        return p;
     }
 
-    void OnPostRelease() override
-    {
-        for ( auto plugin : mPlugins )
-        {
-            delete plugin.second;
-        }
+    void SetBlackList( const std::set< std::string > &blacklist );
 
-        mPlugins.clear();
+    template< typename tT >
+    static std::string GetName( tT * = nullptr )
+    {
+        Console::Error( LOG( "This should never be called, make sure you have the correct includes!" ) );
+        return "";
     }
 
 private:
 
     std::unordered_map< std::string, PluginBase * > mPlugins;
+    std::set< std::string > mBlacklist;
+    std::set< std::string > mAreLoaded;
 
-    void LoadPlugins( const std::vector< std::string > &plugins )
-    {
-        for ( auto plugin : plugins )
-        {
-            boost::dll::shared_library *lib = new boost::dll::shared_library( plugin, boost::dll::load_mode::append_decorations );
+    void LoadPlugins( const std::vector< std::string > &plugins );
 
-            std::string func = GetLoadFunction( plugin );
+    bool LoadPlugin( boost::dll::shared_library *lib, std::string pluginName, std::string plugin );
 
-            if ( lib->has( func ) )
-            {
-                PluginInfo info = lib->get< PluginInfo( SystemManager * )>( func )( mManagerHolder->system );
-                std::string name = info.manager->GetName();
+    void StorePlugin( const PluginInfo &info, std::string plugin, std::string pluginName );
 
-                Console::Initf( "Initialising library '%s' on path '%s'.", info.manager->GetName(), plugin );
+    bool IsBlacklisted( const std::string &name ) const;
 
-                mManagerHolder->controller->Add( info.type, info.manager );
-            }
-            else
-            {
-                lib->unload();
-                delete lib;
-            }
-        }
-    }
+    bool IsLoaded( const std::string &name ) const;
 
-    std::string GetLoadFunction( const std::string &plugin )
-    {
-        std::string fileName = Path::GetFileName( plugin, true );
-#if !(OS_IS_WINDOWS)
-        fileName = String::Replace( fileName, "lib", "" );
-#endif
-        return  "Load" + fileName + "Plugin";
-    }
+    std::string GetName( const std::string &plugin ) const;
 
-    static std::vector< std::string > FindPlugins()
-    {
-        std::vector< std::string > plugins;
+    std::string GetLoadFunction( const std::string &fileName )const;
 
-        for ( auto file : File::List( Path::GetExeDirectory() + PROGRAM_PLUGIN_DIRECTORY ) )
-        {
-            if ( Plugin::IsSharedLibrary( file ) )
-            {
-                plugins.push_back( file );
-            }
-        }
-
-        return plugins;
-    }
+    static std::vector< std::string > FindPlugins();
 
 };
 

@@ -11,6 +11,7 @@ public:
     void OnInit() override
     {
         std::string name = Controller::Get< Test >()->GetName();
+        Console::Print( name );
     }
 };
 

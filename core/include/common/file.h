@@ -412,6 +412,10 @@ namespace File
     bool Copy( const std::string &from, const std::string &to, bool overwrite = false );
 
     /// @}
+
+
+    bool IsSharedLibrary( const std::string &s );
+
 }
 
 /// @}

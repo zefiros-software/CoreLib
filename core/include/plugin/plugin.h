@@ -30,25 +30,9 @@
 
 #include "plugin/abstract/abstractPlugin.h"
 
-#include "manager/systemManager.h"
-
-#include <boost/dll/shared_library.hpp>
-#include <boost/dll/alias.hpp>
+#include "plugin/define.h"
 
 #include <typeindex>
-
-#define API extern "C" BOOST_SYMBOL_EXPORT
-
-#define SET_PLUGIN( type ) \
-API PluginInfo Load ## type ## Plugin( SystemManager *sys ) { \
-type *p = new type(); \
-p->SetName( #type); \
-SystemManager::Get(sys); \
-return PluginInfo{p, typeid(type)}; \
-};
-
-#define DEFINE_PLUGIN( type ) \
-API PluginInfo Load ## type ## Plugin( SystemManager *sys );
 
 class PluginBase
     : public AbstractPlugin
@@ -62,9 +46,10 @@ struct PluginInfo
     std::type_index type;
 };
 
-namespace Plugin
+struct StaticInitialiser
 {
-    bool IsSharedLibrary( const std::string &p );
-}
+    StaticInitialiser( std::function<void()> func );
+};
+
 
 #endif
