@@ -33,7 +33,15 @@ Program::Program( S32 argc, char **argv ) noexcept
     : mIsInitialised( false ),
       mArgc( argc ),
       mArgv( argv )
-{
+{   
+    // Create a system manager and provide it for global access
+    // using the service locater pattern.
+    SystemManager *systemManager = new SystemManager( mArgc, mArgv );
+
+    // Provide our service locator
+    SystemManager::Get( systemManager );
+
+    systemManager->RegisterManagers();
 }
 
 Program::~Program()
@@ -53,17 +61,8 @@ void Program::Update()
 
 void Program::Init()
 {
-    // Create a system manager and provide it for global access
-    // using the service locater pattern.
-    SystemManager *systemManager = new SystemManager( mArgc, mArgv );
-
-    // Provide our service locator
-    SystemManager::Get( systemManager );
-
-    systemManager->RegisterManagers();
-
     systemManager->Initialise();
-
+    
     mIsInitialised = true;
 }
 
