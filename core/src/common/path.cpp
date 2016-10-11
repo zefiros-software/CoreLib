@@ -296,9 +296,13 @@ namespace Path
 #if OS_IS_WINDOWS
         return FixStyle( Environment::Get( "APPDATA" ) );
 #elif OS_IS_LINUX
-        return FixStyle( "~/local/share/" );
+        const boost::filesystem::path path( Environment::Get("HOME") );
+        
+        return FixStyle( String::Format( "%s/local/share/", path.generic_string() ) );
 #elif OS_IS_MACOS
-        return FixStyle( "~/Library/Application Support/" );
+        const boost::filesystem::path path( Environment::Get("HOME") );
+        
+        return FixStyle( String::Format( "%s/Library/Application Support/", path.generic_string() ) );
 #endif
     }
 
