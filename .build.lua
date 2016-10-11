@@ -6,7 +6,8 @@ project "CoreLib"
 
     zpm.export [[
         includedirs "core/include/"
-        flags "C++11"
+        linkgroups "On"
+        flags "C++14"
 
         filter "system:linux"            
             links "dl"

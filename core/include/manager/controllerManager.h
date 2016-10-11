@@ -51,7 +51,7 @@ public:
 
     virtual void OnRelease( Namespace ns ) override;
 
-    template< typename tT>
+    template< typename tT >
     tT *Add( Namespace ns = 0U )
     {
         const std::type_index typeID = typeid( tT );
