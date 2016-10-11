@@ -78,6 +78,7 @@ void ControllerManager::AddExt( std::type_index typeID, AbstractManager *mngr, N
 {
     if ( !mControllers.Has( typeID ) )
     {
+        mngr->SetManagers( mManagerHolder );
         mControllers.Add( mngr, typeID, ns );
         mControllerCache.push_back( mngr );
     }
