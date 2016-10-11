@@ -298,7 +298,7 @@ namespace Path
 #elif OS_IS_LINUX
         return FixStyle( "~/local/share/" );
 #elif OS_IS_MACOS
-        return "~/Library/Application Support/";
+        return FixStyle( "~/Library/Application Support/" );
 #endif
     }
 
