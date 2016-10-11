@@ -57,12 +57,12 @@ public:
         const std::type_index typeID = typeid( tT );
         tT *controller = new tT();
 
-        Add( typeID, controller, ns );
+        AddExt( typeID, controller, ns );
 
         return controller;
     }
 
-    void Add( std::type_index typeID, AbstractManager *mngr, Namespace ns = 0U );
+    void AddExt( std::type_index typeID, AbstractManager *mngr, Namespace ns = 0U );
 
     template< typename tT>
     tT *Get()
