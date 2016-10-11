@@ -132,7 +132,7 @@ namespace Path
     std::string FixStyle( const std::string &filePath ) noexcept
     {
         const boost::filesystem::path path( filePath );
-        std::string newPath = path.generic_string();
+        std::string newPath = boost::filesystem::absolute(path).generic_string();
 
         if ( !path.has_extension() )
         {
