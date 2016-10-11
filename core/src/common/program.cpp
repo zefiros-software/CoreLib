@@ -61,7 +61,7 @@ void Program::Update()
 
 void Program::Init()
 {
-    systemManager->Initialise();
+    SystemManager::Get()->GetManagers()->system->Initialise();
     
     mIsInitialised = true;
 }
