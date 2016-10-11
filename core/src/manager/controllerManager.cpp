@@ -74,10 +74,11 @@ void ControllerManager::OnRelease()
     }
 }
 
-void ControllerManager::Add( std::type_index typeID, AbstractManager *mngr, Namespace ns /*= 0U */ )
+void ControllerManager::AddExt( std::type_index typeID, AbstractManager *mngr, Namespace ns /*= 0U */ )
 {
     if ( !mControllers.Has( typeID ) )
     {
+        mngr->SetManagers( mManagerHolder );
         mControllers.Add( mngr, typeID, ns );
         mControllerCache.push_back( mngr );
     }

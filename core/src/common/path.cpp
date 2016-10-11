@@ -132,7 +132,7 @@ namespace Path
     std::string FixStyle( const std::string &filePath ) noexcept
     {
         const boost::filesystem::path path( filePath );
-        std::string newPath = path.generic_string();
+        std::string newPath = boost::filesystem::absolute(path).generic_string();
 
         if ( !path.has_extension() )
         {
@@ -296,9 +296,13 @@ namespace Path
 #if OS_IS_WINDOWS
         return FixStyle( Environment::Get( "APPDATA" ) );
 #elif OS_IS_LINUX
-        return FixStyle( "~/local/share/" );
+        const boost::filesystem::path path( Environment::Get("HOME") );
+        
+        return FixStyle( String::Format( "%s/local/share/", path.generic_string() ) );
 #elif OS_IS_MACOS
-        return "~/Library/Application Support/";
+        const boost::filesystem::path path( Environment::Get("HOME") );
+        
+        return FixStyle( String::Format( "%s/Library/Application Support/", path.generic_string() ) );
 #endif
     }
 

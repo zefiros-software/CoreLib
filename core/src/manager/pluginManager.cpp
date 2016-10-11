@@ -99,7 +99,7 @@ void PluginManager::StorePlugin( const PluginInfo &info, std::string plugin, std
 {
     Console::Initf( "Initialising library '%s' on path '%s'.", info.manager->GetName(), plugin );
 
-    mManagerHolder->controller->Add( info.type, info.manager );
+    mManagerHolder->controller->AddExt( info.type, info.manager );
 
     mAreLoaded.insert( pluginName );
 }
