@@ -34,8 +34,14 @@
 
 namespace Controller
 {
-    EXPOSE_API( controller, Add );
-
+    //EXPOSE_API( controller, Add );
+    
+    template< typename tT >
+    tT *Add( Namespace ns = 0U )
+    {
+        return SystemManager::Get()->GetManagers()->controller->Add< tT >( ns );
+    }
+    
     EXPOSE_API( controller, Get );
     EXPOSE_API_NOARG( controller, Get );
 }
