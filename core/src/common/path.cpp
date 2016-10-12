@@ -132,7 +132,7 @@ namespace Path
     std::string FixStyle( const std::string &filePath ) noexcept
     {
         const boost::filesystem::path path( filePath );
-        std::string newPath = boost::filesystem::absolute(path).generic_string();
+        std::string newPath = path.generic_string();
 
         if ( !path.has_extension() )
         {
@@ -274,7 +274,7 @@ namespace Path
     {
 #if OS_IS_WINDOWS
         char result[ MAX_PATH ];
-        return Canonical( std::string( result, GetModuleFileNameA( nullptr, result, MAX_PATH ) ) );
+        return Canonical( std::string( result, GetModuleFileNameA( nullptr, result, MAX_PATH ) ), true );
 #elif OS_IS_LINUX
         char result[ PATH_MAX ];
         size_t count = readlink( "/proc/self/exe", result, PATH_MAX );
@@ -294,14 +294,14 @@ namespace Path
     std::string GetDataDirectory() noexcept
     {
 #if OS_IS_WINDOWS
-        return FixStyle( Environment::Get( "APPDATA" ) );
+        return Canonical( Environment::Get( "APPDATA" ), true );
 #elif OS_IS_LINUX
-        const boost::filesystem::path path( Environment::Get("HOME") );
-        
+        const boost::filesystem::path path( Environment::Get( "HOME" ) );
+
         return FixStyle( String::Format( "%s/local/share/", path.generic_string() ) );
 #elif OS_IS_MACOS
-        const boost::filesystem::path path( Environment::Get("HOME") );
-        
+        const boost::filesystem::path path( Environment::Get( "HOME" ) );
+
         return FixStyle( String::Format( "%s/Library/Application Support/", path.generic_string() ) );
 #endif
     }
@@ -309,7 +309,7 @@ namespace Path
     std::string GetSharedDataDirectory() noexcept
     {
 #if OS_IS_WINDOWS
-        return FixStyle( Environment::Get( "ALLUSERSPROFILE" ) );
+        return Canonical( Environment::Get( "ALLUSERSPROFILE" ), true );
 #elif OS_IS_LINUX
         return "/usr/local/";
 #elif OS_IS_MACOS
