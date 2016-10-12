@@ -7,7 +7,8 @@ project "CoreLib"
     zpm.export [[
         includedirs "core/include/"
         flags "C++14"
-    
+        pic "On"     
+
         filter "system:not macosx"
             linkgroups "On"
 
