@@ -274,7 +274,7 @@ namespace Path
     {
 #if OS_IS_WINDOWS
         char result[ MAX_PATH ];
-        return Canonical( std::string( result, GetModuleFileNameA( nullptr, result, MAX_PATH ) ) );
+        return Canonical( std::string( result, GetModuleFileNameA( nullptr, result, MAX_PATH ) ), true );
 #elif OS_IS_LINUX
         char result[ PATH_MAX ];
         size_t count = readlink( "/proc/self/exe", result, PATH_MAX );
@@ -294,7 +294,7 @@ namespace Path
     std::string GetDataDirectory() noexcept
     {
 #if OS_IS_WINDOWS
-        return Canonical( Environment::Get( "APPDATA" ) );
+        return Canonical( Environment::Get( "APPDATA" ), true );
 #elif OS_IS_LINUX
         const boost::filesystem::path path( Environment::Get( "HOME" ) );
 
@@ -309,7 +309,7 @@ namespace Path
     std::string GetSharedDataDirectory() noexcept
     {
 #if OS_IS_WINDOWS
-        return Canonical( Environment::Get( "ALLUSERSPROFILE" ) );
+        return Canonical( Environment::Get( "ALLUSERSPROFILE" ), true );
 #elif OS_IS_LINUX
         return "/usr/local/";
 #elif OS_IS_MACOS
