@@ -28,7 +28,7 @@
 #ifndef __ENGINE_BARRIER_H__
 #define __ENGINE_BARRIER_H__
 
-#include "bsp/mixedBarrier.h"
+#include "threading/mixedBarrier.h"
 
 #include "common/types.h"
 

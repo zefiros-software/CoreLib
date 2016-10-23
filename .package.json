@@ -5,22 +5,18 @@
             "Zefiros-Software/Zefiros-Defaults"
         ]
     },
+    "dev": {
+        "requires": [
+            {
+                "name": "Zefiros-Software/GoogleTest",
+                "version": "@head"
+            }
+        ]
+    },
     "requires": [
-        {
-            "name": "Zefiros-Software/GoogleTest",
-            "version": "@head"
-        },
-        {
-            "name": "Zefiros-Software/GoogleBenchmark",
-            "version": "^1.0.0"
-        },
         {
             "name": "Zefiros-Software/DocoptCpp",
             "version": "@head"
-        },
-        {
-            "name": "Zefiros-Software/BSPLib",
-            "version": "^1.1.0"
         },
         {
             "name": "Zefiros-Software/SerLib",
@@ -43,10 +39,6 @@
         },
         {
             "name": "Zefiros-Software/libsimdpp",
-            "version": "@head"
-        },
-        {
-            "name": "Zefiros-Software/Slacking",
             "version": "@head"
         }
     ]

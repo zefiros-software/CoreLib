@@ -35,14 +35,16 @@
 
 #include "api/console.h"
 
-#include "external/slacking.h"
+#include <iostream>
+
+//#include "external/slacking.h"
 
 #if OS_IS_WINDOWS
 #   include <windows.h>
 #endif
 
 LogManager::LogManager()
-    : mSlacking( nullptr ),
+    : //mSlacking( nullptr ),
       mLogMode( Console::LogMode::All )
 {
 }
@@ -75,6 +77,7 @@ void LogManager::OnInit()
         File::Clear( logFile );
     }
 
+    /*
     try
     {
         if ( !GetSlackToken().empty() && !GetSlackChannel().empty() )
@@ -88,6 +91,7 @@ void LogManager::OnInit()
     {
         Console::Errorf( "Failed to initialise slack!\n%s", std::string( e.what() ) );
     }
+    */
 
     Console::Initp( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) );
 
@@ -144,13 +148,13 @@ void LogManager::Slack( Console::LogMode type, const std::string &str )
 {
     std::lock_guard< std::recursive_mutex > lock( mMutex );
 
-    if ( mSlacking )
-    {
-        if ( MayReport( type, GetSlackLogLevel() ) )
-        {
-            mSlacking->chat.postMessage( str );
-        }
-    }
+    //     if ( mSlacking )
+    //     {
+    //         if ( MayReport( type, GetSlackLogLevel() ) )
+    //         {
+    //             mSlacking->chat.postMessage( str );
+    //         }
+    //     }
 }
 
 std::string LogManager::GetLogFilePath() const

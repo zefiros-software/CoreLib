@@ -30,8 +30,8 @@
 #include "warnings/push.h"
 #include "warnings/hidesParameter.h"
 
-#define INSECURE_CURL
-#include "slacking/slacking.hpp"
+//#define INSECURE_CURL
+//#include "slacking/slacking.hpp"
 
 #include "warnings/pop.h"
 

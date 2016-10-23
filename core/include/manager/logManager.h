@@ -39,13 +39,13 @@
 #include <sstream>
 #include <mutex>
 
-namespace slack
-{
-    namespace _detail
-    {
-        class Slacking;
-    }
-}
+// namespace slack
+// {
+//     namespace _detail
+//     {
+//         class Slacking;
+//     }
+// }
 
 /// @addtogroup Console
 /// @{
@@ -283,7 +283,7 @@ private:
     std::stringstream mStartupBuffer;
     mutable std::recursive_mutex mMutex;
 
-    slack::_detail::Slacking *mSlacking;
+    //slack::_detail::Slacking *mSlacking;
 
     /// Holds the current reporting mode, that defaults to reporting all information.
     Console::LogMode mLogMode;
