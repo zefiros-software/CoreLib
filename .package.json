@@ -1,16 +1,14 @@
 {
     "name": "Zefiros-Software/CoreLib",
     "dev": {
-        "modules": [
-            "Zefiros-Software/Zefiros-Defaults"
-        ]
-    },
-    "dev": {
         "requires": [
             {
                 "name": "Zefiros-Software/GoogleTest",
                 "version": "@head"
             }
+        ],        
+        "modules": [
+            "Zefiros-Software/Zefiros-Defaults"
         ]
     },
     "requires": [
