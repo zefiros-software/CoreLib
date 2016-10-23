@@ -18,7 +18,10 @@ workspace "CoreLib"
     pic "On"     
 
     filter "system:linux"            
-        links "dl"
+        links {
+            "pthread",
+            "dl"
+        }
 
     filter {}
 

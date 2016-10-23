@@ -13,7 +13,10 @@ project "CoreLib"
             linkgroups "On"
 
         filter "system:linux"            
-            links "dl"
+            links {
+                "pthread",
+                "dl"
+            }
 
         filter {}
     ]]
