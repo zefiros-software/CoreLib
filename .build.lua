@@ -10,9 +10,9 @@ project "CoreLib"
         pic "On" 
 
         defines {
-            "PROGRAM_NAME="..zpm.setting( "PROGRAM_NAME" ),
-            "PROGRAM_COMPANY="..zpm.setting( "PROGRAM_COMPANY" ),
-            "PROGRAM_COPYRIGHT="..zpm.setting( "PROGRAM_COPYRIGHT" )
+            "PROGRAM_NAME=\""..zpm.setting( "PROGRAM_NAME" ) .. "\"",
+            "PROGRAM_COMPANY=\""..zpm.setting( "PROGRAM_COMPANY" ) .. "\"",
+            "PROGRAM_COPYRIGHT=\""..zpm.setting( "PROGRAM_COPYRIGHT" ) .. "\""
         }    
 
         filter "system:not macosx"
