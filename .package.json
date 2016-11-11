@@ -11,6 +11,11 @@
             "Zefiros-Software/Zefiros-Defaults"
         ]
     },
+    "settings": {
+        "PROGRAM_NAME": "Zefiros CoreLib",
+        "PROGRAM_COMPANY": "Zefiros Software",
+        "PROGRAM_COPYRIGHT": "Zefiros Software"
+    },
     "requires": [
         {
             "name": "Zefiros-Software/DocoptCpp",
