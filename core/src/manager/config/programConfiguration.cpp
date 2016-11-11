@@ -31,9 +31,4 @@
 ProgramConfiguration::ProgramConfiguration()
 {
     AddStringKey( "ConsoleLog", "console.log", "Sets the file where the console logs are output" );
-
-    AddStringKey( "SlackToken", "", "The token used to login to slack" );
-    AddStringKey( "SlackChannel", "", "The channel to log to" );
-
-    AddIntKey( "SlackLogLevel", 0x01, "The logmode to report up to" );
 }

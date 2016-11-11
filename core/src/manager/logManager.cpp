@@ -37,15 +37,12 @@
 
 #include <iostream>
 
-//#include "external/slacking.h"
-
 #if OS_IS_WINDOWS
 #   include <windows.h>
 #endif
 
 LogManager::LogManager()
-    : //mSlacking( nullptr ),
-      mLogMode( Console::LogMode::All )
+    : mLogMode( Console::LogMode::All )
 {
 }
 
@@ -76,22 +73,6 @@ void LogManager::OnInit()
     {
         File::Clear( logFile );
     }
-
-    /*
-    try
-    {
-        if ( !GetSlackToken().empty() && !GetSlackChannel().empty() )
-        {
-            auto &slack = slack::create( GetSlackToken() );
-            slack.chat.channel = GetSlackChannel();
-            mSlacking = &slack;
-        }
-    }
-    catch ( const std::runtime_error &e )
-    {
-        Console::Errorf( "Failed to initialise slack!\n%s", std::string( e.what() ) );
-    }
-    */
 
     Console::Initp( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) );
 
@@ -130,8 +111,6 @@ void LogManager::Echo( const std::string &str, Console::LogMode type )
     else
     {
         Log( result );
-
-        Slack( type, str );
     }
 
 #if defined( _MSC_VER ) && IS_DEBUG
@@ -144,37 +123,9 @@ void LogManager::Echo( const std::string &str, Console::LogMode type )
     std::cout << str << "\n";
 }
 
-void LogManager::Slack( Console::LogMode type, const std::string &str )
-{
-    std::lock_guard< std::recursive_mutex > lock( mMutex );
-
-    //     if ( mSlacking )
-    //     {
-    //         if ( MayReport( type, GetSlackLogLevel() ) )
-    //         {
-    //             mSlacking->chat.postMessage( str );
-    //         }
-    //     }
-}
-
 std::string LogManager::GetLogFilePath() const
 {
     return GetManagers()->configuration->GetString( "ConsoleLog" );
-}
-
-std::string LogManager::GetSlackToken() const
-{
-    return GetManagers()->configuration->GetString( "SlackToken" );
-}
-
-std::string LogManager::GetSlackChannel() const
-{
-    return GetManagers()->configuration->GetString( "SlackChannel" );
-}
-
-Console::LogMode LogManager::GetSlackLogLevel() const
-{
-    return static_cast< Console::LogMode>( GetManagers()->configuration->GetInt( "SlackLogLevel" ) );
 }
 
 bool LogManager::MayReport( Console::LogMode mode ) const

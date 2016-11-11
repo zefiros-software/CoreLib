@@ -283,8 +283,6 @@ private:
     std::stringstream mStartupBuffer;
     mutable std::recursive_mutex mMutex;
 
-    //slack::_detail::Slacking *mSlacking;
-
     /// Holds the current reporting mode, that defaults to reporting all information.
     Console::LogMode mLogMode;
 
@@ -304,15 +302,7 @@ private:
 
     void Echo( const std::string &str, Console::LogMode type );
 
-    void Slack( Console::LogMode type, const std::string &str );
-
     std::string GetLogFilePath() const;
-
-    std::string GetSlackToken() const;
-
-    std::string GetSlackChannel() const;
-
-    Console::LogMode GetSlackLogLevel() const;
 
     bool MayReport( Console::LogMode mode ) const;
 

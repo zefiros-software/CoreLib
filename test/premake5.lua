@@ -43,7 +43,7 @@ workspace "CoreLib-ZPM"
             "../plugin/test4/include/"
             }	
         
-    group( "Plugins/Test4" )
+    group "Plugins/Test4"
         project "core-plugin-test4"        
             targetname "Test4"
             kind "StaticLib"
