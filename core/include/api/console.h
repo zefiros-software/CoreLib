@@ -38,9 +38,9 @@
 #include "api/expose.h"
 
 #if IS_DEBUG
-#   define LOG( str ) ( String::Format("%s( %u ):\n\t%s:\n\t\t%s", std::string(__FILE__), (U32)__LINE__, std::string(BOOST_CURRENT_FUNCTION), String::Replace( str, "\n","\n\t\t")))
+#   define LOG( str ) ( String::Format("\n%s( %u ):\n\t%s:\n\t\t%s", std::string(__FILE__), (U32)__LINE__, std::string(BOOST_CURRENT_FUNCTION), String::Replace( str, "\n","\n\t\t")))
 #else
-#   define LOG( str ) ( String::Format("%s:\n\t%s", std::string( BOOST_CURRENT_FUNCTION ), String::Replace( str, "\n", "\n\t" ) ) )
+#   define LOG( str ) ( String::Format("\n%s:\n\t%s", std::string( BOOST_CURRENT_FUNCTION ), String::Replace( str, "\n", "\n\t" ) ) )
 #endif
 
 ///@addtogroup Logging
