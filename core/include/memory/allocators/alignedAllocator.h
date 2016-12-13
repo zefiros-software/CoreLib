@@ -96,7 +96,6 @@ public:
 
     inline void destroy( pointer p )
     {
-        static_cast< void * >( p );
         p->~value_type();
     }
 
