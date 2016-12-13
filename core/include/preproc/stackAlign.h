@@ -29,28 +29,30 @@
 #ifndef __ENGINE_STACKALIGN_H__
 #define __ENGINE_STACKALIGN_H__
 
-#ifdef BOOST_COMP_CLANG_DETECTION
+#include "compiler.h"
+
+#ifdef COMP_IS_CLANG
 #   define StackAlign( x ) __attribute__ ((aligned ( x )))
 #endif
 
-#ifdef BOOST_COMP_GNUC_DETECTION
+#ifdef COMP_IS_GNUC
 #   define StackAlign( x ) __attribute__ ((aligned ( x )))
 #endif
 
-#ifdef BOOST_COMP_INTEL_DETECTION
+#ifdef COMP_IS_INTEL
 #   define StackAlign( x ) __attribute__ ((aligned ( x )))
 #endif
 
-#ifdef BOOST_COMP_LLVM_DETECTION
+#ifdef COMP_IS_LLVM
 #   define StackAlign( x ) __attribute__ ((aligned ( x )))
 #endif
 
 
-#ifdef BOOST_COMP_MSVC_DETECTION
+#ifdef COMP_IS_MSVC
 #   define StackAlign( x ) __declspec(align( x ))
 #endif
 
-#ifdef BOOST_COMP_BORLAND_DETECTION
+#ifdef COMP_IS_BORLAND
 #   error compiler not supported for stack alignment
 #endif
 
