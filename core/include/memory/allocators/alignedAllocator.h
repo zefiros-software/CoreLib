@@ -70,8 +70,10 @@ public:
         return &ref;
     }
 
-    inline pointer allocate( size_type n, std::allocator<void>::const_pointer = nullptr )
+    inline pointer allocate( size_type n, std::allocator<void>::const_pointer t = nullptr )
     {
+        (void) t;
+        
         pointer address = static_cast< pointer >( ZefAlignedMalloc( sizeof( T ) * n, N ) );
 
         if ( address == nullptr )

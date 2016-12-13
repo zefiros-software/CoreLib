@@ -24,56 +24,34 @@
  * @endcond
  */
 
-#include "memory/allocators/malloc.h"
+#pragma once
+#pragma once
+#ifndef __ENGINE_STACKALIGN_H__
+#define __ENGINE_STACKALIGN_H__
 
-#include <stdlib.h>
-#include <emmintrin.h>
+#ifdef BOOST_COMP_CLANG_DETECTION
+#   define StackAlign( x ) __attribute__ ((aligned ( x )))
+#endif
 
-void *_InternalAlignedMalloc( size_t bytes, size_t alignment )
-{
-    /*
-    size_t offset = alignment; //+ sizeof( size_t );
+#ifdef BOOST_COMP_GNUC_DETECTION
+#   define StackAlign( x ) __attribute__ ((aligned ( x )))
+#endif
 
-    void *ptr = malloc( bytes + offset );
+#ifdef BOOST_COMP_INTEL_DETECTION
+#   define StackAlign( x ) __attribute__ ((aligned ( x )))
+#endif
 
-    if ( !ptr )
-    {
-        return nullptr;
-    }
+#ifdef BOOST_COMP_LLVM_DETECTION
+#   define StackAlign( x ) __attribute__ ((aligned ( x )))
+#endif
 
-    //offset and truncate under alignment
-    void **ptr2 = reinterpret_cast< void ** >( ( reinterpret_cast< size_t >( ptr ) & ~( alignment - 1 ) ) + offset );
 
-    //store malloc address above the requested memory
-    ptr2[-1] = ptr;
+#ifdef BOOST_COMP_MSVC_DETECTION
+#   define StackAlign( x ) __declspec(align( x ))
+#endif
 
-    return ptr2;
-    */
-    
-    // Just use the sse alloc
-    return _mm_malloc( bytes, alignment );
-}
+#ifdef BOOST_COMP_BORLAND_DETECTION
+#   error compiler not supported for stack alignment
+#endif
 
-void _InternalAlignedFree( void *ptr )
-{
-    /*
-    if ( ptr != nullptr )
-    {
-        free( *( static_cast< void ** >( ptr ) - 1 ) );
-    }
-    */
-    
-    _mm_free( ptr );
-}
-
-void *ZefAlignedMalloc( size_t bytes, size_t alignment )
-{
-    // TODO add lib specific allocs
-    return _InternalAlignedMalloc( bytes, alignment );
-}
-
-void ZefAlignedFree( void *ptr )
-{
-    // TODO add lib specific frees
-    return _InternalAlignedFree( ptr );
-}
+#endif
