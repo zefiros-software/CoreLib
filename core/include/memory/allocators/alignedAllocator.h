@@ -108,6 +108,10 @@ public:
 template< class T1, U32 N1, class T2, U32 N2 >
 bool operator==( const AlignedAllocator<T1,N1>& lhs, const AlignedAllocator<T2, N2>& rhs )
 {
+    // prevent warning
+    (void) lhs;
+    (void) rhs;
+    
     return N1 == N2;
 }
 
