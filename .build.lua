@@ -32,6 +32,5 @@ project "CoreLib"
         "Zefiros-Software/SerLib",
         "Zefiros-Software/MathLib",
         "Zefiros-Software/Boost",
-        "Zefiros-Software/Fmt",
-        "Zefiros-Software/libsimdpp"
+        "Zefiros-Software/Fmt"
     }
