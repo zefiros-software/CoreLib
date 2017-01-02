@@ -118,27 +118,6 @@ bool String::IsWhiteSpace( const std::string &str )
     return trim == "";
 }
 
-std::string String::Trim( const std::string &str ) noexcept
-{
-    std::string nstr = str;
-    boost::algorithm::trim( nstr );
-    return nstr;
-}
-
-std::string String::Replace( const std::string &str, const std::string &search, const std::string &format ) noexcept
-{
-    std::string nstr = str;
-    boost::algorithm::replace_all( nstr, search, format );
-    return nstr;
-}
-
-std::string String::Capitalise( const std::string &str ) noexcept
-{
-    std::string result( str );
-    result[0] = static_cast<char>( toupper( result[0] ) );
-    return result;
-}
-
 std::vector< std::string > String::Split( const std::string &str, char sep, bool trim /*= false */ ) noexcept
 {
     std::vector< std::string > output;
@@ -171,4 +150,49 @@ std::vector< std::string > String::Split( const std::string &str, char sep, bool
     output.push_back( token );
 
     return output;
+}
+
+std::string String::Trim( const std::string &str ) noexcept
+{
+    std::string nstr = str;
+    boost::algorithm::trim( nstr );
+    return nstr;
+}
+
+std::string String::Replace( const std::string &str, const std::string &search, const std::string &format ) noexcept
+{
+    std::string nstr = str;
+    boost::algorithm::replace_all( nstr, search, format );
+    return nstr;
+}
+
+std::string String::Capitalise( const std::string &str ) noexcept
+{
+    std::string result( str );
+    result[0] = static_cast<char>( toupper( result[0] ) );
+    return result;
+}
+
+std::string String::Repeat( const std::string &str, size_t n ) noexcept
+{
+    std::ostringstream ss;
+
+    for ( U32 i = 0; i < n; ++i )
+    {
+        ss << str;
+    }
+
+    return ss.str();
+}
+
+std::wstring String::Repeat( const std::wstring &str, size_t n ) noexcept
+{
+    std::basic_ostringstream<wchar_t> ss;
+
+    for ( U32 i = 0; i < n; ++i )
+    {
+        ss << str;
+    }
+
+    return ss.str();
 }

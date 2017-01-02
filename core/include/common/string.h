@@ -301,7 +301,12 @@ namespace String
 
     std::string Capitalise( const std::string &str ) noexcept;
 
+    std::string Repeat( const std::string &str, size_t n ) noexcept;
+
+    std::wstring Repeat( const std::wstring &str, size_t n ) noexcept;
+
     /// @}
+
 
 }
 

@@ -32,5 +32,6 @@ project "CoreLib"
         "Zefiros-Software/SerLib",
         "Zefiros-Software/MathLib",
         "Zefiros-Software/Boost",
+        "Zefiros-Software/Date",
         "Zefiros-Software/Fmt"
     }

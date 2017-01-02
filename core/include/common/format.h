@@ -186,7 +186,7 @@ namespace String
      * @return The formatted value.
      */
     template <typename... Args>
-    auto Place( Args &&... args ) -> decltype( fmt::format( std::forward<Args>( args )... ) )
+    std::string Place( Args &&... args )
     {
         return fmt::format( std::forward<Args>( args )... );
     }

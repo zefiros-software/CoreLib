@@ -39,6 +39,10 @@
         {
             "name": "Zefiros-Software/Fmt",
             "version": "^3.0.0"
+        },
+        {
+            "name": "Zefiros-Software/Date",
+            "version": ">=2.1.0"
         }
     ]
 }

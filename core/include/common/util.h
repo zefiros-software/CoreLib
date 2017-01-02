@@ -38,6 +38,8 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <numeric>
+#include <functional>
 
 
 /// @addtogroup docCommon
@@ -416,7 +418,6 @@ namespace Util
       };
 
     /// @}
-
 
     std::tm Now() noexcept;
 };
