@@ -27,9 +27,10 @@
 #pragma once
 #ifndef __RANGE_H__
 #define __RANGE_H__
-#include <vector>
+
 #include <functional>
 #include <numeric>
+#include <vector>
 
 template<typename tT, typename tFunc>
 struct IotaWrapper
@@ -79,4 +80,5 @@ std::vector<tT> Range( const tT &first, const tT &last, const tT &increment )
     std::iota( result.begin(), result.end(), iota );
     return result;
 }
+
 #endif

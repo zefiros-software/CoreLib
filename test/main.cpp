@@ -31,6 +31,7 @@
 #include "api/system.h"
 
 #include "engineTest.h"
+#include "common/query.h"
 
 int main( int argc, char **argv )
 {
@@ -43,7 +44,6 @@ int main( int argc, char **argv )
 
 #endif
 
-    /*
     Test::EnsureTestDirectories( { "common/" } );
 
     SystemManager *sysmgr = new SystemManager( argc, argv );
@@ -60,6 +60,4 @@ int main( int argc, char **argv )
     SystemManager::Get()->Release();
 
     return result;
-    */
-    return 0;
 }
