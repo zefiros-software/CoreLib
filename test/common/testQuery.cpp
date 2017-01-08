@@ -70,14 +70,6 @@ namespace
         }
     }
 
-    TEST( Query, GroupBy, Test )
-    {
-        std::vector<S32> src = { 1, 2, 3, 4 };
-
-        auto rng = Query( src );
-        auto val = rng.GroupBy< bool, S32 >( []( S32 i ) { return ( i & 1 ) == 0; } ).ToVector();
-    }
-
     TEST( Query, All, ThreeInts )
     {
         std::vector<S32> src = {1, 2, 3};
