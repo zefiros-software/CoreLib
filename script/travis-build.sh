@@ -3,27 +3,24 @@ set -e
 premake5 install-package --allow-install --allow-module
 premake5 gmake --allow-install --ignore-updates
 cd core
-make config=debug_x86
-make config=debug_x86_64
-make config=release_x86
-make config=release_x86_64
-#make config=coverage_x86
-#make config=coverage_x86_64
+make config=${TYPE}_${ARCH}
+cd ../
 
-cd ../test/
 
-premake5 gmake --allow-install
+if [ $TYPE="debug" ]; then
+    bin/${ARCH}/core-testd
+elif [ $TYPE="coverage" ]; then
+    bin/${ARCH}/core-testcd
+else
+    bin/${ARCH}/core-test
 
-cd zpm/
-make
-cd ../../
+    cd test
+    
+    premake5 gmake --allow-install
 
-bin/x86/core-test
-bin/x86/core-testd
-#bin/x86/core-testcd
+    cd zpm/
+    make
+    cd ../../
 
-bin/x86_64/core-test
-bin/x86_64/core-testd
-#bin/x86_64/core-testcd
-
-test/bin/x86/core-zpm-test
+    test/bin/x86/core-zpm-test
+fi
