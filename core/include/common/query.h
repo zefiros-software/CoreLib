@@ -793,7 +793,7 @@ public:
 
         return Enumerator<size_t, DataType>( [ = ]( DataType & p )->S32
         {
-            if ( p.first == -1 )
+            if ( p.first == static_cast<size_t>( -1 ) )
             {
                 p.first = sizeof( tV ) - 1;
                 p.second.second = p.second.first.Next();
@@ -830,7 +830,7 @@ public:
                 tR object;
                 U8 *ptr = reinterpret_cast<U8 *>( &object );
 
-                for ( size_t i = sizeof( tR ) - 1; i != -1; --i )
+                for ( ptrdiff_t i = sizeof( tR ) - 1; i != -1; --i )
                 {
                     ptr[i] = en.Next();
                 }
@@ -867,7 +867,7 @@ public:
 
         return Enumerator<size_t, DataType>( [ = ]( DataType & pair )->S32
         {
-            if ( pair.first == -1 )
+            if ( pair.first == static_cast< size_t>( -1 ) )
             {
                 pair.first = CHAR_BIT - 1;
                 pair.second.second = static_cast<U8>( pair.second.first.Next() );
@@ -899,7 +899,7 @@ public:
         {
             U8 object = 0;
 
-            for ( size_t i = CHAR_BIT - 1; i != -1; --i )
+            for ( S64 i = CHAR_BIT - 1; i != -1; --i )
             {
                 object |= ( en.Next() << i );
             }
