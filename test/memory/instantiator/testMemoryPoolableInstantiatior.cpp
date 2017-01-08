@@ -65,12 +65,12 @@ namespace
 
     typedef MemoryPoolableInstantiator< Child, Base > MemoryPoolableInstantiatorImpl;
 
-    ENGINE_TEST( MemoryPoolableInstantiator, SanityCheck )
+    TEST( MemoryPoolableInstantiator, SanityCheck )
     {
         volatile MemoryPoolableInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( MemoryPoolableInstantiator, Create )
+    TEST( MemoryPoolableInstantiator, Create )
     {
         MemoryPoolableInstantiatorImpl inst;
 
@@ -81,7 +81,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( MemoryPoolableInstantiator, EmptyCreate )
+    TEST( MemoryPoolableInstantiator, EmptyCreate )
     {
         MemoryPoolableInstantiatorImpl inst( 0, 0 );
 
@@ -92,7 +92,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( MemoryPoolableInstantiator, NearEmptyCreate )
+    TEST( MemoryPoolableInstantiator, NearEmptyCreate )
     {
         MemoryPoolableInstantiatorImpl inst( 1, 1 );
 
@@ -106,7 +106,7 @@ namespace
         inst.Destroy( child2 );
     }
 
-    ENGINE_TEST( MemoryPoolableInstantiator, ContiguousMemoryCheck )
+    TEST( MemoryPoolableInstantiator, ContiguousMemoryCheck )
     {
         MemoryPoolableInstantiatorImpl inst( 2, 1 );
 
@@ -122,7 +122,7 @@ namespace
         EXPECT_EQ( 1, Mathf::Abs( static_cast< S32 >( child2 - child ) ) );
     }
 
-    ENGINE_TEST( MemoryPoolableInstantiator, MultipleBlocks )
+    TEST( MemoryPoolableInstantiator, MultipleBlocks )
     {
         MemoryPoolableInstantiatorImpl inst( 1, 2 );
 
@@ -136,7 +136,7 @@ namespace
         inst.Destroy( child2 );
     }
 
-    ENGINE_TEST( MemoryPoolableInstantiator, MemoryLeaks )
+    TEST( MemoryPoolableInstantiator, MemoryLeaks )
     {
         MemoryPoolableInstantiatorImpl inst( 10, 10 );
         std::vector< Base * > ptrs;
@@ -152,7 +152,7 @@ namespace
         }
     }
 
-    ENGINE_TEST( MemoryPoolableInstantiator, Copy )
+    TEST( MemoryPoolableInstantiator, Copy )
     {
         MemoryPoolableInstantiatorImpl instantiator;
         delete instantiator.Copy();

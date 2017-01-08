@@ -75,7 +75,7 @@ namespace
 
     typedef ObjectPool< U32, U32, SimplePoolableInstantiator< U32, U32 > > U32Pool;
 
-    ENGINE_TEST( Local, DefaultConstruction )
+    TEST( Local, DefaultConstruction )
     {
         Managers::InitialisePoolManager();
 
@@ -95,7 +95,7 @@ namespace
         Managers::ReleasePoolManager();
     }
 
-    ENGINE_TEST( Local, ManagerConstruction )
+    TEST( Local, ManagerConstruction )
     {
         Managers::InitialisePoolManager();
 
@@ -115,7 +115,7 @@ namespace
         Managers::ReleasePoolManager();
     }
 
-    ENGINE_TEST( Local, PoolConstruction )
+    TEST( Local, PoolConstruction )
     {
         U32Pool pool;
 
@@ -127,7 +127,7 @@ namespace
         EXPECT_EQ( 1, pool.GetReturnedCount() );
     }
 
-    ENGINE_TEST( Local, Retrieval )
+    TEST( Local, Retrieval )
     {
         ImplObjectPool pool;
         Local< U32 > local( &pool );
@@ -140,7 +140,7 @@ namespace
         EXPECT_EQ( 42u, *obj );
     }
 
-    ENGINE_TEST( Local, Recreate )
+    TEST( Local, Recreate )
     {
         ImplObjectPool pool;
         {
@@ -200,7 +200,7 @@ namespace
         std::size_t mReturnedCount;
     };
 
-    ENGINE_TEST( Local, Nullptr )
+    TEST( Local, Nullptr )
     {
         ImplObjectPoolNullptr pool;
         const Local< U32 > local( &pool );

@@ -33,12 +33,12 @@ namespace
 
     typedef SimplePoolableInstantiator< U32, U32 > SimplePoolableInstantiatorImpl;
 
-    ENGINE_TEST( PoolableInstantiator, SanityCheck )
+    TEST( PoolableInstantiator, SanityCheck )
     {
         volatile SimplePoolableInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( SimplePoolableInstantiator, Create )
+    TEST( SimplePoolableInstantiator, Create )
     {
         SimplePoolableInstantiatorImpl inst;
 
@@ -47,7 +47,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( SimplePoolableInstantiator, OnInit )
+    TEST( SimplePoolableInstantiator, OnInit )
     {
         SimplePoolableInstantiatorImpl inst;
 
@@ -58,7 +58,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( SimplePoolableInstantiator, Release )
+    TEST( SimplePoolableInstantiator, Release )
     {
         SimplePoolableInstantiatorImpl inst;
 
@@ -70,7 +70,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( SimplePoolableInstantiator, Destroy )
+    TEST( SimplePoolableInstantiator, Destroy )
     {
         SimplePoolableInstantiatorImpl inst;
 
@@ -83,7 +83,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( SimplePoolableInstantiator, Copy )
+    TEST( SimplePoolableInstantiator, Copy )
     {
         SimplePoolableInstantiatorImpl instantiator;
         delete instantiator.Copy();

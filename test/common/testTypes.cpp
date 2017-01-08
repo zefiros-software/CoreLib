@@ -30,69 +30,69 @@
 namespace
 {
 
-    ENGINE_TEST( S8, Traits )
+    TEST( S8, Traits )
     {
         EXPECT_TRUE( std::is_integral< S8 >::value );
         EXPECT_TRUE( std::is_signed< S8 >::value );
         EXPECT_EQ( 1, sizeof( S8 ) );
     }
 
-    ENGINE_TEST( U8, Traits )
+    TEST( U8, Traits )
     {
         EXPECT_TRUE( std::is_integral< U8 >::value );
         EXPECT_TRUE( std::is_unsigned< U8 >::value );
         EXPECT_EQ( 1, sizeof( U8 ) );
     }
 
-    ENGINE_TEST( S16, Traits )
+    TEST( S16, Traits )
     {
         EXPECT_TRUE( std::is_integral< S16 >::value );
         EXPECT_TRUE( std::is_signed< S16 >::value );
         EXPECT_EQ( 2, sizeof( S16 ) );
     }
 
-    ENGINE_TEST( U16, Traits )
+    TEST( U16, Traits )
     {
         EXPECT_TRUE( std::is_integral< U16 >::value );
         EXPECT_TRUE( std::is_unsigned< U16 >::value );
         EXPECT_EQ( 2, sizeof( U16 ) );
     }
 
-    ENGINE_TEST( S32, Traits )
+    TEST( S32, Traits )
     {
         EXPECT_TRUE( std::is_integral< S32 >::value );
         EXPECT_TRUE( std::is_signed< S32 >::value );
         EXPECT_EQ( 4, sizeof( S32 ) );
     }
 
-    ENGINE_TEST( U32, Traits )
+    TEST( U32, Traits )
     {
         EXPECT_TRUE( std::is_integral< U32 >::value );
         EXPECT_TRUE( std::is_unsigned< U32 >::value );
         EXPECT_EQ( 4, sizeof( U32 ) );
     }
 
-    ENGINE_TEST( S64, Traits )
+    TEST( S64, Traits )
     {
         EXPECT_TRUE( std::is_integral< S64 >::value );
         EXPECT_TRUE( std::is_signed< S64 >::value );
         EXPECT_EQ( 8, sizeof( S64 ) );
     }
 
-    ENGINE_TEST( U64, Traits )
+    TEST( U64, Traits )
     {
         EXPECT_TRUE( std::is_integral< U64 >::value );
         EXPECT_TRUE( std::is_unsigned< U64 >::value );
         EXPECT_EQ( 8, sizeof( U64 ) );
     }
 
-    ENGINE_TEST( F32, Traits )
+    TEST( F32, Traits )
     {
         EXPECT_TRUE( std::is_floating_point< F32 >::value );
         EXPECT_EQ( 4, sizeof( F32 ) );
     }
 
-    ENGINE_TEST( F64, Traits )
+    TEST( F64, Traits )
     {
         EXPECT_TRUE( std::is_floating_point< F64 >::value );
         EXPECT_EQ( 8, sizeof( F64 ) );

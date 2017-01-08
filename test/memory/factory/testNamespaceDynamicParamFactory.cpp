@@ -78,19 +78,19 @@ namespace
 
     typedef NamespaceDynamicParamFactory< U32, Base, U32 > NamespaceDynamicParamFactoryImpl;
 
-    ENGINE_TEST( NamespaceDynamicParamFactory, SanityCheck )
+    TEST( NamespaceDynamicParamFactory, SanityCheck )
     {
         volatile NamespaceDynamicParamFactoryImpl factory;
     }
 
-    ENGINE_TEST( NamespaceDynamicParamFactory, CreateInstanceNone )
+    TEST( NamespaceDynamicParamFactory, CreateInstanceNone )
     {
         NamespaceDynamicParamFactoryImpl factory;
 
         EXPECT_EQ( NULL, factory.Create( 0, 0 ) );
     }
 
-    ENGINE_TEST( NamespaceDynamicParamFactory, Create )
+    TEST( NamespaceDynamicParamFactory, Create )
     {
         NamespaceDynamicParamFactoryImpl factory;
         factory.Register< Base >( 0 );

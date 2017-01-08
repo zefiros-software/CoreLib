@@ -30,20 +30,20 @@
 
 namespace
 {
-    ENGINE_TEST( Nullable, SanityCheck )
+    TEST( Nullable, SanityCheck )
     {
         Nullable< U8 > m;
         EXPECT_TRUE( m.IsNull() );
     }
 
-    ENGINE_TEST( Nullable, SanityCheck2 )
+    TEST( Nullable, SanityCheck2 )
     {
         Nullable< U8 > m( 50 );
         EXPECT_FALSE( m.IsNull() );
         EXPECT_EQ( 50, m );
     }
 
-    ENGINE_TEST( Nullable, Op )
+    TEST( Nullable, Op )
     {
         Nullable< U8 > m( 50 );
         EXPECT_FALSE( m.IsNull() );
@@ -51,7 +51,7 @@ namespace
         EXPECT_EQ( 100, m );
     }
 
-    ENGINE_TEST( Nullable, SetNull )
+    TEST( Nullable, SetNull )
     {
         Nullable< U8 > m( 50 );
         EXPECT_FALSE( m.IsNull() );
@@ -59,7 +59,7 @@ namespace
         EXPECT_TRUE( m.IsNull() );
     }
 
-    ENGINE_TEST( Nullable, Clear )
+    TEST( Nullable, Clear )
     {
         Nullable< U8 > m( 50 );
         EXPECT_FALSE( m.IsNull() );
@@ -67,7 +67,7 @@ namespace
         EXPECT_TRUE( m.IsNull() );
     }
 
-    ENGINE_TEST( Nullable, Copy )
+    TEST( Nullable, Copy )
     {
         Nullable< U8 > m( 50 );
         Nullable< U8 > m2( 20 );
@@ -76,7 +76,7 @@ namespace
         EXPECT_FALSE( m.IsNull() );
     }
 
-    ENGINE_TEST( Nullable, Copy2 )
+    TEST( Nullable, Copy2 )
     {
         Nullable< U8 > m( 50 );
         Nullable< U8 > m2;
@@ -85,7 +85,7 @@ namespace
         EXPECT_TRUE( m.IsNull() );
     }
 
-    ENGINE_TEST( Nullable, Get )
+    TEST( Nullable, Get )
     {
         Nullable< U8 > m( 50 );
         Nullable< U8 > m2;
@@ -94,104 +94,104 @@ namespace
         EXPECT_EQ( 100, m2.Get( 100 ) );
     }
 
-    ENGINE_TEST( Nullable, Eq )
+    TEST( Nullable, Eq )
     {
         Nullable< U8 > m( 50 );
         Nullable< U8 > m2( 50 );
         EXPECT_EQ( m, m2 );
     }
 
-    ENGINE_TEST( Nullable, Eq2 )
+    TEST( Nullable, Eq2 )
     {
         Nullable< U8 > m;
         Nullable< U8 > m2;
         EXPECT_EQ( m, m2 );
     }
 
-    ENGINE_TEST( Nullable, Eq3 )
+    TEST( Nullable, Eq3 )
     {
         Nullable< U8 > m( 50 );
         EXPECT_EQ( m, Nullable< U8 > {50} );
     }
 
-    ENGINE_TEST( Nullable, Ne )
+    TEST( Nullable, Ne )
     {
         Nullable< U8 > m( 50 );
         Nullable< U8 > m2;
         EXPECT_NE( m, m2 );
     }
 
-    ENGINE_TEST( Nullable, Ne2 )
+    TEST( Nullable, Ne2 )
     {
         Nullable< U8 > m;
         Nullable< U8 > m2( 50 );
         EXPECT_NE( m, m2 );
     }
 
-    ENGINE_TEST( Nullable, Ne3 )
+    TEST( Nullable, Ne3 )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2( 50 );
         EXPECT_NE( m, m2 );
     }
 
-    ENGINE_TEST( Nullable, Ge )
+    TEST( Nullable, Ge )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2( 50 );
         EXPECT_TRUE( m > m2 );
     }
 
-    ENGINE_TEST( Nullable, Ge2 )
+    TEST( Nullable, Ge2 )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2( 50 );
         EXPECT_FALSE( m2 > m );
     }
 
-    ENGINE_TEST( Nullable, Ge3 )
+    TEST( Nullable, Ge3 )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2( 100 );
         EXPECT_FALSE( m2 > m );
     }
 
-    ENGINE_TEST( Nullable, Le )
+    TEST( Nullable, Le )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2( 50 );
         EXPECT_TRUE( m2 < m );
     }
 
-    ENGINE_TEST( Nullable, Le2 )
+    TEST( Nullable, Le2 )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2( 50 );
         EXPECT_FALSE( m < m2 );
     }
 
-    ENGINE_TEST( Nullable, Le3 )
+    TEST( Nullable, Le3 )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2( 100 );
         EXPECT_FALSE( m < m2 );
     }
 
-    ENGINE_TEST( Nullable, Le4 )
+    TEST( Nullable, Le4 )
     {
         Nullable< U8 > m;
         Nullable< U8 > m2( 100 );
         EXPECT_TRUE( m < m2 );
     }
 
-    ENGINE_TEST( Nullable, Le5 )
+    TEST( Nullable, Le5 )
     {
         Nullable< U8 > m;
         Nullable< U8 > m2;
         EXPECT_FALSE( m < m2 );
     }
 
-    ENGINE_TEST( Nullable, Le6 )
+    TEST( Nullable, Le6 )
     {
         Nullable< U8 > m( 100 );
         Nullable< U8 > m2;

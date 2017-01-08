@@ -31,18 +31,18 @@
 namespace
 {
 
-    ENGINE_TEST( Environment, Get, NonExisting )
+    TEST( Environment, Get, NonExisting )
     {
-        const std::string var = "ENGINE_TEST_VAR";
+        const std::string var = "TEST_VAR";
 
         EXPECT_FALSE( Environment::Has( var ) );
         EXPECT_EQ( "", Environment::Get( var ) );
     }
 
-    ENGINE_TEST( Environment, Combo )
+    TEST( Environment, Combo )
     {
         // ![Combo]
-        const std::string var = "ENGINE_TEST_VAR";
+        const std::string var = "TEST_VAR";
         const std::string value = ::Test::GenerateRandomString();
 
         ASSERT_FALSE( Environment::Has( var ) );

@@ -67,19 +67,19 @@ namespace
 
     typedef NamespaceDynamicFactory< U32, Base > NamespaceDynamicFactoryImpl;
 
-    ENGINE_TEST( NamespaceDynamicFactory, SanityCheck )
+    TEST( NamespaceDynamicFactory, SanityCheck )
     {
         volatile NamespaceDynamicFactoryImpl factory;
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, CreateNone )
+    TEST( NamespaceDynamicFactory, CreateNone )
     {
         NamespaceDynamicFactoryImpl factory;
 
         EXPECT_EQ( NULL, factory.Create( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, Create )
+    TEST( NamespaceDynamicFactory, Create )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.Register< Base >( 0 );
@@ -93,7 +93,7 @@ namespace
     }
 
 
-    ENGINE_TEST( NamespaceDynamicFactory, CreateFactory )
+    TEST( NamespaceDynamicFactory, CreateFactory )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.Register< Base >( 0 );
@@ -106,7 +106,7 @@ namespace
         delete base;
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, RegisterExt )
+    TEST( NamespaceDynamicFactory, RegisterExt )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.RegisterExt( new Instantiator< Child, Base>, 0 );
@@ -119,7 +119,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, GetNames )
+    TEST( NamespaceDynamicFactory, GetNames )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.RegisterExt( new Instantiator< Child, Base>, 0, Namespace( 1, 1 ) );
@@ -130,7 +130,7 @@ namespace
         EXPECT_THAT( factory.GetByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, UnregisterClassesByNamespace )
+    TEST( NamespaceDynamicFactory, UnregisterClassesByNamespace )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.RegisterExt( new Instantiator< Child, Base>, 0, Namespace( 1, 1 ) );
@@ -146,7 +146,7 @@ namespace
         EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, UnregisterClasses )
+    TEST( NamespaceDynamicFactory, UnregisterClasses )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.RegisterExt( new Instantiator< Child, Base>, 0, Namespace( 1, 1 ) );
@@ -162,7 +162,7 @@ namespace
         EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 
-    ENGINE_TEST( NamespaceDynamicFactory, UnregisterClassByName )
+    TEST( NamespaceDynamicFactory, UnregisterClassByName )
     {
         NamespaceDynamicFactoryImpl factory;
         factory.RegisterExt( new Instantiator< Child, Base>, 0, Namespace( 1, 1 ) );

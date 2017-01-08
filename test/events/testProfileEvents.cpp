@@ -31,7 +31,7 @@
 
 namespace
 {
-    ENGINE_TEST( ProfileEvent, SanityCheck )
+    TEST( ProfileEvent, SanityCheck )
     {
         auto now = std::chrono::high_resolution_clock::now();
         ProfileEvent a( "Now", now );
@@ -39,7 +39,7 @@ namespace
         EXPECT_EQ( now, a.GetTime() );
     }
 
-    ENGINE_TEST( ProfileStartEvent, SanityCheck )
+    TEST( ProfileStartEvent, SanityCheck )
     {
         auto now = std::chrono::high_resolution_clock::now();
         ProfileStartEvent a( "Now", now );
@@ -47,7 +47,7 @@ namespace
         EXPECT_EQ( now, a.GetTime() );
     }
 
-    ENGINE_TEST( ProfileEndEvent, SanityCheck )
+    TEST( ProfileEndEvent, SanityCheck )
     {
         auto now = std::chrono::high_resolution_clock::now();
         ProfileEndEvent a( "Now", now, std::chrono::microseconds( 1 ) );
@@ -56,7 +56,7 @@ namespace
         EXPECT_EQ( std::chrono::microseconds( 1 ), a.GetDuration() );
     }
 
-    ENGINE_TEST( ProfileWaypointEvent, SanityCheck )
+    TEST( ProfileWaypointEvent, SanityCheck )
     {
         auto now = std::chrono::high_resolution_clock::now();
         ProfileWaypointEvent a( "Now", "Comment", now, std::chrono::microseconds( 1 ) );
@@ -65,7 +65,7 @@ namespace
         EXPECT_EQ( now, a.GetTime() );
     }
 
-    ENGINE_TEST( ProfileUpdateEvent, SanityCheck )
+    TEST( ProfileUpdateEvent, SanityCheck )
     {
         auto now = std::chrono::high_resolution_clock::now();
         ProfileUpdateEvent a( now, std::chrono::microseconds( 1 ) );

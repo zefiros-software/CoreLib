@@ -51,12 +51,12 @@ namespace
         U32 *mInt;
     };
 
-    ENGINE_TEST( AbstractPool, ConstructDeconstruct )
+    TEST( AbstractPool, ConstructDeconstruct )
     {
         ImplPool instantiator;
     }
 
-    ENGINE_TEST( AbstractPool, DeriveNoMemleak )
+    TEST( AbstractPool, DeriveNoMemleak )
     {
         AbstractPool *instantiator = new ImplPool;
         delete instantiator;

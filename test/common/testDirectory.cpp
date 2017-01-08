@@ -31,7 +31,7 @@
 namespace
 {
 
-    ENGINE_TEST( Directory, Exists )
+    TEST( Directory, Exists )
     {
         //! [Exists]
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
@@ -45,7 +45,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( Directory, Exists, NoTrailingSlash )
+    TEST( Directory, Exists, NoTrailingSlash )
     {
         std::string directory = ::Test::GenerateDirectoryName( "common" );
 
@@ -60,7 +60,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( Directory, Exists, IsFile )
+    TEST( Directory, Exists, IsFile )
     {
         std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -78,13 +78,13 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Exists, NotExisting )
+    TEST( Directory, Exists, NotExisting )
     {
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
         EXPECT_FALSE( Directory::Exists( directory ) );
     }
 
-    ENGINE_TEST( Directory, IsEmpty, Directories )
+    TEST( Directory, IsEmpty, Directories )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -108,7 +108,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, IsEmpty, Files )
+    TEST( Directory, IsEmpty, Files )
     {
         //! [IsEmpty]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -142,7 +142,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, IsEmpty, Empty )
+    TEST( Directory, IsEmpty, Empty )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 
@@ -157,7 +157,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, IsEmpty, NonExistent )
+    TEST( Directory, IsEmpty, NonExistent )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 
@@ -171,7 +171,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, List, NonRecursive )
+    TEST( Directory, List, NonRecursive )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -201,7 +201,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, List, Recursive )
+    TEST( Directory, List, Recursive )
     {
         //! [List]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -238,7 +238,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, List, Default )
+    TEST( Directory, List, Default )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -269,7 +269,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, List, Empty )
+    TEST( Directory, List, Empty )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 
@@ -285,7 +285,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, List, File )
+    TEST( Directory, List, File )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -304,7 +304,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Delete, NonExistent )
+    TEST( Directory, Delete, NonExistent )
     {
         //! [Delete]
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
@@ -316,7 +316,7 @@ namespace
         Directory::Delete( directory );
     }
 
-    ENGINE_TEST( Directory, Delete, SingleDirectory )
+    TEST( Directory, Delete, SingleDirectory )
     {
         //! [Delete]
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
@@ -334,7 +334,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( Directory, Delete, MultipleDirectories )
+    TEST( Directory, Delete, MultipleDirectories )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -354,7 +354,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, DeleteAll, NonExistent )
+    TEST( Directory, DeleteAll, NonExistent )
     {
         //! [Delete]
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
@@ -366,7 +366,7 @@ namespace
         Directory::DeleteAll( directory );
     }
 
-    ENGINE_TEST( Directory, DeleteAll, SingleDirectory )
+    TEST( Directory, DeleteAll, SingleDirectory )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -386,7 +386,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, DeleteAll, MultipleDirectories )
+    TEST( Directory, DeleteAll, MultipleDirectories )
     {
         //! [DeleteAll]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -408,7 +408,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Create, SingleDirectory )
+    TEST( Directory, Create, SingleDirectory )
     {
         //! [Create]
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
@@ -426,7 +426,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( Directory, Create, NoBackslash )
+    TEST( Directory, Create, NoBackslash )
     {
         const std::string directory = "common/file";
 
@@ -441,7 +441,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( Directory, Create, CreateDirectoryTruncateFile )
+    TEST( Directory, Create, CreateDirectoryTruncateFile )
     {
         const std::string directory = "common/file-dir/file";
 
@@ -456,7 +456,7 @@ namespace
         ::Test::CleanUp( "common/file-dir/" );
     }
 
-    ENGINE_TEST( Directory, Create, NoParent )
+    TEST( Directory, Create, NoParent )
     {
         const std::string directory = "common-dir-create-noparent/";
 
@@ -471,7 +471,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( Directory, Create, MultipleDirectories )
+    TEST( Directory, Create, MultipleDirectories )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -489,7 +489,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, CreateAll, SingleDirectory )
+    TEST( Directory, CreateAll, SingleDirectory )
     {
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
 
@@ -504,7 +504,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( Directory, CreateAll, MultipleDirectories )
+    TEST( Directory, CreateAll, MultipleDirectories )
     {
         //! [CreateAll]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -525,7 +525,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Copy )
+    TEST( Directory, Copy )
     {
         //! [Copy]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -573,7 +573,7 @@ namespace
         ::Test::CleanUp( root2 );
     }
 
-    ENGINE_TEST( Directory, Copy, BothExist )
+    TEST( Directory, Copy, BothExist )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string root2 = ::Test::GenerateDirectoryName( "common" );
@@ -595,7 +595,7 @@ namespace
         ::Test::CleanUp( root2 );
     }
 
-    ENGINE_TEST( Directory, Copy, IsSame )
+    TEST( Directory, Copy, IsSame )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 
@@ -610,7 +610,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Copy, Parent )
+    TEST( Directory, Copy, Parent )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string root2 = ::Test::GenerateDirectoryName( root );
@@ -628,7 +628,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Copy, NotExists )
+    TEST( Directory, Copy, NotExists )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common2" );
         const std::string root2 = ::Test::GenerateDirectoryName( "common" );
@@ -645,7 +645,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Move, Content )
+    TEST( Directory, Move, Content )
     {
         //! [Move]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -754,7 +754,7 @@ namespace
         ::Test::CleanUp( root2 );
     }
 
-    ENGINE_TEST( Directory, Move, BothExist )
+    TEST( Directory, Move, BothExist )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string root2 = ::Test::GenerateDirectoryName( "common" );
@@ -776,7 +776,7 @@ namespace
         ::Test::CleanUp( root2 );
     }
 
-    ENGINE_TEST( Directory, Move, IsSame )
+    TEST( Directory, Move, IsSame )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
 
@@ -792,7 +792,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Move, Parent )
+    TEST( Directory, Move, Parent )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string root2 = ::Test::GenerateDirectoryName( root );
@@ -810,7 +810,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Directory, Move, NotExists )
+    TEST( Directory, Move, NotExists )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common2" );
         const std::string root2 = ::Test::GenerateDirectoryName( "common" );

@@ -31,18 +31,18 @@
 namespace
 {
 
-    ENGINE_TEST( NamespaceNamedStorage, SanityCheck )
+    TEST( NamespaceNamedStorage, SanityCheck )
     {
         volatile NamespaceNamedStorage< U32, U32 > storage;
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, TakeProperOwnership )
+    TEST( NamespaceNamedStorage, TakeProperOwnership )
     {
         NamespaceNamedStorage< U32, U32 > storage;
         EXPECT_TRUE( storage.Add( new U32(), 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, SimpleAddGet )
+    TEST( NamespaceNamedStorage, SimpleAddGet )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -53,7 +53,7 @@ namespace
         EXPECT_EQ( *value, *storage.Get( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, NoOverwrite )
+    TEST( NamespaceNamedStorage, NoOverwrite )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -69,7 +69,7 @@ namespace
         delete valueB;
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, NoOverwriteDifferentNamespace )
+    TEST( NamespaceNamedStorage, NoOverwriteDifferentNamespace )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -85,14 +85,14 @@ namespace
         delete valueB;
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNonExisting )
+    TEST( NamespaceNamedStorage, GetNonExisting )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
         EXPECT_EQ( nullptr, storage.Get( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, DifferentKeys )
+    TEST( NamespaceNamedStorage, DifferentKeys )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -106,7 +106,7 @@ namespace
         EXPECT_EQ( *valueB, *storage.Get( 1 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, PluginNamespaceSeparation )
+    TEST( NamespaceNamedStorage, PluginNamespaceSeparation )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -120,7 +120,7 @@ namespace
         EXPECT_EQ( *valueB, *storage.Get( 1 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, AddinNamespaceSeparation )
+    TEST( NamespaceNamedStorage, AddinNamespaceSeparation )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -134,7 +134,7 @@ namespace
         EXPECT_EQ( *valueB, *storage.Get( 1 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, AddinPluginNamespaceSeparation )
+    TEST( NamespaceNamedStorage, AddinPluginNamespaceSeparation )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -171,7 +171,7 @@ namespace
         EXPECT_EQ( *valueD2, *storage.Get( 7 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjects )
+    TEST( NamespaceNamedStorage, RemoveObjects )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -217,7 +217,7 @@ namespace
     }
 
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace )
+    TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -298,7 +298,7 @@ namespace
         EXPECT_TRUE( std::is_permutation( names.begin(), names.end(), result2.begin() ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectsByAddinNamespace )
+    TEST( NamespaceNamedStorage, RemoveObjectsByAddinNamespace )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -389,7 +389,7 @@ namespace
         EXPECT_TRUE( std::is_permutation( names2.begin(), names2.end(), result2.begin() ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectsByAddinNamespace2 )
+    TEST( NamespaceNamedStorage, RemoveObjectsByAddinNamespace2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -420,7 +420,7 @@ namespace
         EXPECT_EQ( *valueB2, *storage.Get( 8 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace2 )
+    TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -451,7 +451,7 @@ namespace
         EXPECT_EQ( nullptr, storage.Get( 8 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace3 )
+    TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace3 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -482,7 +482,7 @@ namespace
         EXPECT_EQ( *valueB2, *storage.Get( 8 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace4 )
+    TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace4 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -513,7 +513,7 @@ namespace
         EXPECT_EQ( *valueB2, *storage.Get( 8 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace5 )
+    TEST( NamespaceNamedStorage, RemoveObjectsByPluginNamespace5 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -544,7 +544,7 @@ namespace
         EXPECT_EQ( *valueB2, *storage.Get( 8 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, Remove )
+    TEST( NamespaceNamedStorage, Remove )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -556,7 +556,7 @@ namespace
         EXPECT_FALSE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, Remove2 )
+    TEST( NamespaceNamedStorage, Remove2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -570,7 +570,7 @@ namespace
         EXPECT_FALSE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, RemoveNotExists )
+    TEST( NamespaceNamedStorage, RemoveNotExists )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -582,7 +582,7 @@ namespace
         EXPECT_TRUE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, Has )
+    TEST( NamespaceNamedStorage, Has )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -593,7 +593,7 @@ namespace
         EXPECT_TRUE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, HasNamePlugin )
+    TEST( NamespaceNamedStorage, HasNamePlugin )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -604,7 +604,7 @@ namespace
         EXPECT_TRUE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, HasNameAddin )
+    TEST( NamespaceNamedStorage, HasNameAddin )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -615,14 +615,14 @@ namespace
         EXPECT_TRUE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, HasNameNotExisting )
+    TEST( NamespaceNamedStorage, HasNameNotExisting )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
         EXPECT_FALSE( storage.Has( 0 ) );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNames )
+    TEST( NamespaceNamedStorage, GetNames )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -637,7 +637,7 @@ namespace
         EXPECT_EQ( 0, names[0] );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesNotExists )
+    TEST( NamespaceNamedStorage, GetNamesNotExists )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -650,7 +650,7 @@ namespace
         EXPECT_EQ( 0, names.size() );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesNotExists2 )
+    TEST( NamespaceNamedStorage, GetNamesNotExists2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -663,7 +663,7 @@ namespace
         EXPECT_EQ( 0, names.size() );
     }
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNames2 )
+    TEST( NamespaceNamedStorage, GetNames2 )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 
@@ -679,7 +679,7 @@ namespace
     }
 
 
-    ENGINE_TEST( NamespaceNamedStorage, GetNamesMultiple )
+    TEST( NamespaceNamedStorage, GetNamesMultiple )
     {
         NamespaceNamedStorage< U32, U32 > storage;
 

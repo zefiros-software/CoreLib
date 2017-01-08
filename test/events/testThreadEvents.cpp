@@ -31,13 +31,13 @@
 
 namespace
 {
-    ENGINE_TEST( ThreadingEvent, SanityCheck )
+    TEST( ThreadingEvent, SanityCheck )
     {
         ThreadingEvent a( true );
         EXPECT_TRUE( a.IsThreadingActive() );
     }
 
-    ENGINE_TEST( ThreadingEvent, SanityCheck2 )
+    TEST( ThreadingEvent, SanityCheck2 )
     {
         ThreadingEvent a( false );
         EXPECT_FALSE( a.IsThreadingActive() );

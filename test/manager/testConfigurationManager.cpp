@@ -33,25 +33,25 @@
 
 namespace
 {
-    ENGINE_TEST( ConfigurationManager, Sanity )
+    TEST( ConfigurationManager, Sanity )
     {
         ConfigurationManager m;
     }
 
-    ENGINE_TEST( ConfigurationManager, GetConfigDirectory )
+    TEST( ConfigurationManager, GetConfigDirectory )
     {
         ConfigurationManager m;
         EXPECT_EQ( Path::Get( "config", Path::Type::Data ), m.GetConfigurationDirectory() );
     }
 
-    ENGINE_TEST( ConfigurationManager, SetGlobalConfigName )
+    TEST( ConfigurationManager, SetGlobalConfigName )
     {
         ConfigurationManager m;
         m.SetGlobalConfigFileName( "./config.cnf" );
         EXPECT_EQ( "./", m.GetConfigurationDirectory() );
     }
 
-    ENGINE_TEST( ConfigurationManager, OnInit )
+    TEST( ConfigurationManager, OnInit )
     {
         ConfigurationManager m;
         m.SetGlobalConfigFileName( "./config.cnf" );
@@ -65,7 +65,7 @@ namespace
         ASSERT_FALSE( File::Exists( "config.cnf" ) );
     }
 
-    ENGINE_TEST( ConfigurationManager, OnInit2 )
+    TEST( ConfigurationManager, OnInit2 )
     {
         ConfigurationManager m;
         m.SetGlobalConfigFileName( "./subdir/config.cnf" );
@@ -78,7 +78,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, GetString )
+    TEST( ConfigurationManager, GetString )
     {
         ConfigurationManager m;
         m.SetGlobalConfigFileName( "./subdir/config.cnf" );
@@ -91,7 +91,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, SetString )
+    TEST( ConfigurationManager, SetString )
     {
         ConfigurationManager m;
         m.SetGlobalConfigFileName( "./subdir/config.cnf" );
@@ -128,7 +128,7 @@ namespace
         const bool boolValue;
     };
 
-    ENGINE_TEST( ConfigurationManager, LoadTwice )
+    TEST( ConfigurationManager, LoadTwice )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -144,7 +144,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, LoadExisting )
+    TEST( ConfigurationManager, LoadExisting )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -164,7 +164,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, LoadError )
+    TEST( ConfigurationManager, LoadError )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -183,7 +183,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetString )
+    TEST( ConfigurationManager, CGetString )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -197,7 +197,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetStringNotExist )
+    TEST( ConfigurationManager, CGetStringNotExist )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -211,7 +211,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetStringNotExist2 )
+    TEST( ConfigurationManager, CGetStringNotExist2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -225,7 +225,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetBool )
+    TEST( ConfigurationManager, CGetBool )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -239,7 +239,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetBoolNotExist )
+    TEST( ConfigurationManager, CGetBoolNotExist )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -253,7 +253,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetBoolNotExist2 )
+    TEST( ConfigurationManager, CGetBoolNotExist2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -267,7 +267,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetFloat )
+    TEST( ConfigurationManager, CGetFloat )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -281,7 +281,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetFloatNotExist )
+    TEST( ConfigurationManager, CGetFloatNotExist )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -295,7 +295,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetFloatNotExist2 )
+    TEST( ConfigurationManager, CGetFloatNotExist2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -309,7 +309,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetInt )
+    TEST( ConfigurationManager, CGetInt )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -323,7 +323,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetIntNotExist )
+    TEST( ConfigurationManager, CGetIntNotExist )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -337,7 +337,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CGetIntNotExist2 )
+    TEST( ConfigurationManager, CGetIntNotExist2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -351,7 +351,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetString )
+    TEST( ConfigurationManager, CSetString )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -366,7 +366,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetStringNotExists )
+    TEST( ConfigurationManager, CSetStringNotExists )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -381,7 +381,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetStringNotExists2 )
+    TEST( ConfigurationManager, CSetStringNotExists2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -395,7 +395,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetBool )
+    TEST( ConfigurationManager, CSetBool )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -410,7 +410,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetBoolNotExists )
+    TEST( ConfigurationManager, CSetBoolNotExists )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -425,7 +425,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetBoolNotExists2 )
+    TEST( ConfigurationManager, CSetBoolNotExists2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -439,7 +439,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetFloat )
+    TEST( ConfigurationManager, CSetFloat )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -454,7 +454,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetFloatNotExists )
+    TEST( ConfigurationManager, CSetFloatNotExists )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -469,7 +469,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetFloatNotExists2 )
+    TEST( ConfigurationManager, CSetFloatNotExists2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -483,7 +483,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetInt )
+    TEST( ConfigurationManager, CSetInt )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -498,7 +498,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetIntNotExists )
+    TEST( ConfigurationManager, CSetIntNotExists )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 
@@ -513,7 +513,7 @@ namespace
         ::Test::CleanUp( "subdir/" );
     }
 
-    ENGINE_TEST( ConfigurationManager, CSetIntNotExists2 )
+    TEST( ConfigurationManager, CSetIntNotExists2 )
     {
         ASSERT_TRUE( Directory::Create( "subdir/" ) );
 

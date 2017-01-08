@@ -53,26 +53,26 @@ namespace
 
     };
 
-    ENGINE_TEST( AbstractMemoryPoolInstantiator, ConstructDeconstruct )
+    TEST( AbstractMemoryPoolInstantiator, ConstructDeconstruct )
     {
         ImplMemoryPooledInstantiator inst;
     }
 
-    ENGINE_TEST( AbstractMemoryPoolInstantiator, Create )
+    TEST( AbstractMemoryPoolInstantiator, Create )
     {
         AbstractMemoryPoolInstantiator< U32 > *inst = new ImplMemoryPooledInstantiator;
         delete inst->Create();
         delete inst;
     }
 
-    ENGINE_TEST( AbstractMemoryPoolInstantiator, Destroy )
+    TEST( AbstractMemoryPoolInstantiator, Destroy )
     {
         AbstractMemoryPoolInstantiator< U32 > *inst = new ImplMemoryPooledInstantiator;
         inst->Destroy( new U32 );
         delete inst;
     }
 
-    ENGINE_TEST( AbstractMemoryPoolInstantiator, CreateDestroy )
+    TEST( AbstractMemoryPoolInstantiator, CreateDestroy )
     {
         AbstractMemoryPoolInstantiator< U32 > *inst = new ImplMemoryPooledInstantiator;
         inst->Destroy( inst->Create() );

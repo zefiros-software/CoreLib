@@ -116,18 +116,18 @@ namespace
     typedef DynamicFactory< U32, Base > DynamicFactoryImpl;
 
 
-    ENGINE_TEST( DynamicFactory, SanityCheck )
+    TEST( DynamicFactory, SanityCheck )
     {
         volatile DynamicFactoryImpl factory;
     }
 
-    ENGINE_TEST( DynamicFactory, TakeProperOwnership )
+    TEST( DynamicFactory, TakeProperOwnership )
     {
         DynamicFactoryImpl factory;
         factory.RegisterExt( new ImplInstantiator, 0 );
     }
 
-    ENGINE_TEST( DynamicFactory, RegisterCreate )
+    TEST( DynamicFactory, RegisterCreate )
     {
         DynamicFactoryImpl factory;
         EXPECT_TRUE( factory.Register< Child >( 0 ) );
@@ -141,7 +141,7 @@ namespace
         delete first;
     }
 
-    ENGINE_TEST( DynamicFactory, NoOverwrite )
+    TEST( DynamicFactory, NoOverwrite )
     {
         DynamicFactoryImpl factory;
 
@@ -158,14 +158,14 @@ namespace
         delete second;
     }
 
-    ENGINE_TEST( DynamicFactory, CreateNonExisting )
+    TEST( DynamicFactory, CreateNonExisting )
     {
         DynamicFactoryImpl factory;
 
         EXPECT_EQ( NULL, factory.Create( 0 ) );
     }
 
-    ENGINE_TEST( DynamicFactory, DifferentKeys )
+    TEST( DynamicFactory, DifferentKeys )
     {
         DynamicFactoryImpl factory;
         EXPECT_TRUE( factory.Register< Child >( 0 ) );
@@ -189,7 +189,7 @@ namespace
         delete base;
     }
 
-    ENGINE_TEST( DynamicFactory, RegisterExt )
+    TEST( DynamicFactory, RegisterExt )
     {
         DynamicFactoryImpl factory;
 
@@ -218,7 +218,7 @@ namespace
         delete second;
     }
 
-    ENGINE_TEST( DynamicFactory, Remove )
+    TEST( DynamicFactory, Remove )
     {
         DynamicFactoryImpl factory;
 
@@ -280,14 +280,14 @@ namespace
         }
     }
 
-    ENGINE_TEST( DynamicFactory, HasNone )
+    TEST( DynamicFactory, HasNone )
     {
         DynamicFactoryImpl factory;
 
         EXPECT_FALSE( factory.Has( 0 ) );
     }
 
-    ENGINE_TEST( DynamicFactory, Has )
+    TEST( DynamicFactory, Has )
     {
         DynamicFactoryImpl factory;
         factory.Register< Child >( 0 );
@@ -295,14 +295,14 @@ namespace
         EXPECT_TRUE( factory.Has( 0 ) );
     }
 
-    ENGINE_TEST( DynamicFactory, RemoveNonExisting )
+    TEST( DynamicFactory, RemoveNonExisting )
     {
         DynamicFactoryImpl factory;
 
         factory.Remove( 0 );
     }
 
-    ENGINE_TEST( DynamicFactory, HasRemoved )
+    TEST( DynamicFactory, HasRemoved )
     {
         DynamicFactoryImpl factory;
         factory.Register< Child >( 0 );

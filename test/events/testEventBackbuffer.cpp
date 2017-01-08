@@ -64,12 +64,12 @@ namespace
         bool mWithArg;
     };
 
-    ENGINE_TEST( EventBackBuffer, SanityCheck )
+    TEST( EventBackBuffer, SanityCheck )
     {
         EventBackBuffer< Callback, EventTest > m;
     }
 
-    ENGINE_TEST( EventBackBuffer, SetObserver )
+    TEST( EventBackBuffer, SetObserver )
     {
         Callback c;
         EventBackBuffer< Callback, EventTest > m;
@@ -93,7 +93,7 @@ namespace
         EXPECT_TRUE( m.IsEmpty() );
     }
 
-    ENGINE_TEST( EventBackBuffer, Unobserve )
+    TEST( EventBackBuffer, Unobserve )
     {
         Callback c;
         EventBackBuffer< Callback, EventTest > m;
@@ -111,7 +111,7 @@ namespace
         EXPECT_FALSE( c.mWithArg );
     }
 
-    ENGINE_TEST( EventBackBuffer, Clear )
+    TEST( EventBackBuffer, Clear )
     {
         Callback c;
         EventBackBuffer< Callback, EventTest > m;

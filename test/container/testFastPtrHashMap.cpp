@@ -30,17 +30,17 @@
 
 namespace
 {
-    ENGINE_TEST( FastPtrHashMap, SanityCheck )
+    TEST( FastPtrHashMap, SanityCheck )
     {
         FastPtrHashMap< U8, U8 > m;
     }
 
-    ENGINE_TEST( FastPtrHashMap, SanityCheck2 )
+    TEST( FastPtrHashMap, SanityCheck2 )
     {
         FastPtrHashMap< U8, U8 > m( 5 );
     }
 
-    ENGINE_TEST( FastPtrHashMap, Insert )
+    TEST( FastPtrHashMap, Insert )
     {
         U8 *ptr = new U8;
         FastPtrHashMap< U8, U8 > m;
@@ -55,7 +55,7 @@ namespace
         delete ptr;
     }
 
-    ENGINE_TEST( FastPtrHashMap, InsertTwice )
+    TEST( FastPtrHashMap, InsertTwice )
     {
         U8 *ptr = new U8;
         FastPtrHashMap< U8, U8 > m;
@@ -71,7 +71,7 @@ namespace
         delete ptr;
     }
 
-    ENGINE_TEST( FastPtrHashMap, InsertFull )
+    TEST( FastPtrHashMap, InsertFull )
     {
         U8 *ptr = new U8;
         U8 *ptr2 = new U8;
@@ -94,13 +94,13 @@ namespace
         delete ptr2;
     }
 
-    ENGINE_TEST( FastPtrHashMap, ResizeSmaller )
+    TEST( FastPtrHashMap, ResizeSmaller )
     {
         FastPtrHashMap< U8, U8 > m;
         m.Resize( 0 );
     }
 
-    ENGINE_TEST( FastPtrHashMap, ResizeConsistent )
+    TEST( FastPtrHashMap, ResizeConsistent )
     {
         U8 *ptr = new U8;
         FastPtrHashMap< U8, U8 > m;
@@ -116,7 +116,7 @@ namespace
         delete ptr;
     }
 
-    ENGINE_TEST( FastPtrHashMap, HasNotExists )
+    TEST( FastPtrHashMap, HasNotExists )
     {
         U8 *ptr = new U8;
         FastPtrHashMap< U8, U8 > m;
@@ -125,7 +125,7 @@ namespace
         delete ptr;
     }
 
-    ENGINE_TEST( FastPtrHashMap, FindNotExists )
+    TEST( FastPtrHashMap, FindNotExists )
     {
         U8 *ptr = new U8;
         FastPtrHashMap< U8, U8 > m;
@@ -136,7 +136,7 @@ namespace
         delete ptr;
     }
 
-    ENGINE_TEST( FastPtrHashMap, Data )
+    TEST( FastPtrHashMap, Data )
     {
         U8 *ptr = new U8;
         U8 *ptr2 = new U8;
@@ -156,7 +156,7 @@ namespace
         delete ptr2;
     }
 
-    ENGINE_TEST( FastPtrHashMap, DataConst )
+    TEST( FastPtrHashMap, DataConst )
     {
         U8 *ptr = new U8;
         U8 *ptr2 = new U8;

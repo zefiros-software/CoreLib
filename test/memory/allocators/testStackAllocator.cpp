@@ -30,17 +30,17 @@
 
 namespace
 {
-    ENGINE_TEST( StackAllocator, SanityCheck )
+    TEST( StackAllocator, SanityCheck )
     {
         StackAllocator();
     }
 
-    ENGINE_TEST( StackAllocator, SanityCheck2 )
+    TEST( StackAllocator, SanityCheck2 )
     {
         StackAllocator( 5 );
     }
 
-    ENGINE_TEST( StackAllocator, Alloc )
+    TEST( StackAllocator, Alloc )
     {
         StackAllocator s( 4 );
         EXPECT_EQ( 0, s.Alloc<U8>() );
@@ -56,7 +56,7 @@ namespace
         EXPECT_TRUE( s.FitsInStack( 1 ) );
     }
 
-    ENGINE_TEST( StackAllocator, Alloc2 )
+    TEST( StackAllocator, Alloc2 )
     {
         StackAllocator s( 4 );
         EXPECT_EQ( 0, s.Alloc<U8>() );
@@ -72,7 +72,7 @@ namespace
         EXPECT_TRUE( s.FitsInStack( 1 ) );
     }
 
-    ENGINE_TEST( StackAllocator, Move )
+    TEST( StackAllocator, Move )
     {
         U8 f = 8;
         StackAllocator s( 4 );
@@ -83,7 +83,7 @@ namespace
         EXPECT_EQ( 8, *s.Extract<U8>( l ) );
     }
 
-    ENGINE_TEST( StackAllocator, Move2 )
+    TEST( StackAllocator, Move2 )
     {
         const U8 f[2] = {8, 14};
         StackAllocator s( 4 );
@@ -96,7 +96,7 @@ namespace
         EXPECT_EQ( 14, *s.Extract<U8>( l2 ) );
     }
 
-    ENGINE_TEST( StackAllocator, Extract )
+    TEST( StackAllocator, Extract )
     {
         const U8 f = 8;
         StackAllocator s( 4 );
@@ -105,7 +105,7 @@ namespace
         EXPECT_EQ( ( const U8 )8, *( ( const StackAllocator & )s ).Extract<U8>( l ) );
     }
 
-    ENGINE_TEST( StackAllocator, Clear )
+    TEST( StackAllocator, Clear )
     {
         const U8 f[2] = { 8, 14 };
         StackAllocator s( 4 );

@@ -79,12 +79,12 @@ namespace
 
     typedef ParamInstantiator< Child, U32, Base > ParamInstantiatorImpl;
 
-    ENGINE_TEST( ParamInstantiator, SanityCheck )
+    TEST( ParamInstantiator, SanityCheck )
     {
         volatile ParamInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( ParamInstantiator, Create )
+    TEST( ParamInstantiator, Create )
     {
         ParamInstantiatorImpl inst;
 
@@ -101,7 +101,7 @@ namespace
         delete child2;
     }
 
-    ENGINE_TEST( ParamInstantiator, Copy )
+    TEST( ParamInstantiator, Copy )
     {
         ParamInstantiatorImpl instantiator;
         delete instantiator.Copy();

@@ -31,14 +31,14 @@
 
 namespace
 {
-    ENGINE_TEST( SpinLock, Sanity )
+    TEST( SpinLock, Sanity )
     {
         SpinLock l;
         l.lock();
         l.unlock();
     }
 
-    ENGINE_TEST( SpinLock, Sanity2 )
+    TEST( SpinLock, Sanity2 )
     {
         SpinLock l;
         l.try_lock();

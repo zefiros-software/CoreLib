@@ -30,12 +30,12 @@
 
 namespace
 {
-    ENGINE_TEST( FactoryManager, Sanity )
+    TEST( FactoryManager, Sanity )
     {
         FactoryManager m;
     }
 
-    ENGINE_TEST( FactoryManager, Add )
+    TEST( FactoryManager, Add )
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();
@@ -44,7 +44,7 @@ namespace
         EXPECT_EQ( fac, m.Get< U32 >() );
     }
 
-    ENGINE_TEST( FactoryManager, AddFactoryInst )
+    TEST( FactoryManager, AddFactoryInst )
     {
         FactoryManager m;
         auto instantiator = new Instantiator< U32 >();
@@ -54,7 +54,7 @@ namespace
         EXPECT_EQ( instantiator, m.Get< U32 >() );
     }
 
-    ENGINE_TEST( FactoryManager, AddFactoryInstTwice )
+    TEST( FactoryManager, AddFactoryInstTwice )
     {
         FactoryManager m;
         auto instantiator = new Instantiator< U32 >();
@@ -62,7 +62,7 @@ namespace
         EXPECT_ANY_THROW( m.Add< U32 >( instantiator ) );
     }
 
-    ENGINE_TEST( FactoryManager, Create )
+    TEST( FactoryManager, Create )
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();
@@ -72,7 +72,7 @@ namespace
         delete m.Create< U32 >();
     }
 
-    ENGINE_TEST( FactoryManager, AddFactoryTwice )
+    TEST( FactoryManager, AddFactoryTwice )
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();
@@ -80,7 +80,7 @@ namespace
         EXPECT_ANY_THROW( m.Add< U32 >() );
     }
 
-    ENGINE_TEST( FactoryManager, Release )
+    TEST( FactoryManager, Release )
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();

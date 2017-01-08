@@ -105,12 +105,12 @@ namespace
 
     typedef PoolableInstantiator< Child, Base > PoolableInstantiatorImpl;
 
-    ENGINE_TEST( PoolableInstantiator, SanityCheck )
+    TEST( PoolableInstantiator, SanityCheck )
     {
         volatile PoolableInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( PoolableInstantiator, Create )
+    TEST( PoolableInstantiator, Create )
     {
         PoolableInstantiatorImpl inst;
 
@@ -124,7 +124,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( PoolableInstantiator, OnInit )
+    TEST( PoolableInstantiator, OnInit )
     {
         PoolableInstantiatorImpl inst;
 
@@ -139,7 +139,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( PoolableInstantiator, Release )
+    TEST( PoolableInstantiator, Release )
     {
         PoolableInstantiatorImpl inst;
 
@@ -155,7 +155,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( PoolableInstantiator, Destroy )
+    TEST( PoolableInstantiator, Destroy )
     {
         PoolableInstantiatorImpl inst;
 
@@ -171,7 +171,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( PoolableInstantiator, Copy )
+    TEST( PoolableInstantiator, Copy )
     {
         PoolableInstantiatorImpl instantiator;
         delete instantiator.Copy();

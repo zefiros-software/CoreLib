@@ -30,13 +30,13 @@
 
 namespace
 {
-    ENGINE_TEST( FastQueue, SanityCheck )
+    TEST( FastQueue, SanityCheck )
     {
         FastQueue< U8 > m;
         EXPECT_TRUE( m.IsEmpty() );
     }
 
-    ENGINE_TEST( FastQueue, Queue )
+    TEST( FastQueue, Queue )
     {
         FastQueue< U8 > m;
         m.Queue( 1 );
@@ -48,14 +48,14 @@ namespace
         EXPECT_EQ( 1, m.Front() );
     }
 
-    ENGINE_TEST( FastQueue, IsEmpty )
+    TEST( FastQueue, IsEmpty )
     {
         FastQueue< U8 > m;
         m.Queue( 1 );
         EXPECT_FALSE( m.IsEmpty() );
     }
 
-    ENGINE_TEST( FastQueue, IsEmpty2 )
+    TEST( FastQueue, IsEmpty2 )
     {
         FastQueue< U8 > m;
         m.Queue( 1 );
@@ -63,7 +63,7 @@ namespace
         EXPECT_TRUE( m.IsEmpty() );
     }
 
-    ENGINE_TEST( FastQueue, Dequeue )
+    TEST( FastQueue, Dequeue )
     {
         FastQueue< U8 > m;
         m.Queue( 1 );

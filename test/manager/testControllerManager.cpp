@@ -35,19 +35,19 @@ namespace
     {
     };
 
-    ENGINE_TEST( ControllerManager, Sanity )
+    TEST( ControllerManager, Sanity )
     {
         ControllerManager m;
     }
 
-    ENGINE_TEST( ControllerManager, AddGet )
+    TEST( ControllerManager, AddGet )
     {
         ControllerManager m;
         AbstractManager *cn = m.Add< TestManager >();
         EXPECT_EQ( cn, m.Get<TestManager>() );
     }
 
-    ENGINE_TEST( ControllerManager, ReleaseNS )
+    TEST( ControllerManager, ReleaseNS )
     {
         ControllerManager m;
         m.Add< TestManager >();

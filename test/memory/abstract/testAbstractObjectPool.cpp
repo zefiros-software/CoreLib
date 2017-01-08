@@ -57,33 +57,33 @@ namespace
 
     };
 
-    ENGINE_TEST( AbstractObjectPool, ConstructDeconstruct )
+    TEST( AbstractObjectPool, ConstructDeconstruct )
     {
         ImplObjectPool inst;
     }
 
-    ENGINE_TEST( AbstractObjectPool, Get )
+    TEST( AbstractObjectPool, Get )
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
         delete inst->Get();
         delete inst;
     }
 
-    ENGINE_TEST( AbstractObjectPool, FastGet )
+    TEST( AbstractObjectPool, FastGet )
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
         delete inst->FastGet();
         delete inst;
     }
 
-    ENGINE_TEST( AbstractObjectPool, DisposeObject )
+    TEST( AbstractObjectPool, DisposeObject )
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
         inst->Dispose( new U32 );
         delete inst;
     }
 
-    ENGINE_TEST( AbstractObjectPool, GetDispose )
+    TEST( AbstractObjectPool, GetDispose )
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
         inst->Dispose( inst->Get() );

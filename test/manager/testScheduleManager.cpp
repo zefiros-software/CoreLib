@@ -30,12 +30,12 @@
 
 namespace
 {
-    ENGINE_TEST( ScheduleManager, Sanity )
+    TEST( ScheduleManager, Sanity )
     {
         ScheduleManager m;
     }
 
-    ENGINE_TEST( ScheduleManager, GetMainThreadID )
+    TEST( ScheduleManager, GetMainThreadID )
     {
         ScheduleManager m;
         EXPECT_EQ( 0, m.GetMainThreadID() );

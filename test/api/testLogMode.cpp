@@ -30,7 +30,7 @@
 
 namespace
 {
-    ENGINE_TEST( LogMode, GetName )
+    TEST( LogMode, GetName )
     {
         EXPECT_EQ( "Error", Console::GetName( Console::LogMode::Error ) );
         EXPECT_EQ( "Warning", Console::GetName( Console::LogMode::Warning ) );

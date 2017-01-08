@@ -57,12 +57,12 @@ namespace
 
     typedef MemoryPoolInstantiator< Child, Base > MemoryPoolInstantiatorImpl;
 
-    ENGINE_TEST( MemoryPoolInstantiator, SanityCheck )
+    TEST( MemoryPoolInstantiator, SanityCheck )
     {
         volatile MemoryPoolInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, Create )
+    TEST( MemoryPoolInstantiator, Create )
     {
         MemoryPoolInstantiatorImpl inst;
 
@@ -73,7 +73,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, EmptyCreate )
+    TEST( MemoryPoolInstantiator, EmptyCreate )
     {
         MemoryPoolInstantiatorImpl inst( 0, 0 );
 
@@ -84,7 +84,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, NearEmptyCreate )
+    TEST( MemoryPoolInstantiator, NearEmptyCreate )
     {
         MemoryPoolInstantiatorImpl inst( 1, 1 );
 
@@ -98,7 +98,7 @@ namespace
         inst.Destroy( child2 );
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, ContiguousMemoryCheck )
+    TEST( MemoryPoolInstantiator, ContiguousMemoryCheck )
     {
         MemoryPoolInstantiatorImpl inst( 2, 1 );
 
@@ -114,7 +114,7 @@ namespace
         EXPECT_EQ( 1, Mathf::Abs( static_cast< S32 >( child2 - child ) ) );
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, MultipleBlocks )
+    TEST( MemoryPoolInstantiator, MultipleBlocks )
     {
         MemoryPoolInstantiatorImpl inst( 1, 2 );
 
@@ -128,7 +128,7 @@ namespace
         inst.Destroy( child2 );
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, MemoryLeaks )
+    TEST( MemoryPoolInstantiator, MemoryLeaks )
     {
         MemoryPoolInstantiatorImpl inst( 10, 10 );
         std::vector< Base * > ptrs;
@@ -144,7 +144,7 @@ namespace
         }
     }
 
-    ENGINE_TEST( MemoryPoolInstantiator, Copy )
+    TEST( MemoryPoolInstantiator, Copy )
     {
         MemoryPoolInstantiatorImpl instantiator;
         delete instantiator.Copy();

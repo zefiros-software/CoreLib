@@ -57,12 +57,12 @@ namespace
 
     typedef UnsychronisedMemoryPoolInstantiator< Child, Base > UnsychronisedMemoryPoolInstantiatorImpl;
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, SanityCheck )
+    TEST( UnsychronisedMemoryPoolInstantiator, SanityCheck )
     {
         volatile UnsychronisedMemoryPoolInstantiatorImpl inst;
     }
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, Create )
+    TEST( UnsychronisedMemoryPoolInstantiator, Create )
     {
         UnsychronisedMemoryPoolInstantiatorImpl inst;
 
@@ -73,7 +73,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, EmptyCreate )
+    TEST( UnsychronisedMemoryPoolInstantiator, EmptyCreate )
     {
         UnsychronisedMemoryPoolInstantiatorImpl inst( 0, 0 );
 
@@ -84,7 +84,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, NearEmptyCreate )
+    TEST( UnsychronisedMemoryPoolInstantiator, NearEmptyCreate )
     {
         UnsychronisedMemoryPoolInstantiatorImpl inst( 1, 1 );
 
@@ -98,7 +98,7 @@ namespace
         inst.Destroy( child2 );
     }
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, ContiguousMemoryCheck )
+    TEST( UnsychronisedMemoryPoolInstantiator, ContiguousMemoryCheck )
     {
         UnsychronisedMemoryPoolInstantiatorImpl inst( 2, 1 );
 
@@ -114,7 +114,7 @@ namespace
         EXPECT_EQ( 1, Mathf::Abs( static_cast< S32 >( child2 - child ) ) );
     }
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, MultipleBlocks )
+    TEST( UnsychronisedMemoryPoolInstantiator, MultipleBlocks )
     {
         UnsychronisedMemoryPoolInstantiatorImpl inst( 1, 2 );
 
@@ -128,7 +128,7 @@ namespace
         inst.Destroy( child2 );
     }
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, MemoryLeaks )
+    TEST( UnsychronisedMemoryPoolInstantiator, MemoryLeaks )
     {
         UnsychronisedMemoryPoolInstantiatorImpl inst( 10, 10 );
         std::vector< Base * > ptrs;
@@ -144,7 +144,7 @@ namespace
         }
     }
 
-    ENGINE_TEST( UnsychronisedMemoryPoolInstantiator, Copy )
+    TEST( UnsychronisedMemoryPoolInstantiator, Copy )
     {
         UnsychronisedMemoryPoolInstantiatorImpl instantiator;
         delete instantiator.Copy();

@@ -33,13 +33,13 @@
 
 namespace
 {
-    ENGINE_TEST( ThreadingVariableManager, Sanity )
+    TEST( ThreadingVariableManager, Sanity )
     {
         ThreadingVariableManager m;
         m.OnRelease();
     }
 
-    ENGINE_TEST( ThreadingVariableManager, OnSynchroniseMngr )
+    TEST( ThreadingVariableManager, OnSynchroniseMngr )
     {
         auto old = SystemManager::Get()->GetManagers()->threadingVariable;
         ThreadingVariableManager m;

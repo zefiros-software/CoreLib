@@ -43,13 +43,13 @@ namespace
         bool mRan = false;
     };
 
-    ENGINE_TEST( JobQueue, SanityCheck )
+    TEST( JobQueue, SanityCheck )
     {
         JobQueue a;
         EXPECT_EQ( 0, a.Size() );
     }
 
-    ENGINE_TEST( JobQueue, Push )
+    TEST( JobQueue, Push )
     {
         Executable e;
         JobQueue a;
@@ -59,7 +59,7 @@ namespace
         EXPECT_FALSE( e.mRan );
     }
 
-    ENGINE_TEST( JobQueue, Pop )
+    TEST( JobQueue, Pop )
     {
         Executable e;
         JobQueue a;
@@ -69,7 +69,7 @@ namespace
         EXPECT_FALSE( e.mRan );
     }
 
-    ENGINE_TEST( JobQueue, Pop2 )
+    TEST( JobQueue, Pop2 )
     {
         Executable e;
         JobQueue a;
@@ -81,7 +81,7 @@ namespace
         EXPECT_FALSE( e.mRan );
     }
 
-    ENGINE_TEST( JobQueue, Pop3 )
+    TEST( JobQueue, Pop3 )
     {
         Executable e;
         JobQueue a;
@@ -96,7 +96,7 @@ namespace
         EXPECT_FALSE( e.mRan );
     }
 
-    ENGINE_TEST( JobQueue, Move )
+    TEST( JobQueue, Move )
     {
         Executable e;
         JobQueue t;

@@ -33,7 +33,7 @@
 namespace
 {
 
-    ENGINE_TEST( Path, Get, ResolvesCorrectFolders )
+    TEST( Path, Get, ResolvesCorrectFolders )
     {
         EXPECT_EQ( Path::GetProgramDirectory(), Path::Get( "./", Path::Type::Program ) );
         EXPECT_EQ( Path::GetProgramDataDirectory(), Path::Get( "./", Path::Type::Data ) );
@@ -42,13 +42,13 @@ namespace
         EXPECT_EQ( "./", Path::Get( "./", Path::Type::None ) );
     }
 
-    ENGINE_TEST( Path, Get, CorrectDefault )
+    TEST( Path, Get, CorrectDefault )
     {
         EXPECT_EQ( Path::GetProgramDirectory(), Path::Get( "./", Path::Type::Program ) );
         EXPECT_EQ( Path::GetProgramDirectory(), Path::Get( "./" ) );
     }
 
-    ENGINE_TEST( Path, Get, DifferentFolders )
+    TEST( Path, Get, DifferentFolders )
     {
         const std::string game = Path::Get( "./", Path::Type::Program );
         const std::string data = Path::Get( "./", Path::Type::Data );
@@ -64,7 +64,7 @@ namespace
         EXPECT_EQ( 4, set.size() );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, Default )
+    TEST( Path, ResolveRelative, Default )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to = "behaviour.as";
@@ -72,7 +72,7 @@ namespace
         EXPECT_EQ( "module/ZefirosEngine/behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, SameRoot )
+    TEST( Path, ResolveRelative, SameRoot )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "behaviour.as";
@@ -80,7 +80,7 @@ namespace
         EXPECT_EQ( "module/ZefirosEngine/behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, SameRoot_Explicit )
+    TEST( Path, ResolveRelative, SameRoot_Explicit )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "./behaviour.as";
@@ -88,7 +88,7 @@ namespace
         EXPECT_EQ( "module/ZefirosEngine/behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, SameRoot_Windows )
+    TEST( Path, ResolveRelative, SameRoot_Windows )
     {
         const std::string from = "module\\ZefirosEngine\\main.as";
         const std::string to   = "behaviour.as";
@@ -96,7 +96,7 @@ namespace
         EXPECT_EQ( "module/ZefirosEngine/behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, SameRoot_WindowsExplicit )
+    TEST( Path, ResolveRelative, SameRoot_WindowsExplicit )
     {
         const std::string from = "module\\ZefirosEngine\\main.as";
         const std::string to   = ".\\behaviour.as";
@@ -104,7 +104,7 @@ namespace
         EXPECT_EQ( "module/ZefirosEngine/behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, SameRoot_Up )
+    TEST( Path, ResolveRelative, SameRoot_Up )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "../behaviour.as";
@@ -112,7 +112,7 @@ namespace
         EXPECT_EQ( "module/behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, SameRoot_UpUp )
+    TEST( Path, ResolveRelative, SameRoot_UpUp )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "../../behaviour.as";
@@ -120,7 +120,7 @@ namespace
         EXPECT_EQ( "behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative )
+    TEST( Path, ResolveRelative )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "behaviour.as";
@@ -128,7 +128,7 @@ namespace
         EXPECT_EQ( "module/ZefirosEngine/behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, Explicit )
+    TEST( Path, ResolveRelative, Explicit )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "./behaviour.as";
@@ -136,7 +136,7 @@ namespace
         EXPECT_EQ( "../../behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, ExplicitRelative )
+    TEST( Path, ResolveRelative, ExplicitRelative )
     {
         const std::string from = ".././other/";
         const std::string to = "../other/";
@@ -144,7 +144,7 @@ namespace
         EXPECT_EQ( "../other/", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, Windows )
+    TEST( Path, ResolveRelative, Windows )
     {
         const std::string from = "module\\ZefirosEngine\\main.as";
         const std::string to   = "behaviour.as";
@@ -152,7 +152,7 @@ namespace
         EXPECT_EQ( "../../behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, WindowsExplicit )
+    TEST( Path, ResolveRelative, WindowsExplicit )
     {
         const std::string from = "module\\ZefirosEngine\\main.as";
         const std::string to   = ".\\behaviour.as";
@@ -160,7 +160,7 @@ namespace
         EXPECT_EQ( "../../behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, Up )
+    TEST( Path, ResolveRelative, Up )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "../behaviour.as";
@@ -168,7 +168,7 @@ namespace
         EXPECT_EQ( "../../../behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, ResolveRelative, UpUp )
+    TEST( Path, ResolveRelative, UpUp )
     {
         const std::string from = "module/ZefirosEngine/main.as";
         const std::string to   = "../../behaviour.as";
@@ -176,92 +176,92 @@ namespace
         EXPECT_EQ( "../../../../behaviour.as", path );
     }
 
-    ENGINE_TEST( Path, FixStyle, Unix )
+    TEST( Path, FixStyle, Unix )
     {
         const std::string path = Path::FixStyle( "modules/imaginary/file" );
         EXPECT_EQ( "modules/imaginary/file/", path );
     }
 
-    ENGINE_TEST( Path, FixStyle, UnixFile )
+    TEST( Path, FixStyle, UnixFile )
     {
         const std::string path = Path::FixStyle( "modules/imaginary/file.txt" );
         EXPECT_EQ( "modules/imaginary/file.txt", path );
     }
 
-    ENGINE_TEST( Path, FixStyle, Windows )
+    TEST( Path, FixStyle, Windows )
     {
         const std::string path = Path::FixStyle( ".\\modules/imaginary\\file" );
         EXPECT_EQ( "./modules/imaginary/file/", path );
     }
 
-    ENGINE_TEST( Path, FixStyle, WindowsRoot )
+    TEST( Path, FixStyle, WindowsRoot )
     {
         const std::string path = Path::FixStyle( "C:\\Windows\\" );
         EXPECT_EQ( "C:/Windows/", path );
     }
 
-    ENGINE_TEST( Path, FixStyle, Root )
+    TEST( Path, FixStyle, Root )
     {
         const std::string path = Path::FixStyle( "/" );
         EXPECT_EQ( "/", path );
     }
 
-    ENGINE_TEST( Path, FixStyle, Empty )
+    TEST( Path, FixStyle, Empty )
     {
         const std::string path = Path::FixStyle( "" );
         EXPECT_EQ( "/", path );
     }
 
-    ENGINE_TEST( Path, Canonical, Self )
+    TEST( Path, Canonical, Self )
     {
         const std::string path = "/root/folder/file.ext";
         EXPECT_EQ( path, Path::Canonical( path ) );
     }
 
-    ENGINE_TEST( Path, Canonical, Up )
+    TEST( Path, Canonical, Up )
     {
         const std::string path = "/root/../file.ext";
         EXPECT_EQ( "/file.ext", Path::Canonical( path ) );
     }
 
-    ENGINE_TEST( Path, Canonical, Same )
+    TEST( Path, Canonical, Same )
     {
         const std::string path = "/root/./file.ext";
         EXPECT_EQ( "/root/file.ext", Path::Canonical( path ) );
     }
 
-    ENGINE_TEST( Path, Canonical, Combined )
+    TEST( Path, Canonical, Combined )
     {
         const std::string path = "/root/.././file.ext";
         EXPECT_EQ( "/file.ext", Path::Canonical( path ) );
     }
 
-    ENGINE_TEST( Path, Canonical, UpUpRoot )
+    TEST( Path, Canonical, UpUpRoot )
     {
         const std::string path = "../../file.ext";
         EXPECT_EQ( path, Path::Canonical( path ) );
     }
 
-    ENGINE_TEST( Path, Canonical, UpUpFromRoot )
+    TEST( Path, Canonical, UpUpFromRoot )
     {
         const std::string path = "module/../../file.ext";
         EXPECT_EQ( "../file.ext", Path::Canonical( path ) );
     }
 
-    ENGINE_TEST( Path, Canonical, Current )
+    TEST( Path, Canonical, Current )
     {
         EXPECT_EQ( "./", Path::Canonical( "./" ) );
         EXPECT_EQ( ".", Path::Canonical( "." ) );
     }
 
-    ENGINE_TEST( Path, Canonical, Absolute )
+    TEST( Path, Canonical, Absolute )
     {
         const std::string path = "../../file.ext";
         const std::string abs  = boost::filesystem::absolute( path ).generic_string();
         EXPECT_EQ( "file.ext", Path::ResolveRelative( Path::Canonical( path, true ), abs, false ) );
     }
 
-    ENGINE_TEST( Path, IsParent )
+    TEST( Path, IsParent )
     {
         EXPECT_TRUE( Path::IsParent( "./", "./" ) );
         EXPECT_TRUE( Path::IsParent( "../", "./" ) );
@@ -273,154 +273,154 @@ namespace
         EXPECT_FALSE( Path::IsParent( "base/child", "base/" ) );
     }
 
-    ENGINE_TEST( Path, GetFileName )
+    TEST( Path, GetFileName )
     {
         const std::string file = Path::GetFileName( "./modules/imaginary.file" );
         EXPECT_EQ( "imaginary.file", file );
     }
 
-    ENGINE_TEST( Path, GetFileName, OnlyExtension )
+    TEST( Path, GetFileName, OnlyExtension )
     {
         const std::string file = Path::GetFileName( "./modules/.file" );
         EXPECT_EQ( ".file", file );
     }
 
-    ENGINE_TEST( Path, GetFileName, Windows )
+    TEST( Path, GetFileName, Windows )
     {
         const std::string file = Path::GetFileName( ".\\modules\\imaginary.file" );
         EXPECT_EQ( "imaginary.file", file );
     }
 
-    ENGINE_TEST( Path, GetFileName, StripExtension )
+    TEST( Path, GetFileName, StripExtension )
     {
         const std::string file = Path::GetFileName( "./modules/imaginary", true );
         EXPECT_EQ( ".", file );
     }
 
-    ENGINE_TEST( Path, GetFileName, StripExtension2 )
+    TEST( Path, GetFileName, StripExtension2 )
     {
         const std::string file = Path::GetFileName( "./modules/imaginary.ext", true );
         EXPECT_EQ( "imaginary", file );
     }
 
-    ENGINE_TEST( Path, GetDirectory )
+    TEST( Path, GetDirectory )
     {
         const std::string dir = Path::GetDirectory( "./modules/imaginary.file" );
         EXPECT_EQ( "./modules/", dir );
     }
 
-    ENGINE_TEST( Path, GetDirectory, NoExtension )
+    TEST( Path, GetDirectory, NoExtension )
     {
         const std::string dir = Path::GetDirectory( "./modules/imaginary" );
         EXPECT_EQ( "./modules/", dir );
     }
 
-    ENGINE_TEST( Path, GetExtension )
+    TEST( Path, GetExtension )
     {
         const std::string ext = Path::GetExtension( "./modules/imaginary.file" );
         EXPECT_EQ( "file", ext );
     }
 
-    ENGINE_TEST( Path, GetExtension, NoExtension1 )
+    TEST( Path, GetExtension, NoExtension1 )
     {
         const std::string ext = Path::GetExtension( "./modules/imaginary." );
         EXPECT_EQ( "", ext );
     }
 
-    ENGINE_TEST( Path, GetExtension, NoExtension2 )
+    TEST( Path, GetExtension, NoExtension2 )
     {
         const std::string ext = Path::GetExtension( "./modules/imaginary" );
         EXPECT_EQ( "", ext );
     }
 
-    ENGINE_TEST( Path, GetExtension, WithDot )
+    TEST( Path, GetExtension, WithDot )
     {
         const std::string ext = Path::GetExtension( "./modules/imaginary.file", true );
         EXPECT_EQ( ".file", ext );
     }
 
-    ENGINE_TEST( Path, GetExtension, NoExtension )
+    TEST( Path, GetExtension, NoExtension )
     {
         const std::string ext = Path::GetExtension( "./modules/imaginary", true );
         EXPECT_EQ( "", ext );
     }
 
-    ENGINE_TEST( Path, HasExtension )
+    TEST( Path, HasExtension )
     {
         EXPECT_TRUE( Path::HasExtension( "./modules/imaginary.ext" ) );
     }
 
-    ENGINE_TEST( Path, HasExtension, HiddenNoExtension )
+    TEST( Path, HasExtension, HiddenNoExtension )
     {
         EXPECT_TRUE( Path::HasExtension( "./modules/.ext" ) );
     }
 
-    ENGINE_TEST( Path, HasExtension, Hidden2 )
+    TEST( Path, HasExtension, Hidden2 )
     {
         EXPECT_TRUE( Path::HasExtension( "./modules/.ext.ext" ) );
     }
 
-    ENGINE_TEST( Path, HasExtension, NoExtension1 )
+    TEST( Path, HasExtension, NoExtension1 )
     {
         EXPECT_TRUE( Path::HasExtension( "./modules/imaginary." ) );
     }
 
-    ENGINE_TEST( Path, HasExtension, NoExtension2 )
+    TEST( Path, HasExtension, NoExtension2 )
     {
         EXPECT_FALSE( Path::HasExtension( "./modules/." ) );
     }
 
-    ENGINE_TEST( Path, HasExtension, NoExtension3 )
+    TEST( Path, HasExtension, NoExtension3 )
     {
         EXPECT_FALSE( Path::HasExtension( "./modules/file" ) );
     }
 
-    ENGINE_TEST( Path, GetUniqueFileName )
+    TEST( Path, GetUniqueFileName )
     {
         // Yet another lottery, may the odds be ever in your favour.
         EXPECT_NE( Path::GetUniqueFileName(), Path::GetUniqueFileName() );
     }
 
-    ENGINE_TEST( Path, GetUniqueFileName, CorrectExtension )
+    TEST( Path, GetUniqueFileName, CorrectExtension )
     {
         const std::string path = Path::GetUniqueFileName( ".lol" );
         EXPECT_TRUE( Path::HasExtension( path ) );
         EXPECT_EQ( "lol", Path::GetExtension( path ) );
     }
 
-    ENGINE_TEST( Path, GetUniqueFileName, CorrectDefaultExtension )
+    TEST( Path, GetUniqueFileName, CorrectDefaultExtension )
     {
         const std::string path = Path::GetUniqueFileName();
         EXPECT_TRUE( Path::HasExtension( path ) );
         EXPECT_EQ( "tmp", Path::GetExtension( path ) );
     }
 
-    ENGINE_TEST( Path, GetUniqueFileName, NoExtension )
+    TEST( Path, GetUniqueFileName, NoExtension )
     {
         const std::string path = Path::GetUniqueFileName( "" );
         EXPECT_FALSE( Path::HasExtension( path ) );
         EXPECT_EQ( '/', path.back() );
     }
 
-    ENGINE_TEST( Path, GetUniqueFileName, NotEmpty )
+    TEST( Path, GetUniqueFileName, NotEmpty )
     {
         // Yet another lottery, may the odds be ever in your favour.
         EXPECT_NE( "", Path::GetUniqueFileName() );
     }
 
-    ENGINE_TEST( Path, GetUniqueDirectory )
+    TEST( Path, GetUniqueDirectory )
     {
         // Yet another lottery, may the odds be ever in your favour.
         EXPECT_NE( Path::GetUniqueDirectory(), Path::GetUniqueDirectory() );
     }
 
-    ENGINE_TEST( Path, GetUniqueDirectory, NotEmpty )
+    TEST( Path, GetUniqueDirectory, NotEmpty )
     {
         // Yet another lottery, may the odds be ever in your favour.
         EXPECT_NE( "", Path::GetUniqueDirectory() );
     }
 
-    ENGINE_TEST( Path, OSFolders, Unique )
+    TEST( Path, OSFolders, Unique )
     {
         const std::string data =  Path::GetDataDirectory();
         const std::string sharedData =  Path::GetSharedDataDirectory();
@@ -434,7 +434,7 @@ namespace
         EXPECT_EQ( 3, set.size() );
     }
 
-    ENGINE_TEST( Path, ProgramTempDirectory, Structure )
+    TEST( Path, ProgramTempDirectory, Structure )
     {
         const std::string dir = Path::GetProgramTempDirectory();
         const std::string tmp = Path::GetTempDirectory();
@@ -442,7 +442,7 @@ namespace
         EXPECT_EQ( tmp + std::string( PROGRAM_COMPANY ) + "/" + std::string( PROGRAM_NAME ) + "/", dir );
     }
 
-    ENGINE_TEST( Path, GetProgramDataDirectory, Structure )
+    TEST( Path, GetProgramDataDirectory, Structure )
     {
         const std::string dir = Path::GetProgramDataDirectory();
         const std::string data = Path::GetDataDirectory();
@@ -450,7 +450,7 @@ namespace
         EXPECT_EQ( data + std::string( PROGRAM_COMPANY ) + "/" + std::string( PROGRAM_NAME ) + "/", dir );
     }
 
-    ENGINE_TEST( Path, GetProgramSharedDataDirectory, Structure )
+    TEST( Path, GetProgramSharedDataDirectory, Structure )
     {
         const std::string dir = Path::GetProgramSharedDataDirectory();
         const std::string sharedData = Path::GetSharedDataDirectory();
@@ -458,7 +458,7 @@ namespace
         EXPECT_EQ( sharedData + std::string( PROGRAM_COMPANY ) + "/" + std::string( PROGRAM_NAME ) + "/", dir );
     }
 
-    ENGINE_TEST( Path, List )
+    TEST( Path, List )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -505,7 +505,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Path, ListRecursive )
+    TEST( Path, ListRecursive )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -553,7 +553,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Path, List, NotExisting )
+    TEST( Path, List, NotExisting )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 
@@ -561,7 +561,7 @@ namespace
         EXPECT_EQ( contents.size(), 0 );
     }
 
-    ENGINE_TEST( Path, List, Empty )
+    TEST( Path, List, Empty )
     {
         const std::string path = ::Test::GenerateDirectoryName( "common" );
 
@@ -576,7 +576,7 @@ namespace
         ::Test::CleanUp( path );
     }
 
-    ENGINE_TEST( Path, ListContent )
+    TEST( Path, ListContent )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -613,7 +613,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Path, ListContent, Recursive )
+    TEST( Path, ListContent, Recursive )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -651,12 +651,12 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Path, GetWorkingDirectory )
+    TEST( Path, GetWorkingDirectory )
     {
         EXPECT_EQ( Path::Canonical( "./", true ), Path::GetWorkingDirectory() );
     }
 
-    ENGINE_TEST( Path, SetWorkingDirectory )
+    TEST( Path, SetWorkingDirectory )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string fileName = Path::GetUniqueFileName();
@@ -680,7 +680,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Path, SetWorkingDirectory, NonExisting )
+    TEST( Path, SetWorkingDirectory, NonExisting )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 
@@ -691,7 +691,7 @@ namespace
         EXPECT_FALSE( Path::SetWorkingDirectory( root ) );
     }
 
-    ENGINE_TEST( Path, DeleteAll, SingleDirectory )
+    TEST( Path, DeleteAll, SingleDirectory )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dir = root + ::Test::GenerateDirectoryName();
@@ -711,7 +711,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( Path, DeleteAll, MultipleDirectories )
+    TEST( Path, DeleteAll, MultipleDirectories )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dir = root + ::Test::GenerateDirectoryName();
@@ -732,7 +732,7 @@ namespace
     }
 
 
-    ENGINE_TEST( Path, DeleteAll, File )
+    TEST( Path, DeleteAll, File )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 

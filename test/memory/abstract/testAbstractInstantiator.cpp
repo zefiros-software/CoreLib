@@ -55,12 +55,12 @@ namespace
         U32 *mInt;
     };
 
-    ENGINE_TEST( AbstractInstantiator, ConstructDeconstruct )
+    TEST( AbstractInstantiator, ConstructDeconstruct )
     {
         ImplInstantiator instantiator;
     }
 
-    ENGINE_TEST( AbstractInstantiator, DeriveNoMemleak )
+    TEST( AbstractInstantiator, DeriveNoMemleak )
     {
         AbstractInstantiator *instantiator = new ImplInstantiator;
         delete instantiator;

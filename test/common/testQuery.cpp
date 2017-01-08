@@ -69,8 +69,15 @@ namespace
             EXPECT_EQ( *it2, *it1 );
         }
     }
+    TEST( Query, GroupBy, Test )
+    {
+        std::vector<S32> src = { 1, 2, 3, 4 };
 
-    ENGINE_TEST( Query, All, ThreeInts )
+        auto rng = Query( src );
+        auto val = rng.GroupBy< bool, S32 >( []( S32 i ) { return ( i & 1 ) == 0; } ).ToVector();
+    }
+
+    TEST( Query, All, ThreeInts )
     {
         std::vector<S32> src = {1, 2, 3};
 
@@ -105,7 +112,7 @@ namespace
         } ) );
     }
 
-    ENGINE_TEST( Query, All, ThreeIntsSecond )
+    TEST( Query, All, ThreeIntsSecond )
     {
         std::vector<S32> src = { 0, 1, 2 };
 
@@ -140,7 +147,7 @@ namespace
         } ) );
     }
 
-    ENGINE_TEST( Query, Any, ThreeInts )
+    TEST( Query, Any, ThreeInts )
     {
         std::vector<S32> src = { 1, 2, 3 };
 
@@ -191,7 +198,7 @@ namespace
         } ) );
     }
 
-    ENGINE_TEST( Query, Avg, ThreeInts )
+    TEST( Query, Avg, ThreeInts )
     {
         std::vector<S32> src = { 1, 2, 3 };
 
@@ -200,7 +207,7 @@ namespace
         EXPECT_NEAR( 2.0, rng.Avg<double>(), DBL_EPSILON );
     }
 
-    ENGINE_TEST( Query, Avg, ThreeInts2 )
+    TEST( Query, Avg, ThreeInts2 )
     {
         std::vector<S32> src = { 1, 2, 3 };
 
@@ -209,7 +216,7 @@ namespace
         EXPECT_EQ( 1, rng.Avg() );
     }
 
-    ENGINE_TEST( Query, Avg, FiveInts )
+    TEST( Query, Avg, FiveInts )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5 };
 
@@ -227,7 +234,7 @@ namespace
         EXPECT_NEAR( 3.0, dst1.Avg<F64>(), DBL_EPSILON );
     }
 
-    ENGINE_TEST( Query, Avg, FiveStringsLen )
+    TEST( Query, Avg, FiveStringsLen )
     {
         std::vector<std::string> src = {"hello", "apple", "nokia", "oracle", "ponny"};
 
@@ -239,7 +246,7 @@ namespace
         } ) );
     }
 
-    ENGINE_TEST( Query, ConcatRange, ArrayArray )
+    TEST( Query, ConcatRange, ArrayArray )
     {
         S32 src1[] = { 1, 2, 3, 4, 5 };
         S32 src2[] = { 6, 7, 8, 9 };
@@ -253,7 +260,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, ConcatRange, ArrayVector )
+    TEST( Query, ConcatRange, ArrayVector )
     {
         S32 src1[] = { 1, 2, 3, 4, 5 };
         std::vector<S32> src2 = { 6, 7, 8, 9 };
@@ -267,7 +274,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, ConcatRange, ArrayVectorArray )
+    TEST( Query, ConcatRange, ArrayVectorArray )
     {
         S32 src1[] = { 1, 2, 3, 4, 5 };
         std::vector<S32> src2 = {6, 7, 8, 9};
@@ -283,7 +290,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, Contains, ThreeInts )
+    TEST( Query, Contains, ThreeInts )
     {
         std::vector<S32> src = { 1, 2, 3 };
 
@@ -297,7 +304,7 @@ namespace
         EXPECT_FALSE( rng.Contains( 4 ) );
     }
 
-    ENGINE_TEST( Query, Contains, FiveStrings )
+    TEST( Query, Contains, FiveStrings )
     {
         std::vector<std::string> src = { "hello", "apple", "nokia", "oracle", "ponny" };
         auto rng = Query( src );
@@ -312,7 +319,7 @@ namespace
         EXPECT_FALSE( rng.Contains( "lord" ) );
     }
 
-    ENGINE_TEST( Query, Count, ThreeIntsVector )
+    TEST( Query, Count, ThreeIntsVector )
     {
         std::vector<S32> src = { 1, 2, 3 };
 
@@ -321,7 +328,7 @@ namespace
         EXPECT_EQ( 3, rng.Count() );
     }
 
-    ENGINE_TEST( Query, Count, ThreeIntsList )
+    TEST( Query, Count, ThreeIntsList )
     {
         std::vector<S32> src = { 1, 2, 3 };
 
@@ -330,7 +337,7 @@ namespace
         EXPECT_EQ( 3, rng.Count() );
     }
 
-    ENGINE_TEST( Query, Count, FiveInts )
+    TEST( Query, Count, FiveInts )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5 };
 
@@ -348,7 +355,7 @@ namespace
         EXPECT_EQ( 3, dst1.Count() );
     }
 
-    ENGINE_TEST( Query, Count, OddCount )
+    TEST( Query, Count, OddCount )
     {
         std::vector<S32> src = {1, 0, 1, 0, 1};
 
@@ -358,7 +365,7 @@ namespace
         EXPECT_EQ( 3, rng.Count( 1 ) );
     }
 
-    ENGINE_TEST( Query, DistinctRange, Ints1to6 )
+    TEST( Query, DistinctRange, Ints1to6 )
     {
         S32 src[] = { 4, 5, 3, 1, 4, 2, 1, 4, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -369,7 +376,7 @@ namespace
         CheckRangeEqSet( dst, ans );
     }
 
-    ENGINE_TEST( Query, DistinctRange, IntMirrorFront )
+    TEST( Query, DistinctRange, IntMirrorFront )
     {
         S32 src[] = { 3, 2, 1, 0, 1, 2, 3 };
         S32 ans[] = { 0, 1, 2, 3 };
@@ -380,7 +387,7 @@ namespace
         CheckRangeEqSet( dst, ans );
     }
 
-    ENGINE_TEST( Query, DistinctRange, ManyEqualsFront )
+    TEST( Query, DistinctRange, ManyEqualsFront )
     {
         S32 src[] = { 1, 1, 1, 1 };
         S32 ans[] = { 1 };
@@ -391,7 +398,7 @@ namespace
         CheckRangeEqSet( dst, ans );
     }
 
-    ENGINE_TEST( Query, DistinctRange, ManyEqualsWithOneFront )
+    TEST( Query, DistinctRange, ManyEqualsWithOneFront )
     {
         S32 src[] = { 1, 1, 2, 1 };
         S32 ans[] = { 1, 2 };
@@ -402,7 +409,7 @@ namespace
         CheckRangeEqSet( dst, ans );
     }
 
-    ENGINE_TEST( Query, DistinctRange, OneFieldFront )
+    TEST( Query, DistinctRange, OneFieldFront )
     {
         struct Man
         {
@@ -452,7 +459,7 @@ namespace
         CheckRangeEqSet( dst, ans );
     }
 
-    ENGINE_TEST( Query, ElementAt, ThreeInts )
+    TEST( Query, ElementAt, ThreeInts )
     {
         std::vector<S32> src = { 1, 2, 3 };
 
@@ -463,7 +470,7 @@ namespace
         EXPECT_EQ( 3, rng.ElementAt( 2 ) );
     }
 
-    ENGINE_TEST( Query, ElementAt, FiveStrings )
+    TEST( Query, ElementAt, FiveStrings )
     {
         std::vector<std::string> src = { "hello", "apple", "nokia", "oracle", "ponny" };
 
@@ -476,7 +483,7 @@ namespace
         EXPECT_EQ( "ponny", rng.ElementAt( 4 ) );
     }
 
-    ENGINE_TEST( Query, ForEach, ThreeCharsSum )
+    TEST( Query, ForEach, ThreeCharsSum )
     {
         std::vector<S8> src = { 'a', 'b', 'c' };
 
@@ -489,7 +496,7 @@ namespace
         EXPECT_EQ( "abc", str );
     }
 
-    ENGINE_TEST( Query, ForEach, ThreeCharsUpperSum )
+    TEST( Query, ForEach, ThreeCharsUpperSum )
     {
         std::vector<S8> src = { 'a', 'b', 'c' };
 
@@ -502,7 +509,7 @@ namespace
         EXPECT_EQ( "ABC", str );
     }
 
-    ENGINE_TEST( Query, ForEach, ThreeIntsSum )
+    TEST( Query, ForEach, ThreeIntsSum )
     {
         std::vector<S32> src = {10, 20, 30};
 
@@ -515,7 +522,7 @@ namespace
         EXPECT_EQ( 60, sum );
     }
 
-    ENGINE_TEST( Query, BytesRange, OneByteDefault )
+    TEST( Query, BytesRange, OneByteDefault )
     {
         U8 src[] = { 0xAA };
         S32 ans[] = { 0xAA };
@@ -526,7 +533,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, OneByteFL )
+    TEST( Query, BytesRange, OneByteFL )
     {
         U8 src[] = { 0xAA };
         S32 ans[] = { 0xAA };
@@ -537,7 +544,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, OneByteLF )
+    TEST( Query, BytesRange, OneByteLF )
     {
         U8 src[] = { 0xAA };
         S32 ans[] = { 0xAA };
@@ -548,7 +555,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, OneIntDefault )
+    TEST( Query, BytesRange, OneIntDefault )
     {
         S32 src[] = { 0x12345678 };
         S32 ans[] = { 0x78, 0x56, 0x34, 0x12 };
@@ -559,7 +566,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, OneIntFL )
+    TEST( Query, BytesRange, OneIntFL )
     {
         S32 src[] = { 0x12345678 };
         S32 ans[] = { 0x78, 0x56, 0x34, 0x12 };
@@ -570,7 +577,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, OneIntLF )
+    TEST( Query, BytesRange, OneIntLF )
     {
         S32 src[] = { 0x12345678 };
         S32 ans[] = { 0x12, 0x34, 0x56, 0x78 };
@@ -581,7 +588,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, IntsDefault )
+    TEST( Query, BytesRange, IntsDefault )
     {
         U32 src[] = { 0x12345678, 0xAABBCCDD };
         S32 ans[] =
@@ -596,7 +603,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, IntsFL )
+    TEST( Query, BytesRange, IntsFL )
     {
         U32 src[] = { 0x12345678, 0xAABBCCDD };
         S32 ans[] =
@@ -611,7 +618,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BytesRange, IntsLF )
+    TEST( Query, BytesRange, IntsLF )
     {
         U32 src[] = { 0x12345678, 0xAABBCCDD };
         S32 ans[] =
@@ -631,7 +638,7 @@ namespace
 
 
 
-    ENGINE_TEST( Query, BitsRange, OneByteDefault )
+    TEST( Query, BitsRange, OneByteDefault )
     {
         U8 src[] = { 0xAA };
         S32 ans[] = { 1, 0, 1, 0, 1, 0, 1, 0 };
@@ -642,7 +649,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, OneByteHL )
+    TEST( Query, BitsRange, OneByteHL )
     {
         U8 src[] = { 0xAA };
         S32 ans[] = { 1, 0, 1, 0, 1, 0, 1, 0 };
@@ -653,7 +660,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, OneByteLH )
+    TEST( Query, BitsRange, OneByteLH )
     {
         U8 src[] = { 0xAA };
         S32 ans[] = { 0, 1, 0, 1, 0, 1, 0, 1 };
@@ -664,7 +671,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, OneIntDefault )
+    TEST( Query, BitsRange, OneIntDefault )
     {
         U32 src[] = { 0x12345678 };
         S32 ans[] =
@@ -681,7 +688,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, OneIntHL )
+    TEST( Query, BitsRange, OneIntHL )
     {
         U32 src[] = { 0x12345678 };
         S32 ans[] =
@@ -698,7 +705,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, OneIntLH )
+    TEST( Query, BitsRange, OneIntLH )
     {
         U32 src[] = { 0x12345678 };
         S32 ans[] =
@@ -716,7 +723,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, IntsDefault )
+    TEST( Query, BitsRange, IntsDefault )
     {
         U32 src[] = { 0x12345678, 0xAABBCCDD };
         S32 ans[] =
@@ -738,7 +745,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, IntsHL )
+    TEST( Query, BitsRange, IntsHL )
     {
         U32 src[] = { 0x12345678, 0xAABBCCDD };
         S32 ans[] =
@@ -760,7 +767,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, BitsRange, IntsLH )
+    TEST( Query, BitsRange, IntsLH )
     {
         U32 src[] = { 0x12345678, 0xAABBCCDD };
         S32 ans[] =
@@ -784,7 +791,7 @@ namespace
 
 
 
-    ENGINE_TEST( Query,  DotCall, BytesRange )
+    TEST( Query,  DotCall, BytesRange )
     {
         U32 src[] = { 0x12345678, 0xAABBCCDD };
         S32 ansFL[] =
@@ -807,7 +814,7 @@ namespace
         CheckRangeEqArray( dstLF1, ansLF );
     }
 
-    ENGINE_TEST( Query,  DotCall, UnbytesRange )
+    TEST( Query,  DotCall, UnbytesRange )
     {
         U8 src[] =
         {
@@ -826,7 +833,7 @@ namespace
         CheckRangeEqArray( dstLF1, ansLF );
     }
 
-    ENGINE_TEST( Query,  DotCall, BitsRangeHL )
+    TEST( Query,  DotCall, BitsRangeHL )
     {
         U32 src[] = { 0xAABBCCDD };
         S32 ansFL[] =
@@ -855,7 +862,7 @@ namespace
         CheckRangeEqArray( dstLF1, ansLF );
     }
 
-    ENGINE_TEST( Query,  DotCall, BitsRangeLH )
+    TEST( Query,  DotCall, BitsRangeLH )
     {
         U32 src[] = { 0xAABBCCDD };
         S32 ansFL[] =
@@ -882,7 +889,7 @@ namespace
         CheckRangeEqArray( dstLF1, ansLF );
     }
 
-    ENGINE_TEST( Query, DotCall, UnbitsRangeHLFL )
+    TEST( Query, DotCall, UnbitsRangeHLFL )
     {
         S32 src[] =
         {
@@ -912,7 +919,7 @@ namespace
 
 
 
-    ENGINE_TEST( Query, IterRange, ListInt )
+    TEST( Query, IterRange, ListInt )
     {
         std::list<S32> lst = {1, 2, 3, 4, 5};
         S32 ans[] = { 1, 2, 3, 4, 5 };
@@ -922,7 +929,7 @@ namespace
         CheckRangeEqArray( Query<S32>( lst.cbegin(), lst.cend() ), ans );
     }
 
-    ENGINE_TEST( Query, IterRange, DequeInt )
+    TEST( Query, IterRange, DequeInt )
     {
         std::deque<S32> dck = { 1, 2, 3, 4, 5 };
         S32 ans[] = { 1, 2, 3, 4, 5 };
@@ -932,7 +939,7 @@ namespace
         CheckRangeEqArray( Query<S32>( dck.cbegin(), dck.cend() ), ans );
     }
 
-    ENGINE_TEST( Query, IterRange, VectorInt )
+    TEST( Query, IterRange, VectorInt )
     {
         std::vector<S32> vec = { 1, 2, 3, 4, 5 };
         S32 ans[] = { 1, 2, 3, 4, 5 };
@@ -942,7 +949,7 @@ namespace
         CheckRangeEqArray( Query<S32>( vec.cbegin(), vec.cend() ), ans );
     }
 
-    ENGINE_TEST( Query, IterRange, SetInt )
+    TEST( Query, IterRange, SetInt )
     {
         std::set<S32> set = { 1, 2, 3, 4, 5 };
         S32 ans[] = { 1, 2, 3, 4, 5 };
@@ -952,7 +959,7 @@ namespace
         CheckRangeEqSet( Query<S32>( set.cbegin(), set.cend() ), ans );
     }
 
-    ENGINE_TEST( Query, IterRange, MapInt )
+    TEST( Query, IterRange, MapInt )
     {
         std::map<S32, S32> map =
         {
@@ -980,7 +987,7 @@ namespace
         .OrderBy( []( std::pair<S32, S32> p ) { return p.second; } ), ans );
     }
 
-    ENGINE_TEST( Query, IterRange, StdArrayInt )
+    TEST( Query, IterRange, StdArrayInt )
     {
         std::array<S32, 5> arr = { { 1, 2, 3, 4, 5 } };
         S32 ans[] = { 1, 2, 3, 4, 5 };
@@ -990,7 +997,7 @@ namespace
         CheckRangeEqArray( Query<S32>( arr.cbegin(), arr.cend() ), ans );
     }
 
-    ENGINE_TEST( Query, IterRange, ArrayInt )
+    TEST( Query, IterRange, ArrayInt )
     {
         S32 arr[] = { 1, 2, 3, 4, 5 };
         S32 *ptr = static_cast<S32 *>( arr );
@@ -1002,7 +1009,7 @@ namespace
         CheckRangeEqArray( Query<S32>( ptr, ptr + 5 ), ans );
     }
 
-    ENGINE_TEST( Query, IterRange, OneElement )
+    TEST( Query, IterRange, OneElement )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -1012,7 +1019,7 @@ namespace
         CheckRangeEqArray( rng, ans );
     }
 
-    ENGINE_TEST( Query, IterRange, EmptyVector )
+    TEST( Query, IterRange, EmptyVector )
     {
         std::vector<S32> src;
 
@@ -1021,7 +1028,7 @@ namespace
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, Linq, WhereOdd )
+    TEST( Query, Linq, WhereOdd )
     {
         std::vector<S32> src = {1, 2, 3, 4, 5, 6};
 
@@ -1035,7 +1042,7 @@ namespace
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, Linq, WhereOdd_WhereLess )
+    TEST( Query, Linq, WhereOdd_WhereLess )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -1051,7 +1058,7 @@ namespace
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, Linq, WhereLess_WhereOdd )
+    TEST( Query, Linq, WhereLess_WhereOdd )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -1065,7 +1072,7 @@ namespace
         EXPECT_EQ( ans, rng );
     }
 
-    ENGINE_TEST( Query, Linq, WhereLess_WhereOdd_OrderByDesc )
+    TEST( Query, Linq, WhereLess_WhereOdd_OrderByDesc )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -1080,7 +1087,7 @@ namespace
         EXPECT_EQ( ans, rng );
     }
 
-    ENGINE_TEST( Query, Linq, WhereOdd_ToVector )
+    TEST( Query, Linq, WhereOdd_ToVector )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -1093,7 +1100,7 @@ namespace
         EXPECT_EQ( ans, dst );
     }
 
-    ENGINE_TEST( Query, Linq, WhereOdd_WhereLess_SelectMul2_ToVector )
+    TEST( Query, Linq, WhereOdd_WhereLess_SelectMul2_ToVector )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -1108,7 +1115,7 @@ namespace
         EXPECT_EQ( ans, dst );
     }
 
-    ENGINE_TEST( Query, Linq, WhereOdd_WhereLess_SelectMul2_Reverse_ToVector )
+    TEST( Query, Linq, WhereOdd_WhereLess_SelectMul2_Reverse_ToVector )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -1124,7 +1131,7 @@ namespace
         EXPECT_EQ( ans, dst );
     }
 
-    ENGINE_TEST( Query, Linq, WhereOdd_Reverse_Reverse )
+    TEST( Query, Linq, WhereOdd_Reverse_Reverse )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -1140,7 +1147,7 @@ namespace
         EXPECT_EQ( ans, dst );
     }
 
-    ENGINE_TEST( Query, Linq, Pointer_Front )
+    TEST( Query, Linq, Pointer_Front )
     {
         S32 src[] = { 1, 2, 3, 4, 5 };
 
@@ -1154,7 +1161,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, Linq, Array_Front )
+    TEST( Query, Linq, Array_Front )
     {
         S32 src[] = { 1, 2, 3, 4, 5 };
 
@@ -1168,7 +1175,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, Linq, Creations )
+    TEST( Query, Linq, Creations )
     {
         std::vector<S32> vec = { 1, 2, 3, 4, 5 };
         S32 arr[] = { 1, 2, 3, 4, 5 };
@@ -1187,7 +1194,7 @@ namespace
         //auto dst_vec_citer = Query< const S32 > ( vec.cbegin(), vec.cend() );
     }
 
-    ENGINE_TEST( Query, Linq, MessagesCountUniqueContacts )
+    TEST( Query, Linq, MessagesCountUniqueContacts )
     {
         struct Message
         {
@@ -1220,7 +1227,7 @@ namespace
         EXPECT_EQ( 2, DenisUniqueContactCount );
     }
 
-    ENGINE_TEST( Query, Linq, ForwardIterating )
+    TEST( Query, Linq, ForwardIterating )
     {
         std::stringstream stream( "0123456789" );
         auto dst = Query<char>( std::istream_iterator<char>( stream ),
@@ -1232,7 +1239,7 @@ namespace
         EXPECT_EQ( "02468", dst );
     }
 
-    ENGINE_TEST( Query, Max, ThreeInts )
+    TEST( Query, Max, ThreeInts )
     {
         std::vector<S32> src = { 1, 2, 3 };
         auto rng = Query( src );
@@ -1241,7 +1248,7 @@ namespace
         EXPECT_EQ( 1, rng.Max( []( S32 a ) {return -a; } ) );
     }
 
-    ENGINE_TEST( Query, Max, FiveStrings )
+    TEST( Query, Max, FiveStrings )
     {
         std::vector<std::string> src = { "hell", "apple", "zip" };
 
@@ -1251,7 +1258,7 @@ namespace
         EXPECT_EQ( "apple", rng.Max( []( std::string s ) {return s.size(); } ) );
     }
 
-    ENGINE_TEST( Query, Min, ThreeInts )
+    TEST( Query, Min, ThreeInts )
     {
         std::vector<S32> src = { 1, 2, 3 };
         auto rng = Query( src );
@@ -1260,7 +1267,7 @@ namespace
         EXPECT_EQ( 3, rng.Min( []( S32 a ) {return -a; } ) );
     }
 
-    ENGINE_TEST( Query, Min, FiveStrings )
+    TEST( Query, Min, FiveStrings )
     {
         std::vector<std::string> src = { "hell", "apple", "zip" };
 
@@ -1270,7 +1277,7 @@ namespace
         EXPECT_EQ( "zip", rng.Min( []( std::string s ) {return s.size(); } ) );
     }
 
-    ENGINE_TEST( Query, OrderByRange, RandomIntsWithDuplicates )
+    TEST( Query, OrderByRange, RandomIntsWithDuplicates )
     {
         S32 src[] = { 4, 5, 3, 1, 4, 2, 1, 4, 6 };
         S32 ans[] = { 1, 1, 2, 3, 4, 4, 4, 5, 6 };
@@ -1281,7 +1288,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, OrderByRange, ReverseInts )
+    TEST( Query, OrderByRange, ReverseInts )
     {
         S32 src[] = { 4, 3, 2, 1 };
         S32 ans[] = { 1, 2, 3, 4 };
@@ -1292,7 +1299,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, OrderByRange, ThreeElements )
+    TEST( Query, OrderByRange, ThreeElements )
     {
         S32 src[] = { 1, 3, 2 };
         S32 ans[] = { 1, 2, 3 };
@@ -1303,7 +1310,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, OrderByRange, OneElement )
+    TEST( Query, OrderByRange, OneElement )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -1314,7 +1321,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, OrderByRange, NoElements )
+    TEST( Query, OrderByRange, NoElements )
     {
         std::vector<S32> src;
 
@@ -1324,7 +1331,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, OrderByRange, RandomStringByContent )
+    TEST( Query, OrderByRange, RandomStringByContent )
     {
         std::string src[] =
         {
@@ -1352,7 +1359,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, OrderByRange, RandomStringByLength )
+    TEST( Query, OrderByRange, RandomStringByLength )
     {
         std::string src[] =
         {
@@ -1380,7 +1387,7 @@ namespace
         CheckRangeEqArray( dst, ans, []( const std::string & s ) {return s.size(); } );
     }
 
-    ENGINE_TEST( Query, ReverseRange, IntVector )
+    TEST( Query, ReverseRange, IntVector )
     {
         S32 src[] = { 1, 2, 3, 4 };
         S32 ans[] = { 4, 3, 2, 1 };
@@ -1391,7 +1398,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, ReverseRange, DoubleReverse )
+    TEST( Query, ReverseRange, DoubleReverse )
     {
         S32 src[] = { 1, 2, 3, 4 };
         S32 ans[] = { 1, 2, 3, 4 };
@@ -1402,7 +1409,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SelectRange, Mul2 )
+    TEST( Query, SelectRange, Mul2 )
     {
         S32 src[] = { 1, 2, 3, 4 };
         S32 ans[] = { 2, 4, 6, 8 };
@@ -1413,7 +1420,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SelectRange, MakeChar )
+    TEST( Query, SelectRange, MakeChar )
     {
         S32 src[] = { 1, 2, 3, 4 };
         char ans[] = { '1', '2', '3', '4' };
@@ -1424,7 +1431,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SelectRange, MakeString )
+    TEST( Query, SelectRange, MakeString )
     {
         S32 src[] = { 1, 2, 3, 4 };
 
@@ -1442,7 +1449,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipRange, ManyToMany )
+    TEST( Query, SkipRange, ManyToMany )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1453,7 +1460,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipRange, ManyToLess )
+    TEST( Query, SkipRange, ManyToLess )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 4, 5, 6 };
@@ -1464,7 +1471,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipRange, ManyToOne )
+    TEST( Query, SkipRange, ManyToOne )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 6 };
@@ -1475,7 +1482,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipRange, ManyToZero )
+    TEST( Query, SkipRange, ManyToZero )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -1485,7 +1492,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipRange, ManyToZeroLess )
+    TEST( Query, SkipRange, ManyToZeroLess )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -1495,7 +1502,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipRange, OneToOne )
+    TEST( Query, SkipRange, OneToOne )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -1506,7 +1513,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipRange, OneToZero )
+    TEST( Query, SkipRange, OneToZero )
     {
         S32 src[] = { 5 };
 
@@ -1516,7 +1523,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipRange, OneToZeroLess )
+    TEST( Query, SkipRange, OneToZeroLess )
     {
         S32 src[] = { 5 };
 
@@ -1526,7 +1533,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipRange, ZeroToZero )
+    TEST( Query, SkipRange, ZeroToZero )
     {
         std::vector<S32> src;
 
@@ -1536,7 +1543,7 @@ namespace
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipRange, ZeroToZeroLess )
+    TEST( Query, SkipRange, ZeroToZeroLess )
     {
         std::vector<S32> src;
 
@@ -1547,7 +1554,7 @@ namespace
     }
 
 
-    ENGINE_TEST( Query, SkipWhileRange, ManyToMore )
+    TEST( Query, SkipWhileRange, ManyToMore )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1558,7 +1565,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToMoreByIndex )
+    TEST( Query, SkipWhileRange_i, ManyToMoreByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1569,7 +1576,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToMoreByItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToMoreByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1580,7 +1587,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToMoreByIndexAndItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToMoreByIndexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1591,7 +1598,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange, ManyToMany )
+    TEST( Query, SkipWhileRange, ManyToMany )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1602,7 +1609,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToManyByIndex )
+    TEST( Query, SkipWhileRange_i, ManyToManyByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1613,7 +1620,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToManyByItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToManyByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1624,7 +1631,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToManyByIndexAndItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToManyByIndexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1636,7 +1643,7 @@ namespace
     }
 
 
-    ENGINE_TEST( Query, SkipWhileRange, ManyToLess )
+    TEST( Query, SkipWhileRange, ManyToLess )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 3, 4, 5, 6 };
@@ -1647,7 +1654,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToLessByIndex )
+    TEST( Query, SkipWhileRange_i, ManyToLessByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 4, 5, 6 };
@@ -1658,7 +1665,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToLessByItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToLessByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 3, 4, 5, 6 };
@@ -1669,7 +1676,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToLessByIndexAndItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToLessByIndexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 4, 5, 6 };
@@ -1680,7 +1687,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange, ManyToOne )
+    TEST( Query, SkipWhileRange, ManyToOne )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 6 };
@@ -1691,7 +1698,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToOneByIndex )
+    TEST( Query, SkipWhileRange_i, ManyToOneByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 6 };
@@ -1702,7 +1709,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToOneByItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToOneByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 6 };
@@ -1713,7 +1720,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToOneByIndexAndItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToOneByIndexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 6 };
@@ -1724,7 +1731,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange, ManyToZero )
+    TEST( Query, SkipWhileRange, ManyToZero )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -1734,7 +1741,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToZeroeByIndex )
+    TEST( Query, SkipWhileRange_i, ManyToZeroeByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -1744,7 +1751,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToZeroByItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToZeroByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -1754,7 +1761,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ManyToZeroIndexAndItemValue )
+    TEST( Query, SkipWhileRange_i, ManyToZeroIndexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -1764,7 +1771,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange, OneToOne )
+    TEST( Query, SkipWhileRange, OneToOne )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -1775,7 +1782,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, OneToOneByIndex )
+    TEST( Query, SkipWhileRange_i, OneToOneByIndex )
     {
         S32 src[] = { 6 };
         S32 ans[] = { 6 };
@@ -1786,7 +1793,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, OneToOneByItemValue )
+    TEST( Query, SkipWhileRange_i, OneToOneByItemValue )
     {
         S32 src[] = { 6 };
         S32 ans[] = { 6 };
@@ -1797,7 +1804,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, OneToOneByIndexAndItemValue )
+    TEST( Query, SkipWhileRange_i, OneToOneByIndexAndItemValue )
     {
         S32 src[] = { 6 };
         S32 ans[] = { 6 };
@@ -1808,7 +1815,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange, OneToZero )
+    TEST( Query, SkipWhileRange, OneToZero )
     {
         S32 src[] = { 5 };
 
@@ -1818,7 +1825,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, OneToZeroByIndex )
+    TEST( Query, SkipWhileRange_i, OneToZeroByIndex )
     {
         S32 src[] = { 6 };
 
@@ -1828,7 +1835,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, OneToZeroByItemValue )
+    TEST( Query, SkipWhileRange_i, OneToZeroByItemValue )
     {
         S32 src[] = { 6 };
 
@@ -1838,7 +1845,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, OneToZeroIndexAndItemValue )
+    TEST( Query, SkipWhileRange_i, OneToZeroIndexAndItemValue )
     {
         S32 src[] = { 6 };
 
@@ -1848,7 +1855,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange, ZeroToZero )
+    TEST( Query, SkipWhileRange, ZeroToZero )
     {
         std::vector<S32> src;
 
@@ -1858,7 +1865,7 @@ namespace
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, SkipWhileRange_i, ZeroToZero )
+    TEST( Query, SkipWhileRange_i, ZeroToZero )
     {
         std::vector<S32> src;
 
@@ -1868,7 +1875,7 @@ namespace
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, Sum, ThreeInts )
+    TEST( Query, Sum, ThreeInts )
     {
         std::vector<S32> src = {1, 2, 3};
 
@@ -1877,7 +1884,7 @@ namespace
         EXPECT_EQ( 6, rng );
     }
 
-    ENGINE_TEST( Query, Sum, FiveInts )
+    TEST( Query, Sum, FiveInts )
     {
         std::vector<S32> src = {1, 2, 3, 4, 5};
 
@@ -1889,7 +1896,7 @@ namespace
         EXPECT_EQ( 9, dst1 );
     }
 
-    ENGINE_TEST( Query, Sum, BoolSum )
+    TEST( Query, Sum, BoolSum )
     {
         std::vector<S32> src = { 1, 2, 3, 4, 5 };
 
@@ -1900,7 +1907,7 @@ namespace
         EXPECT_EQ( 3, rng2 );
     }
 
-    ENGINE_TEST( Query, Sum, FiveStringsLen )
+    TEST( Query, Sum, FiveStringsLen )
     {
         std::vector<std::string> src = { "hello", "apple", "nokia", "oracle", "ponny" };
 
@@ -1909,7 +1916,7 @@ namespace
         EXPECT_EQ( 26U, rng );
     }
 
-    ENGINE_TEST( Query, Sum, FiveStringsData )
+    TEST( Query, Sum, FiveStringsData )
     {
         std::vector<std::string> src = { "hello", "apple", "nokia", "oracle", "ponny" };
 
@@ -1920,7 +1927,7 @@ namespace
         EXPECT_EQ( ans, rng );
     }
 
-    ENGINE_TEST( Query, TakeRange, ManyToMore )
+    TEST( Query, TakeRange, ManyToMore )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1931,7 +1938,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeRange, ManyToMany )
+    TEST( Query, TakeRange, ManyToMany )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -1942,7 +1949,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeRange, ManyToLess )
+    TEST( Query, TakeRange, ManyToLess )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3 };
@@ -1953,7 +1960,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeRange, ManyToOne )
+    TEST( Query, TakeRange, ManyToOne )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1 };
@@ -1964,7 +1971,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeRange, ManyToZero )
+    TEST( Query, TakeRange, ManyToZero )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -1974,7 +1981,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeRange, OneToMore )
+    TEST( Query, TakeRange, OneToMore )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -1985,7 +1992,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeRange, OneToOne )
+    TEST( Query, TakeRange, OneToOne )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -1996,7 +2003,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeRange, OneToZero )
+    TEST( Query, TakeRange, OneToZero )
     {
         S32 src[] = { 5 };
 
@@ -2006,7 +2013,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeRange, ZeroToZero )
+    TEST( Query, TakeRange, ZeroToZero )
     {
         std::vector<S32> src;
 
@@ -2017,7 +2024,7 @@ namespace
     }
 
 
-    ENGINE_TEST( Query, TakeWhileRange, ManyToMore )
+    TEST( Query, TakeWhileRange, ManyToMore )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -2028,7 +2035,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToMoreByIndex )
+    TEST( Query, TakeWhileRange_i, ManyToMoreByIndex )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
@@ -2039,7 +2046,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToMoreByItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToMoreByItemValue )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
@@ -2050,7 +2057,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToMoreByIndexAndItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToMoreByIndexAndItemValue )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
@@ -2061,7 +2068,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange, ManyToMany )
+    TEST( Query, TakeWhileRange, ManyToMany )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
@@ -2072,7 +2079,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToManyByIndex )
+    TEST( Query, TakeWhileRange_i, ManyToManyByIndex )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
@@ -2083,7 +2090,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToManyByItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToManyByItemValue )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
@@ -2094,7 +2101,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToManyByIndexAndItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToManyByIndexAndItemValue )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
@@ -2105,7 +2112,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange, ManyToLess )
+    TEST( Query, TakeWhileRange, ManyToLess )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1, 2, 3 };
@@ -2116,7 +2123,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToLessByIndex )
+    TEST( Query, TakeWhileRange_i, ManyToLessByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         S32 ans[] = { 1, 2, 3, 4 };
@@ -2127,7 +2134,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToLessByItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToLessByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         S32 ans[] = { 1, 2, 3, 4 };
@@ -2138,7 +2145,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToLessByIndexAndItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToLessByIndexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         S32 ans[] = { 1, 2, 3, 4 };
@@ -2149,7 +2156,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange, ManyToOne )
+    TEST( Query, TakeWhileRange, ManyToOne )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1 };
@@ -2160,7 +2167,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToOneByIndex )
+    TEST( Query, TakeWhileRange_i, ManyToOneByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         S32 ans[] = { 1 };
@@ -2171,7 +2178,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToOneByItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToOneByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         S32 ans[] = { 1 };
@@ -2182,7 +2189,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToOneByIndexAndItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToOneByIndexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         S32 ans[] = { 1 };
@@ -2193,7 +2200,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange, ManyToZero )
+    TEST( Query, TakeWhileRange, ManyToZero )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
@@ -2203,7 +2210,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToZeroByIndex )
+    TEST( Query, TakeWhileRange_i, ManyToZeroByIndex )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
@@ -2213,7 +2220,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToZeroByItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToZeroByItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
@@ -2223,7 +2230,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ManyToZeroByIdexAndItemValue )
+    TEST( Query, TakeWhileRange_i, ManyToZeroByIdexAndItemValue )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
@@ -2233,7 +2240,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange, OneToOne )
+    TEST( Query, TakeWhileRange, OneToOne )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -2244,7 +2251,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, OneToOneByIndex )
+    TEST( Query, TakeWhileRange_i, OneToOneByIndex )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -2255,7 +2262,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, OneToOneByItemValue )
+    TEST( Query, TakeWhileRange_i, OneToOneByItemValue )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -2266,7 +2273,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, OneToOneByIndexAndItemValue )
+    TEST( Query, TakeWhileRange_i, OneToOneByIndexAndItemValue )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -2277,7 +2284,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange, OneToZero )
+    TEST( Query, TakeWhileRange, OneToZero )
     {
         S32 src[] = { 5 };
 
@@ -2287,7 +2294,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, OneToZeroByIndex )
+    TEST( Query, TakeWhileRange_i, OneToZeroByIndex )
     {
         S32 src[] = { 5 };
 
@@ -2297,7 +2304,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, OneToZeroByItemValue )
+    TEST( Query, TakeWhileRange_i, OneToZeroByItemValue )
     {
         S32 src[] = { 5 };
 
@@ -2307,7 +2314,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, OneToZeroByIndexAndItemValue )
+    TEST( Query, TakeWhileRange_i, OneToZeroByIndexAndItemValue )
     {
         S32 src[] = { 5 };
 
@@ -2317,7 +2324,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange, ZeroToZero )
+    TEST( Query, TakeWhileRange, ZeroToZero )
     {
         std::vector<S32> src;
 
@@ -2327,7 +2334,7 @@ namespace
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, TakeWhileRange_i, ZeroToZero )
+    TEST( Query, TakeWhileRange_i, ZeroToZero )
     {
         S32 src[] = { 5 };
 
@@ -2337,7 +2344,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, ToDeque, Deque2Deque )
+    TEST( Query, ToDeque, Deque2Deque )
     {
         std::deque<S32> src = { 100, 200, 300 };
 
@@ -2347,7 +2354,7 @@ namespace
         EXPECT_EQ( dst, src );
     }
 
-    ENGINE_TEST( Query, ToList, List2List )
+    TEST( Query, ToList, List2List )
     {
         std::list<S32> src = { 100, 200, 300 };
 
@@ -2357,7 +2364,7 @@ namespace
         EXPECT_EQ( dst, src );
     }
 
-    ENGINE_TEST( Query, ToVector, Vector2Vector )
+    TEST( Query, ToVector, Vector2Vector )
     {
         std::vector<S32> src = { 100, 200, 300 };
 
@@ -2367,7 +2374,7 @@ namespace
         EXPECT_EQ( dst, src );
     }
 
-    ENGINE_TEST( Query, ToSet, Set2Set )
+    TEST( Query, ToSet, Set2Set )
     {
         std::set<S32> src = { 1, 1, 2, 3, 2 };
 
@@ -2380,7 +2387,7 @@ namespace
         EXPECT_NE( dst.end(), dst.find( 3 ) );
     }
 
-    ENGINE_TEST( UnbitsRange, OneByteDefault )
+    TEST( UnbitsRange, OneByteDefault )
     {
         S32 src[] = { 1, 0, 1, 0, 1, 0, 1, 0 };
         S32 ans[] = { 0xAA };
@@ -2391,7 +2398,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( UnbitsRange, OneByteHL )
+    TEST( UnbitsRange, OneByteHL )
     {
         S32 src[] = { 1, 0, 1, 0, 1, 0, 1, 0 };
         S32 ans[] = { 0xAA };
@@ -2402,7 +2409,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( UnbitsRange, OneByteLH )
+    TEST( UnbitsRange, OneByteLH )
     {
         S32 src[] = { 0, 1, 0, 1, 0, 1, 0, 1 };
         S32 ans[] = { 0xAA };
@@ -2413,7 +2420,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, UnbytesRange, OneIntDefault )
+    TEST( Query, UnbytesRange, OneIntDefault )
     {
         U8 src[] = { 0xAA, 0xBB, 0xCC, 0xDD };
         U32 ans[] = { 0xDDCCBBAA };
@@ -2424,7 +2431,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, UnbytesRange, OneIntFL )
+    TEST( Query, UnbytesRange, OneIntFL )
     {
         U8 src[] = { 0xAA, 0xBB, 0xCC, 0xDD };
         U32 ans[] = { 0xDDCCBBAA };
@@ -2435,7 +2442,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, UnbytesRange, OneIntLF )
+    TEST( Query, UnbytesRange, OneIntLF )
     {
         U8 src[] = { 0xAA, 0xBB, 0xCC, 0xDD };
         U32 ans[] = { 0xAABBCCDD };
@@ -2446,7 +2453,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, UnbytesRange, TwoIntsDefault )
+    TEST( Query, UnbytesRange, TwoIntsDefault )
     {
         U8 src[] =
         {
@@ -2461,7 +2468,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, UnbytesRange, TwoIntsFL )
+    TEST( Query, UnbytesRange, TwoIntsFL )
     {
         U8 src[] =
         {
@@ -2476,7 +2483,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, UnbytesRange, TwoIntsLF )
+    TEST( Query, UnbytesRange, TwoIntsLF )
     {
         U8 src[] =
         {
@@ -2491,7 +2498,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, UnbytesRange, EmptyDefault )
+    TEST( Query, UnbytesRange, EmptyDefault )
     {
         std::vector<U8> src;
 
@@ -2501,7 +2508,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, WhereRange, IntOdd )
+    TEST( Query, WhereRange, IntOdd )
     {
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
         S32 ans[] = { 1,  3,  5 };
@@ -2514,7 +2521,7 @@ namespace
 
     //////////////////////////////////////////////////////////////////////////
 
-    ENGINE_TEST( Query, WhereRange, FirstLetterFront )
+    TEST( Query, WhereRange, FirstLetterFront )
     {
         std::string src[] =
         {
@@ -2539,7 +2546,7 @@ namespace
 
     //////////////////////////////////////////////////////////////////////////
 
-    ENGINE_TEST( Query, WhereRange, NameAgeLess )
+    TEST( Query, WhereRange, NameAgeLess )
     {
         struct NameAge
         {
@@ -2570,7 +2577,7 @@ namespace
 
     //////////////////////////////////////////////////////////////////////////
 
-    ENGINE_TEST( Query, WhereRange, MayToOne )
+    TEST( Query, WhereRange, MayToOne )
     {
         S32 src[] = { 0, 1, 2 };
         S32 ans[] = { 1 };
@@ -2581,7 +2588,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, WhereRange, OneToOne )
+    TEST( Query, WhereRange, OneToOne )
     {
         S32 src[] = { 5 };
         S32 ans[] = { 5 };
@@ -2592,7 +2599,7 @@ namespace
         CheckRangeEqArray( dst, ans );
     }
 
-    ENGINE_TEST( Query, WhereRange, ManyToZero )
+    TEST( Query, WhereRange, ManyToZero )
     {
         S32 src[] = { 0, 1, 2 };
 
@@ -2602,7 +2609,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, WhereRange, OneToZero )
+    TEST( Query, WhereRange, OneToZero )
     {
         S32 src[] = { 5 };
 
@@ -2612,7 +2619,7 @@ namespace
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
 
-    ENGINE_TEST( Query, WhereRange, ZeroToZero )
+    TEST( Query, WhereRange, ZeroToZero )
     {
         std::vector<S32> src;
 

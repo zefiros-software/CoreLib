@@ -31,14 +31,14 @@
 
 namespace
 {
-    ENGINE_TEST( MtQueue, SanityCheck )
+    TEST( MtQueue, SanityCheck )
     {
         MtQueue< U32 > a;
         EXPECT_EQ( 0, a.Size() );
         EXPECT_TRUE( a.Empty() );
     }
 
-    ENGINE_TEST( MtQueue, Push )
+    TEST( MtQueue, Push )
     {
         MtQueue< U32 > a;
         a.Push( 51 );
@@ -46,14 +46,14 @@ namespace
         EXPECT_FALSE( a.Empty() );
     }
 
-    ENGINE_TEST( MtQueue, WaitAndPop )
+    TEST( MtQueue, WaitAndPop )
     {
         MtQueue< U32 > a;
         a.Push( 51 );
         EXPECT_EQ( 51, a.WaitAndPop() );
     }
 
-    ENGINE_TEST( MtQueue, TryPop )
+    TEST( MtQueue, TryPop )
     {
         MtQueue< U32 > a;
         a.Push( 51 );

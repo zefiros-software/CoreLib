@@ -32,7 +32,7 @@
 namespace
 {
 
-    ENGINE_TEST( File, ReadOpen, NotExisting )
+    TEST( File, ReadOpen, NotExisting )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -48,7 +48,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, ReadOpen, Exists )
+    TEST( File, ReadOpen, Exists )
     {
         //! [ReadOpen]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -78,7 +78,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, WriteOpen, NotExisting )
+    TEST( File, WriteOpen, NotExisting )
     {
         //! [WriteOpen]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -106,7 +106,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, WriteOpen, Exists )
+    TEST( File, WriteOpen, Exists )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -126,7 +126,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Open, ReadExists )
+    TEST( File, Open, ReadExists )
     {
         //! [Open]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -156,7 +156,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Open, WriteNotExisting )
+    TEST( File, Open, WriteNotExisting )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -179,7 +179,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Open, WriteExists )
+    TEST( File, Open, WriteExists )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -199,13 +199,13 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, TempGet, CorrectDirectory )
+    TEST( File, TempGet, CorrectDirectory )
     {
         const std::string temp = File::TempGet();
         EXPECT_EQ( ".", Path::ResolveRelative( temp, Path::GetProgramTempDirectory(), false ) );
     }
 
-    ENGINE_TEST( File, TempGet, IsUnique )
+    TEST( File, TempGet, IsUnique )
     {
         //! [TempGet]
         const std::string temp = File::TempGet();
@@ -215,7 +215,7 @@ namespace
         EXPECT_NE( temp, File::TempGet() );
     }
 
-    ENGINE_TEST( File, TempOpen, CanWrite )
+    TEST( File, TempOpen, CanWrite )
     {
         //! [TempOpen]
         const std::string content = "successfully written";
@@ -229,7 +229,7 @@ namespace
         stream.close();
     }
 
-    ENGINE_TEST( File, TempOpen, CorrectDirectory )
+    TEST( File, TempOpen, CorrectDirectory )
     {
         //! [TempOpenPath]
         std::string path;
@@ -244,7 +244,7 @@ namespace
         EXPECT_EQ( ".", Path::ResolveRelative( path, Path::GetProgramTempDirectory(), false ) );
     }
 
-    ENGINE_TEST( File, TempOpen, DidWrite )
+    TEST( File, TempOpen, DidWrite )
     {
         const std::string content = "successfully written";
         std::string path;
@@ -258,7 +258,7 @@ namespace
         EXPECT_EQ( content, File::ReadAllText( path ) );
     }
 
-    ENGINE_TEST( File, Exists, ValidFile )
+    TEST( File, Exists, ValidFile )
     {
         //! [Exists]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -277,7 +277,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Exists, ValidFileNoExtension )
+    TEST( File, Exists, ValidFileNoExtension )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         std::string file = root + Path::GetUniqueFileName( "" );
@@ -297,20 +297,20 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Exists, InvalidFile )
+    TEST( File, Exists, InvalidFile )
     {
         const std::string file = Path::GetUniqueFileName();
 
         EXPECT_FALSE( File::Exists( file ) );
     }
 
-    ENGINE_TEST( File, Exists, Directory )
+    TEST( File, Exists, Directory )
     {
         std::string root = ::Test::GenerateDirectoryName( "common" );
         EXPECT_FALSE( File::Exists( root ) );
     }
 
-    ENGINE_TEST( File, GetSize, ValidFile )
+    TEST( File, GetSize, ValidFile )
     {
         //! [GetSize]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -330,7 +330,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, GetSize, InvalidFile )
+    TEST( File, GetSize, InvalidFile )
     {
         const std::string file = Path::GetUniqueFileName();
 
@@ -339,7 +339,7 @@ namespace
         EXPECT_EQ( 0, File::Size( file ) );
     }
 
-    ENGINE_TEST( File, IsEmpty, NotExisting )
+    TEST( File, IsEmpty, NotExisting )
     {
         const std::string file = Path::GetUniqueFileName();
 
@@ -348,7 +348,7 @@ namespace
         EXPECT_EQ( 0, File::Size( file ) );
     }
 
-    ENGINE_TEST( File, IsEmpty, Exists )
+    TEST( File, IsEmpty, Exists )
     {
         //! [IsEmpty]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -367,7 +367,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, IsEmpty, ExistsCleared )
+    TEST( File, IsEmpty, ExistsCleared )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -386,7 +386,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, AreEqual, Self )
+    TEST( File, AreEqual, Self )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -403,7 +403,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, AreEqual, SameFile )
+    TEST( File, AreEqual, SameFile )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -423,7 +423,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, AreEqual, OtherFile )
+    TEST( File, AreEqual, OtherFile )
     {
         //! [AreEqual]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -445,7 +445,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, AreEqual, ANotExisting )
+    TEST( File, AreEqual, ANotExisting )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -463,7 +463,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, AreEqual, BNotExisting )
+    TEST( File, AreEqual, BNotExisting )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -481,7 +481,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, AreEqual, ABNotExisting )
+    TEST( File, AreEqual, ABNotExisting )
     {
         const std::string file  = Path::GetUniqueFileName();
         const std::string file2 = Path::GetUniqueFileName();
@@ -489,7 +489,7 @@ namespace
         EXPECT_FALSE( File::AreEqual( file, file2 ) );
     }
 
-    ENGINE_TEST( File, IsSame, Self )
+    TEST( File, IsSame, Self )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -506,7 +506,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, IsSame, Self2 )
+    TEST( File, IsSame, Self2 )
     {
         //! [IsSame]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -525,7 +525,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, IsSame, Other )
+    TEST( File, IsSame, Other )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -544,7 +544,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, IsSame, ANotExisting )
+    TEST( File, IsSame, ANotExisting )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -562,7 +562,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, IsSame, BNotExisting )
+    TEST( File, IsSame, BNotExisting )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -580,7 +580,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, IsSame, ABNotExisting )
+    TEST( File, IsSame, ABNotExisting )
     {
         const std::string file  = Path::GetUniqueFileName();
         const std::string file2 = Path::GetUniqueFileName();
@@ -588,7 +588,7 @@ namespace
         EXPECT_FALSE( File::IsSame( file, file2 ) );
     }
 
-    ENGINE_TEST( File, ReadAllText, ValidFile )
+    TEST( File, ReadAllText, ValidFile )
     {
         //! [ReadAllText]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -608,14 +608,14 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, ReadAllText, InvalidFile )
+    TEST( File, ReadAllText, InvalidFile )
     {
         const std::string file  = Path::GetUniqueFileName();
 
         EXPECT_EQ( "", File::ReadAllText( file ) );
     }
 
-    ENGINE_TEST( File, GetLastModified )
+    TEST( File, GetLastModified )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -644,7 +644,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, GetLastModified, NotExists )
+    TEST( File, GetLastModified, NotExists )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -658,7 +658,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, List, NonRecursive )
+    TEST( File, List, NonRecursive )
     {
         //! [List]
         const std::string root = ::Test::GenerateDirectoryName( "common" );
@@ -697,7 +697,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, List, Recursive )
+    TEST( File, List, Recursive )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -734,7 +734,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, List, Default )
+    TEST( File, List, Default )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string dirA = root + ::Test::GenerateDirectoryName();
@@ -771,7 +771,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, List, Empty )
+    TEST( File, List, Empty )
     {
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
 
@@ -786,7 +786,7 @@ namespace
         ::Test::CleanUp( directory );
     }
 
-    ENGINE_TEST( File, List, NotExisting )
+    TEST( File, List, NotExisting )
     {
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
 
@@ -794,14 +794,14 @@ namespace
         EXPECT_EQ( 0, contents.size() );
     }
 
-    ENGINE_TEST( File, SetLastModified, NotExisting )
+    TEST( File, SetLastModified, NotExisting )
     {
         const std::string file = ::Path::GetUniqueFileName();
 
         ::File::SetLastModified( file, 0 );
     }
 
-    ENGINE_TEST( File, Clear )
+    TEST( File, Clear )
     {
         //! [Clear]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -826,7 +826,7 @@ namespace
     }
 
 
-    ENGINE_TEST( File, Clear, NotExisting )
+    TEST( File, Clear, NotExisting )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -842,7 +842,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Delete )
+    TEST( File, Delete )
     {
         //! [Delete]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -863,7 +863,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Delete, NotExisting )
+    TEST( File, Delete, NotExisting )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -879,7 +879,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Move )
+    TEST( File, Move )
     {
         //! [Move]
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
@@ -909,7 +909,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Move, FromIsTrue )
+    TEST( File, Move, FromIsTrue )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -932,7 +932,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Move, ToAlreadyExists )
+    TEST( File, Move, ToAlreadyExists )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -964,7 +964,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Move, ToAlreadyExistsNoOverwrite )
+    TEST( File, Move, ToAlreadyExistsNoOverwrite )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -990,7 +990,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Move, NotExisting )
+    TEST( File, Move, NotExisting )
     {
         const std::string file  = Path::GetUniqueFileName();
         const std::string file2 = Path::GetUniqueFileName();
@@ -998,7 +998,7 @@ namespace
         EXPECT_FALSE( File::Move( file, file2 ) );
     }
 
-    ENGINE_TEST( File, Move, Self )
+    TEST( File, Move, Self )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1015,7 +1015,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Copy )
+    TEST( File, Copy )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -1037,7 +1037,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Copy, ToAlreadyExists )
+    TEST( File, Copy, ToAlreadyExists )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -1063,7 +1063,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Copy, ToAlreadyExistsNoOverwrite )
+    TEST( File, Copy, ToAlreadyExistsNoOverwrite )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();
@@ -1089,7 +1089,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( File, Copy, NotExisting )
+    TEST( File, Copy, NotExisting )
     {
         const std::string file  = Path::GetUniqueFileName();
         const std::string file2 = Path::GetUniqueFileName();
@@ -1097,7 +1097,7 @@ namespace
         EXPECT_FALSE( File::Copy( file, file2 ) );
     }
 
-    ENGINE_TEST( File, Copy, FromIsTrue )
+    TEST( File, Copy, FromIsTrue )
     {
         const std::string root  = ::Test::GenerateDirectoryName( "common" );
         const std::string file  = root + Path::GetUniqueFileName();

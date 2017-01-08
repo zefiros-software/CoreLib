@@ -330,6 +330,15 @@ public:
         } );
     }
 
+    template<typename tK, typename tR >
+    QueryObj<Enumerator<tR, std::pair<tT, size_t> > > GroupBy( std::function<tR( tV )> transform ) const
+    {
+        return Select<tR>( [ = ]( tV a, size_t )
+        {
+            return transform( a );
+        } );
+    }
+
     template<typename tR>
     QueryObj<Enumerator<tV, IteratorContainerPair<typename std::multiset<tV, TransformComparer<tV, tR> >::iterator, std::multiset<tV, TransformComparer<tV, tR> > > > >
     OrderBy( std::function<tR( tV )> transform ) const
@@ -348,7 +357,9 @@ public:
                 objects.insert( en.Next() );
             }
         }
-        catch ( EnumeratorEndException & ) {}
+        catch ( EnumeratorEndException & )
+        {
+        }
 
         return Enumerator<tV, DataType>( []( DataType & pair )
         {

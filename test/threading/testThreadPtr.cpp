@@ -32,18 +32,18 @@
 
 namespace
 {
-    ENGINE_TEST( ThreadPtr, Sanity )
+    TEST( ThreadPtr, Sanity )
     {
         ThreadPtr< U8 > p;
     }
 
-    ENGINE_TEST( ThreadPtr, Constr )
+    TEST( ThreadPtr, Constr )
     {
         U8 val = 0;
         ThreadPtr< U8 > p( &val );
     }
 
-    ENGINE_TEST( ThreadPtr, OnSynchronise )
+    TEST( ThreadPtr, OnSynchronise )
     {
         U8 val = 0;
         ThreadPtr< U8 > p( &val );
@@ -52,7 +52,7 @@ namespace
         EXPECT_EQ( nullptr, p.UnsynchronisedGet() );
     }
 
-    ENGINE_TEST( ThreadPtr, OnSynchronise2 )
+    TEST( ThreadPtr, OnSynchronise2 )
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
@@ -62,7 +62,7 @@ namespace
         EXPECT_EQ( &val, p.UnsynchronisedGet() );
     }
 
-    ENGINE_TEST( ThreadPtr, SetTwice )
+    TEST( ThreadPtr, SetTwice )
     {
         U8 val = 0;
         U8 val2 = 0;
@@ -74,7 +74,7 @@ namespace
         EXPECT_EQ( &val, p.UnsynchronisedGet() );
     }
 
-    ENGINE_TEST( ThreadPtr, Get )
+    TEST( ThreadPtr, Get )
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
@@ -84,7 +84,7 @@ namespace
         EXPECT_EQ( &val, p.Get() );
     }
 
-    ENGINE_TEST( ThreadPtr, Get2 )
+    TEST( ThreadPtr, Get2 )
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
@@ -93,7 +93,7 @@ namespace
         EXPECT_EQ( &val, p.Get() );
     }
 
-    ENGINE_TEST( ThreadPtr, Get3 )
+    TEST( ThreadPtr, Get3 )
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
@@ -110,7 +110,7 @@ namespace
         t.join();
     }
 
-    ENGINE_TEST( ThreadPtr, Get4 )
+    TEST( ThreadPtr, Get4 )
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
@@ -127,7 +127,7 @@ namespace
         t.join();
     }
 
-    ENGINE_TEST( ThreadPtr, Op )
+    TEST( ThreadPtr, Op )
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
@@ -136,7 +136,7 @@ namespace
         EXPECT_EQ( &val, p );
     }
 
-    ENGINE_TEST( ThreadPtr, Op2 )
+    TEST( ThreadPtr, Op2 )
     {
         U32 val = ::Test::GenerateRandomU32();
         ThreadPtr< U32 > p;
@@ -145,7 +145,7 @@ namespace
         EXPECT_EQ( val, *p );
     }
 
-    ENGINE_TEST( ThreadPtr, Op3 )
+    TEST( ThreadPtr, Op3 )
     {
         U32 val = ::Test::GenerateRandomU32();
         ThreadPtr< U32 > p;

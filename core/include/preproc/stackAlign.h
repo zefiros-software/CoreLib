@@ -25,7 +25,6 @@
  */
 
 #pragma once
-#pragma once
 #ifndef __ENGINE_STACKALIGN_H__
 #define __ENGINE_STACKALIGN_H__
 

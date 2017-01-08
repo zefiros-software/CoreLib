@@ -31,7 +31,7 @@
 namespace
 {
 
-    ENGINE_TEST( Namespace, DefaultConstruction )
+    TEST( Namespace, DefaultConstruction )
     {
         const Namespace ns;
 
@@ -41,7 +41,7 @@ namespace
         EXPECT_EQ( 0, ns.GetNamespace() );
     }
 
-    ENGINE_TEST( Namespace, NamespaceConstruction )
+    TEST( Namespace, NamespaceConstruction )
     {
         // ![SeperateNS]
         const Namespace ns( Namespace( 1, 2 ), Namespace( 3, 4 ) );
@@ -58,7 +58,7 @@ namespace
         // ![SeperateNS]
     }
 
-    ENGINE_TEST( Namespace, NamespaceConstructionWithU32 )
+    TEST( Namespace, NamespaceConstructionWithU32 )
     {
         const Namespace ns( Namespace( 1, 2 ), 4 );
 
@@ -68,7 +68,7 @@ namespace
         EXPECT_EQ( Namespace( 1, 0 ).GetNamespace(), ns.GetNamespace() );
     }
 
-    ENGINE_TEST( Namespace, FullNamespaceConstruction )
+    TEST( Namespace, FullNamespaceConstruction )
     {
         const Namespace ns( Namespace( 1, 2 ).GetNamespace() );
 
@@ -78,7 +78,7 @@ namespace
         EXPECT_EQ( Namespace( 1, 2 ).GetNamespace(), ns.GetNamespace() );
     }
 
-    ENGINE_TEST( Namespace, IntegerConstruction )
+    TEST( Namespace, IntegerConstruction )
     {
         const Namespace ns( 1, 2 );
 
@@ -88,7 +88,7 @@ namespace
         EXPECT_EQ( Namespace( 1, 2 ).GetNamespace(), ns.GetNamespace() );
     }
 
-    ENGINE_TEST( Namespace, LargeIntegerConstruction )
+    TEST( Namespace, LargeIntegerConstruction )
     {
         // ![GetNamespace]
         const U16 u16max = std::numeric_limits<U16>::max();
@@ -103,7 +103,7 @@ namespace
         // ![GetNamespace]
     }
 
-    ENGINE_TEST( Namespace, LargeIntegerConstruction2 )
+    TEST( Namespace, LargeIntegerConstruction2 )
     {
         // ![IsAddin]
         const U16 u16max = std::numeric_limits<U16>::max();
@@ -119,7 +119,7 @@ namespace
         // ![IsAddin]
     }
 
-    ENGINE_TEST( Namespace, LargeIntegerConstruction3 )
+    TEST( Namespace, LargeIntegerConstruction3 )
     {
         const U16 u16max = std::numeric_limits<U16>::max();
 
@@ -131,7 +131,7 @@ namespace
         EXPECT_EQ( ( u16max << 16 ), ns.GetNamespace() );
     }
 
-    ENGINE_TEST( Namespace, Equality, Equal )
+    TEST( Namespace, Equality, Equal )
     {
         const U32 random = ::Test::GenerateRandomU32();
 
@@ -140,7 +140,7 @@ namespace
         EXPECT_EQ( ns, Namespace( random ) );
     }
 
-    ENGINE_TEST( Namespace, Equality, NotEqual )
+    TEST( Namespace, Equality, NotEqual )
     {
         U32 random = ::Test::GenerateRandomU32();
         random = random == 0 ? 1 : random;
@@ -150,7 +150,7 @@ namespace
         EXPECT_NE( ns, Namespace( 0 ) );
     }
 
-    ENGINE_TEST( Namespace, Cast )
+    TEST( Namespace, Cast )
     {
         const U32 random = ::Test::GenerateRandomU32();
         Namespace ns( random );
@@ -158,7 +158,7 @@ namespace
         EXPECT_EQ( random, ns() );
     }
 
-    ENGINE_TEST( Namespace, Hashable )
+    TEST( Namespace, Hashable )
     {
         const std::unordered_set< Namespace > set;
     }

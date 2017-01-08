@@ -118,12 +118,12 @@ namespace
 
     typedef ParamPoolableInstantiator< Child, U32, Base > ParamPoolableInstantiatorImpl;
 
-    ENGINE_TEST( ParamPoolableInstantiator, SanityCheck )
+    TEST( ParamPoolableInstantiator, SanityCheck )
     {
         volatile ParamPoolableInstantiatorImpl inst( 42u );
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, Create )
+    TEST( ParamPoolableInstantiator, Create )
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
@@ -137,7 +137,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, OnInit )
+    TEST( ParamPoolableInstantiator, OnInit )
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
@@ -152,7 +152,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, Release )
+    TEST( ParamPoolableInstantiator, Release )
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
@@ -168,7 +168,7 @@ namespace
         delete child;
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, Destroy )
+    TEST( ParamPoolableInstantiator, Destroy )
     {
         ParamPoolableInstantiatorImpl inst( 42u );
 
@@ -184,7 +184,7 @@ namespace
         inst.Destroy( child );
     }
 
-    ENGINE_TEST( ParamPoolableInstantiator, Copy )
+    TEST( ParamPoolableInstantiator, Copy )
     {
         ParamPoolableInstantiatorImpl instantiator( 42 );
         delete instantiator.Copy();

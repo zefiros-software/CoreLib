@@ -75,18 +75,18 @@ namespace
         }
     };
 
-    ENGINE_TEST( Instantiator, SanityCheck )
+    TEST( Instantiator, SanityCheck )
     {
         volatile Instantiator< Child, Base > instantiator;
     }
 
-    ENGINE_TEST( Instantiator, Copy )
+    TEST( Instantiator, Copy )
     {
         Instantiator< Child, Base > instantiator;
         delete instantiator.Copy();
     }
 
-    ENGINE_TEST( Instantiator, Create )
+    TEST( Instantiator, Create )
     {
         Instantiator< Child, Base > instantiator;
 

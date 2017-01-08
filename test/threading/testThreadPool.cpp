@@ -44,12 +44,12 @@ namespace
         std::function<void()> mFunc;
     };
 
-    ENGINE_TEST( ThreadPool, Sanity )
+    TEST( ThreadPool, Sanity )
     {
         ThreadPool p;
     }
 
-    ENGINE_TEST( ThreadPool, Init )
+    TEST( ThreadPool, Init )
     {
         ThreadPool p;
         p.Init();
@@ -57,7 +57,7 @@ namespace
         EXPECT_FALSE( p.IsRunning() );
     }
 
-    ENGINE_TEST( ThreadPool, Run )
+    TEST( ThreadPool, Run )
     {
         ThreadPool p;
         p.Init();

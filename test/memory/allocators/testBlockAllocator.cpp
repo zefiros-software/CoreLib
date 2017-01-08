@@ -30,12 +30,12 @@
 
 namespace
 {
-    ENGINE_TEST( BlockAllocator, SanityCheck )
+    TEST( BlockAllocator, SanityCheck )
     {
         BlockAllocator b( 4 );
     }
 
-    ENGINE_TEST( BlockAllocator, Alloc )
+    TEST( BlockAllocator, Alloc )
     {
         BlockAllocator s( 4 );
         EXPECT_EQ( 0, s.Alloc<U8>() );
@@ -44,7 +44,7 @@ namespace
         EXPECT_EQ( 8, s.Alloc<U64>() );
     }
 
-    ENGINE_TEST( BlockAllocator, Move )
+    TEST( BlockAllocator, Move )
     {
         U64 f = 503;
         BlockAllocator s( 4 );
@@ -56,7 +56,7 @@ namespace
         EXPECT_EQ( f, *s.Extract<U64>( 4 ) );
     }
 
-    ENGINE_TEST( BlockAllocator, Move2 )
+    TEST( BlockAllocator, Move2 )
     {
         U64 f = 503;
         BlockAllocator s( 4 );
@@ -68,7 +68,7 @@ namespace
         EXPECT_EQ( f, *( ( const BlockAllocator & )s ).Extract<U64>( 4 ) );
     }
 
-    ENGINE_TEST( BlockAllocator, Clear )
+    TEST( BlockAllocator, Clear )
     {
         const U8 f[2] = { 8, 14 };
         BlockAllocator s( 1 );

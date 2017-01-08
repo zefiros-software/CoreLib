@@ -32,12 +32,12 @@
 
 namespace
 {
-    ENGINE_TEST( TestPlugin, Plugin4 )
+    TEST( TestPlugin, Plugin4 )
     {
         EXPECT_EQ( 42, Test4::GetNumber() );
     }
 
-    ENGINE_TEST( TestPlugin, IsInit )
+    TEST( TestPlugin, IsInit )
     {
         SystemManager::Get()->Release();
 

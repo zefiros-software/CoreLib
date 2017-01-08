@@ -25,8 +25,8 @@
  */
 
 #pragma once
-#ifndef __ENGINE_TEST_H__
-#define __ENGINE_TEST_H__
+#ifndef __EXTERNAL_TEST_H__
+#define __EXTERNAL_TEST_H__
 
 #include "warnings/push.h"
 #include "warnings/integerToSmallPointer.h"

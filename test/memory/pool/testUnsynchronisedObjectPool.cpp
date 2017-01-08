@@ -147,12 +147,12 @@ namespace
 
     typedef UnsynchronisedObjectPool< Child, Base > UnsynchronisedObjectPoolImpl;
 
-    ENGINE_TEST( UnsynchronisedObjectPool, SanityCheck )
+    TEST( UnsynchronisedObjectPool, SanityCheck )
     {
         volatile UnsynchronisedObjectPoolImpl pool;
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, CustomInstantiator )
+    TEST( UnsynchronisedObjectPool, CustomInstantiator )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         UnsynchronisedObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
@@ -166,7 +166,7 @@ namespace
         EXPECT_TRUE( inst->destroyed );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, TooFull )
+    TEST( UnsynchronisedObjectPool, TooFull )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         UnsynchronisedObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
@@ -180,7 +180,7 @@ namespace
         EXPECT_TRUE( inst->destroyed );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, CustomInstantiatorNonDefault )
+    TEST( UnsynchronisedObjectPool, CustomInstantiatorNonDefault )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         UnsynchronisedObjectPool< U32 > pool( inst, 1 );
@@ -195,7 +195,7 @@ namespace
         EXPECT_EQ( 0, *first );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, Get )
+    TEST( UnsynchronisedObjectPool, Get )
     {
         UnsynchronisedObjectPoolImpl pool( 1 );
 
@@ -222,7 +222,7 @@ namespace
         pool.Dispose( fourth );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, FastGet )
+    TEST( UnsynchronisedObjectPool, FastGet )
     {
         UnsynchronisedObjectPoolImpl pool;
 
@@ -232,21 +232,21 @@ namespace
         pool.Dispose( first );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, Dispose )
+    TEST( UnsynchronisedObjectPool, Dispose )
     {
         UnsynchronisedObjectPoolImpl pool;
         pool.Dispose( pool.Get() );
         pool.Dispose( pool.FastGet() );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, FastDispose )
+    TEST( UnsynchronisedObjectPool, FastDispose )
     {
         UnsynchronisedObjectPoolImpl pool;
         pool.FastDispose( pool.Get() );
         pool.FastDispose( pool.FastGet() );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, FastDisposeNoRelease )
+    TEST( UnsynchronisedObjectPool, FastDisposeNoRelease )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         UnsynchronisedObjectPool< U32 > pool( inst, 1 );
@@ -261,7 +261,7 @@ namespace
         EXPECT_EQ( 42, *first );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, GetBorrowedCount )
+    TEST( UnsynchronisedObjectPool, GetBorrowedCount )
     {
         UnsynchronisedObjectPoolImpl pool;
 
@@ -279,7 +279,7 @@ namespace
         pool.Dispose( second );
     }
 
-    ENGINE_TEST( UnsynchronisedObjectPool, GetReturnedCount )
+    TEST( UnsynchronisedObjectPool, GetReturnedCount )
     {
         UnsynchronisedObjectPoolImpl pool;
 

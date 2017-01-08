@@ -35,7 +35,7 @@
 namespace
 {
 
-    ENGINE_TEST( DeltaTime, GetDeltaTime, NoValue )
+    TEST( DeltaTime, GetDeltaTime, NoValue )
     {
         //! [Get]
         DeltaTime time;
@@ -45,7 +45,7 @@ namespace
         //! [Get]
     }
 
-    ENGINE_TEST( DeltaTime, GetElapsedMilliseconds, NoValue )
+    TEST( DeltaTime, GetElapsedMilliseconds, NoValue )
     {
         //! [GetMS]
         DeltaTime time;
@@ -53,7 +53,7 @@ namespace
         //! [GetMS]
     }
 
-    ENGINE_TEST( DeltaTime, Update, Value )
+    TEST( DeltaTime, Update, Value )
     {
         DeltaTime time;
 
@@ -63,7 +63,7 @@ namespace
         EXPECT_LE( 1e-9, time.GetEasedDeltaTime() );
     }
 
-    ENGINE_TEST( DeltaTime, Update, ValueSleep )
+    TEST( DeltaTime, Update, ValueSleep )
     {
         //! [Update]
         DeltaTime time;
@@ -80,7 +80,7 @@ namespace
         //! [Update]
     }
 
-    ENGINE_TEST( DeltaTime, Update, SleepUpdate )
+    TEST( DeltaTime, Update, SleepUpdate )
     {
         DeltaTime time;
 
@@ -96,7 +96,7 @@ namespace
         EXPECT_LE( 17, time.GetElapsedMilliseconds() );
     }
 
-    ENGINE_TEST( DeltaTime, GetElapsedMilliseconds, ValueSleep )
+    TEST( DeltaTime, GetElapsedMilliseconds, ValueSleep )
     {
         //! [UpdateMS]
         DeltaTime time;

@@ -31,37 +31,37 @@
 namespace
 {
 
-    ENGINE_TEST( Hash, Fnva1NotEqual )
+    TEST( Hash, Fnva1NotEqual )
     {
         //! [Fnva1NotEqual]
         EXPECT_NE( Hash::Fnv1a( "Zefiros Engine" ), Hash::Fnv1a( "Test" ) );
         //! [Fnva1NotEqual]
     }
 
-    ENGINE_TEST( Hash, Fnva1Deterministic )
+    TEST( Hash, Fnva1Deterministic )
     {
         //! [Fnva1Deterministic]
         EXPECT_EQ( Hash::Fnv1a( "Zefiros Engine" ), Hash::Fnv1a( "Zefiros Engine" ) );
         //! [Fnva1Deterministic]
     }
 
-    ENGINE_TEST( Hash, Fnva1NULL )
+    TEST( Hash, Fnva1NULL )
     {
         EXPECT_NE( ( U32 )0, Hash::Fnv1a( "" ) );
     }
 
-    ENGINE_TEST( Hash, Fnva1Random )
+    TEST( Hash, Fnva1Random )
     {
         const std::string string = ::Test::GenerateRandomString();
         EXPECT_EQ( Hash::Fnv1a( string.c_str() ), Hash::Fnv1a( string.c_str() ) );
     }
 
-    ENGINE_TEST( Hash, HashCombine, NULL )
+    TEST( Hash, HashCombine, NULL )
     {
         EXPECT_NE( 0u, Hash::Combine( 0, 0 ) );
     }
 
-    ENGINE_TEST( Hash, HashCombine, Combine )
+    TEST( Hash, HashCombine, Combine )
     {
         //! [HashCombine]
         const std::vector< U32 > hashes = ::Test::GenerateUniqueU32s< 2 >();

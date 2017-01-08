@@ -33,12 +33,12 @@
 
 namespace
 {
-    ENGINE_TEST( SystemManager, Sanity )
+    TEST( SystemManager, Sanity )
     {
         SystemManager m( 0, nullptr );
     }
 
-    ENGINE_TEST( SystemManager, FullCycle )
+    TEST( SystemManager, FullCycle )
     {
         SystemManager::Get()->Release();
 
@@ -60,19 +60,19 @@ namespace
         Console::SetMode( Console::LogMode::Disabled );
     }
 
-    ENGINE_TEST( SystemManager, ReleaseNS )
+    TEST( SystemManager, ReleaseNS )
     {
         SystemManager m( 0, nullptr );
         m.Release( 1 );
     }
 
-    ENGINE_TEST( SystemManager, GetArgc )
+    TEST( SystemManager, GetArgc )
     {
         SystemManager m( 0, nullptr );
         EXPECT_EQ( 0, m.GetArgc() );
     }
 
-    ENGINE_TEST( SystemManager, GetArgv )
+    TEST( SystemManager, GetArgv )
     {
         SystemManager m( 0, nullptr );
         EXPECT_EQ( nullptr, m.GetArgv() );

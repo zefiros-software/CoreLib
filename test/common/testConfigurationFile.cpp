@@ -115,13 +115,13 @@ namespace
         return comment;
     }
 
-    ENGINE_TEST( ConfigurationFile, DefaultConstructible )
+    TEST( ConfigurationFile, DefaultConstructible )
     {
         EXPECT_TRUE( std::is_default_constructible<ConfigurationFile>::value );
     }
 
 
-    ENGINE_TEST( ConfigurationFile, HasKey, String )
+    TEST( ConfigurationFile, HasKey, String )
     {
         //! [HasKey]
         TestConfiguration config;
@@ -130,28 +130,28 @@ namespace
         //! [HasKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, HasKey, Int )
+    TEST( ConfigurationFile, HasKey, Int )
     {
         TestConfiguration config;
 
         EXPECT_TRUE( config.HasKey( "intValue" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, HasKey, Float )
+    TEST( ConfigurationFile, HasKey, Float )
     {
         TestConfiguration config;
 
         EXPECT_TRUE( config.HasKey( "floatValue" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, HasKey, Bool )
+    TEST( ConfigurationFile, HasKey, Bool )
     {
         TestConfiguration config;
 
         EXPECT_TRUE( config.HasKey( "boolValue" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, IsStringKey )
+    TEST( ConfigurationFile, IsStringKey )
     {
         //! [IsStringKey]
         TestConfiguration config;
@@ -160,7 +160,7 @@ namespace
         //! [IsStringKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, IsIntKey )
+    TEST( ConfigurationFile, IsIntKey )
     {
         //! [IsIntKey]
         TestConfiguration config;
@@ -169,7 +169,7 @@ namespace
         //! [IsIntKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, IsFloatKey )
+    TEST( ConfigurationFile, IsFloatKey )
     {
         //! [IsFloatKey]
         TestConfiguration config;
@@ -178,7 +178,7 @@ namespace
         //! [IsFloatKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, IsBoolKey )
+    TEST( ConfigurationFile, IsBoolKey )
     {
         //! [IsBoolKey]
         TestConfiguration config;
@@ -187,7 +187,7 @@ namespace
         //! [IsBoolKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, PreParse, StringValue )
+    TEST( ConfigurationFile, PreParse, StringValue )
     {
         //! [GetString]
         TestConfiguration config;
@@ -196,7 +196,7 @@ namespace
         //! [GetString]
     }
 
-    ENGINE_TEST( ConfigurationFile, PreParse, IntValue )
+    TEST( ConfigurationFile, PreParse, IntValue )
     {
         //! [GetInt]
         TestConfiguration config;
@@ -205,7 +205,7 @@ namespace
         //! [GetInt]
     }
 
-    ENGINE_TEST( ConfigurationFile, PreParse, FloatValue )
+    TEST( ConfigurationFile, PreParse, FloatValue )
     {
         //! [GetFloat]
         TestConfiguration config;
@@ -214,7 +214,7 @@ namespace
         //! [GetFloat]
     }
 
-    ENGINE_TEST( ConfigurationFile, PreParse, BoolValue )
+    TEST( ConfigurationFile, PreParse, BoolValue )
     {
         //! [GetBool]
         TestConfiguration config;
@@ -223,7 +223,7 @@ namespace
         //! [GetBool]
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, TestFile )
+    TEST( ConfigurationFile, Parse, TestFile )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -265,7 +265,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, WhiteSpace )
+    TEST( ConfigurationFile, Parse, WhiteSpace )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -310,7 +310,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, StressTest )
+    TEST( ConfigurationFile, Parse, StressTest )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -426,7 +426,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, Comments )
+    TEST( ConfigurationFile, Parse, Comments )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -466,7 +466,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, Comments2 )
+    TEST( ConfigurationFile, Parse, Comments2 )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -508,7 +508,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, StringValue )
+    TEST( ConfigurationFile, Parse, StringValue )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -543,7 +543,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, IntValue )
+    TEST( ConfigurationFile, Parse, IntValue )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -578,7 +578,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, FloatValue )
+    TEST( ConfigurationFile, Parse, FloatValue )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -613,7 +613,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, BoolValue )
+    TEST( ConfigurationFile, Parse, BoolValue )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -652,7 +652,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, BoolValue2 )
+    TEST( ConfigurationFile, Parse, BoolValue2 )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -691,7 +691,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, NonExisting )
+    TEST( ConfigurationFile, Parse, NonExisting )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -722,7 +722,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Parse, NonExistingPartial )
+    TEST( ConfigurationFile, Parse, NonExistingPartial )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -760,7 +760,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, NewValues, LeaveComment )
+    TEST( ConfigurationFile, NewValues, LeaveComment )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -817,7 +817,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, NewValues )
+    TEST( ConfigurationFile, NewValues )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -863,7 +863,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, NewValues, NoChange )
+    TEST( ConfigurationFile, NewValues, NoChange )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -905,7 +905,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, SetValue, NoInit )
+    TEST( ConfigurationFile, SetValue, NoInit )
     {
         TestConfiguration config;
         EXPECT_EQ( ConfigurationFile::ParseError::FailedToOpenFile, config.SetString( "stringValue",
@@ -918,34 +918,34 @@ namespace
                                                                                     ::Test::GenerateRandomBool() ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, SetValue, NotExistingString )
+    TEST( ConfigurationFile, SetValue, NotExistingString )
     {
         ConfigurationFile config;
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetString( "key", ::Test::GenerateRandomString() ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, SetValue, NotExistingBool )
+    TEST( ConfigurationFile, SetValue, NotExistingBool )
     {
         ConfigurationFile config;
 
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetBool( "key", ::Test::GenerateRandomBool() ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, SetValue, NotExistingFloat )
+    TEST( ConfigurationFile, SetValue, NotExistingFloat )
     {
         ConfigurationFile config;
 
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetFloat( "key", ::Test::GenerateRandomF32() ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, SetValue, NotExistingInt )
+    TEST( ConfigurationFile, SetValue, NotExistingInt )
     {
         ConfigurationFile config;
 
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetInt( "key", ::Test::GenerateRandomS32() ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, SetEmpty )
+    TEST( ConfigurationFile, SetEmpty )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -977,7 +977,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, AddKey, String )
+    TEST( ConfigurationFile, AddKey, String )
     {
         //! [AddStringKey]
         const std::string value = ::Test::GenerateRandomString();
@@ -992,7 +992,7 @@ namespace
         //! [AddStringKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, AddKey, Bool )
+    TEST( ConfigurationFile, AddKey, Bool )
     {
         //! [AddBoolKey]
         const bool value = ::Test::GenerateRandomBool();
@@ -1007,7 +1007,7 @@ namespace
         //! [AddBoolKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, AddKey, Float )
+    TEST( ConfigurationFile, AddKey, Float )
     {
         //! [AddFloatKey]
         const F32 value = ::Test::GenerateRandomF32();
@@ -1022,7 +1022,7 @@ namespace
         //! [AddFloatKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, AddKey, Int )
+    TEST( ConfigurationFile, AddKey, Int )
     {
         //! [AddIntKey]
         const S32 value = ::Test::GenerateRandomS32();
@@ -1037,7 +1037,7 @@ namespace
         //! [AddIntKey]
     }
 
-    ENGINE_TEST( ConfigurationFile, AddEmpty, String )
+    TEST( ConfigurationFile, AddEmpty, String )
     {
         const std::string value = ::Test::GenerateRandomString();
 
@@ -1049,7 +1049,7 @@ namespace
         EXPECT_FALSE( config.HasKey( "" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, AddEmpty, Bool )
+    TEST( ConfigurationFile, AddEmpty, Bool )
     {
         const bool value = ::Test::GenerateRandomBool();
 
@@ -1061,7 +1061,7 @@ namespace
         EXPECT_FALSE( config.HasKey( "" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, AddEmpty, Float )
+    TEST( ConfigurationFile, AddEmpty, Float )
     {
         const F32 value = ::Test::GenerateRandomF32();
 
@@ -1073,7 +1073,7 @@ namespace
         EXPECT_FALSE( config.HasKey( "" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, AddEmpty, Int )
+    TEST( ConfigurationFile, AddEmpty, Int )
     {
         const S32 value = ::Test::GenerateRandomS32();
 
@@ -1086,35 +1086,35 @@ namespace
     }
 
 
-    ENGINE_TEST( ConfigurationFile, GetNotExisting, StringKey )
+    TEST( ConfigurationFile, GetNotExisting, StringKey )
     {
         ConfigurationFile config;
 
         EXPECT_EQ( "", config.GetString( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, GetNotExisting, BoolKey )
+    TEST( ConfigurationFile, GetNotExisting, BoolKey )
     {
         ConfigurationFile config;
 
         EXPECT_FALSE( config.GetBool( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, GetNotExisting, FloatKey )
+    TEST( ConfigurationFile, GetNotExisting, FloatKey )
     {
         ConfigurationFile config;
 
         EXPECT_FLOAT_EQ( 0.0f, config.GetFloat( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, GetNotExisting, IntKey )
+    TEST( ConfigurationFile, GetNotExisting, IntKey )
     {
         ConfigurationFile config;
 
         EXPECT_EQ( 0, config.GetInt( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, FirstDefinedStays, Bool )
+    TEST( ConfigurationFile, FirstDefinedStays, Bool )
     {
         ConfigurationFile config;
 
@@ -1125,7 +1125,7 @@ namespace
         EXPECT_FALSE( config.IsStringKey( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, FirstDefinedStays, String )
+    TEST( ConfigurationFile, FirstDefinedStays, String )
     {
         ConfigurationFile config;
 
@@ -1136,7 +1136,7 @@ namespace
         EXPECT_FALSE( config.IsBoolKey( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, FirstDefinedStays, Float )
+    TEST( ConfigurationFile, FirstDefinedStays, Float )
     {
         ConfigurationFile config;
 
@@ -1147,7 +1147,7 @@ namespace
         EXPECT_FALSE( config.IsIntKey( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, FirstDefinedStays, Int )
+    TEST( ConfigurationFile, FirstDefinedStays, Int )
     {
         ConfigurationFile config;
 
@@ -1158,7 +1158,7 @@ namespace
         EXPECT_FALSE( config.IsFloatKey( "key" ) );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NoSeperatorNoCallback )
+    TEST( ConfigurationFile, Error, NoSeperatorNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1197,7 +1197,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NoSeperator )
+    TEST( ConfigurationFile, Error, NoSeperator )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1243,7 +1243,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NotRegisteredNoCallback )
+    TEST( ConfigurationFile, Error, NotRegisteredNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1282,7 +1282,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NotRegistered )
+    TEST( ConfigurationFile, Error, NotRegistered )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1328,7 +1328,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, IsDuplicateKeyNoCallback )
+    TEST( ConfigurationFile, Error, IsDuplicateKeyNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1367,7 +1367,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, IsDuplicateKey )
+    TEST( ConfigurationFile, Error, IsDuplicateKey )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1413,7 +1413,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NoValueNoCallback )
+    TEST( ConfigurationFile, Error, NoValueNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1452,7 +1452,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NoValue )
+    TEST( ConfigurationFile, Error, NoValue )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1498,7 +1498,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NoKeyNoCallback )
+    TEST( ConfigurationFile, Error, NoKeyNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1537,7 +1537,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, NoKey )
+    TEST( ConfigurationFile, Error, NoKey )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1583,7 +1583,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidStringNoCallback )
+    TEST( ConfigurationFile, Error, InvalidStringNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1617,7 +1617,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidString )
+    TEST( ConfigurationFile, Error, InvalidString )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1658,7 +1658,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidString2 )
+    TEST( ConfigurationFile, Error, InvalidString2 )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1699,7 +1699,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidString3 )
+    TEST( ConfigurationFile, Error, InvalidString3 )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1740,7 +1740,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidBoolNoCallback )
+    TEST( ConfigurationFile, Error, InvalidBoolNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1774,7 +1774,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidBool )
+    TEST( ConfigurationFile, Error, InvalidBool )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1815,7 +1815,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidFloatNoCallback )
+    TEST( ConfigurationFile, Error, InvalidFloatNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1849,7 +1849,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidFloat )
+    TEST( ConfigurationFile, Error, InvalidFloat )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1890,7 +1890,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidIntNoCallback )
+    TEST( ConfigurationFile, Error, InvalidIntNoCallback )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();
@@ -1924,7 +1924,7 @@ namespace
         ::Test::CleanUp( root );
     }
 
-    ENGINE_TEST( ConfigurationFile, Error, InvalidInt )
+    TEST( ConfigurationFile, Error, InvalidInt )
     {
         const std::string root = ::Test::GenerateDirectoryName( "common" );
         const std::string file = root + Path::GetUniqueFileName();

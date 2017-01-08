@@ -46,12 +46,12 @@ namespace
         }
     };
 
-    ENGINE_TEST( AbstractParamInstantiator, ConstructDeconstruct )
+    TEST( AbstractParamInstantiator, ConstructDeconstruct )
     {
         ImplParamInstantiator inst;
     }
 
-    ENGINE_TEST( AbstractParamInstantiator, Create )
+    TEST( AbstractParamInstantiator, Create )
     {
         AbstractParamInstantiator< U32, U32 > *inst = new ImplParamInstantiator;
         U32 *ptr = inst->Create( 42 );

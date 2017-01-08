@@ -145,12 +145,12 @@ namespace
 
     typedef ObjectPool< Child, Base > ObjectPoolImpl;
 
-    ENGINE_TEST( ObjectPool, SanityCheck )
+    TEST( ObjectPool, SanityCheck )
     {
         volatile ObjectPoolImpl pool;
     }
 
-    ENGINE_TEST( ObjectPool, CustomInstantiator )
+    TEST( ObjectPool, CustomInstantiator )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         ObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
@@ -164,7 +164,7 @@ namespace
         EXPECT_TRUE( inst->destroyed );
     }
 
-    ENGINE_TEST( ObjectPool, TooFull )
+    TEST( ObjectPool, TooFull )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         ObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
@@ -178,7 +178,7 @@ namespace
         EXPECT_TRUE( inst->destroyed );
     }
 
-    ENGINE_TEST( ObjectPool, CustomInstantiatorNonDefault )
+    TEST( ObjectPool, CustomInstantiatorNonDefault )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         ObjectPool< U32 > pool( inst, 1 );
@@ -193,7 +193,7 @@ namespace
         EXPECT_EQ( 0, *first );
     }
 
-    ENGINE_TEST( ObjectPool, Get )
+    TEST( ObjectPool, Get )
     {
         ObjectPoolImpl pool( 1 );
 
@@ -220,7 +220,7 @@ namespace
         pool.Dispose( fourth );
     }
 
-    ENGINE_TEST( ObjectPool, FastGet )
+    TEST( ObjectPool, FastGet )
     {
         ObjectPoolImpl pool;
 
@@ -230,21 +230,21 @@ namespace
         pool.Dispose( first );
     }
 
-    ENGINE_TEST( ObjectPool, Dispose )
+    TEST( ObjectPool, Dispose )
     {
         ObjectPoolImpl pool;
         pool.Dispose( pool.Get() );
         pool.Dispose( pool.FastGet() );
     }
 
-    ENGINE_TEST( ObjectPool, FastDispose )
+    TEST( ObjectPool, FastDispose )
     {
         ObjectPoolImpl pool;
         pool.FastDispose( pool.Get() );
         pool.FastDispose( pool.FastGet() );
     }
 
-    ENGINE_TEST( ObjectPool, FastDisposeNoRelease )
+    TEST( ObjectPool, FastDisposeNoRelease )
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
         ObjectPool< U32 > pool( inst, 1 );
@@ -259,7 +259,7 @@ namespace
         EXPECT_EQ( 42, *first );
     }
 
-    ENGINE_TEST( ObjectPool, GetBorrowedCount )
+    TEST( ObjectPool, GetBorrowedCount )
     {
         ObjectPoolImpl pool;
 
@@ -277,7 +277,7 @@ namespace
         pool.Dispose( second );
     }
 
-    ENGINE_TEST( ObjectPool, GetReturnedCount )
+    TEST( ObjectPool, GetReturnedCount )
     {
         ObjectPoolImpl pool;
 
@@ -295,7 +295,7 @@ namespace
         EXPECT_EQ( 2, pool.GetReturnedCount() );
     }
 
-    ENGINE_TEST( ObjectPool, CheckReturnedCount )
+    TEST( ObjectPool, CheckReturnedCount )
     {
         ObjectPoolImpl pool;
 

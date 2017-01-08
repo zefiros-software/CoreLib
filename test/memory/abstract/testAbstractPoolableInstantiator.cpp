@@ -63,12 +63,12 @@ namespace
 
     };
 
-    ENGINE_TEST( AbstractPoolableInstantiator, SanityCheck )
+    TEST( AbstractPoolableInstantiator, SanityCheck )
     {
         volatile ImplPoolableInstantiator inst;
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, Create )
+    TEST( AbstractPoolableInstantiator, Create )
     {
         ImplPoolableInstantiator inst;
 
@@ -79,14 +79,14 @@ namespace
         delete obj;
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, Destroy )
+    TEST( AbstractPoolableInstantiator, Destroy )
     {
         ImplPoolableInstantiator inst;
 
         inst.Destroy( new U32 );
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, Initialise )
+    TEST( AbstractPoolableInstantiator, Initialise )
     {
         ImplPoolableInstantiator inst;
 
@@ -97,7 +97,7 @@ namespace
         EXPECT_EQ( 42, num );
     }
 
-    ENGINE_TEST( AbstractPoolableInstantiator, Release )
+    TEST( AbstractPoolableInstantiator, Release )
     {
         ImplPoolableInstantiator inst;
 

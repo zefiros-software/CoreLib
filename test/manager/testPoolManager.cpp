@@ -49,14 +49,14 @@ namespace
         bool init = false;
     };
 
-    ENGINE_TEST( PoolManager, Sanity )
+    TEST( PoolManager, Sanity )
     {
         PoolManager m;
 
         EXPECT_FALSE( m.HasPools( 0 ) );
     }
 
-    ENGINE_TEST( PoolManager, Add )
+    TEST( PoolManager, Add )
     {
         PoolManager m;
         auto pool = m.Add< PoolTest >();
@@ -67,7 +67,7 @@ namespace
         EXPECT_TRUE( m.HasPools( 0 ) );
     }
 
-    ENGINE_TEST( PoolManager, AddFromFactory )
+    TEST( PoolManager, AddFromFactory )
     {
         PoolManager m;
 
@@ -89,7 +89,7 @@ namespace
         ASSERT_FALSE( f.Has< U32 >() );
     }
 
-    ENGINE_TEST( PoolManager, AddFromFactory2 )
+    TEST( PoolManager, AddFromFactory2 )
     {
         PoolManager m;
 
@@ -104,14 +104,14 @@ namespace
         EXPECT_ANY_THROW( m.AddFromFactory< U32 >() );
     }
 
-    ENGINE_TEST( PoolManager, AddPoolTwice )
+    TEST( PoolManager, AddPoolTwice )
     {
         PoolManager m;
         m.Add< PoolTest >();
         EXPECT_ANY_THROW( m.Add< PoolTest >() );
     }
 
-    ENGINE_TEST( PoolManager, Release )
+    TEST( PoolManager, Release )
     {
         PoolManager m;
         auto pool = m.Add< PoolTest >();
@@ -125,7 +125,7 @@ namespace
         EXPECT_EQ( nullptr, m.Get< PoolTest >() );
     }
 
-    ENGINE_TEST( PoolManager, ReleasePoolNS )
+    TEST( PoolManager, ReleasePoolNS )
     {
         PoolManager m;
         auto pool = m.Add< PoolTest >();
@@ -148,7 +148,7 @@ namespace
         EXPECT_EQ( pool2, m.Get< PoolTest >( 1 ) );
     }
 
-    ENGINE_TEST( PoolManager, ReleasePools )
+    TEST( PoolManager, ReleasePools )
     {
         PoolManager m;
         auto pool = m.Add< PoolTest >();
@@ -171,7 +171,7 @@ namespace
         EXPECT_EQ( pool, m.Get< PoolTest >() );
     }
 
-    ENGINE_TEST( PoolManager, OnReleaseNS )
+    TEST( PoolManager, OnReleaseNS )
     {
         PoolManager m;
         auto pool = m.Add< PoolTest >();

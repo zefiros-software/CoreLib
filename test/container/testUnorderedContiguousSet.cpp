@@ -30,13 +30,13 @@
 
 namespace
 {
-    ENGINE_TEST( UnorderedContiguousSet, SanityCheck )
+    TEST( UnorderedContiguousSet, SanityCheck )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_EQ( 0, f.Size() );
     }
 
-    ENGINE_TEST( UnorderedContiguousSet, Insert )
+    TEST( UnorderedContiguousSet, Insert )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_EQ( 0, f.Size() );
@@ -47,7 +47,7 @@ namespace
         EXPECT_EQ( 2, f.Size() );
     }
 
-    ENGINE_TEST( UnorderedContiguousSet, InsertDouble )
+    TEST( UnorderedContiguousSet, InsertDouble )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_EQ( 0, f.Size() );
@@ -57,7 +57,7 @@ namespace
         EXPECT_EQ( 1, f.Size() );
     }
 
-    ENGINE_TEST( UnorderedContiguousSet, GetValues )
+    TEST( UnorderedContiguousSet, GetValues )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_EQ( 0, f.Size() );
@@ -67,7 +67,7 @@ namespace
         EXPECT_THAT( f.GetValues(), matcher );
     }
 
-    ENGINE_TEST( UnorderedContiguousSet, GetValuesConst )
+    TEST( UnorderedContiguousSet, GetValuesConst )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_EQ( 0, f.Size() );
@@ -77,7 +77,7 @@ namespace
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
     }
 
-    ENGINE_TEST( UnorderedContiguousSet, Delete )
+    TEST( UnorderedContiguousSet, Delete )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_TRUE( f.Insert( 2 ) );
@@ -92,7 +92,7 @@ namespace
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher2 );
     }
 
-    ENGINE_TEST( UnorderedContiguousSet, DeleteNotExists )
+    TEST( UnorderedContiguousSet, DeleteNotExists )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_TRUE( f.Insert( 2 ) );
@@ -105,7 +105,7 @@ namespace
         EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
     }
 
-    ENGINE_TEST( UnorderedContiguousSet, Clear )
+    TEST( UnorderedContiguousSet, Clear )
     {
         UnorderedContiguousSet< U8 > f;
         EXPECT_TRUE( f.Insert( 2 ) );

@@ -58,24 +58,24 @@ namespace
         bool mArg;
     };
 
-    ENGINE_TEST( EventManager, Sanity )
+    TEST( EventManager, Sanity )
     {
         EventManager m;
     }
 
-    ENGINE_TEST( EventManager, Post )
-    {
-        EventManager m;
-        m.Post( IEvent() );
-    }
-
-    ENGINE_TEST( EventManager, Post2 )
+    TEST( EventManager, Post )
     {
         EventManager m;
         m.Post( IEvent() );
     }
 
-    ENGINE_TEST( EventManager, Add )
+    TEST( EventManager, Post2 )
+    {
+        EventManager m;
+        m.Post( IEvent() );
+    }
+
+    TEST( EventManager, Add )
     {
         Callback c;
         Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
@@ -88,7 +88,7 @@ namespace
         EXPECT_TRUE( c.mArg );
     }
 
-    ENGINE_TEST( EventManager, Remove )
+    TEST( EventManager, Remove )
     {
         Callback c;
         Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
@@ -102,7 +102,7 @@ namespace
         EXPECT_FALSE( c.mArg );
     }
 
-    ENGINE_TEST( EventManager, Remove2 )
+    TEST( EventManager, Remove2 )
     {
         Callback c;
         Callback c2;
@@ -120,7 +120,7 @@ namespace
         EXPECT_FALSE( c2.mArg );
     }
 
-    ENGINE_TEST( EventManager, Remove3 )
+    TEST( EventManager, Remove3 )
     {
         Callback c;
         Observer< Callback, TestEvent > *o = new Observer< Callback, TestEvent >( &c, &Callback::OnArg );
@@ -134,7 +134,7 @@ namespace
         EXPECT_FALSE( c.mArg );
     }
 
-    ENGINE_TEST( EventManager, RemoveNonExistent )
+    TEST( EventManager, RemoveNonExistent )
     {
         Callback c;
         Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
@@ -159,7 +159,7 @@ namespace
         bool called = false;
     };
 
-    ENGINE_TEST( EventManager, Observe )
+    TEST( EventManager, Observe )
     {
         Managers::InitialiseEventManager();
 
@@ -174,7 +174,7 @@ namespace
         Managers::ReleaseEventManager();
     }
 
-    ENGINE_TEST( EventManager, Unobserve )
+    TEST( EventManager, Unobserve )
     {
         Managers::InitialiseEventManager();
 

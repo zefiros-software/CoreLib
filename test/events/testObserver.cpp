@@ -71,24 +71,24 @@ namespace
         bool mNoArg;
     };
 
-    ENGINE_TEST( Observer, SanityCheck2 )
+    TEST( Observer, SanityCheck2 )
     {
         Observer< Callback, void > m;
     }
 
-    ENGINE_TEST( Observer, Notify )
+    TEST( Observer, Notify )
     {
         Observer<Callback, EventTest> m;
         m.Notify( IEvent() );
     }
 
-    ENGINE_TEST( Observer, Notify2 )
+    TEST( Observer, Notify2 )
     {
         Observer<Callback, void > m;
         m.Notify();
     }
 
-    ENGINE_TEST( Observer, NotifyArg )
+    TEST( Observer, NotifyArg )
     {
         Callback c;
         Observer< Callback, EventTest > m( &c, &Callback::OnArg );
@@ -101,7 +101,7 @@ namespace
         EXPECT_FALSE( c.mNoArg );
     }
 
-    ENGINE_TEST( Observer, NotifyArg2 )
+    TEST( Observer, NotifyArg2 )
     {
         Callback c;
         Observer< Callback, void > m( &c, &Callback::OnNoArg );
@@ -112,7 +112,7 @@ namespace
         EXPECT_TRUE( c.mNoArg );
     }
 
-    ENGINE_TEST( Observer, NotifyNullPtr )
+    TEST( Observer, NotifyNullPtr )
     {
         Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
 
@@ -120,14 +120,14 @@ namespace
         m.Notify( e );
     }
 
-    ENGINE_TEST( Observer, NotifyNullPtr2 )
+    TEST( Observer, NotifyNullPtr2 )
     {
         Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
 
         m.Notify();
     }
 
-    ENGINE_TEST( Observer, OpEq )
+    TEST( Observer, OpEq )
     {
         Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
         Callback c;
@@ -141,7 +141,7 @@ namespace
         EXPECT_FALSE( c.mNoArg );
     }
 
-    ENGINE_TEST( Observer, OpEq2 )
+    TEST( Observer, OpEq2 )
     {
         Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
         Callback c;
@@ -153,7 +153,7 @@ namespace
         EXPECT_TRUE( c.mNoArg );
     }
 
-    ENGINE_TEST( Observer, Copy )
+    TEST( Observer, Copy )
     {
         Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
         Observer< Callback, EventTest > m2( m );
@@ -162,7 +162,7 @@ namespace
         m.Notify( e );
     }
 
-    ENGINE_TEST( Observer, Copy2 )
+    TEST( Observer, Copy2 )
     {
         Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
         Observer< Callback, void > m2( m );
@@ -170,7 +170,7 @@ namespace
         m.Notify();
     }
 
-    ENGINE_TEST( Observer, OpComp )
+    TEST( Observer, OpComp )
     {
         Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
         Observer< Callback, EventTest > m2( m );
@@ -178,7 +178,7 @@ namespace
         EXPECT_EQ( m, m2 );
     }
 
-    ENGINE_TEST( Observer, OpComp2 )
+    TEST( Observer, OpComp2 )
     {
         Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
         Callback c;
@@ -187,7 +187,7 @@ namespace
         EXPECT_NE( m, m2 );
     }
 
-    ENGINE_TEST( Observer, OpComp3 )
+    TEST( Observer, OpComp3 )
     {
         Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
         Observer< Callback, void > m2( m );
@@ -195,7 +195,7 @@ namespace
         EXPECT_EQ( m, m2 );
     }
 
-    ENGINE_TEST( Observer, OpComp4 )
+    TEST( Observer, OpComp4 )
     {
         Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
         Callback c;
