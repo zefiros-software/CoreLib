@@ -11,7 +11,7 @@ matrix:
         #  osx_image: xcode8
         #  language: generic
 env:
-    matrix:
+    global:
         - TYPE=debug
         - TYPE=release
         - TYPE=coverage
