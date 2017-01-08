@@ -371,6 +371,16 @@ public:
         } ) );
     }
 
+    template<typename tR, typename... tRs>
+    QueryObj<Enumerator<tV, IteratorContainerPair<typename std::multiset<tV, TransformComparer<tV, tR > >::iterator, std::multiset<tV, TransformComparer<tV, tR> > > > >
+    OrderBy( std::function<std::tuple< tRs...>( tV )> transform ) const
+    {
+        return OrderBy<tV>( []( tV a )
+        {
+            return transform( a );
+        } );
+    }
+
     template<typename TFunc>
     QueryObj<Enumerator<tV, IteratorContainerPair<typename std::multiset<tV, TransformComparer<tV, decltype( GetReturnType<TFunc, tV>() )> >::iterator, std::multiset<tV, TransformComparer<tV, decltype( GetReturnType<TFunc, tV>() )> > > > >
     OrderBy( TFunc transform ) const
@@ -453,12 +463,15 @@ public:
     template<typename tR>
     tR Avg( std::function<tR( tV )> transform ) const
     {
+#include "warnings/push.h"
+#include "warnings/possibleLossOfData.h"
         size_t count = 0;
         return Aggregate<tR>( tR(), [&]( tR accumulator, tV object )->tR
         {
             ++count;
             return ( accumulator * ( count - 1 ) + transform( object ) ) / count;
         } );
+#include "warnings/pop.h"
     }
 
     template<typename tR>
@@ -522,7 +535,10 @@ public:
     {
         return Any( []( tV a )
         {
+#include "warnings/push.h"
+#include "warnings/forcingValueToBool.h"
             return static_cast<bool>( a );
+#include "warnings/pop.h"
         } );
     }
 
@@ -538,7 +554,10 @@ public:
     {
         return All( []( tV a )
         {
+#include "warnings/push.h"
+#include "warnings/forcingValueToBool.h"
             return static_cast<bool>( a );
+#include "warnings/pop.h"
         } );
     }
 
@@ -861,7 +880,7 @@ public:
                 ++pair.first;
 
                 return value;
-            }, { 0, { inner, inner.Next() } } );
+            }, { 0, { inner, static_cast<U8>( inner.Next() ) } } );
         }
 
         return Enumerator<size_t, DataType>( [ = ]( DataType & pair )->S32
@@ -875,7 +894,7 @@ public:
             --pair.first;
 
             return value;
-        }, { CHAR_BIT - 1, { inner, inner.Next() } } );
+        }, { CHAR_BIT - 1, { inner, static_cast<U8>( inner.Next() ) } } );
     }
 
     QueryObj<Enumerator< U8, tT> > Unbits( BitsDirection direction = BitsDirection::HighToLow ) const

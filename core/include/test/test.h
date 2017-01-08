@@ -39,6 +39,7 @@
 #include <unordered_set>
 #include <random>
 
+#undef PREFIX
 #if BOOST_ARCH_X86_32
 #   if IS_DEBUG
 #       define PREFIX X86D_
@@ -54,10 +55,10 @@
 #endif
 
 #define GTEST_DONT_DEFINE_TEST 1
-#define __TEST(test_case_name, test_name) GTEST_TEST( CONCAT( PREFIX, test_case_name ), test_name)
+#define ENGINE_TEST(test_case_name, test_name) GTEST_TEST( CONCAT( PREFIX, test_case_name ), test_name)
 
-#define TEST_2( suite, name ) __TEST(suite, name )
-#define TEST_3( suite, function, name ) __TEST( suite, function ## _ ## name )
+#define TEST_2( suite, name ) ENGINE_TEST(suite, name )
+#define TEST_3( suite, function, name ) ENGINE_TEST( suite, function ## _ ## name )
 #define TEST(...) VA_SELECT(TEST_,__VA_ARGS__)
 
 #ifndef ENGINE_SHIPVERSION

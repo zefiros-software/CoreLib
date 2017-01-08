@@ -81,7 +81,7 @@ public:
 
     size_t Resize( size_t newSize ) noexcept
     {
-        const size_t nextPow2 = Mathf::IsPow2( newSize ) ? newSize : Mathf::NextPow2( newSize );
+        const size_t nextPow2 = Mathf::IsPow2( newSize ) ? newSize : static_cast< size_t >( Mathf::NextPow2( newSize ) );
 
         if ( nextPow2 > mSize )
         {

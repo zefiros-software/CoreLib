@@ -69,6 +69,7 @@ namespace
             EXPECT_EQ( *it2, *it1 );
         }
     }
+
     TEST( Query, GroupBy, Test )
     {
         std::vector<S32> src = { 1, 2, 3, 4 };
@@ -240,7 +241,7 @@ namespace
 
         auto rng = Query( src );
 
-        EXPECT_EQ( 5, rng.Avg<S32>( []( const std::string & str )
+        EXPECT_EQ( 5, rng.Avg<size_t>( []( const std::string & str )
         {
             return str.size();
         } ) );
@@ -1219,7 +1220,7 @@ namespace
             { "Denis", "Write", "Param-pareram!" },
         };
 
-        S32 DenisUniqueContactCount = Query( messages )
+        size_t DenisUniqueContactCount = Query( messages )
         .Where( []( const Message & msg ) {return msg.PhoneA == "Denis"; } )
         .Distinct( []( const Message & msg ) {return msg.PhoneB; } )
         .Count();
@@ -1385,6 +1386,66 @@ namespace
         auto dst = rng.OrderBy( []( std::string a ) {return a.size(); } );
 
         CheckRangeEqArray( dst, ans, []( const std::string & s ) {return s.size(); } );
+    }
+
+    TEST( Query, OrderByRange, Composite )
+    {
+        std::vector< std::string > src =
+        {
+            "ab",
+            "de",
+            "fe",
+            "ab",
+            "de",
+            "fe",
+            "xe"
+        };
+
+        std::vector< std::string > ans =
+        {
+            "ab",
+            "ab",
+            "de",
+            "de",
+            "fe",
+            "fe",
+            "xe"
+        };
+
+        auto rng = Query( src );
+        auto dst = rng.OrderBy( []( std::string a ) { return std::make_tuple( a[0], a[1] ); } ).ToVector();
+
+        EXPECT_THAT( dst, ::testing::ContainerEq( ans ) );
+    }
+
+    TEST( Query, OrderByRange, Composite2 )
+    {
+        std::vector< std::string > src =
+        {
+            "xb",
+            "de",
+            "fe",
+            "gb",
+            "de",
+            "fe",
+            "xe"
+        };
+
+        std::vector< std::string > ans =
+        {
+            "gb",
+            "xb",
+            "de",
+            "de",
+            "fe",
+            "fe",
+            "xe"
+        };
+
+        auto rng = Query( src );
+        auto dst = rng.OrderBy( []( std::string a ) { return std::make_tuple( a[1], a[0] ); } ).ToVector();
+
+        EXPECT_THAT( dst, ::testing::ContainerEq( ans ) );
     }
 
     TEST( Query, ReverseRange, IntVector )
@@ -1571,7 +1632,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 idx ) {return idx > 10; } );
+        auto dst = rng.SkipWhile( []( S32, size_t idx ) {return idx > 10; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1582,7 +1643,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 ) {return it < 0 || it > 10; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t ) {return it < 0 || it > 10; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1593,7 +1654,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 idx ) {return idx * it > 0; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx * it > 0; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1615,7 +1676,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 idx ) {return idx > 5; } );
+        auto dst = rng.SkipWhile( []( S32, size_t idx ) {return idx > 5; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1626,7 +1687,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 ) {return it < 1 || it > 6; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t ) {return it < 1 || it > 6; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1637,7 +1698,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 idx ) {return idx > 5 || it < 0; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx > 5 || it < 0; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1660,7 +1721,7 @@ namespace
         S32 ans[] = { 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 idx ) {return idx < 3 || idx > 3; } );
+        auto dst = rng.SkipWhile( []( S32, size_t idx ) {return idx < 3 || idx > 3; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1671,7 +1732,7 @@ namespace
         S32 ans[] = { 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 ) {return it < 3 || it > 4; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t ) {return it < 3 || it > 4; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1682,7 +1743,7 @@ namespace
         S32 ans[] = { 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 idx ) {return idx * it < 7; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx * it < 7; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1704,7 +1765,7 @@ namespace
         S32 ans[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 idx ) {return idx < 5; } );
+        auto dst = rng.SkipWhile( []( S32, size_t idx ) {return idx < 5; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1715,7 +1776,7 @@ namespace
         S32 ans[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 ) {return it < 6; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t ) {return it < 6; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1726,7 +1787,7 @@ namespace
         S32 ans[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 idx ) {return idx * it < 30; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx * it < 30; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1746,7 +1807,7 @@ namespace
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 idx ) {return idx < 6; } );
+        auto dst = rng.SkipWhile( []( S32, size_t idx ) {return idx < 6; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -1756,7 +1817,7 @@ namespace
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 ) {return it > 0; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t ) {return it > 0; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -1766,7 +1827,7 @@ namespace
         S32 src[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 idx ) {return idx != it; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx != it; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -1788,7 +1849,7 @@ namespace
         S32 ans[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 idx ) {return idx > 0; } );
+        auto dst = rng.SkipWhile( []( S32, size_t idx ) {return idx > 0; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1799,7 +1860,7 @@ namespace
         S32 ans[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 ) {return it != 6; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t ) {return it != 6; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1810,7 +1871,7 @@ namespace
         S32 ans[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 idx ) {return idx != 0 || it != 6; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx != 0 || it != 6; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -1830,7 +1891,7 @@ namespace
         S32 src[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 idx ) {return idx < 6; } );
+        auto dst = rng.SkipWhile( []( S32, size_t idx ) {return idx < 6; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -1840,7 +1901,7 @@ namespace
         S32 src[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 ) {return it > 0; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t ) {return it > 0; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -1850,7 +1911,7 @@ namespace
         S32 src[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, S32 idx ) {return idx != it; } );
+        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx != it; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -1870,7 +1931,7 @@ namespace
         std::vector<S32> src;
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32, S32 ) {return true; } );
+        auto dst = rng.SkipWhile( []( S32, size_t ) {return true; } );
 
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
     }
@@ -2041,7 +2102,7 @@ namespace
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 idx ) {return idx >= 0; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx >= 0; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2052,7 +2113,7 @@ namespace
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 ) {return it % 2 != 0; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t ) {return it % 2 != 0; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2063,7 +2124,7 @@ namespace
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 idx ) {return idx < 3 || it > 5; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t idx ) {return idx < 3 || it > 5; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2085,7 +2146,7 @@ namespace
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 idx ) {return idx >= 0 && idx < 6; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx >= 0 && idx < 6; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2096,7 +2157,7 @@ namespace
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 ) {return it > 0 && it < 12; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t ) {return it > 0 && it < 12; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2107,7 +2168,7 @@ namespace
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 idx ) {return idx < 3 || ( it > 5 && it < 12 ); } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t idx ) {return idx < 3 || ( it > 5 && it < 12 ); } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2129,7 +2190,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 idx ) {return idx < 4; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx < 4; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2140,7 +2201,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 ) {return it < 5; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t ) {return it < 5; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2151,7 +2212,7 @@ namespace
         S32 ans[] = { 1, 2, 3, 4 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 idx ) {return idx < 4 && it > 0; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t idx ) {return idx < 4 && it > 0; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2173,7 +2234,7 @@ namespace
         S32 ans[] = { 1 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 idx ) {return idx == 0; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx == 0; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2184,7 +2245,7 @@ namespace
         S32 ans[] = { 1 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 ) {return it == 1; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t ) {return it == 1; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2195,7 +2256,7 @@ namespace
         S32 ans[] = { 1 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 idx ) {return idx < 5 && it < 2; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t idx ) {return idx < 5 && it < 2; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2215,7 +2276,7 @@ namespace
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 idx ) {return idx > 0; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx > 0; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -2225,7 +2286,7 @@ namespace
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 ) {return it > 2; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t ) {return it > 2; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -2235,7 +2296,7 @@ namespace
         S32 src[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 idx ) {return it < 0 || idx > 0; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t idx ) {return it < 0 || idx > 0; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -2257,7 +2318,7 @@ namespace
         S32 ans[] = { 5 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 idx ) {return idx < 1; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx < 1; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2268,7 +2329,7 @@ namespace
         S32 ans[] = { 5 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 ) {return it > 2; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t ) {return it > 2; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2279,7 +2340,7 @@ namespace
         S32 ans[] = { 5 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 idx ) {return idx == 0 && it > 2; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t idx ) {return idx == 0 && it > 2; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2299,7 +2360,7 @@ namespace
         S32 src[] = { 5 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 idx ) {return idx > 0; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx > 0; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -2309,7 +2370,7 @@ namespace
         S32 src[] = { 5 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 ) {return it < 5; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t ) {return it < 5; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -2319,7 +2380,7 @@ namespace
         S32 src[] = { 5 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32 it, S32 idx ) {return idx == 0 && it > 5; } );
+        auto dst = rng.TakeWhile( []( S32 it, size_t idx ) {return idx == 0 && it > 5; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -2339,7 +2400,7 @@ namespace
         S32 src[] = { 5 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, S32 ) {return false; } );
+        auto dst = rng.TakeWhile( []( S32, size_t ) {return false; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
