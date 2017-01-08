@@ -20,6 +20,7 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include <climits>
 
 enum class BytesDirection
 {
