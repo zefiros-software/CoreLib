@@ -23,9 +23,22 @@ matrix:
           env: TYPE=zpm
         # Use generic language for osx
         # disabled due to premake bug
-        #- os: osx
-        #  osx_image: xcode8
-        #  language: generic       
+        - os: osx
+          osx_image: xcode8
+          language: generic    
+          env: TYPE=release ARCH=x86   
+        - os: osx
+          osx_image: xcode8
+          language: generic   
+          env: TYPE=debug ARCH=x86
+        - os: osx
+          osx_image: xcode8
+          language: generic   
+          env: TYPE=release ARCH=x86_64
+        - os: osx
+          osx_image: xcode8
+          language: generic   
+          env: TYPE=debug ARCH=x86_64
 
 before_install:
     - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
