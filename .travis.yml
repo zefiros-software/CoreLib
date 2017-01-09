@@ -40,9 +40,8 @@ matrix:
           dist: trusty
           env: TYPE=zpm
 
-before_install:
-    - bash script/install-linux.sh
 install:
+    - bash script/install-linux.sh
     - wget -O - https://raw.githubusercontent.com/Zefiros-Software/ZPM/master/script/install-zpm-travis.sh | bash
 script:
     #debug
