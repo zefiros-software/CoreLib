@@ -9,8 +9,6 @@ cd ../
 
 if [ "$TYPE" == "debug" ]; then
     bin/${ARCH}/core-testd
-elif [ "$TYPE" == "coverage" ]; then
-    bin/${ARCH}/core-testcd
 else
     bin/${ARCH}/core-test
 
