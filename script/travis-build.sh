@@ -9,6 +9,10 @@ cd ../
 
 if [ "$TYPE" == "debug" ]; then
     bin/${ARCH}/core-testd
+
+elif [ "$TYPE" == "debug" ]; then
+    core-testd
+
 else
     bin/${ARCH}/core-test
 

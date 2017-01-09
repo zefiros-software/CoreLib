@@ -2138,7 +2138,7 @@ namespace
         S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx >= 0 && idx < 6; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx < 6; } );
 
         CheckRangeEqArray( dst, ans );
     }

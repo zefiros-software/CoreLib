@@ -49,6 +49,7 @@ workspace "CoreLib"
     
     group( "Plugins/" )
         project "core-plugin-main"
+            removeconfigurations "Coverage"
 
             kind "ConsoleApp"   
             
@@ -67,7 +68,8 @@ workspace "CoreLib"
                 "plugin/*.cpp"
                 }
 
-        project "core-plugin-test"        
+        project "core-plugin-test"    
+            removeconfigurations "Coverage"    
             targetname "Test"
             kind "SharedLib"   
             targetsuffix "" 
@@ -98,7 +100,8 @@ workspace "CoreLib"
             filter {}
 
     group( "Plugins/Test2" )
-        project "core-plugin-test2"        
+        project "core-plugin-test2"    
+            removeconfigurations "Coverage"    
             targetname "Test2"
             kind "SharedLib"   
             targetsuffix ""  
@@ -127,7 +130,8 @@ workspace "CoreLib"
 
             filter {}
 
-        project "core-plugin-test2-lib"        
+        project "core-plugin-test2-lib"       
+            removeconfigurations "Coverage" 
             targetname "Test2"
             kind "StaticLib"   
             
@@ -148,6 +152,7 @@ workspace "CoreLib"
 
     group( "Plugins/Test3" )
         project "core-plugin-test3"        
+            removeconfigurations "Coverage"
             targetname "Test3"
             kind "SharedLib"   
             targetsuffix "" 
@@ -178,7 +183,8 @@ workspace "CoreLib"
 
             filter {}
 
-        project "core-plugin-test3-lib"        
+        project "core-plugin-test3-lib"      
+            removeconfigurations "Coverage"  
             targetname "Test3"
             kind "StaticLib" 
             
@@ -203,7 +209,8 @@ workspace "CoreLib"
         
 
     group( "Plugins/Test4" )
-        project "core-plugin-test4"        
+        project "core-plugin-test4"    
+            removeconfigurations "Coverage"    
             targetname "Test4"
             kind "StaticLib"
             
