@@ -8,4 +8,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     sudo update-alternatives --config gcc
     sudo update-alternatives --config g++
     sudo apt-get install gcc-6-multilib g++-6-multilib
+
+    # for coverage
+    sudo pip install codecov
 fi

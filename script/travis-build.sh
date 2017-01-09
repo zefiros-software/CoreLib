@@ -1,11 +1,11 @@
+#!/bin/bash
 set -e
-
 
 if [ "$TYPE" == "zpm" ]; then
     cd test
     
-    premake5 install-package --allow-install --allow-module
-    premake5 gmake --allow-install --ignore-updates
+    zpm install-package --allow-install --allow-module
+    zpm gmake --allow-install --ignore-updates
 
     cd zpm/
     make
@@ -14,8 +14,8 @@ if [ "$TYPE" == "zpm" ]; then
     test/bin/x86/core-zpm-test
 
 else
-    premake5 install-package --allow-install --allow-module
-    premake5 gmake --allow-install --ignore-updates
+    zpm install-package --allow-install --allow-module
+    zpm gmake --allow-install --ignore-updates
     cd core
     make config=${TYPE}_${ARCH}
     cd ../
