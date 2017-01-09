@@ -44,8 +44,6 @@ install:
     - bash script/install-unix.sh
     - wget -O - https://raw.githubusercontent.com/Zefiros-Software/ZPM/master/script/install-zpm-travis.sh | bash
 script:
-    #debug
-    - zpm install-package
     - bash script/travis-build.sh
 after_success:
   - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TYPE" = "coverage" ]]; then codecov; fi    
