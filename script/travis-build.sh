@@ -11,7 +11,7 @@ if [ "$TYPE" == "zpm" ]; then
     make
     cd ../../
 
-    test/bin/${ARCH}/core-zpm-test
+    test/bin/x86/core-zpm-test
 
 else
     premake5 install-package --allow-install --allow-module
