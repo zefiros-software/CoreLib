@@ -33,7 +33,7 @@
 #include "preproc/compiler.h"
 
 #if defined(COMP_IS_MSVC) || defined(COMP_IS_INTEL)
-#   define VA_SELECT( prefix, ... ) BOOST_PP_CAT(BOOST_PP_OVERLOAD(prefix,__VA_ARGS__)(__VA_ARGS__),BOOST_PP_EMPTY())
+#   define VA_SELECT( prefix, ... ) BOOST_PP_OVERLOAD(prefix,__VA_ARGS__)(__VA_ARGS__),BOOST_PP_EMPTY())
 #else
 #   define VA_SELECT( prefix, ... ) BOOST_PP_OVERLOAD(prefix, __VA_ARGS__)(__VA_ARGS__)
 #endif

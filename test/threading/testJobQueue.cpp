@@ -46,7 +46,7 @@ namespace
     TEST( JobQueue, SanityCheck )
     {
         JobQueue a;
-        EXPECT_EQ( 0, a.Size() );
+        EXPECT_EQ( 0u, a.Size() );
     }
 
     TEST( JobQueue, Push )
@@ -55,7 +55,7 @@ namespace
         JobQueue a;
         a.Push( &e );
 
-        EXPECT_EQ( 0, a.Size() );
+        EXPECT_EQ( 0u, a.Size() );
         EXPECT_FALSE( e.mRan );
     }
 
@@ -64,7 +64,7 @@ namespace
         Executable e;
         JobQueue a;
         a.Push( &e );
-        EXPECT_EQ( 0, a.Size() );
+        EXPECT_EQ( 0u, a.Size() );
         EXPECT_EQ( nullptr, a.Pop() );
         EXPECT_FALSE( e.mRan );
     }
@@ -75,9 +75,9 @@ namespace
         JobQueue a;
         a.Push( &e );
         a.Flush();
-        EXPECT_EQ( 1, a.Size() );
+        EXPECT_EQ( 1u, a.Size() );
         EXPECT_EQ( &e, a.Pop() );
-        EXPECT_EQ( 0, a.Size() );
+        EXPECT_EQ( 0u, a.Size() );
         EXPECT_FALSE( e.mRan );
     }
 
@@ -89,10 +89,10 @@ namespace
         a.Flush();
         a.Push( &e );
         a.Flush();
-        EXPECT_EQ( 1, a.Size() );
+        EXPECT_EQ( 1u, a.Size() );
         EXPECT_EQ( &e, a.Pop() );
         EXPECT_EQ( nullptr, a.Pop() );
-        EXPECT_EQ( 0, a.Size() );
+        EXPECT_EQ( 0u, a.Size() );
         EXPECT_FALSE( e.mRan );
     }
 
@@ -104,9 +104,9 @@ namespace
         t.Flush();
 
         JobQueue a( std::move( t ) );
-        EXPECT_EQ( 1, a.Size() );
+        EXPECT_EQ( 1u, a.Size() );
         EXPECT_EQ( &e, a.Pop() );
-        EXPECT_EQ( 0, a.Size() );
+        EXPECT_EQ( 0u, a.Size() );
         EXPECT_FALSE( e.mRan );
     }
 }

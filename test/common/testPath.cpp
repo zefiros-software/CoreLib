@@ -61,7 +61,7 @@ namespace
         set.insert( sharedData );
         set.insert( temp );
 
-        EXPECT_EQ( 4, set.size() );
+        EXPECT_EQ( 4u, set.size() );
     }
 
     TEST( Path, ResolveRelative, Default )
@@ -558,7 +558,7 @@ namespace
         const std::string root = ::Test::GenerateDirectoryName( "common" );
 
         const std::vector< boost::filesystem::path > contents = Path::List( root );
-        EXPECT_EQ( contents.size(), 0 );
+        EXPECT_EQ( contents.size(), 0u );
     }
 
     TEST( Path, List, Empty )

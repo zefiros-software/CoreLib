@@ -95,26 +95,26 @@ namespace
     TEST( String, From, U8 )
     {
         //! [From]
-        EXPECT_EQ( 42, String::From<U8>( "*" ) );
+        EXPECT_EQ( 42u, String::From<U8>( "*" ) );
         //! [From]
     }
 
     TEST( String, From, U16 )
     {
-        EXPECT_EQ( 42, String::From<U16>( "42" ) );
+        EXPECT_EQ( 42u, String::From<U16>( "42" ) );
     }
 
     TEST( String, From, U32 )
     {
-        EXPECT_EQ( 42, String::From<U32>( "42" ) );
+        EXPECT_EQ( 42u, String::From<U32>( "42" ) );
     }
 
     TEST( String, From, U64 )
     {
-        EXPECT_EQ( 42, String::From<U64>( "42" ) );
+        EXPECT_EQ( 42u, String::From<U64>( "42" ) );
     }
 
-    TEST( String, From, S16 )
+    TEST_3( String, From, S16 )
     {
         EXPECT_EQ( -42, String::From<S16>( "-42" ) );
     }

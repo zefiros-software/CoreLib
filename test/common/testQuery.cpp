@@ -48,7 +48,7 @@ namespace
             res.insert( ans[i] );
         }
 
-        EXPECT_EQ( N, res.size() );
+        EXPECT_EQ( N, static_cast<size_t>( res.size() ) );
 
         return res;
     }
@@ -1029,7 +1029,7 @@ namespace
 
         for ( size_t i = 1; i <= 5; i += 2 )
         {
-            EXPECT_EQ( i, rng.Next() );
+            EXPECT_EQ( i, static_cast< size_t>( rng.Next() ) );
         }
 
         EXPECT_THROW( rng.Next(), EnumeratorEndException );
@@ -1816,10 +1816,10 @@ namespace
 
     TEST( Query, SkipWhileRange_i, ManyToZeroIndexAndItemValue )
     {
-        S32 src[] = { 1, 2, 3, 4, 5, 6 };
+        size_t src[] = { 1, 2, 3, 4, 5, 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx != it; } );
+        auto dst = rng.SkipWhile( []( size_t it, size_t idx ) {return idx != it; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -1900,10 +1900,10 @@ namespace
 
     TEST( Query, SkipWhileRange_i, OneToZeroIndexAndItemValue )
     {
-        S32 src[] = { 6 };
+        size_t src[] = { 6 };
 
         auto rng = Query( src );
-        auto dst = rng.SkipWhile( []( S32 it, size_t idx ) {return idx != it; } );
+        auto dst = rng.SkipWhile( []( size_t it, size_t idx ) {return idx != it; } );
 
         EXPECT_THROW( dst.Next(), EnumeratorEndException );
     }
@@ -2434,7 +2434,7 @@ namespace
         auto rng = Query( src );
         auto dst = rng.ToSet();
 
-        EXPECT_EQ( 3U, dst.size() );
+        EXPECT_EQ( 3u, dst.size() );
         EXPECT_NE( dst.end(), dst.find( 1 ) );
         EXPECT_NE( dst.end(), dst.find( 2 ) );
         EXPECT_NE( dst.end(), dst.find( 3 ) );

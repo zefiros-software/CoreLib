@@ -38,7 +38,7 @@ namespace
         EXPECT_EQ( 0, ns.GetAddinNamespace() );
         EXPECT_EQ( 0, ns.GetPluginNamespace() );
 
-        EXPECT_EQ( 0, ns.GetNamespace() );
+        EXPECT_EQ( 0u, ns.GetNamespace() );
     }
 
     TEST( Namespace, NamespaceConstruction )

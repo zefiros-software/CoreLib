@@ -34,7 +34,7 @@ namespace
     TEST( MtQueue, SanityCheck )
     {
         MtQueue< U32 > a;
-        EXPECT_EQ( 0, a.Size() );
+        EXPECT_EQ( 0u, a.Size() );
         EXPECT_TRUE( a.Empty() );
     }
 
@@ -42,7 +42,7 @@ namespace
     {
         MtQueue< U32 > a;
         a.Push( 51 );
-        EXPECT_EQ( 1, a.Size() );
+        EXPECT_EQ( 1u, a.Size() );
         EXPECT_FALSE( a.Empty() );
     }
 
@@ -50,7 +50,7 @@ namespace
     {
         MtQueue< U32 > a;
         a.Push( 51 );
-        EXPECT_EQ( 51, a.WaitAndPop() );
+        EXPECT_EQ( 51u, a.WaitAndPop() );
     }
 
     TEST( MtQueue, TryPop )
@@ -59,6 +59,6 @@ namespace
         a.Push( 51 );
         U32 val;
         EXPECT_TRUE( a.TryPop( val ) );
-        EXPECT_EQ( 51, val );
+        EXPECT_EQ( 51u, val );
     }
 }

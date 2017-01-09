@@ -336,7 +336,7 @@ namespace
 
         ASSERT_FALSE( File::Exists( file ) );
 
-        EXPECT_EQ( 0, File::Size( file ) );
+        EXPECT_EQ( 0u, File::Size( file ) );
     }
 
     TEST( File, IsEmpty, NotExisting )
@@ -690,7 +690,7 @@ namespace
         test.push_back( fileA );
         test.push_back( fileB );
 
-        EXPECT_EQ( 2, contents.size() );
+        EXPECT_EQ( 2u, contents.size() );
         EXPECT_TRUE( std::is_permutation( contents.begin(), contents.end(), test.begin() ) );
         //! [List]
 

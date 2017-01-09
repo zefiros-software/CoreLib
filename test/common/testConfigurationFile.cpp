@@ -1081,7 +1081,7 @@ namespace
 
         EXPECT_FALSE( config.HasKey( "" ) );
         EXPECT_FALSE( config.AddIntKey( "", value ) );
-        EXPECT_EQ( 0u, config.GetInt( "" ) );
+        EXPECT_EQ( 0, config.GetInt( "" ) );
         EXPECT_FALSE( config.HasKey( "" ) );
     }
 
@@ -1236,7 +1236,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::NoSeperator, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( invalidLine, gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( "", gValue );
 
         ResetLogErrors();

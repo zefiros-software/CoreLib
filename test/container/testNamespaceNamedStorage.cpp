@@ -212,8 +212,8 @@ namespace
         std::vector< U32 > result = storage.GetNames( 0u );
         std::vector< U32 > result2 = storage.GetNames( 1u );
 
-        EXPECT_EQ( 0, result.size() );
-        EXPECT_EQ( 0, result2.size() );
+        EXPECT_EQ( 0u, result.size() );
+        EXPECT_EQ( 0u, result2.size() );
     }
 
 
@@ -294,7 +294,7 @@ namespace
         std::vector< U32 > result = storage.GetNames( 0 );
         std::vector< U32 > result2 = storage.GetNames( 1u );
 
-        EXPECT_EQ( 0, result.size() );
+        EXPECT_EQ( 0u, result.size() );
         EXPECT_TRUE( std::is_permutation( names.begin(), names.end(), result2.begin() ) );
     }
 

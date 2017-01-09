@@ -54,6 +54,7 @@
 #   endif
 #endif
 
+#undef TEST
 #define GTEST_DONT_DEFINE_TEST 1
 #define ENGINE_TEST(test_case_name, test_name) GTEST_TEST( CONCAT( PREFIX, test_case_name ), test_name)
 

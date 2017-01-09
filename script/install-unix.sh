@@ -11,4 +11,9 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
 
     # for coverage
     sudo pip install codecov
+else
+
+    sed -i -- 's%-Wl,--end-group%%' *.make
+    sed -i -- 's%-Wl,--start-group%%' *.make
+    sed -i -- 's%-L/usr/lib64%%' *.make
 fi
