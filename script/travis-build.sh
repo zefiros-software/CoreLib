@@ -25,7 +25,7 @@ else
         bin/${ARCH}/core-testd
 
     elif [ "$TYPE" == "coverage" ]; then
-        core-testcd
+        ./core-testcd
     else
         bin/${ARCH}/core-test
     fi
