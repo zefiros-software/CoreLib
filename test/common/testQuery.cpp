@@ -2091,10 +2091,10 @@ namespace
     TEST( Query, TakeWhileRange_i, ManyToMoreByIndex )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
-        S32 ans[] = { 3, 5, 7, 9, 11 };
+        S32 ans[] = { 1, 3, 5, 7, 9 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx >= 1; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx < 5; } );
 
         CheckRangeEqArray( dst, ans );
     }
@@ -2135,10 +2135,10 @@ namespace
     TEST( Query, TakeWhileRange_i, ManyToManyByIndex )
     {
         S32 src[] = { 1, 3, 5, 7, 9, 11 };
-        S32 ans[] = { 3, 5, 7, 9, 11 };
+        S32 ans[] = { 1, 3, 5, 7, 9, 11 };
 
         auto rng = Query( src );
-        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx >= 1 && idx < 6; } );
+        auto dst = rng.TakeWhile( []( S32, size_t idx ) {return idx >= 0 && idx < 6; } );
 
         CheckRangeEqArray( dst, ans );
     }
