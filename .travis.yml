@@ -18,6 +18,9 @@ matrix:
         - os: linux
           dist: trusty
           env: TYPE=debug ARCH=x86_64
+        - os: linux
+          dist: trusty
+          env: TYPE=zpm ARCH=x86_64
         # Use generic language for osx
         # disabled due to premake bug
         #- os: osx

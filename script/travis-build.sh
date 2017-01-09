@@ -1,21 +1,6 @@
 set -e
 
-premake5 install-package --allow-install --allow-module
-premake5 gmake --allow-install --ignore-updates
-cd core
-make config=${TYPE}_${ARCH}
-cd ../
-
-
-if [ "$TYPE" == "debug" ]; then
-    bin/${ARCH}/core-testd
-
-elif [ "$TYPE" == "debug" ]; then
-    core-testd
-
-else
-    bin/${ARCH}/core-test
-
+if [ "$TYPE" == "zpm" ]; then
     cd test
     
     premake5 gmake --allow-install
@@ -24,5 +9,23 @@ else
     make
     cd ../../
 
-    test/bin/x86/core-zpm-test
+    test/bin/${ARCH}/core-zpm-test
+
+else
+    premake5 install-package --allow-install --allow-module
+    premake5 gmake --allow-install --ignore-updates
+    cd core
+    make config=${TYPE}_${ARCH}
+    cd ../
+
+
+    if [ "$TYPE" == "debug" ]; then
+        bin/${ARCH}/core-testd
+
+    elif [ "$TYPE" == "coverage" ]; then
+        core-testd
+    el
+    else
+        bin/${ARCH}/core-test
+    fi
 fi
