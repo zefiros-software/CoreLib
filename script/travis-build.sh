@@ -1,9 +1,11 @@
 set -e
 
+
 if [ "$TYPE" == "zpm" ]; then
     cd test
     
-    premake5 gmake --allow-install
+    premake5 install-package --allow-install --allow-module
+    premake5 gmake --allow-install --ignore-updates
 
     cd zpm/
     make
@@ -23,8 +25,7 @@ else
         bin/${ARCH}/core-testd
 
     elif [ "$TYPE" == "coverage" ]; then
-        core-testd
-    el
+        core-testcd
     else
         bin/${ARCH}/core-test
     fi
