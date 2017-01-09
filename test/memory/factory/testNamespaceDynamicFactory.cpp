@@ -139,11 +139,11 @@ namespace
 
         EXPECT_THAT( factory.GetByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
         factory.Clear( { 1, 1 } );
-        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 1 } ).size() );
+        EXPECT_EQ( 0u, factory.GetByNamespace( { 1, 1 } ).size() );
 
         EXPECT_THAT( factory.GetByNamespace( { 1, 2 } ), testing::UnorderedElementsAre( 2 ) );
         factory.Clear( { 1, 2 } );
-        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
+        EXPECT_EQ( 0u, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 
     TEST( NamespaceDynamicFactory, UnregisterClasses )
@@ -158,8 +158,8 @@ namespace
 
         factory.Clear();
 
-        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 1 } ).size() );
-        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
+        EXPECT_EQ( 0u, factory.GetByNamespace( { 1, 1 } ).size() );
+        EXPECT_EQ( 0u, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 
     TEST( NamespaceDynamicFactory, UnregisterClassByName )
@@ -179,6 +179,6 @@ namespace
         EXPECT_TRUE( factory.Has( 1 ) );
 
         EXPECT_THAT( factory.GetByNamespace( { 1, 1 } ), testing::UnorderedElementsAre( 0, 1 ) );
-        EXPECT_EQ( 0, factory.GetByNamespace( { 1, 2 } ).size() );
+        EXPECT_EQ( 0u, factory.GetByNamespace( { 1, 2 } ).size() );
     }
 }

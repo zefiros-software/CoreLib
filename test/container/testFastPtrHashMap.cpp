@@ -145,11 +145,11 @@ namespace
         m.Insert( ptr2, 50 );
 
         auto data = m.Data();
-        EXPECT_EQ( 2, data.size() );
-        EXPECT_EQ( 5, data[0].element );
+        EXPECT_EQ( 2u, data.size() );
+        EXPECT_EQ( 5u, data[0].element );
         EXPECT_EQ( ptr, data[0].ptr );
 
-        EXPECT_EQ( 50, data[1].element );
+        EXPECT_EQ( 50u, data[1].element );
         EXPECT_EQ( ptr2, data[1].ptr );
 
         delete ptr;

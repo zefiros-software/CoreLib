@@ -431,7 +431,7 @@ namespace
         set.insert( sharedData );
         set.insert( temp );
 
-        EXPECT_EQ( 3, set.size() );
+        EXPECT_EQ( 3u, set.size() );
     }
 
     TEST( Path, ProgramTempDirectory, Structure )
@@ -498,7 +498,7 @@ namespace
         test.push_back( fileA );
         test.push_back( fileB );
 
-        EXPECT_EQ( 4, contents.size() );
+        EXPECT_EQ( 4u, contents.size() );
         EXPECT_TRUE( std::is_permutation( contentsStr.begin(), contentsStr.end(), test.begin() ) );
 
 
@@ -546,7 +546,7 @@ namespace
         test.push_back( fileB );
         test.push_back( fileC );
 
-        EXPECT_EQ( 5, contents.size() );
+        EXPECT_EQ( 5u, contents.size() );
         EXPECT_TRUE( std::is_permutation( contentsStr.begin(), contentsStr.end(), test.begin() ) );
 
 
@@ -571,7 +571,7 @@ namespace
         }
 
         const std::vector< boost::filesystem::path > contents = Path::List( path );
-        EXPECT_EQ( 0, contents.size() );
+        EXPECT_EQ( 0u, contents.size() );
 
         ::Test::CleanUp( path );
     }
@@ -607,7 +607,7 @@ namespace
         test.push_back( fileA );
         test.push_back( fileB );
 
-        EXPECT_EQ( 4, contents.size() );
+        EXPECT_EQ( 4u, contents.size() );
         EXPECT_TRUE( std::is_permutation( contents.begin(), contents.end(), test.begin() ) );
 
         ::Test::CleanUp( root );
@@ -645,7 +645,7 @@ namespace
         test.push_back( fileB );
         test.push_back( fileC );
 
-        EXPECT_EQ( 5, contents.size() );
+        EXPECT_EQ( 5u, contents.size() );
         EXPECT_TRUE( std::is_permutation( contents.begin(), contents.end(), test.begin() ) );
 
         ::Test::CleanUp( root );

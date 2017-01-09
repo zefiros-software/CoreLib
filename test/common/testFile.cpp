@@ -728,7 +728,7 @@ namespace
         test.push_back( fileB );
         test.push_back( fileC );
 
-        EXPECT_EQ( 3, contents.size() );
+        EXPECT_EQ( 3u, contents.size() );
         EXPECT_TRUE( std::is_permutation( contents.begin(), contents.end(), test.begin() ) );
 
         ::Test::CleanUp( root );
@@ -765,7 +765,7 @@ namespace
         test.push_back( fileA );
         test.push_back( fileB );
 
-        EXPECT_EQ( 2, contents.size() );
+        EXPECT_EQ( 2u, contents.size() );
         EXPECT_TRUE( std::is_permutation( contents.begin(), contents.end(), test.begin() ) );
 
         ::Test::CleanUp( root );
@@ -781,7 +781,7 @@ namespace
         }
 
         const std::vector< std::string > contents = File::List( directory );
-        EXPECT_EQ( 0, contents.size() );
+        EXPECT_EQ( 0u, contents.size() );
 
         ::Test::CleanUp( directory );
     }
@@ -791,7 +791,7 @@ namespace
         const std::string directory = ::Test::GenerateDirectoryName( "common" );
 
         const std::vector< std::string > contents = File::List( directory );
-        EXPECT_EQ( 0, contents.size() );
+        EXPECT_EQ( 0u, contents.size() );
     }
 
     TEST( File, SetLastModified, NotExisting )

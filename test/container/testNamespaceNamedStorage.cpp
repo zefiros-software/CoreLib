@@ -382,8 +382,8 @@ namespace
         std::vector< U32 > result = storage.GetNames( 0 );
         std::vector< U32 > result2 = storage.GetNames( 1u );
 
-        EXPECT_EQ( 4, result.size() );
-        EXPECT_EQ( 6, result2.size() );
+        EXPECT_EQ( 4u, result.size() );
+        EXPECT_EQ( 6u, result2.size() );
 
         EXPECT_TRUE( std::is_permutation( names.begin(), names.end(), result.begin() ) );
         EXPECT_TRUE( std::is_permutation( names2.begin(), names2.end(), result2.begin() ) );
@@ -632,7 +632,7 @@ namespace
 
         std::vector< U32 > names = storage.GetNames( 0u );
 
-        EXPECT_EQ( 1, names.size() );
+        EXPECT_EQ( 1u, names.size() );
 
         EXPECT_EQ( 0, names[0] );
     }
@@ -647,7 +647,7 @@ namespace
 
         std::vector< U32 > names = storage.GetNames( 1u );
 
-        EXPECT_EQ( 0, names.size() );
+        EXPECT_EQ( 0u, names.size() );
     }
 
     TEST( NamespaceNamedStorage, GetNamesNotExists2 )
@@ -660,7 +660,7 @@ namespace
 
         std::vector< U32 > names = storage.GetNames( Namespace( 0, 1 ) );
 
-        EXPECT_EQ( 0, names.size() );
+        EXPECT_EQ( 0u, names.size() );
     }
 
     TEST( NamespaceNamedStorage, GetNames2 )
@@ -673,9 +673,9 @@ namespace
 
         std::vector< U32 > names = storage.GetNames( Namespace( 0, 1 ) );
 
-        EXPECT_EQ( 1, names.size() );
+        EXPECT_EQ( 1u, names.size() );
 
-        EXPECT_EQ( 0, names[0] );
+        EXPECT_EQ( 0u, names[0] );
     }
 
 
@@ -725,7 +725,7 @@ namespace
 
         std::vector< U32 > result = storage.GetNames( 0 );
 
-        EXPECT_EQ( 6, result.size() );
+        EXPECT_EQ( 6u, result.size() );
 
         EXPECT_TRUE( std::is_permutation( names.begin(), names.end(), result.begin() ) );
     }
