@@ -5,33 +5,33 @@ environment:
     PYTHON: "C:\\Python35"
     matrix:  
         - TYPE: release
-          ARCH: x86
-          PLAT: Win32
-          VSTUD: vs2015
-        - TYPE: debug
-          ARCH: x86
-          PLAT: Win32
-          VSTUD: vs2015
-        - TYPE: release
           ARCH: x86_64
           PLAT: x64
-          VSTUD: vs2015
-        - TYPE: debug
-          ARCH: x86_64
-          PLAT: x64
-          VSTUD: vs2015
-        - TYPE: release
-          ARCH: x86_64
-          PLAT: x64
-          VSTUD: vs2015
+          VSTUD: vs2012
         - TYPE: release
           ARCH: x86_64
           PLAT: x64
           VSTUD: vs2013
         - TYPE: release
+          ARCH: x86
+          PLAT: Win32
+          VSTUD: vs2015
+        - TYPE: debug
+          ARCH: x86
+          PLAT: Win32
+          VSTUD: vs2015
+        - TYPE: release
           ARCH: x86_64
           PLAT: x64
-          VSTUD: vs2012
+          VSTUD: vs2015
+        - TYPE: debug
+          ARCH: x86_64
+          PLAT: x64
+          VSTUD: vs2015
+        - TYPE: release
+          ARCH: x86_64
+          PLAT: x64
+          VSTUD: vs2015
         - TYPE: release 
           ARCH: x86_64
           PLAT: x64
