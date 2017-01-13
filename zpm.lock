@@ -1,0 +1,47 @@
+
+{
+    "dependencies": [ 
+    {
+        "hash": "18110222dc9cb57ec880ce24fbbd7291b2d1046e",
+        "name": "Zefiros-Software/DocoptCpp",
+        "type": "library",
+        "version": "@head"
+    }, 
+    {
+        "hash": "d0136ee0364da50f5eab70e08006848e5fd6fb83",
+        "name": "Zefiros-Software/SerLib",
+        "type": "library",
+        "version": "1.0.0"
+    }, 
+    {
+        "hash": "92657ae9524adc87b4ae5a25fb0cc91b3f7f843a",
+        "name": "Zefiros-Software/MathLib",
+        "type": "library",
+        "version": "@head"
+    }, 
+    {
+        "hash": "3072108f2efea7888ad4e94d02c3c062468638f5",
+        "name": "Zefiros-Software/Boost",
+        "type": "library",
+        "version": "1.63.0"
+    }, 
+    {
+        "hash": "7fa8f8fa48b0903deab5bb42e6760477173ac485",
+        "name": "Zefiros-Software/Fmt",
+        "type": "library",
+        "version": "3.0.1"
+    }, 
+    {
+        "hash": "2935f80109b8cfc15eb1243afe35f7ec3530f971",
+        "name": "Zefiros-Software/Date",
+        "type": "library",
+        "version": "2.1.0"
+    }, 
+    {
+        "hash": "5e7fd50e17b6edf1cadff973d0ec68966cf3265e",
+        "name": "Zefiros-Software/GoogleTest",
+        "type": "library",
+        "version": "@head"
+    }],
+    "name": "Zefiros-Software/CoreLib"
+}
