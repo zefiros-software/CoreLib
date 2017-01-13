@@ -11,7 +11,7 @@ if %TYPE% == "zpm" (
 )
 else (
     zpm install-package --allow-install --allow-module  || exit /b 1
-    zpm %VSSTUD% --allow-install || exit /b 1
+    zpm %VSTUD% --allow-install || exit /b 1
 
     msbuild core/CoreLib.sln /property:Configuration=Release /property:Platform=%PLAT% || exit /b 1
 
