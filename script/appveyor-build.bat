@@ -17,6 +17,6 @@ if %TYPE% == "zpm" (
     if %TYPE% == "debug" (
         bin/%ARCH%/core-testd
     ) else (
-        bin/${ARCH}/core-test
+        bin/%ARCH%/core-test
     )
 )
