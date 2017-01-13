@@ -15,8 +15,8 @@ if %TYPE% == "zpm" (
     msbuild core/CoreLib.sln /property:Configuration=Release /property:Platform=%PLAT% || exit /b 1
 
     if %TYPE% == "debug" (
-        bin/%ARCH%/core-testd
+        bin\%ARCH%\core-testd
     ) else (
-        bin/%ARCH%/core-test
+        bin\%ARCH%\core-test
     )
 )
