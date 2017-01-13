@@ -1,6 +1,5 @@
 
-if %TYPE% == "zpm" 
-(
+if %TYPE% == "zpm" (
     cd test
     
     zpm install-package --allow-install --allow-module || exit /b 1
@@ -10,19 +9,16 @@ if %TYPE% == "zpm"
 
     test\bin\x86\core-zpm-test.exe || exit /b 1
 )
-else
-(
+else (
     zpm install-package --allow-install --allow-module  || exit /b 1
     zpm %VSSTUD% --allow-install || exit /b 1
 
     msbuild core/CoreLib.sln /property:Configuration=Release /property:Platform=%PLAT% || exit /b 1
 
-    if %TYPE% == "debug" 
-    (
+    if %TYPE% == "debug" (
         bin/%ARCH%/core-testd
     )
-    else
-    (
+    else (
         bin/${ARCH}/core-test
     )
 )
