@@ -4,7 +4,7 @@ if %TYPE% == "zpm"
     cd test
     
     zpm install-package --allow-install --allow-module || exit /b 1
-    zpm vs2015 --allow-install || exit /b 1
+    zpm %VSTUD% --allow-install || exit /b 1
 
     msbuild zpm/CoreLib-ZPM.sln || exit /b 1
 
@@ -13,13 +13,13 @@ if %TYPE% == "zpm"
 else
 (
     zpm install-package --allow-install --allow-module  || exit /b 1
-    zpm %VS5 --allow-install || exit /b 1
+    zpm %VSSTUD% --allow-install || exit /b 1
 
-    msbuild core/CoreLib.sln /property:Configuration=Release /property:Platform=%PLATFORM% || exit /b 1
+    msbuild core/CoreLib.sln /property:Configuration=Release /property:Platform=%PLAT% || exit /b 1
 
     if %TYPE% == "debug" 
     (
-        bin/${ARCH}/core-testd
+        bin/%ARCH%/core-testd
     )
     else
     (
