@@ -8,8 +8,7 @@ if %TYPE% == "zpm" (
     msbuild zpm/CoreLib-ZPM.sln || exit /b 1
 
     test\bin\x86\core-zpm-test.exe || exit /b 1
-)
-else (
+) else (
     zpm install-package --allow-install --allow-module  || exit /b 1
     zpm %VSTUD% --allow-install || exit /b 1
 
@@ -17,8 +16,7 @@ else (
 
     if %TYPE% == "debug" (
         bin/%ARCH%/core-testd
-    )
-    else (
+    ) else (
         bin/${ARCH}/core-test
     )
 )
