@@ -5,7 +5,7 @@ if [ "$TYPE" == "zpm" ]; then
     cd test
     
     zpm install-package --allow-install --allow-module
-    zpm gmake --allow-install --ignore-updates
+    zpm gmake --allow-install
 
     cd zpm/
     make
@@ -15,7 +15,7 @@ if [ "$TYPE" == "zpm" ]; then
 
 else
     zpm install-package --allow-install --allow-module
-    zpm gmake --allow-install --ignore-updates
+    zpm gmake --allow-install
     cd core
     make config=${TYPE}_${ARCH}
     cd ../
