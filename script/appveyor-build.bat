@@ -1,4 +1,4 @@
-
+@echo on
 if %TYPE% == "zpm" (
     cd test
     
