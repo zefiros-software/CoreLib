@@ -1,5 +1,6 @@
 
-if %TYPE% == "zpm" (
+if %TYPE% == "zpm" (    
+    echo 'Installing ZPM...'
     cd test
     
     zpm install-package --allow-install --allow-module
@@ -9,6 +10,7 @@ if %TYPE% == "zpm" (
 
     test\bin\x86\core-zpm-test.exe || exit /b 1
 ) else (
+    echo 'Installing...'
     zpm install-package --allow-install --allow-module  || exit /b 1
     zpm %VSTUD% --allow-install || exit /b 1
 
