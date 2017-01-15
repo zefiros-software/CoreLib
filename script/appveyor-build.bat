@@ -1,5 +1,5 @@
 
-if %TYPE% == "zpm" (    
+if "%TYPE%" == "zpm" (    
     echo 'Installing ZPM...'
     cd test
     
