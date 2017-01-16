@@ -4,8 +4,6 @@ local zefiros = require( "Zefiros-Software/Zefiros-Defaults", "@head" )
 function useCore()
     zpm.uses {
         "Zefiros-Software/DocoptCpp",
-        "Zefiros-Software/SerLib",
-        "Zefiros-Software/MathLib",
         "Zefiros-Software/Boost",
         "Zefiros-Software/Date",
         "Zefiros-Software/Fmt"
