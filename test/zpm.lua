@@ -31,8 +31,7 @@ workspace "CoreLib-ZPM"
     
 	project "core-zpm-test"
         zpm.uses {
-            "Zefiros-Software/CoreLib",
-            "Zefiros-Software/GoogleTest"
+            "Zefiros-Software/CoreLib"
         }            
             
         links {
