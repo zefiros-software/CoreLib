@@ -53,4 +53,5 @@ script:
 after_success:
   - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TYPE" = "coverage" ]]; then codecov; fi    
 notifications:
-    slack: zefiros:x8zCJkIy5iBNssvmgF0guTs3
+    slack: 
+        secure: "ci9IliOCS5ylvvAjVx2rvZPNl/o1eV2EzyNbv+1IbbG8XFJs1iFofi6Bvbs00FhSSIrpfgLSbXkVR+fMAEge6Z/cjAXveOHkzx9gsKZzKtHrsEHgmndT0EYzBHDHOua/cggnB7TEanDA97JOQCfN6sOYymHSFYWY+B/Il5iCMuPKVLKISFbCZ/3Urxh0Gn7O0bkxQ5wy5IQ5c5Bx5zGj8MxQOrvOcuLkYHCC3mH40e1yfTdEdZB9Yuf9HcTIh1lLY5kk9Xt+88v2ag/vUSY0bAq3Ewg00mXReedFm3nqBqZ+PT/HYgK4zMo2yuPZ1RXWIZCykP65Sbms3dygfDnf98SywlYkXFlLaDFryiz0qQXBzCG/DZ8OoFOfO7NSjxIyDy/gmTeTm74ytc/wZVh4IDgYuhR/eSA7ZgAXReBnUVQSimbf3Y4WD3cHNx4f9U6QyJZFhjJLRzlyN7N/kPGMb7fSbpHUr9T3nFQ0ixygEhmQIJEMhVDSLLdDNFqlMCC2VdzieShr0Ml5s1L+2km9cPOzuNPGMR+PjyBq7mmEdXrv15qQu7+iKltUsJlsjmGLTxUytM83h4Orjl6sLdEmtDxr/0MWfCVp643j+3nv5bHo5LkXfJU9DnH4pLLFyeZnyjpxe0jHiIfe8OMv8gV+MxU501Wfo+PKKCq6elK2JtM="
