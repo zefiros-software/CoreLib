@@ -53,4 +53,4 @@ script:
 after_success:
   - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TYPE" = "coverage" ]]; then codecov; fi    
 notifications:
-  slack: zefiros:x8zCJkIy5iBNssvmgF0guTs3
+    slack: zefiros:x8zCJkIy5iBNssvmgF0guTs3
