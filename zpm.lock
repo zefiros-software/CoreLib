@@ -9,14 +9,7 @@
         "version": "@head"
     }, 
     {
-        "hash": "d0136ee0364da50f5eab70e08006848e5fd6fb83",
-        "name": "Zefiros-Software/SerLib",
-        "tag": "1.0.0",
-        "type": "library",
-        "version": "1.0.0"
-    }, 
-    {
-        "hash": "92657ae9524adc87b4ae5a25fb0cc91b3f7f843a",
+        "hash": "af3be0933185b3bdbe1bc9b53ad7c0c77ca9bfe9",
         "name": "Zefiros-Software/MathLib",
         "tag": "master",
         "type": "library",
