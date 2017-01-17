@@ -48,7 +48,7 @@ workspace "CoreLib-ZPM"
             targetname "Test4"
             kind "StaticLib"
             
-            links "core-zpm"
+            links "CoreLib"
             
             zpm.uses {
                 "Zefiros-Software/CoreLib"
