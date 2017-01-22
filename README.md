@@ -5,7 +5,7 @@ CoreLib is built as a general C++ application framework, which lies as the basis
 Type        | Status
 ----------- | -------
 Linux & OSX | [![Build Status](https://travis-ci.org/Zefiros-Software/CoreLib.svg?branch=master)](https://travis-ci.org/Zefiros-Software/CoreLib)
-Windows     | [![Build status](https://ci.appveyor.com/api/projects/status/c33agdcblb6wl7ro?svg=true)](https://ci.appveyor.com/project/PaulVisscher/CoreLib)
+Windows     | [![Build status](https://ci.appveyor.com/api/projects/status/c33agdcblb6wl7ro?svg=true)](https://ci.appveyor.com/project/Zefiros-Software/CoreLib)
 Coverage	| [![codecov](https://codecov.io/gh/Zefiros-Software/CoreLib/branch/master/graph/badge.svg)](https://codecov.io/gh/Zefiros-Software/CoreLib)
 
 # [ZPM](http://zpm.zefiros.eu) Installation
