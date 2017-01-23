@@ -631,8 +631,11 @@ namespace
 
         std::time_t ft = File::GetLastModified( file );
 
+#include "warnings/push.h"
+#include "warnings/unsafeFunction.h"
         std::tm *tmp = std::localtime( &ft );
         File::SetLastModified( file, std::mktime( tmp ) );
+#include "warnings/pop.h"
 
         EXPECT_EQ( ft, File::GetLastModified( file ) );
 

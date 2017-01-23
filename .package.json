@@ -18,10 +18,6 @@
     },
     "requires": [
         {
-            "name": "Zefiros-Software/DocoptCpp",
-            "version": "@head"
-        }, 
-        {
             "name": "Zefiros-Software/MathLib",
             "version": "@head"
         },

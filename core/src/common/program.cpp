@@ -33,7 +33,7 @@ Program::Program( S32 argc, char **argv ) noexcept
     : mIsInitialised( false ),
       mArgc( argc ),
       mArgv( argv )
-{   
+{
     // Create a system manager and provide it for global access
     // using the service locater pattern.
     SystemManager *systemManager = new SystemManager( mArgc, mArgv );
@@ -62,7 +62,7 @@ void Program::Update()
 void Program::Init()
 {
     SystemManager::Get()->GetManagers()->system->Initialise();
-    
+
     mIsInitialised = true;
 }
 
@@ -74,13 +74,6 @@ bool Program::IsRunning() const noexcept
     }
 
     return SystemManager::Get()->GetManagers()->application->IsRunning();
-}
-
-std::map<std::string, docopt::value> Program::ParseCLI( const std::string &usage, bool help /*= true*/,
-                                                        bool optionsFirst /*= false */ ) const
-{
-    return docopt::docopt( usage, { mArgv + 1, mArgv + mArgc }, help,
-                           SystemManager::Get()->GetManagers()->application->GetVersion(), optionsFirst );
 }
 
 void Program::Shutdown()

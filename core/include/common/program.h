@@ -30,7 +30,6 @@
 
 #include "common/types.h"
 
-#include "external/docoptcpp.h"
 #include <map>
 
 /// @addtogroup docCommon
@@ -75,9 +74,6 @@ public:
     void Init();
 
     bool IsRunning() const noexcept;
-
-    std::map<std::string, docopt::value> ParseCLI( const std::string &usage, bool help = true,
-                                                   bool optionsFirst  = false ) const;
 
 protected:
 
