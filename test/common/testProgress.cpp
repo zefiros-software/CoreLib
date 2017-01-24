@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2017 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,21 +24,32 @@
  * @endcond
  */
 
-#pragma once
-#ifndef __ENGINE_OVERLOAD_H__
-#define __ENGINE_OVERLOAD_H__
 
-// already included but this fixes IDE warnings in VS
-#include <boost/preprocessor/cat.hpp>
+#include "common/progress.h"
 
-#include "external/overload.h"
+#include "engineTest.h"
 
-#include "preproc/compiler.h"
+#include <thread>
 
-#if defined(COMP_IS_MSVC) || defined(COMP_IS_INTEL)
-#   define VA_SELECT( prefix, ... ) BOOST_PP_CAT(BOOST_PP_OVERLOAD(prefix,__VA_ARGS__)(__VA_ARGS__),BOOST_PP_EMPTY())
-#else
-#   define VA_SELECT( prefix, ... ) BOOST_PP_OVERLOAD(prefix, __VA_ARGS__)(__VA_ARGS__)
-#endif
+namespace
+{
+    TEST( Progress, InitializerList )
+    {
+        for ( auto i : Progress( { 1, 2, 3, 4 } ) )
+        {
+            std::cout << i;
+            std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+        }
+    }
 
-#endif
+    TEST( Progress, Vector )
+    {
+        std::vector< U32 > vec = { 1, 2, 3, 4 };
+
+        for ( auto i : Progress( vec ) )
+        {
+            std::cout << i;
+            std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+        }
+    }
+}

@@ -39,6 +39,11 @@
 #include <unordered_set>
 #include <random>
 
+#include <fstream>
+
+#undef min
+#undef max
+
 #undef PREFIX
 #if ARCH_IS_X86_32
 #   if IS_DEBUG

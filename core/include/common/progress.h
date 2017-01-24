@@ -29,10 +29,15 @@
 #define __PROGRESS_H__
 
 #include "common/progress.h"
+#include "common/format.h"
+#include "common/string.h"
+
 #include "preproc/os.h"
+
 #include "date.h"
 
 #include <algorithm>
+#include <chrono>
 
 #if OS_IS_WINDOWS
 #   include <windows.h>
@@ -138,7 +143,7 @@ private:
         std::string rbar = String::Place( "| {0}/{1} [{2}<{3}, {4}]", FormatUnit( n ), FormatUnit( mSize ),
                                           FormatTime( duration ),
                                           FormatTime( std::chrono::seconds( ( size_t )( ( mSize - n ) / rate ) ) ), rateStr );
-        size_t nBars = Mathf::GetMax( 1u, cols - lbar.size() - rbar.size() );
+        size_t nBars = Mathf::GetMax< size_t >( 1u, cols - lbar.size() - rbar.size() );
 
         size_t length = ( size_t )( f * nBars );
 
@@ -157,32 +162,33 @@ private:
         std::cout << rbar;
     }
 
-
-    static std::string FormatUnit( F64 n, const std::string &suffix = "" )
+    template< typename tV >
+    static std::string FormatUnit( tV n, const std::string &suffix = "" )
     {
         auto units = { "", "K", "M", "G", "T", "P", "E", "Z" };
+        F64 v = ( F64 )n;
 
         for ( auto unit : units )
         {
-            if ( Mathf::Abs( n ) < 999.95 )
+            if ( Mathf::Abs( v ) < 999.95 )
             {
-                if ( Mathf::Abs( n ) < 99.95 )
+                if ( Mathf::Abs( v ) < 99.95 )
                 {
-                    if ( Mathf::Abs( n ) < 9.995 )
+                    if ( Mathf::Abs( v ) < 9.995 )
                     {
-                        return String::Place( "{0:1.0f}{1}{2}", n, unit, suffix );
+                        return String::Place( "{0:1.0f}{1}{2}", v, unit, suffix );
                     }
 
-                    return String::Place( "{0:2.0f}{1}{2}", n, unit, suffix );
+                    return String::Place( "{0:2.0f}{1}{2}", v, unit, suffix );
                 }
 
-                return String::Place( "{0:3.0f}{1}{2}", n, unit, suffix );
+                return String::Place( "{0:3.0f}{1}{2}", v, unit, suffix );
             }
 
-            n /= 1000.0;
+            v /= 1000.0;
         }
 
-        return String::Place( "{0:3.0f}Y{1}", n, suffix );
+        return String::Place( "{0:3.0f}Y{1}", v, suffix );
     }
 
     static std::string FormatTime( std::chrono::seconds duration )
@@ -214,9 +220,17 @@ private:
     }
 };
 
+
+template< typename tT >
+ProgressBar< std::initializer_list< tT > > Progress( std::initializer_list< tT > &&val )
+{
+    return ProgressBar< std::initializer_list< tT > >( val );
+}
+
 template< typename tT >
 ProgressBar< tT > Progress( tT val )
 {
     return ProgressBar< tT >( val );
 }
+
 #endif
