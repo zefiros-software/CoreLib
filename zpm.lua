@@ -13,6 +13,7 @@ end
 
 workspace "CoreLib"   
         
+    flags "C++14"
     pic "On"     
 
     filter "system:linux"            

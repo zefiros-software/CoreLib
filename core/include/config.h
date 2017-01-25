@@ -37,7 +37,7 @@
 #endif
 
 #ifndef PROGRAM_COPYRIGHT
-#   define PROGRAM_COPYRIGHT "Zefiros Software"
+#   define PROGRAM_COPYRIGHT "Copyright (c) 2017 Zefiros Software"
 #endif
 
 #ifndef PROGRAM_VERSION_MAJOR
