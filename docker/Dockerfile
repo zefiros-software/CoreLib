@@ -10,7 +10,8 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.d
     rm /usr/bin/git-lfs || true  && \
     apt-get install -y git-lfs && \
     /usr/bin/git-lfs install && \
-    apt-get install -y g++-multilib
+    apt-get install -y g++-multilib \
+    apt-get install -y libstdc++6
 
 ADD . /app/
 

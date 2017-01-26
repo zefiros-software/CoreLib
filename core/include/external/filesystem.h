@@ -32,6 +32,9 @@
 #include "warnings/duplicateFriend.h"
 #include "warnings/nonConstRValue.h"
 #include "warnings/staticNotReferenced.h"
+#include "warnings/unusedVariable.h"
+
+#define BOOST_SYSTEM_NO_DEPRECATED 1
 
 #include <boost/filesystem.hpp>
 

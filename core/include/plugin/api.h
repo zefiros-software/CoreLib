@@ -28,7 +28,7 @@
 #ifndef __API_H__
 #define __API_H__
 
-#include <boost/dll/shared_library.hpp>
+#include "external/sharedLib.h"
 
 #define CAPI extern "C" BOOST_SYMBOL_EXPORT
 #define API extern BOOST_SYMBOL_EXPORT

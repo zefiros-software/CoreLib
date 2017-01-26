@@ -37,6 +37,7 @@
 #include "date.h"
 
 #include <algorithm>
+#include <iostream>
 #include <chrono>
 
 #if OS_IS_WINDOWS

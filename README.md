@@ -19,7 +19,7 @@ In `.package.json`
 ]
 ```
 
-In `premake5.lua`
+In `zpm.lua`
 ```lua
 zpm.uses "Zefiros-Software/CoreLib"
 ```

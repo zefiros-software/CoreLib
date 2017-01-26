@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2017 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,17 +25,15 @@
  */
 
 #pragma once
-#ifndef __ENGINE_CHRONO_H__
-#define __ENGINE_CHRONO_H__
+#ifndef __SHAREDLIB_H__
+#define __SHAREDLIB_H__
 
 #include "warnings/push.h"
-#include "warnings/duplicateFriend.h"
-#include "warnings/staticNotReferenced.h"
-#include "warnings/nonConstRValue.h"
+#include "warnings/unusedVariable.h"
 
 #define BOOST_SYSTEM_NO_DEPRECATED 1
 
-#include <boost/chrono.hpp>
+#include <boost/dll/shared_library.hpp>
 
 #include "warnings/pop.h"
 
