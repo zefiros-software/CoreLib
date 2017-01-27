@@ -65,7 +65,7 @@ namespace
         AbstractTInstantiator< U32 > *inst = new ImplTInstantiator;
         U32 *integer =  inst->Create();
 
-        EXPECT_EQ( 42, *integer );
+        EXPECT_EQ( 42u, *integer );
 
         delete integer;
         delete inst;

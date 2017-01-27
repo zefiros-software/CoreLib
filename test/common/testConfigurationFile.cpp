@@ -1321,7 +1321,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::NotRegistered, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "isNotRegistered", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidLine, gValue );
 
         ResetLogErrors();
@@ -1406,7 +1406,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::IsDuplicateKey, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "stringValue", gKey );
-        EXPECT_EQ( 2, gLineNumber );
+        EXPECT_EQ( 2u, gLineNumber );
         EXPECT_EQ( invalidLine, gValue );
 
         ResetLogErrors();
@@ -1491,7 +1491,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::NoValue, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( "", gValue );
 
         ResetLogErrors();
@@ -1576,7 +1576,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::NoKey, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidLine, gValue );
 
         ResetLogErrors();
@@ -1651,7 +1651,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidString, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidLine, gValue );
 
         ResetLogErrors();
@@ -1692,7 +1692,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidString, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidLine, gValue );
 
         ResetLogErrors();
@@ -1733,7 +1733,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidString, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidLine, gValue );
 
         ResetLogErrors();
@@ -1808,7 +1808,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidBool, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidValue, gValue );
 
         ResetLogErrors();
@@ -1883,7 +1883,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidFloat, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidValue, gValue );
 
         ResetLogErrors();
@@ -1958,7 +1958,7 @@ namespace
         EXPECT_EQ( ConfigurationFile::ParseError::InvalidInt, gError );
         EXPECT_EQ( "testConfig", gConfigName );
         EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1, gLineNumber );
+        EXPECT_EQ( 1u, gLineNumber );
         EXPECT_EQ( invalidValue, gValue );
 
         ResetLogErrors();

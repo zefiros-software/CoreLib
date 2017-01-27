@@ -74,7 +74,7 @@ namespace
 
         U32 *obj = inst.Create();
 
-        EXPECT_EQ( 0, *obj );
+        EXPECT_EQ( 0u, *obj );
 
         delete obj;
     }
@@ -94,7 +94,7 @@ namespace
 
         inst.Initialise( &num );
 
-        EXPECT_EQ( 42, num );
+        EXPECT_EQ( 42u, num );
     }
 
     TEST( AbstractPoolableInstantiator, Release )
@@ -105,7 +105,7 @@ namespace
 
         inst.Release( &num );
 
-        EXPECT_EQ( 0, num );
+        EXPECT_EQ( 0u, num );
     }
 
 }

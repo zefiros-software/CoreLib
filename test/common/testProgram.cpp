@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2017 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,42 +24,27 @@
  * @endcond
  */
 
-#include "api/plugin.h"
-#include "api/system.h"
+#include "manager/systemManager.h"
+#include "common/program.h"
+#include "api/console.h"
 
 #include "engineTest.h"
-#include "test4.h"
 
 namespace
 {
-    TEST( TestPlugin, Plugin4 )
-    {
-        EXPECT_EQ( 42u, Test4::GetNumber() );
-    }
-
-    TEST( TestPlugin, IsInit )
+    TEST( Program, ParseCLI )
     {
         SystemManager::Get()->Release();
 
+        {
+            const char *argv[] = { "", "--help" };
+            Program program( 2, argv );
+            program.Init();
+        }
+
         SystemManager *sysmgr = new SystemManager( 0, nullptr );
         SystemManager::Get( sysmgr );
-
         sysmgr->RegisterManagers();
-
-        Plugin::Add< Test4Plugin >();
-
-        Console::SetMode( Console::LogMode::Disabled );
-
-        sysmgr->Initialise();
-
-        EXPECT_TRUE( Test4::IsInitialised() );
-
-        sysmgr->Release();
-
-        sysmgr = new SystemManager( 0, nullptr );
-        SystemManager::Get( sysmgr );
-        sysmgr->RegisterManagers();
-
         Console::SetMode( Console::LogMode::Disabled );
     }
 }

@@ -128,7 +128,7 @@ namespace
         EXPECT_EQ( 0, ns.GetPluginNamespace() );
         EXPECT_EQ( u16max, ns.GetAddinNamespace() );
 
-        EXPECT_EQ( ( u16max << 16 ), ns.GetNamespace() );
+        EXPECT_EQ( (U32)( u16max << 16 ), ns.GetNamespace() );
     }
 
     TEST( Namespace, Equality, Equal )
@@ -160,7 +160,7 @@ namespace
 
     TEST( Namespace, Hashable )
     {
-        const std::unordered_set< Namespace > set;
+        const std::unordered_set< Namespace > set = {};
     }
 
 }

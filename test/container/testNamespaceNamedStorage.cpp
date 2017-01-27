@@ -634,7 +634,7 @@ namespace
 
         EXPECT_EQ( 1u, names.size() );
 
-        EXPECT_EQ( 0, names[0] );
+        EXPECT_EQ( 0u, names[0] );
     }
 
     TEST( NamespaceNamedStorage, GetNamesNotExists )

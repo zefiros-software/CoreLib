@@ -88,9 +88,9 @@ namespace
         {
             Local< U32 > local;
 
-            EXPECT_EQ( 1, pool->GetBorrowedCount() );
+            EXPECT_EQ( 1u, pool->GetBorrowedCount() );
         }
-        EXPECT_EQ( 1, pool->GetReturnedCount() );
+        EXPECT_EQ( 1u, pool->GetReturnedCount() );
 
         Managers::ReleasePoolManager();
     }
@@ -108,9 +108,9 @@ namespace
         {
             Local< U32 > local( holder );
 
-            EXPECT_EQ( 1, pool->GetBorrowedCount() );
+            EXPECT_EQ( 1u, pool->GetBorrowedCount() );
         }
-        EXPECT_EQ( 1, pool->GetReturnedCount() );
+        EXPECT_EQ( 1u, pool->GetReturnedCount() );
 
         Managers::ReleasePoolManager();
     }
@@ -122,9 +122,9 @@ namespace
         {
             Local< U32 > local( &pool );
 
-            EXPECT_EQ( 1, pool.GetBorrowedCount() );
+            EXPECT_EQ( 1u, pool.GetBorrowedCount() );
         }
-        EXPECT_EQ( 1, pool.GetReturnedCount() );
+        EXPECT_EQ( 1u, pool.GetReturnedCount() );
     }
 
     TEST( Local, Retrieval )
@@ -156,8 +156,8 @@ namespace
             EXPECT_EQ( 42u, *second );
         }
 
-        EXPECT_EQ( 2, pool.GetBorrowedCount() );
-        EXPECT_EQ( 2, pool.GetReturnedCount() );
+        EXPECT_EQ( 2u, pool.GetBorrowedCount() );
+        EXPECT_EQ( 2u, pool.GetReturnedCount() );
     }
 
     class ImplObjectPoolNullptr

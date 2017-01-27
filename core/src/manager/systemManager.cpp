@@ -46,7 +46,7 @@
 
 
 
-SystemManager::SystemManager( S32 argc, char **argv )
+SystemManager::SystemManager( S32 argc, const char **argv )
     : mArgc( argc ),
       mArgv( argv )
 {
@@ -188,7 +188,7 @@ S32 &SystemManager::GetArgc()
     return mArgc;
 }
 
-char **SystemManager::GetArgv() const
+const char **SystemManager::GetArgv() const
 {
     return mArgv;
 }

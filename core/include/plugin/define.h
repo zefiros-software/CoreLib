@@ -34,7 +34,7 @@
 #include <string>
 
 #define SET_PLUGIN( type )                                      \
-CAPI PluginInfo Load ## type ## Plugin( SystemManager *sys ) {  \
+API PluginInfo Load ## type ## Plugin( SystemManager *sys ) {   \
 type *p = new type();                                           \
 p->SetName( #type);                                             \
 SystemManager::Get(sys);                                        \
@@ -42,7 +42,7 @@ return PluginInfo{p, typeid(type)};                             \
 };
 
 #define DEFINE_PLUGIN( type )                                   \
-CAPI PluginInfo Load ## type ## Plugin( SystemManager *sys );   \
+API PluginInfo Load ## type ## Plugin( SystemManager *sys );    \
 template<>                                                      \
 inline std::string PluginManager::GetName( type * ) {           \
 return #type;                                                   \

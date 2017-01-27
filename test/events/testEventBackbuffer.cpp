@@ -80,7 +80,7 @@ namespace
         EventTest e;
         m.Notify( e );
 
-        EXPECT_EQ( 0, c.mVal );
+        EXPECT_EQ( 0u, c.mVal );
         EXPECT_FALSE( c.mWithArg );
 
         EXPECT_FALSE( m.IsEmpty() );
@@ -101,13 +101,13 @@ namespace
         EventTest e;
         m.Notify( e );
 
-        EXPECT_EQ( 0, c.mVal );
+        EXPECT_EQ( 0u, c.mVal );
         EXPECT_FALSE( c.mWithArg );
 
         m.Unobserve();
         m.Flush();
 
-        EXPECT_EQ( 0, c.mVal );
+        EXPECT_EQ( 0u, c.mVal );
         EXPECT_FALSE( c.mWithArg );
     }
 
@@ -119,7 +119,7 @@ namespace
         EventTest e;
         m.Notify( e );
 
-        EXPECT_EQ( 0, c.mVal );
+        EXPECT_EQ( 0u, c.mVal );
         EXPECT_FALSE( c.mWithArg );
 
         m.Clear();
@@ -128,7 +128,7 @@ namespace
 
         m.Flush();
 
-        EXPECT_EQ( 0, c.mVal );
+        EXPECT_EQ( 0u, c.mVal );
         EXPECT_FALSE( c.mWithArg );
     }
 }

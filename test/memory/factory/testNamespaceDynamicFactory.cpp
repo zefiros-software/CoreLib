@@ -87,7 +87,7 @@ namespace
         Base *base = factory.Create( 0 );
 
         EXPECT_FALSE( base->IsDerived() );
-        EXPECT_EQ( 0, base->GetValue() );
+        EXPECT_EQ( 0u, base->GetValue() );
 
         delete base;
     }
@@ -101,7 +101,7 @@ namespace
         Base *base = factory.Get( 0 )->Create();
 
         EXPECT_FALSE( base->IsDerived() );
-        EXPECT_EQ( 0, base->GetValue() );
+        EXPECT_EQ( 0u, base->GetValue() );
 
         delete base;
     }
@@ -114,7 +114,7 @@ namespace
         Base *child = factory.Create( 0 );
 
         EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 42, child->GetValue() );
+        EXPECT_EQ( 42u, child->GetValue() );
 
         delete child;
     }

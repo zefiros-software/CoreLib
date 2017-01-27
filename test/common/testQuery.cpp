@@ -30,7 +30,7 @@ namespace
     template<typename tR, typename tT, S32 N>
     void CheckRangeEqArray( tR dst, tT( &ans )[N] )
     {
-        for ( size_t i = 0; i < N; i++ )
+        for ( S32 i = 0; i < N; i++ )
         {
             EXPECT_EQ( ans[i], dst.Next() );
         }
@@ -43,12 +43,12 @@ namespace
     {
         std::set<tT> res;
 
-        for ( size_t i = 0; i < N; i++ )
+        for ( S32 i = 0; i < N; i++ )
         {
             res.insert( ans[i] );
         }
 
-        EXPECT_EQ( N, static_cast<size_t>( res.size() ) );
+        EXPECT_EQ( N, static_cast<S32>( res.size() ) );
 
         return res;
     }
@@ -233,7 +233,7 @@ namespace
 
         auto rng = Query( src );
 
-        EXPECT_EQ( 5, rng.Avg<size_t>( []( const std::string & str )
+        EXPECT_EQ( 5u, rng.Avg<size_t>( []( const std::string & str )
         {
             return str.size();
         } ) );
@@ -318,7 +318,7 @@ namespace
 
         auto rng = Query( src );
 
-        EXPECT_EQ( 3, rng.Count() );
+        EXPECT_EQ( 3u, rng.Count() );
     }
 
     TEST( Query, Count, ThreeIntsList )
@@ -327,7 +327,7 @@ namespace
 
         auto rng = Query( src );
 
-        EXPECT_EQ( 3, rng.Count() );
+        EXPECT_EQ( 3u, rng.Count() );
     }
 
     TEST( Query, Count, FiveInts )
@@ -344,8 +344,8 @@ namespace
             return a % 2 == 1;
         } );
 
-        EXPECT_EQ( 2, dst0.Count() );
-        EXPECT_EQ( 3, dst1.Count() );
+        EXPECT_EQ( 2u, dst0.Count() );
+        EXPECT_EQ( 3u, dst1.Count() );
     }
 
     TEST( Query, Count, OddCount )
@@ -354,8 +354,8 @@ namespace
 
         auto rng = Query( src );
 
-        EXPECT_EQ( 2, rng.Count( 0 ) );
-        EXPECT_EQ( 3, rng.Count( 1 ) );
+        EXPECT_EQ( 2u, rng.Count( 0 ) );
+        EXPECT_EQ( 3u, rng.Count( 1 ) );
     }
 
     TEST( Query, DistinctRange, Ints1to6 )
@@ -1037,11 +1037,11 @@ namespace
 
     TEST( Query, Linq, WhereOdd_WhereLess )
     {
-        std::vector<S32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        std::vector<U32> src = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
         auto rng = Query( src )
-        .Where( []( S32 a ) { return a % 2 == 1;} )
-        .Where( []( S32 a ) { return a < 4;} );
+        .Where( []( U32 a ) { return a % 2 == 1;} )
+        .Where( []( U32 a ) { return a < 4;} );
 
         for ( size_t i = 1; i <= 3; i += 2 )
         {
@@ -1142,9 +1142,9 @@ namespace
 
     TEST( Query, Linq, Pointer_Front )
     {
-        S32 src[] = { 1, 2, 3, 4, 5 };
+        U32 src[] = { 1, 2, 3, 4, 5 };
 
-        auto dst = Query<S32>( static_cast<S32 *>( src ), static_cast<S32 *>( src ) + 5 );
+        auto dst = Query<U32>( static_cast<U32 *>( src ), static_cast<U32 *>( src ) + 5 );
 
         for ( size_t i = 1; i <= 5; i++ )
         {
@@ -1156,7 +1156,7 @@ namespace
 
     TEST( Query, Linq, Array_Front )
     {
-        S32 src[] = { 1, 2, 3, 4, 5 };
+        U32 src[] = { 1, 2, 3, 4, 5 };
 
         auto dst = Query( src );
 
@@ -1217,7 +1217,7 @@ namespace
         .Distinct( []( const Message & msg ) {return msg.PhoneB; } )
         .Count();
 
-        EXPECT_EQ( 2, DenisUniqueContactCount );
+        EXPECT_EQ( 2u, DenisUniqueContactCount );
     }
 
     TEST( Query, Linq, ForwardIterating )

@@ -33,7 +33,7 @@
 #include "engineTest.h"
 #include "common/query.h"
 
-int main( int argc, char **argv )
+int main( int argc, const char **argv )
 {
 #if OS_IS_WINDOWS
 
@@ -52,7 +52,7 @@ int main( int argc, char **argv )
 
     Console::SetMode( Console::LogMode::Disabled );
 
-    testing::InitGoogleTest( &argc, argv );
+    testing::InitGoogleTest( &argc, const_cast< char ** >( argv ) );
 
     U32 result = RUN_ALL_TESTS();
 

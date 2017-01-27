@@ -134,7 +134,7 @@ namespace
 
         Base *first = factory.Create( 0 );
 
-        EXPECT_EQ( 42, first->GetValue() );
+        EXPECT_EQ( 42u, first->GetValue() );
 
         EXPECT_TRUE( first->IsDerived() );
 
@@ -176,9 +176,9 @@ namespace
         Base *second = factory.Create( 1 );
         Base *base = factory.Create( 2 );
 
-        EXPECT_EQ( 42, first->GetValue() );
-        EXPECT_EQ( 84, second->GetValue() );
-        EXPECT_EQ( 0, base->GetValue() );
+        EXPECT_EQ( 42u, first->GetValue() );
+        EXPECT_EQ( 84u, second->GetValue() );
+        EXPECT_EQ( 0u, base->GetValue() );
 
         EXPECT_TRUE( first->IsDerived() );
         EXPECT_TRUE( second->IsDerived() );
@@ -205,11 +205,11 @@ namespace
         Base *secondExt = factory.Create( 2 );
         Base *second = factory.Create( 3 );
 
-        EXPECT_EQ( 42, first->GetValue() );
-        EXPECT_EQ( 84, second->GetValue() );
+        EXPECT_EQ( 42u, first->GetValue() );
+        EXPECT_EQ( 84u, second->GetValue() );
 
-        EXPECT_EQ( 42, firstExt->GetValue() );
-        EXPECT_EQ( 84, secondExt->GetValue() );
+        EXPECT_EQ( 42u, firstExt->GetValue() );
+        EXPECT_EQ( 84u, secondExt->GetValue() );
 
         delete firstExt;
         delete first;
@@ -235,11 +235,11 @@ namespace
             Base *secondExt = factory.Create( 2 );
             Base *second = factory.Create( 3 );
 
-            EXPECT_EQ( 42, first->GetValue() );
-            EXPECT_EQ( 84, second->GetValue() );
+            EXPECT_EQ( 42u, first->GetValue() );
+            EXPECT_EQ( 84u, second->GetValue() );
 
-            EXPECT_EQ( 42, firstExt->GetValue() );
-            EXPECT_EQ( 84, secondExt->GetValue() );
+            EXPECT_EQ( 42u, firstExt->GetValue() );
+            EXPECT_EQ( 84u, secondExt->GetValue() );
 
             delete firstExt;
             delete first;
@@ -266,11 +266,11 @@ namespace
             Base *first = factory.Create( 2 );
             Base *firstExt = factory.Create( 3 );
 
-            EXPECT_EQ( 42, firstExt->GetValue() );
-            EXPECT_EQ( 84, secondExt->GetValue() );
+            EXPECT_EQ( 42u, firstExt->GetValue() );
+            EXPECT_EQ( 84u, secondExt->GetValue() );
 
-            EXPECT_EQ( 42, first->GetValue() );
-            EXPECT_EQ( 84, second->GetValue() );
+            EXPECT_EQ( 42u, first->GetValue() );
+            EXPECT_EQ( 84u, second->GetValue() );
 
             delete secondExt;
             delete second;

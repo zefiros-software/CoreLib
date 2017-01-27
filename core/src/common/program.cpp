@@ -28,9 +28,14 @@
 #include "manager/systemManager.h"
 
 #include "common/program.h"
+#include "common/format.h"
+#include "config.h"
 
-Program::Program( S32 argc, char **argv ) noexcept
-    : mIsInitialised( false ),
+
+Program::Program( S32 argc, const char **argv ) noexcept
+    : mDesc( String::Place( "{} - {}", std::string( PROGRAM_NAME ), std::string( PROGRAM_COPYRIGHT ) ) ),
+      mIsHelpCommand( false ),
+      mIsInitialised( false ),
       mArgc( argc ),
       mArgv( argv )
 {
@@ -51,23 +56,34 @@ Program::~Program()
 
 void Program::Update()
 {
-    if ( !mIsInitialised )
+    if ( !mIsHelpCommand )
     {
-        Init();
-    }
+        if ( !mIsInitialised )
+        {
+            Init();
+        }
 
-    SystemManager::Get()->GetManagers()->system->Update();
+        SystemManager::Get()->GetManagers()->system->Update();
+    }
 }
 
 void Program::Init()
 {
-    SystemManager::Get()->GetManagers()->system->Initialise();
+    if ( ParseCLI() )
+    {
+        SystemManager::Get()->GetManagers()->system->Initialise();
 
-    mIsInitialised = true;
+        mIsInitialised = true;
+    }
 }
 
 bool Program::IsRunning() const noexcept
 {
+    if ( !mIsHelpCommand )
+    {
+        return false;
+    }
+
     if ( !mIsInitialised )
     {
         return true;

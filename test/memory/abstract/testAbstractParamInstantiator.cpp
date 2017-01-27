@@ -56,7 +56,7 @@ namespace
         AbstractParamInstantiator< U32, U32 > *inst = new ImplParamInstantiator;
         U32 *ptr = inst->Create( 42 );
 
-        EXPECT_EQ( 42, *ptr );
+        EXPECT_EQ( 42u, *ptr );
         delete ptr;
         delete inst;
     }

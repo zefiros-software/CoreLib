@@ -159,7 +159,7 @@ namespace
 
         U32 *first = pool.Get();
         EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42, *first );
+        EXPECT_EQ( 42u, *first );
 
         pool.Dispose( first );
 
@@ -173,7 +173,7 @@ namespace
 
         U32 *first = pool.Get();
         EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42, *first );
+        EXPECT_EQ( 42u, *first );
 
         pool.FastDispose( first );
 
@@ -187,12 +187,12 @@ namespace
 
         U32 *first = pool.Get();
         EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42, *first );
+        EXPECT_EQ( 42u, *first );
 
         pool.Dispose( first );
 
         EXPECT_FALSE( inst->destroyed );
-        EXPECT_EQ( 0, *first );
+        EXPECT_EQ( 0u, *first );
     }
 
     TEST( UnsynchronisedObjectPool, Get )
@@ -200,11 +200,11 @@ namespace
         UnsynchronisedObjectPoolImpl pool( 1 );
 
         Base *first = pool.Get();
-        EXPECT_EQ( 42, first->GetValue() );
+        EXPECT_EQ( 42u, first->GetValue() );
 
         pool.Dispose( first );
 
-        EXPECT_EQ( 0, first->GetValue() );
+        EXPECT_EQ( 0u, first->GetValue() );
 
         Base *second = pool.Get();
         Base *third = pool.Get();
@@ -227,7 +227,7 @@ namespace
         UnsynchronisedObjectPoolImpl pool;
 
         Base *first = pool.FastGet();
-        EXPECT_EQ( 91, first->GetValue() );
+        EXPECT_EQ( 91u, first->GetValue() );
 
         pool.Dispose( first );
     }
@@ -253,28 +253,28 @@ namespace
 
         U32 *first = pool.Get();
         EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42, *first );
+        EXPECT_EQ( 42u, *first );
 
         pool.FastDispose( first );
 
         EXPECT_FALSE( inst->destroyed );
-        EXPECT_EQ( 42, *first );
+        EXPECT_EQ( 42u, *first );
     }
 
     TEST( UnsynchronisedObjectPool, GetBorrowedCount )
     {
         UnsynchronisedObjectPoolImpl pool;
 
-        EXPECT_EQ( 0, pool.GetBorrowedCount() );
+        EXPECT_EQ( 0u, pool.GetBorrowedCount() );
 
         Base *first = pool.FastGet();
 
-        EXPECT_EQ( 1, pool.GetBorrowedCount() );
+        EXPECT_EQ( 1u, pool.GetBorrowedCount() );
 
         pool.Dispose( first );
         Base *second = pool.Get();
 
-        EXPECT_EQ( 2, pool.GetBorrowedCount() );
+        EXPECT_EQ( 2u, pool.GetBorrowedCount() );
 
         pool.Dispose( second );
     }
@@ -285,16 +285,16 @@ namespace
 
         Base *first = pool.FastGet();
 
-        EXPECT_EQ( 0, pool.GetReturnedCount() );
+        EXPECT_EQ( 0u, pool.GetReturnedCount() );
 
         pool.Dispose( first );
 
-        EXPECT_EQ( 1, pool.GetReturnedCount() );
+        EXPECT_EQ( 1u, pool.GetReturnedCount() );
 
         Base *second = pool.Get();
         pool.Dispose( second );
 
-        EXPECT_EQ( 2, pool.GetReturnedCount() );
+        EXPECT_EQ( 2u, pool.GetReturnedCount() );
     }
 
 }

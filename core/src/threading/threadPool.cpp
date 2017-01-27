@@ -67,13 +67,13 @@ void ThreadPool::Init()
 {
     U32 threadID = mStartThreadID;
 
-    for ( auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it , ++threadID )
+    for ( auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it, ++threadID )
     {
         try
         {
-            mThreads.emplace_back( std::move( std::thread( &Worker::OnPooledRun, it,
-                                                           std::make_pair( &mNotification, &mMutex ),
-                                                           std::make_pair( &mRespond, &mRespondMutex ), threadID ) ) );
+            mThreads.emplace_back( std::thread( &Worker::OnPooledRun, it,
+                                                std::make_pair( &mNotification, &mMutex ),
+                                                std::make_pair( &mRespond, &mRespondMutex ), threadID ) );
         }
         catch ( const std::system_error & )
         {

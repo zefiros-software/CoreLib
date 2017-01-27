@@ -165,7 +165,7 @@ namespace
         m.Insert( ptr2, 50 );
 
         auto data = ( ( const FastPtrHashMap< U8, U8 > & )m ).Data();
-        EXPECT_EQ( 2, data.size() );
+        EXPECT_EQ( 2u, data.size() );
         EXPECT_EQ( 5, data[0].element );
         EXPECT_EQ( ptr, data[0].ptr );
 

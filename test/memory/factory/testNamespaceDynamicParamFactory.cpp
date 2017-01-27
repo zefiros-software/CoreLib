@@ -102,16 +102,16 @@ namespace
         Base *child2 = factory.Create( 1, 0 );
 
         EXPECT_FALSE( base->IsDerived() );
-        EXPECT_EQ( 42, base->GetValue() );
+        EXPECT_EQ( 42u, base->GetValue() );
 
         EXPECT_FALSE( base2->IsDerived() );
-        EXPECT_EQ( 0, base2->GetValue() );
+        EXPECT_EQ( 0u, base2->GetValue() );
 
         EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 42, child->GetValue() );
+        EXPECT_EQ( 42u, child->GetValue() );
 
         EXPECT_TRUE( child2->IsDerived() );
-        EXPECT_EQ( 0, child2->GetValue() );
+        EXPECT_EQ( 0u, child2->GetValue() );
 
         delete base;
         delete base2;

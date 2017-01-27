@@ -38,6 +38,6 @@ namespace
     TEST( ScheduleManager, GetMainThreadID )
     {
         ScheduleManager m;
-        EXPECT_EQ( 0, m.GetMainThreadID() );
+        EXPECT_EQ( 0u, m.GetMainThreadID() );
     }
 }

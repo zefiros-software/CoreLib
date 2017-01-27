@@ -30,7 +30,9 @@
 
 #include "common/types.h"
 
+#include <boost/program_options.hpp>
 #include <map>
+#include <iostream>
 
 /// @addtogroup docCommon
 /// @{
@@ -51,11 +53,11 @@ public:
     /**
      * Constructor.
      *
-     * @param   argc         The commandline argument count.
+     * @param           argc The command line argument count.
      * @param [in,out]  argv The arguments array.
      */
 
-    Program( S32 argc, char **argv ) noexcept;
+    Program( S32 argc, const char **argv ) noexcept;
 
     ~Program();
 
@@ -75,7 +77,24 @@ public:
 
     bool IsRunning() const noexcept;
 
+    /// @}
+
+
+    /// @name CLI
+    /// @{
+
+    void AddOption()
+    {
+        mDesc.add_options()
+        ( "help,h", "Shows this help screen" );
+    }
+
+    /// @}
+
 protected:
+
+    /// @name Start & Run
+    /// @{
 
     /**
      * Shuts down the application and frees any resources it is using.
@@ -85,11 +104,39 @@ protected:
 
     /// @}
 
+    bool ParseCLI()
+    {
+        try
+        {
+            mDesc.add_options()
+            ( "help,h", "Shows this help screen" );
+
+            boost::program_options::variables_map vm;
+            boost::program_options::store( parse_command_line( mArgc, mArgv, mDesc ), vm );
+
+            if ( vm.count( "help" ) )
+            {
+                std::cout << mDesc << '\n';
+                mIsHelpCommand = true;
+                return false;
+            }
+        }
+        catch ( const boost::program_options::error &ex )
+        {
+            std::cerr << ex.what() << '\n';
+            return false;
+        }
+
+        return true;
+    }
+
 private:
 
+    boost::program_options::options_description mDesc;
+    bool mIsHelpCommand;
     bool mIsInitialised;
     S32 mArgc;
-    char **mArgv;
+    const char **mArgv;
 
 };
 

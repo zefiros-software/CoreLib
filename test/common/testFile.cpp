@@ -345,7 +345,7 @@ namespace
 
         ASSERT_FALSE( File::Exists( file ) );
 
-        EXPECT_EQ( 0, File::Size( file ) );
+        EXPECT_EQ( 0u, File::Size( file ) );
     }
 
     TEST( File, IsEmpty, Exists )

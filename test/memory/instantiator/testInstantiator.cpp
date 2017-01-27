@@ -91,7 +91,7 @@ namespace
         Instantiator< Child, Base > instantiator;
 
         Base *child = instantiator.Create();
-        EXPECT_EQ( 42, child->GetValue() );
+        EXPECT_EQ( 42u, child->GetValue() );
         EXPECT_TRUE( child->IsDerived() );
 
         delete child;

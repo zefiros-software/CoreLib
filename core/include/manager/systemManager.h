@@ -43,7 +43,7 @@ class SystemManager
 {
 public:
 
-    SystemManager( S32 argc, char **argv );
+    SystemManager( S32 argc, const char **argv );
 
     virtual ~SystemManager();
 
@@ -109,7 +109,7 @@ public:
 
     S32 &GetArgc();
 
-    char **GetArgv() const;
+    const char **GetArgv() const;
 
 protected:
 
@@ -190,7 +190,7 @@ protected:
     void ProcessEventsManagers();
 
     S32 mArgc;
-    char **mArgv;
+    const char **mArgv;
 };
 
 /// @}
