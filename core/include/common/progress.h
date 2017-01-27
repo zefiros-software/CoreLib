@@ -34,6 +34,7 @@
 
 #include "preproc/os.h"
 
+#include "math/scalar/mathf.h"
 #include "date.h"
 
 #include <algorithm>
