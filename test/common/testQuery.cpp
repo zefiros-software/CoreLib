@@ -518,7 +518,7 @@ namespace
     TEST( Query, BytesRange, OneByteDefault )
     {
         U8 src[] = { 0xAA };
-        S32 ans[] = { 0xAA };
+        U32 ans[] = { 0xAA };
 
         auto rng = Query( src );
         auto dst = rng.Bytes();

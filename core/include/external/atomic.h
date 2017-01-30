@@ -32,6 +32,8 @@
 #include "warnings/nonConstRValue.h"
 #include "warnings/missingInitialiser.h"
 
+#define BOOST_SYSTEM_NO_DEPRECATED 1
+
 #include <boost/atomic.hpp>
 
 #include "warnings/pop.h"
