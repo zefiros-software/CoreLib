@@ -230,9 +230,9 @@ ProgressBar< std::initializer_list< tT > > Progress( std::initializer_list< tT >
 }
 
 template< typename tT >
-ProgressBar< tT > Progress( tT val )
+ProgressBar< tT & > Progress( tT &val )
 {
-    return ProgressBar< tT >( val );
+    return ProgressBar< tT &>( val );
 }
 
 #endif
