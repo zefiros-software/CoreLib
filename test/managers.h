@@ -23,6 +23,9 @@
  *
  * @endcond
  */
+#pragma once
+#ifndef __TEST_MANAGERS_H__
+#define __TEST_MANAGERS_H__
 
 namespace Managers
 {
@@ -40,3 +43,5 @@ namespace Managers
     void ReleaseEventManager();
 
 }
+
+#endif

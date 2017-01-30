@@ -216,7 +216,7 @@ private:
         return csbi.srWindow.Right - csbi.srWindow.Left + 1;
 #else
         struct winsize w;
-        ioctl( STDOUT_FILENO, TIOCGWINSZ, &w );
+        ioctl( 0, TIOCGWINSZ, &w );
         return w.ws_col;
 #endif
     }
@@ -224,9 +224,9 @@ private:
 
 
 template< typename tT >
-ProgressBar< std::initializer_list< tT > & > Progress( std::initializer_list< tT > &&val )
+ProgressBar< std::initializer_list< tT > > Progress( std::initializer_list< tT > &&val )
 {
-    return ProgressBar< std::initializer_list< tT > & >( val );
+    return ProgressBar< std::initializer_list< tT > >( val );
 }
 
 template< typename tT >

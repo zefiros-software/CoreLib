@@ -31,7 +31,6 @@
 #include "api/system.h"
 
 #include "engineTest.h"
-#include "common/query.h"
 
 int main( int argc, const char **argv )
 {
