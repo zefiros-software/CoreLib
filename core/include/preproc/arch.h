@@ -30,6 +30,8 @@
 
 #include "external/predef.h"
 
+#include <boost/predef/architecture/x86/64.h>
+
 #define ARCH_IS_ARM BOOST_ARCH_ARM
 #define ARCH_IS_IA64 BOOST_ARCH_IA64
 #define ARCH_IS_PPC BOOST_ARCH_PPC

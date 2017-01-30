@@ -39,3 +39,4 @@ test/extern
 test/assets
 profile.txt
 cov/
+*.lock

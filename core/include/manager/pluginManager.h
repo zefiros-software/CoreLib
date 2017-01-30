@@ -92,9 +92,9 @@ private:
 
     bool IsLoaded( const std::string &name ) const;
 
-    std::string GetName( const std::string &plugin ) const;
+    static std::string GetName( const std::string &plugin );
 
-    std::string GetLoadFunction( const std::string &fileName )const;
+    static std::string GetLoadFunction( const std::string &fileName );
 
     static std::vector< std::string > FindPlugins();
 

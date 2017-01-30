@@ -337,9 +337,11 @@ namespace File
     void Clear( const std::string &filepath ) noexcept;
 
     /**
-     * Deletes the file, if it exists, described by filepath.
+     * Deletes the given filepath.
      *
      * @param   filepath The filepath.
+     *
+     * @return True if it succeeds (or does not exist), false if it fails.
      *
      * @pre File::Exists( path ) == true.
      *
@@ -349,7 +351,7 @@ namespace File
      * @snippet testFile.cpp Delete
      */
 
-    void Delete( const std::string &filepath ) noexcept;
+    bool Delete( const std::string &filepath ) noexcept;
 
     /**
      * Moves a file from the given path to the new path. When there is already a file on the new path, the overwrite

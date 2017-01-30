@@ -37,6 +37,8 @@
 
 #include "api/expose.h"
 
+#include <boost/current_function.hpp>
+
 #if IS_DEBUG
 #   define LOG( str ) ( String::Format("\n%s( %u ):\n\t%s:\n\t\t%s", std::string(__FILE__), (U32)__LINE__, std::string(BOOST_CURRENT_FUNCTION), String::Replace( str, "\n","\n\t\t")))
 #else

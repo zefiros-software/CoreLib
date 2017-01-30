@@ -30,6 +30,9 @@
 
 #include "test/test.h"
 
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
 namespace Test
 {
     void EnsureTestDirectories( const std::vector<std::string > &strs );

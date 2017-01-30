@@ -29,12 +29,16 @@
 #include "manager/pluginManager.h"
 #include "plugin/api.h"
 
+#include "preproc/arch.h"
+
 #include <boost/dll/alias.hpp>
 
 #include <string>
 
+#if ARCH_IS_X86_32
+
 #define SET_PLUGIN( type )                                      \
-API PluginInfo Load ## type ## Plugin( SystemManager *sys ) {   \
+API PluginInfo Load ## type ## PluginX32( SystemManager *sys ) {\
 type *p = new type();                                           \
 p->SetName( #type);                                             \
 SystemManager::Get(sys);                                        \
@@ -42,8 +46,29 @@ return PluginInfo{p, typeid(type)};                             \
 };
 
 #define DEFINE_PLUGIN( type )                                   \
-API PluginInfo Load ## type ## Plugin( SystemManager *sys );    \
+API PluginInfo Load ## type ## PluginX32( SystemManager *sys ); \
 template<>                                                      \
 inline std::string PluginManager::GetName( type * ) {           \
 return #type;                                                   \
 };
+
+#elif ARCH_IS_X86_64
+
+#define SET_PLUGIN( type )                                      \
+API PluginInfo Load ## type ## PluginX64( SystemManager *sys ) {\
+type *p = new type();                                           \
+p->SetName( #type);                                             \
+SystemManager::Get(sys);                                        \
+return PluginInfo{p, typeid(type)};                             \
+};
+
+#define DEFINE_PLUGIN( type )                                   \
+API PluginInfo Load ## type ## PluginX64( SystemManager *sys ); \
+template<>                                                      \
+inline std::string PluginManager::GetName( type * ) {           \
+return #type;                                                   \
+};
+
+#else
+#   error No known load function for plugins!
+#endif

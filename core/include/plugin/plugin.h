@@ -29,8 +29,9 @@
 #define __PLUGIN_H__
 
 #include "plugin/abstract/abstractPlugin.h"
-
 #include "plugin/define.h"
+
+#include "preproc/arch.h"
 
 #include <typeindex>
 

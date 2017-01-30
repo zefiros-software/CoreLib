@@ -183,12 +183,14 @@ namespace File
         }
     }
 
-    void Delete( const std::string &filepath ) noexcept
+    bool Delete( const std::string &filepath ) noexcept
     {
         if ( Exists( filepath ) )
         {
-            boost::filesystem::remove( filepath );
+            return boost::filesystem::remove( filepath );
         }
+
+        return true;
     }
 
     bool Move( const std::string &from, const std::string &to, const bool overwrite /*= false */ )
@@ -197,21 +199,37 @@ namespace File
         {
             const bool exists = Exists( to );
 
-            if ( !exists )
+            if ( !( !overwrite && exists ) )
             {
-                boost::filesystem::rename( from, to );
+                if ( overwrite && exists )
+                {
+                    if ( !File::Delete( to ) )
+                    {
+                        return false;
+                    }
+                }
+
+                try
+                {
+                    boost::filesystem::rename( from, to );
+                }
+                catch ( ... )
+                {
+                    // rename may fail between systems
+                    // in this case we need to copy and delete
+                    boost::filesystem::copy( from, to );
+
+                    if ( Exists( to ) )
+                    {
+                        boost::filesystem::remove( from );
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
 
                 return true;
-            }
-            else
-            {
-                if ( overwrite )
-                {
-                    File::Delete( to );
-                    boost::filesystem::rename( from, to );
-
-                    return true;
-                }
             }
         }
 

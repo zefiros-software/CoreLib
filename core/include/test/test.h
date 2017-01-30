@@ -41,6 +41,11 @@
 
 #include <fstream>
 
+
+// Needed for IDEs intellisense
+#include <boost/preprocessor/facilities/overload.hpp>
+#include <boost/preprocessor/cat.hpp>
+
 #undef min
 #undef max
 
@@ -60,10 +65,9 @@
 #endif
 
 #define GTEST_DONT_DEFINE_TEST 1
-#define ENGINE_TEST(test_case_name, test_name) GTEST_TEST( CONCAT( PREFIX, test_case_name ), test_name)
 
 #define TEST_2( suite, name ) GTEST_TEST( CONCAT( PREFIX, suite ), name)
-#define TEST_3( suite, function, name ) GTEST_TEST( CONCAT( PREFIX, suite ), function ##_## name)
+#define TEST_3( suite, function, name ) GTEST_TEST( CONCAT( PREFIX, suite ), function ## _ ## name)
 #define TEST(...) VA_SELECT(TEST_,__VA_ARGS__)
 
 #ifndef ENGINE_SHIPVERSION

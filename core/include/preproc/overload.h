@@ -28,9 +28,6 @@
 #ifndef __ENGINE_OVERLOAD_H__
 #define __ENGINE_OVERLOAD_H__
 
-// already included but this fixes IDE warnings in VS
-#include <boost/preprocessor/cat.hpp>
-
 #include "external/overload.h"
 
 #include "preproc/compiler.h"

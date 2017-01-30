@@ -65,14 +65,21 @@ void PluginManager::LoadPlugins( const std::vector< std::string > &plugins )
 {
     for ( auto plugin : plugins )
     {
-        boost::dll::shared_library *lib = new boost::dll::shared_library( plugin, boost::dll::load_mode::append_decorations );
-
-        std::string pluginName = GetName( plugin );
-
-        if ( !LoadPlugin( lib, pluginName, plugin ) )
+        try
         {
-            lib->unload();
-            delete lib;
+            boost::dll::shared_library *lib = new boost::dll::shared_library( plugin, boost::dll::load_mode::append_decorations );
+
+            std::string pluginName = GetName( plugin );
+
+            if ( !LoadPlugin( lib, pluginName, plugin ) )
+            {
+                lib->unload();
+                delete lib;
+            }
+        }
+        catch ( std::exception &e )
+        {
+            Console::Warningp( LOG( "Failed to load plugin on path '{}'!" ), plugin );
         }
     }
 }
@@ -114,7 +121,7 @@ bool PluginManager::IsLoaded( const std::string &name ) const
     return mAreLoaded.find( name ) != mAreLoaded.end();
 }
 
-std::string PluginManager::GetName( const std::string &plugin ) const
+std::string PluginManager::GetName( const std::string &plugin )
 {
     std::string fileName = Path::GetFileName( plugin, true );
 #if !(OS_IS_WINDOWS)
@@ -123,9 +130,9 @@ std::string PluginManager::GetName( const std::string &plugin ) const
     return fileName;
 }
 
-std::string PluginManager::GetLoadFunction( const std::string &fileName ) const
+std::string PluginManager::GetLoadFunction( const std::string &fileName )
 {
-    return  "Load" + fileName + "Plugin";
+    return String::Place( "Load{}PluginX{}", fileName, std::string( ARCH_IS_X86_32 ? "32" : "64" ) ) ;
 }
 
 std::vector< std::string > PluginManager::FindPlugins()
