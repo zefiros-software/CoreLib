@@ -97,7 +97,7 @@ public:
         tI mIt;
     };
 
-    explicit ProgressBar( tT &val )
+    explicit ProgressBar( tT val )
         : mNow( std::chrono::system_clock::now() ),
           mSize( std::distance( std::begin( val ), std::end( val ) ) ),
           mIts( 0 ),
@@ -224,9 +224,9 @@ private:
 
 
 template< typename tT >
-constexpr ProgressBar< std::initializer_list< tT > > Progress( std::initializer_list< tT > val )
+constexpr ProgressBar< std::vector< tT > > Progress( std::initializer_list< tT > val )
 {
-    return ProgressBar< std::initializer_list< tT > >( val );
+    return ProgressBar< std::vector< tT > >( std::vector< tT >( val ) );
 }
 
 template< typename tT >
