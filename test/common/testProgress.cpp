@@ -37,19 +37,22 @@ namespace
     {
         for ( auto i : Progress( { 1, 2, 3, 4 } ) )
         {
-            std::cout << i;
-            std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+            //std::cout << i;
+            //std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
         }
     }
 
     TEST( Progress, Vector )
     {
-        std::vector< U32 > vec = { 1, 2, 3, 4 };
-
-        for ( auto i : Progress( vec ) )
+        for ( volatile size_t j = 0; j < 100; ++j )
         {
-            std::cout << i;
-            std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+            std::vector< U32 > vec = { 1, 2, 3, 4 };
+
+            for ( auto i : Progress( vec ) )
+            {
+                //std::cout << i;
+                //std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+            }
         }
     }
 }
