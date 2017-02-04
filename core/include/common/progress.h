@@ -224,13 +224,13 @@ private:
 
 
 template< typename tT >
-constexpr ProgressBar< std::vector< tT > > Progress( std::initializer_list< tT > val )
+ProgressBar< std::vector< tT > > Progress( std::initializer_list< tT > val )
 {
     return ProgressBar< std::vector< tT > >( std::vector< tT >( val ) );
 }
 
 template< typename tT >
-constexpr ProgressBar< tT > Progress( tT val )
+ProgressBar< tT > Progress( tT val )
 {
     return ProgressBar< tT >( val );
 }
