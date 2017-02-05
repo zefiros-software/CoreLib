@@ -44,10 +44,6 @@ int main( int argc, const char **argv )
 
 #endif
 
-    for ( auto i : Progress( { 1, 2, 3, 4 } ) )
-    {
-    }
-
     Test::EnsureTestDirectories( { "common/" } );
 
     SystemManager *sysmgr = new SystemManager( argc, argv );
