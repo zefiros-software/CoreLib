@@ -24,7 +24,7 @@ else
     if [ "$TYPE" == "debug" ]; then
         if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
             #bin/${ARCH}/core-testd
-            lldb -o run bin/${ARCH}/core-testd
+            gdb -q -n -ex bt -batch run bin/${ARCH}/core-testd
         else
             bin/${ARCH}/core-testd
         fi
