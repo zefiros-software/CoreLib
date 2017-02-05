@@ -47,6 +47,87 @@ class Program
 {
 public:
 
+    template< typename tT >
+    class Options
+    {
+        friend class Program;
+    public:
+
+        explicit Options( boost::program_options::typed_value< tT > *tv )
+            : mTv( tv )
+        {
+        }
+
+        Options( const Options &o )
+            : mTv( o.mTv )
+        {
+        }
+
+        Options &DefaultValue( const tT &val )
+        {
+            mTv->default_value( val );
+            return *this;
+        }
+
+        Options &DefaultValue( const tT &val, const std::string &textual )
+        {
+            mTv->default_value( val, textual );
+            return *this;
+        }
+
+        Options &ImplicitValue( const tT &val )
+        {
+            mTv->implicit_value( val );
+            return *this;
+        }
+
+        Options &ImplicitValue( const tT &val, const std::string &textual )
+        {
+            mTv->implicit_value( val, textual );
+            return *this;
+        }
+
+        Options &ValueName( const std::string &name )
+        {
+            mTv->value_name( name );
+            return *this;
+        }
+
+        Options &Notifier( std::function<void( const tT & )> f )
+        {
+            mTv->notifier( f );
+            return *this;
+        }
+
+        Options &Composing()
+        {
+            mTv->composing();
+            return *this;
+        }
+
+        Options &MultiToken()
+        {
+            mTv->multitoken();
+            return *this;
+        }
+
+        Options &ZeroTokens()
+        {
+            mTv->zero_tokens();
+            return *this;
+        }
+
+        Options &Required()
+        {
+            mTv->required();
+            return *this;
+        }
+
+    private:
+
+        boost::program_options::typed_value< tT > *mTv;
+    };
+
     /// @name Construction
     /// @{
 
@@ -83,10 +164,25 @@ public:
     /// @name CLI
     /// @{
 
-    void AddOption()
+
+    template< typename tT >
+    void AddOption( const std::string &val, const std::string &description,
+                    std::function<Options< tT > ( Options< tT > )> call,
+                    const std::string &group = "" )
     {
-        mDesc.add_options()
-        ( "help,h", "Shows this help screen" );
+        mDesc[group].add_options()
+        ( val.c_str(), call( Options< tT >( boost::program_options::value<tT>() ) ).mTv, description.c_str() );
+    }
+
+    void AddOption( const std::string &val, const std::string &description, const std::string &group = "" )
+    {
+        mDesc[group].add_options()
+        ( val.c_str(), description.c_str() );
+    }
+
+    bool HasOption( const std::string &opt ) const
+    {
+        return mVM.count( opt ) != 0;
     }
 
     /// @}
@@ -108,15 +204,22 @@ protected:
     {
         try
         {
-            mDesc.add_options()
+            mDesc[""].add_options()
             ( "help,h", "Shows this help screen" );
 
-            boost::program_options::variables_map vm;
-            boost::program_options::store( parse_command_line( mArgc, mArgv, mDesc ), vm );
+            boost::program_options::options_description tot;
 
-            if ( vm.count( "help" ) )
+            for ( auto &desc : mDesc )
             {
-                std::cout << mDesc << '\n';
+                tot.add( desc.second );
+            }
+
+            boost::program_options::store( parse_command_line( mArgc, mArgv, tot ), mVM );
+            boost::program_options::notify( mVM );
+
+            if ( mVM.count( "help" ) )
+            {
+                std::cout << tot << '\n';
                 mIsHelpCommand = true;
                 return false;
             }
@@ -132,7 +235,8 @@ protected:
 
 private:
 
-    boost::program_options::options_description mDesc;
+    std::map< std::string, boost::program_options::options_description > mDesc;
+    boost::program_options::variables_map mVM;
     bool mIsHelpCommand;
     bool mIsInitialised;
     S32 mArgc;

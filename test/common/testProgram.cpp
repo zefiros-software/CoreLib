@@ -32,19 +32,66 @@
 
 namespace
 {
-    TEST( Program, ParseCLI )
+    void CleanManagerEnv( std::function<void()> f )
     {
         SystemManager::Get()->Release();
 
-        {
-            const char *argv[] = { "", "--help" };
-            Program program( 2, argv );
-            program.Init();
-        }
+        f();
 
         SystemManager *sysmgr = new SystemManager( 0, nullptr );
         SystemManager::Get( sysmgr );
         sysmgr->RegisterManagers();
         Console::SetMode( Console::LogMode::Disabled );
+    }
+
+    TEST( Program, ParseCLI )
+    {
+        CleanManagerEnv( []()
+        {
+            const char *argv[] = { "", "--help" };
+            Program program( 2, argv );
+            program.Init();
+        } );
+    }
+
+    TEST( Program, ParseCLI2 )
+    {
+        CleanManagerEnv( []()
+        {
+            const char *argv[] = { "", "--help" };
+            Program program( 2, argv );
+            program.AddOption( "dothings", "Do some things" );
+            program.Init();
+        } );
+    }
+
+    TEST( Program, ParseCLI3 )
+    {
+        CleanManagerEnv( []()
+        {
+            const char *argv[] = { "", "--help" };
+            Program program( 2, argv );
+            program.AddOption<size_t>( "dothings", "Do some things", []( Program::Options< size_t > v )
+            {
+                return v.Required();
+            } );
+            program.Init();
+        } );
+    }
+
+    TEST( Program, ParseCLI, HasOption )
+    {
+        CleanManagerEnv( []()
+        {
+            const char *argv[] = { "", "--dothings2" };
+            Program program( 2, argv );
+            program.AddOption<size_t>( "dothings", "Do some things", []( Program::Options< size_t > v )
+            {
+                return v.Required();
+            } );
+            program.Init();
+            EXPECT_FALSE( program.HasOption( "dothings" ) );
+            EXPECT_FALSE( program.HasOption( "dothings2" ) );
+        } );
     }
 }

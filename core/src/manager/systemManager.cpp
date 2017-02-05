@@ -167,7 +167,7 @@ void SystemManager::RegisterManagers()
 
 SystemManager *SystemManager::Get( SystemManager *systemManager /* = nullptr */ )
 {
-    static SystemManager *mSystemManager;
+    static SystemManager *mSystemManager = nullptr;
 
     if ( systemManager )
     {
@@ -196,7 +196,7 @@ const char **SystemManager::GetArgv() const
 void SystemManager::InitialiseManagers()
 {
     for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end() &&
-            mManagerHolder.application->IsRunning(); ++it )
+          mManagerHolder.application->IsRunning(); ++it )
     {
         InitialiseManager( *it );
     }

@@ -33,11 +33,11 @@
 
 
 Program::Program( S32 argc, const char **argv ) noexcept
-    : mDesc( String::Place( "{} - {}", std::string( PROGRAM_NAME ), std::string( PROGRAM_COPYRIGHT ) ) ),
-      mIsHelpCommand( false ),
-      mIsInitialised( false ),
-      mArgc( argc ),
-      mArgv( argv )
+    : mDesc( { { "", String::Place( "{} - {}", std::string( PROGRAM_NAME ), std::string( PROGRAM_COPYRIGHT ) ) } } ),
+mIsHelpCommand( false ),
+mIsInitialised( false ),
+mArgc( argc ),
+mArgv( argv )
 {
     // Create a system manager and provide it for global access
     // using the service locater pattern.
