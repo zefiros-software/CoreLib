@@ -226,14 +226,12 @@ private:
 template< typename tT >
 constexpr ProgressBar< std::vector< tT > > Progress( std::initializer_list< tT > val )
 {
-    std::cout << "Good" << std::endl;
     return ProgressBar< std::vector< tT > >( std::vector< tT >( val ) );
 }
 
 template< typename tT >
 constexpr ProgressBar< tT > Progress( tT val )
 {
-    std::cout << "Wrong" << std::endl;
     return ProgressBar< tT >( val );
 }
 

@@ -31,6 +31,7 @@
 #include "api/system.h"
 
 #include "engineTest.h"
+#include "common/progress.h"
 
 int main( int argc, const char **argv )
 {
@@ -42,6 +43,10 @@ int main( int argc, const char **argv )
     //_crtBreakAlloc = 0;
 
 #endif
+
+    for ( auto i : Progress( { 1, 2, 3, 4 } ) )
+    {
+    }
 
     Test::EnsureTestDirectories( { "common/" } );
 

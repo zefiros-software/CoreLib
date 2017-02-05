@@ -22,7 +22,13 @@ else
 
 
     if [ "$TYPE" == "debug" ]; then
-        bin/${ARCH}/core-testd
+        if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+            ulimit -c unlimited -S
+            bin/${ARCH}/core-testd & pid=$! && fg;
+            lldb --core /cores/core.$pid --batch --one-line "bt"
+        else
+            bin/${ARCH}/core-testd
+        fi
 
     elif [ "$TYPE" == "coverage" ]; then
         ./core-testcd
