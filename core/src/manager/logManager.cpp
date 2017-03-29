@@ -121,10 +121,7 @@ void LogManager::Echo( const std::string &str, Console::LogMode type )
 
 #endif
 
-    if ( type == Console::LogMode::Error || type == Console::LogMode::Warning )
-    {
-        std::cout << str << "\n";
-    }
+    std::cout << str << "\n";
 }
 
 std::string LogManager::GetLogFilePath() const
