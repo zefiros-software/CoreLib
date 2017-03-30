@@ -145,11 +145,11 @@ private:
         std::string rbar = String::Place( "| {0}/{1} [{2}<{3}, {4}]", FormatUnit( n ), FormatUnit( mSize ),
                                           FormatTime( duration ),
                                           FormatTime( std::chrono::seconds( ( size_t )( ( mSize - n ) / rate ) ) ), rateStr );
-        size_t nBars = Mathf::GetMax< size_t >( 1u, cols - lbar.size() - rbar.size() );
+        ptrdiff_t nBars = Mathf::GetMax< ptrdiff_t >( 1, cols - lbar.size() - rbar.size() );
 
-        size_t length = ( size_t )( f * nBars );
+        ptrdiff_t length = ( ptrdiff_t )( f * nBars );
 
-        std::wstring bar = String::Repeat( L"█", length ) + String::Repeat( L" ", nBars - length );
+        std::wstring bar = String::Repeat( L"█", length ) + String::Repeat( L" ", Mathf::GetMax< ptrdiff_t >(nBars - length,0) );
 
         std::cout << lbar;
 #if OS_IS_WINDOWS
