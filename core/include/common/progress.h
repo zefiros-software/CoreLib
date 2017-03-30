@@ -214,11 +214,11 @@ private:
 #if OS_IS_WINDOWS
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
-        return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+        return Mathf::GetMin< size_t >( 1024u, csbi.srWindow.Right - csbi.srWindow.Left + 1);
 #else
         struct winsize w;
         ioctl( 0, TIOCGWINSZ, &w );
-        return w.ws_col;
+        return Mathf::GetMin< size_t >( 1024u, w.ws_col);
 #endif
     }
 };
