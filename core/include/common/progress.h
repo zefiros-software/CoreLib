@@ -149,7 +149,6 @@ private:
 
         size_t length = ( size_t )( f * nBars );
 
-        std::cout << nBars << " " << length << std::endl;
         std::wstring bar = String::Repeat( L"█", length ) + String::Repeat( L" ", nBars - length );
 
         std::cout << lbar;
