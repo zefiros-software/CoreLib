@@ -134,7 +134,7 @@ private:
     size_t mIts;
     tT mVal;
 
-    void FormatMeter( size_t n, std::chrono::seconds duration, size_t cols )
+    void FormatMeter( size_t n, std::chrono::seconds duration, ptrdiff_t cols )
     {
         F32 f = ( F32 )n / mSize;
         F32 rate = ( F32 )n / duration.count();
