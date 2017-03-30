@@ -22,10 +22,10 @@ else
 
 
     if [ "$TYPE" == "debug" ]; then
-        bin/${ARCH}/core-testd
+        ASAN_OPTIONS=detect_odr_violation=0 bin/${ARCH}/core-testd
     elif [ "$TYPE" == "coverage" ]; then
-        ./core-testcd
+        ASAN_OPTIONS=detect_odr_violation=0 ./core-testcd
     else
-        bin/${ARCH}/core-test
+        ASAN_OPTIONS=detect_odr_violation=0 bin/${ARCH}/core-test
     fi
 fi
