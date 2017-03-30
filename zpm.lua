@@ -30,7 +30,8 @@ workspace "CoreLib"
     filter "system:macosx"
     
         buildoptions{"-fsanitize=address", "-fsanitize-memory-track-origins", "-fno-omit-frame-pointer", "-fsanitize-memory-use-after-dtor ", "-fno-optimize-sibling-calls", "-g", "-O1"}
-    
+        linkoptions{"-fsanitize=address", "-fsanitize-memory-track-origins", "-fno-omit-frame-pointer", "-fsanitize-memory-use-after-dtor ", "-fno-optimize-sibling-calls", "-g", "-O1"}
+ 
     project "core"
         useCore()
         
