@@ -25,7 +25,12 @@ workspace "CoreLib"
     filter {}
 
 	zefiros.setDefaults( "core" )
-     
+    
+    --DEBUG
+    filter "system:macosx"
+    
+        buildoptions{"-fsanitize=address", "-fsanitize-memory-track-origins", "-fno-omit-frame-pointer", "-fsanitize-memory-use-after-dtor ", "-fno-optimize-sibling-calls", "-g", "-O1"}
+    
     project "core"
         useCore()
         
