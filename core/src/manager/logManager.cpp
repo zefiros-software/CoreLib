@@ -63,8 +63,12 @@ void LogManager::OnInit()
 #include "warnings/unsafeFunction.h"
 
     std::time_t t = std::time( nullptr );
-    Echo( String::Place( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) ),
-          Console::LogMode::Initialisation );
+
+    if ( MayReport(Console::LogMode::Initialisation) )
+    {
+        Echo( String::Place( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) ),
+                             Console::LogMode::Initialisation );
+    }
 
 #include "warnings/pop.h"
 
