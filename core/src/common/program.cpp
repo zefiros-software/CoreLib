@@ -67,11 +67,12 @@ void Program::Update()
     }
 }
 
-void Program::Init()
+void Program::Init( Console::LogMode logMode = Console::LogMode::All )
 {
     if ( ParseCLI() )
     {
         SystemManager::Get()->GetManagers()->system->Initialise();
+        SystemManager::Get()->GetManagers()->log->SetMode(logMode);
 
         mIsInitialised = true;
     }

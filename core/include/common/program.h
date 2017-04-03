@@ -28,6 +28,8 @@
 #ifndef __ENGINE_GAMEINSTANCE_H__
 #define __ENGINE_GAMEINSTANCE_H__
 
+#include "api/logMode.h"
+
 #include "common/types.h"
 
 #include <boost/program_options.hpp>
@@ -154,7 +156,7 @@ public:
      * Initialize the game instance by setting the working directory and handle command line arguments.
      */
 
-    void Init();
+    void Init( Console::LogMode logMode = Console::LogMode::All );
 
     bool IsRunning() const noexcept;
 
