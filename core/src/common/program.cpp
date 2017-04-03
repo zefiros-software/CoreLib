@@ -26,6 +26,7 @@
 
 #include "manager/applicationManager.h"
 #include "manager/systemManager.h"
+#include "manager/logManager.h"
 
 #include "common/program.h"
 #include "common/format.h"
@@ -67,7 +68,7 @@ void Program::Update()
     }
 }
 
-void Program::Init( Console::LogMode logMode = Console::LogMode::All )
+void Program::Init( Console::LogMode logMode )
 {
     if ( ParseCLI() )
     {
