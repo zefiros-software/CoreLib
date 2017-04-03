@@ -64,12 +64,6 @@ void LogManager::OnInit()
 
     std::time_t t = std::time( nullptr );
 
-    if ( MayReport(Console::LogMode::Initialisation) )
-    {
-        Echo( String::Place( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) ),
-                             Console::LogMode::Initialisation );
-    }
-
 #include "warnings/pop.h"
 
     const std::string logFile = Path::Get( GetLogFilePath(), Path::Type::Data );
