@@ -72,8 +72,8 @@ void Program::Init( Console::LogMode logMode )
 {
     if ( ParseCLI() )
     {
-        SystemManager::Get()->GetManagers()->system->Initialise();
         SystemManager::Get()->GetManagers()->log->SetMode(logMode);
+        SystemManager::Get()->GetManagers()->system->Initialise();
 
         mIsInitialised = true;
     }
