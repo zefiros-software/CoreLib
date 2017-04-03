@@ -73,7 +73,7 @@ void LogManager::OnInit()
         File::Clear( logFile );
     }
 
-    Console::Initp( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) );
+    Console::Initp( "Log file \"%s\" opened on '{:%Y-%m-%dT%H:%M:%SZ}'", logFile, *std::localtime( &t ) );
 
     Log( mStartupBuffer.str() );
     mStartupBuffer.clear();
