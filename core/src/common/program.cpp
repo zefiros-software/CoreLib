@@ -81,7 +81,7 @@ void Program::Init( Console::LogMode logMode )
 
 bool Program::IsRunning() const noexcept
 {
-    if ( !mIsHelpCommand )
+    if ( mIsHelpCommand )
     {
         return false;
     }
