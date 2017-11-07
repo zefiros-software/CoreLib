@@ -22,9 +22,6 @@
 -- @endcond
 --]]
 
-local zefiros = require( "Zefiros-Software/Zefiros-Defaults", "@head" )
-
-
 workspace "CoreLib-ZPM"
 
 	zefiros.setTestZPMDefaults( "core" )
@@ -40,14 +37,16 @@ workspace "CoreLib-ZPM"
                     
         includedirs {
             "../plugin/test4/include/"
-            }	
+        }	
         
     group "Plugins/Test4"
         project "core-plugin-test4"        
             targetname "Test4"
             kind "StaticLib"
             
-            links "CoreLib"
+            zpm.uses {
+                "Zefiros-Software/CoreLib"
+            }      
             
             zpm.uses {
                 "Zefiros-Software/CoreLib"

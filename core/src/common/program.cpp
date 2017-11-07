@@ -34,18 +34,19 @@
 
 
 Program::Program( S32 argc, const char **argv ) noexcept
-    : mDesc( { { "", String::Place( "{} - {}", std::string( PROGRAM_NAME ), std::string( PROGRAM_COPYRIGHT ) ) } } ),
-mIsHelpCommand( false ),
-mIsInitialised( false ),
-mArgc( argc ),
-mArgv( argv )
+    : mDesc({{"", String::Place("{} - {}", std::string(PROGRAM_NAME), std::string(PROGRAM_COPYRIGHT))}}),
+      mIsHelpCommand(false),
+      mCLIParsed(false),
+      mIsInitialised(false),
+      mArgc(argc),
+      mArgv(argv)
 {
     // Create a system manager and provide it for global access
     // using the service locater pattern.
-    SystemManager *systemManager = new SystemManager( mArgc, mArgv );
+    SystemManager* systemManager = new SystemManager(mArgc, mArgv);
 
     // Provide our service locator
-    SystemManager::Get( systemManager );
+    SystemManager::Get(systemManager);
 
     systemManager->RegisterManagers();
 }
@@ -70,18 +71,23 @@ void Program::Update()
 
 void Program::Init( Console::LogMode logMode )
 {
-    if ( ParseCLI() )
+    mCLIParsed = ParseCLI();
+    if (mCLIParsed)
     {
         SystemManager::Get()->GetManagers()->log->SetMode(logMode);
         SystemManager::Get()->GetManagers()->system->Initialise();
 
         mIsInitialised = true;
     }
+    else
+    {
+        SystemManager::Get()->GetManagers()->log->SetMode(Console::LogMode::Disabled);
+    }
 }
 
 bool Program::IsRunning() const noexcept
 {
-    if ( mIsHelpCommand )
+    if ( mIsHelpCommand || !mCLIParsed )
     {
         return false;
     }
@@ -94,7 +100,49 @@ bool Program::IsRunning() const noexcept
     return SystemManager::Get()->GetManagers()->application->IsRunning();
 }
 
+void Program::AddOption(const std::string &val, const std::string &description, const std::string &group /*= "" */)
+{
+    mDesc[group].add_options()(val.c_str(), description.c_str());
+}
+
+bool Program::HasOption(const std::string &opt) const
+{
+    return mVM.count(opt) != 0;
+}
+
 void Program::Shutdown()
 {
     SystemManager::Get()->Release();
+}
+
+bool Program::ParseCLI()
+{
+    try
+    {
+        mDesc[""].add_options()("help,h", "Shows this help screen");
+
+        boost::program_options::options_description tot;
+
+        for (auto &desc : mDesc)
+        {
+            tot.add(desc.second);
+        }
+
+        boost::program_options::store(parse_command_line(mArgc, mArgv, tot), mVM);
+        boost::program_options::notify(mVM);
+
+        if (mVM.count("help"))
+        {
+            std::cout << tot;
+            mIsHelpCommand = true;
+            return false;
+        }
+    }
+    catch (const boost::program_options::error &ex)
+    {
+        std::cerr << ex.what() << '\n';
+        return false;
+    }
+
+    return true;
 }

@@ -79,7 +79,7 @@ void PluginManager::LoadPlugins( const std::vector< std::string > &plugins )
         }
         catch ( std::exception &e )
         {
-            Console::Warningp( LOG( "Failed to load plugin on path '{}'!" ), plugin );
+            Console::Warningp( LOG( "Failed to load plugin on path '{}':\n\t{}" ), plugin, std::string(e.what()) );
         }
     }
 }

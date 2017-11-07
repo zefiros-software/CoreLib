@@ -1,6 +1,3 @@
-local zefiros = require( "Zefiros-Software/Zefiros-Defaults", "@head" )
-
-
 function useCore()
     zpm.uses {
         "Zefiros-Software/MathLib",
@@ -13,7 +10,7 @@ end
 
 workspace "CoreLib"   
         
-    flags "C++14"
+    cppdialect "C++14"
     pic "On"     
 
     filter "system:linux"            
@@ -24,13 +21,7 @@ workspace "CoreLib"
 
     filter {}
 
-	zefiros.setDefaults( "core" )
-    
-    --DEBUG
-    filter "system:macosx"
-    
-        buildoptions{"-fsanitize=address", "-fsanitize-memory-track-origins", "-fno-omit-frame-pointer", "-fsanitize-memory-use-after-dtor ", "-fno-optimize-sibling-calls", "-g", "-O1"}
-        linkoptions{"-fsanitize=address", "-fsanitize-memory-track-origins", "-fno-omit-frame-pointer", "-fsanitize-memory-use-after-dtor ", "-fno-optimize-sibling-calls", "-g", "-O1"}
+	zefiros.setDefaults("core")
  
     project "core"
         useCore()
@@ -49,10 +40,10 @@ workspace "CoreLib"
                     
         includedirs {
             "plugin/test4/include/"
-            }	
+        }	
         
     
-    group( "Plugins/" )
+    group "Plugins/"
         project "core-plugin-test"    
             targetname "Test"
             kind "SharedLib"   
@@ -62,18 +53,18 @@ workspace "CoreLib"
             useCore()    
         
             zpm.uses {
-                "Zefiros-Software/GoogleTest",
+                "Zefiros-Software/GoogleTest"
             }
                     
             includedirs {
                 "core/include/"
-                }				
+            }				
                 
             files { 
                 "plugin/include/**.hpp",
                 "plugin/include/**.h",
                 "plugin/test/src/**.cpp"
-                }
+            }
         
             filter "platforms:x86"
                 targetdir "bin/x86/plugins/"
@@ -83,7 +74,7 @@ workspace "CoreLib"
 
             filter {}
 
-    group( "Plugins/Test2" )
+    group "Plugins/Test2"
         project "core-plugin-test2"      
             targetname "Test2"
             kind "SharedLib"   
@@ -99,11 +90,11 @@ workspace "CoreLib"
             includedirs {
                 "core/include/",
                 "plugin/test2/include/"
-                }	
+            }	
 
             files { 
                 "plugin/test2/src/plugin.cpp"
-                }
+            }
         
             filter "platforms:x86"
                 targetdir "bin/x86/plugins/"
@@ -124,15 +115,15 @@ workspace "CoreLib"
             includedirs {
                 "core/include/",
                 "plugin/test2/include/"
-                }						     			
+            }						     			
                 
             files { 
                 "plugin/include/**.hpp",
                 "plugin/include/**.h",
                 "plugin/test2/src/test2.cpp"
-                }
+            }
 
-    group( "Plugins/Test3" )
+    group "Plugins/Test3"
         project "core-plugin-test3"        
             targetname "Test3"
             kind "SharedLib"   
@@ -188,7 +179,7 @@ workspace "CoreLib"
                 }
         
 
-    group( "Plugins/Test4" )
+    group "Plugins/Test4"
         project "core-plugin-test4"    
             targetname "Test4"
             kind "StaticLib"

@@ -176,16 +176,9 @@ public:
         ( val.c_str(), call( Options< tT >( boost::program_options::value<tT>() ) ).mTv, description.c_str() );
     }
 
-    void AddOption( const std::string &val, const std::string &description, const std::string &group = "" )
-    {
-        mDesc[group].add_options()
-        ( val.c_str(), description.c_str() );
-    }
+    void AddOption( const std::string &val, const std::string &description, const std::string &group = "" );
 
-    bool HasOption( const std::string &opt ) const
-    {
-        return mVM.count( opt ) != 0;
-    }
+    bool HasOption( const std::string &opt ) const;
 
     /// @}
 
@@ -202,44 +195,14 @@ protected:
 
     /// @}
 
-    bool ParseCLI()
-    {
-        try
-        {
-            mDesc[""].add_options()
-            ( "help,h", "Shows this help screen" );
-
-            boost::program_options::options_description tot;
-
-            for ( auto &desc : mDesc )
-            {
-                tot.add( desc.second );
-            }
-
-            boost::program_options::store( parse_command_line( mArgc, mArgv, tot ), mVM );
-            boost::program_options::notify( mVM );
-
-            if ( mVM.count( "help" ) )
-            {
-                std::cout << tot << '\n';
-                mIsHelpCommand = true;
-                return false;
-            }
-        }
-        catch ( const boost::program_options::error &ex )
-        {
-            std::cerr << ex.what() << '\n';
-            return false;
-        }
-
-        return true;
-    }
+    bool ParseCLI();
 
 private:
 
     std::map< std::string, boost::program_options::options_description > mDesc;
     boost::program_options::variables_map mVM;
     bool mIsHelpCommand;
+    bool mCLIParsed;
     bool mIsInitialised;
     S32 mArgc;
     const char **mArgv;

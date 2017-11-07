@@ -28,27 +28,29 @@
 #ifndef __PROGRESS_H__
 #define __PROGRESS_H__
 
-#include "common/progress.h"
 #include "common/format.h"
 #include "common/string.h"
+#include "common/range.h"
 
 #include "preproc/os.h"
 
 #include "math/scalar/mathf.h"
-#include "date.h"
+#include "date/date.h"
 
-#include <algorithm>
 #include <iostream>
 #include <chrono>
 
 #if OS_IS_WINDOWS
 #   include <windows.h>
+#   include <io.h>
 #   include <fcntl.h>
 #else
 #   include <sys/ioctl.h>
 #   include <stdio.h>
 #   include <unistd.h>
 #endif
+
+extern size_t gActiveProgressBars;
 
 // based on https://github.com/tqdm/tqdm/blob/master/tqdm/_tqdm.py
 template< typename tT >
@@ -98,22 +100,70 @@ public:
     };
 
     explicit ProgressBar( tT val )
-        : mNow( std::chrono::system_clock::now() ),
-          mSize( std::distance( std::begin( val ), std::end( val ) ) ),
-          mIts( 0 ),
-          mVal( val )
+        : mNow(std::chrono::system_clock::now()),
+          mSize(std::distance(std::begin(val), std::end(val))),
+          mIts(0),
+          mCopied(false),
+          mVal(val)
     {
+        mBarIndex = gActiveProgressBars++;
+        if (mBarIndex > 0)
+        {
+            std::cout << "\n";
+        }
+    }
+
+    ProgressBar(ProgressBar &other) noexcept
+        : mNow(other.mNow),
+        mBarIndex(other.mBarIndex),
+        mSize(other.mSize),
+        mIts(other.mIts),
+        mCopied(true),
+        mVal(other.mVal)
+    {
+    }
+
+    ProgressBar(ProgressBar &&other) noexcept
+        : mNow(other.mNow),
+        mBarIndex(other.mBarIndex),
+        mSize(other.mSize),
+        mIts(other.mIts),
+        mCopied(other.mCopied),
+        mVal(other.mVal)
+    {
+    }
+
+    ~ProgressBar()
+    {
+        if (!mCopied)
+        {
+            if (--gActiveProgressBars > 0)
+            {
+                std::cout << "\r" << String::Repeat(" ", GetColumns() - 1) << "\r";
+#if OS_IS_WINDOWS
+
+                HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+                CONSOLE_SCREEN_BUFFER_INFO csbi;
+                GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+                COORD position = { 0, csbi.dwCursorPosition.Y - 1 };
+                SetConsoleCursorPosition(hStdout, position);
+#else
+
+                std::cout << "\033[A\r\33[2K";
+#endif
+            }
+
+        }
+
     }
 
     void Increment()
     {
         ++mIts;
-
         std::cout << "\r";
-
         std::chrono::time_point< std::chrono::system_clock > now = std::chrono::system_clock::now();
         std::chrono::seconds diff = std::chrono::duration_cast<std::chrono::seconds>( now - mNow );
-        FormatMeter( mIts, diff, GetColumns() - 1 );
+        FormatMeter(mIts, diff, GetColumns() - 1);
     }
 
     auto begin()
@@ -130,8 +180,10 @@ private:
 
     std::chrono::time_point< std::chrono::system_clock > mNow;
     std::string mPrefix;
+    size_t mBarIndex;
     size_t mSize;
     size_t mIts;
+    bool mCopied;
     tT mVal;
 
     void FormatMeter( size_t n, std::chrono::seconds duration, ptrdiff_t cols )
@@ -152,6 +204,7 @@ private:
         std::wstring bar = String::Repeat( L"█", length ) + String::Repeat( L" ", Mathf::GetMax< ptrdiff_t >(nBars - length,0) );
 
         std::cout << lbar;
+
 #if OS_IS_WINDOWS
         S32 prev = _setmode( _fileno( stdout ), _O_U8TEXT );
 #endif
@@ -223,16 +276,18 @@ private:
 };
 
 
-template< typename tT >
-constexpr ProgressBar< std::vector< tT > > Progress( std::initializer_list< tT > val )
+template< typename tT, typename tR = tT >
+constexpr ProgressBar< std::vector< tR > > Progress( std::initializer_list< tT > val )
 {
-    return ProgressBar< std::vector< tT > >( std::vector< tT >( val.begin(), val.end() ) );
+    return ProgressBar< std::vector< tR > >( std::vector< tT >( val.begin(), val.end() ) );
 }
 
-template< typename tT >
-constexpr ProgressBar< tT > Progress( tT val )
+ProgressBar< std::vector< int32_t > > Progress(int32_t val);
+
+template< typename tT>
+ProgressBar< tT > Progress(tT val)
 {
-    return ProgressBar< tT >( val );
+    return ProgressBar< tT >(val);
 }
 
 #endif

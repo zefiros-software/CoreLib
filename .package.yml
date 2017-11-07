@@ -1,0 +1,29 @@
+name: Zefiros-Software/CoreLib
+public:
+  libraries:
+    - name: Zefiros-Software/Boost
+      version: '>1.61.0'
+      settings:
+          filesystem: true
+          programoptions: true
+    - name: Zefiros-Software/Fmt
+      version: ^4.0.0
+    - name: Zefiros-Software/Date
+      version: '^2.1.0'
+    - name: Zefiros-Software/MathLib
+      version: '@head'
+development:
+  modules:
+    - name: Zefiros-Software/Zefiros-Defaults
+      version: '@head'
+
+settings:
+  name: 
+    reduce: first
+    default: PROGRAM NAME
+  company:
+    reduce: first
+    default: COMPANY
+  copyright: 
+    reduce: first
+    default: COPYRIGHT

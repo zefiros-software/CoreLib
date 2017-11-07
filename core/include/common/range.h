@@ -55,7 +55,7 @@ struct IotaWrapper
         value = incrFunction( value );
         return *this;
     }
-};
+}; 
 
 template<class tT>
 std::vector<tT> Range( const tT &first, const tT &last )
@@ -64,7 +64,7 @@ std::vector<tT> Range( const tT &first, const tT &last )
     {
         return n + 1;
     } );
-    std::vector<tT> result( last - first );
+    std::vector<tT> result( static_cast<tT>(last - first));
     std::iota( result.begin(), result.end(), iota );
     return result;
 }
@@ -79,6 +79,12 @@ std::vector<tT> Range( const tT &first, const tT &last, const tT &increment )
     std::vector<tT> result( ( last - first ) / increment );
     std::iota( result.begin(), result.end(), iota );
     return result;
+}
+
+template<class tT>
+std::vector<tT> Range(tT last)
+{
+    return Range<tT>(static_cast<tT>(0), last);
 }
 
 #endif

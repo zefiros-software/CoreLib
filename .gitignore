@@ -40,3 +40,6 @@ test/assets
 profile.txt
 cov/
 *.lock
+**/@bin/*
+**/@obj/*
+.zpm/*
