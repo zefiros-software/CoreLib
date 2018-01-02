@@ -5,7 +5,7 @@ test/bin/*
 
 -- zpm
 .config.json
-docs/style/.assets.lua
+.config.yml
 
 -- git
 *.orig
@@ -33,13 +33,4 @@ Makefile
 *.chm
 
 -- ZPM 
-extern/
-assets/
-test/extern
-test/assets
-profile.txt
-cov/
 *.lock
-**/@bin/*
-**/@obj/*
-.zpm/*
