@@ -15,6 +15,13 @@ project "CoreLib"
             "PROGRAM_COMPANY=\"".. zpm.setting( "company" ) .. "\"",
             "PROGRAM_COPYRIGHT=\"".. zpm.setting( "copyright" ) .. "\""
         }    
+    
+        zpm.uses {
+            "Zefiros-Software/MathLib",
+            "Zefiros-Software/Boost",
+            "Zefiros-Software/Date",
+            "Zefiros-Software/Fmt"
+        }
 
         filter "system:not macosx"
             linkgroups "On"
@@ -27,10 +34,3 @@ project "CoreLib"
 
         filter {}
     end)
-    
-    zpm.uses {
-        "Zefiros-Software/MathLib",
-        "Zefiros-Software/Boost",
-        "Zefiros-Software/Date",
-        "Zefiros-Software/Fmt"
-    }
