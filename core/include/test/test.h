@@ -88,7 +88,7 @@ namespace Test
 {
     inline std::string GenerateDirectoryName( const std::string &root = "" )
     {
-        return root != "" ? root + "/" + Path::GetUniqueDirectory() : Path::GetUniqueDirectory();
+        return root != "" ? Path::Canonical(root + "/" + Path::GetUniqueDirectory()) : Path::GetUniqueDirectory();
     }
 
 

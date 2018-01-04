@@ -262,12 +262,12 @@ namespace Path
 
     std::string GetTempDirectory() noexcept
     {
-        return FixStyle( boost::filesystem::temp_directory_path().generic_string() );
+        return Canonical( boost::filesystem::temp_directory_path().generic_string() );
     }
 
     std::string GetExeDirectory() noexcept
     {
-        return FixStyle( boost::filesystem::path( GetExeFile() ).parent_path().generic_string() );
+        return Canonical( boost::filesystem::path( GetExeFile() ).parent_path().generic_string() );
     }
 
     std::string GetExeFile() noexcept
