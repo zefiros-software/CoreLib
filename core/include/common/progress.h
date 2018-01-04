@@ -206,12 +206,14 @@ private:
         std::cout << lbar;
 
 #if OS_IS_WINDOWS
-        S32 prev = _setmode( _fileno( stdout ), _O_U8TEXT );
+        fflush(stdout);
+        S32 prev = _setmode( _fileno( stdout ), _O_WTEXT );
 #endif
 
         std::wcout << bar;
 
 #if OS_IS_WINDOWS
+        fflush(stdout);
         _setmode( _fileno( stdout ), prev );
 #endif
         std::cout << rbar;
