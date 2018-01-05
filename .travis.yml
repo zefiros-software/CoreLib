@@ -75,9 +75,10 @@ matrix:
       env: 
         - BUILD_CONFIG=zpm
         - GCC_VERSION=6
-env:
-  - PROJECT=CoreLib
-  - PROJECT_DIRECTORY=core
+global:
+  env:
+    - PROJECT=CoreLib
+    - PROJECT_DIRECTORY=core
 install:
   - source /dev/stdin <<< "$(curl -s https://raw.githubusercontent.com/Zefiros-Software/ZPM/features/refactor/script/install-zpm.sh)"
 script:
