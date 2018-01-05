@@ -1,6 +1,9 @@
 platform:
   - Win32
 build: off
+cache:
+  - '%USERPROFILE%/zpm -> .zpm.lock'
+  - '%TEMP%/zpm-cache -> .zpm.lock'
 environment:
   PYTHON: "C:\\Python35"
   PROJECT: CoreLib
