@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,11 +43,11 @@
 #endif
 
 LogManager::LogManager()
-    : mLogMode( Console::LogMode::All )
+    : mLogMode(Console::LogMode::All)
 {
 }
 
-void LogManager::SetMode( Console::LogMode mode )
+void LogManager::SetMode(Console::LogMode mode)
 {
     mLogMode = mode;
 }
@@ -62,61 +62,61 @@ void LogManager::OnInit()
 #include "warnings/push.h"
 #include "warnings/unsafeFunction.h"
 
-    std::time_t t = std::time( nullptr );
+    std::time_t t = std::time(nullptr);
 
 #include "warnings/pop.h"
 
-    const std::string logFile = Path::Get( GetLogFilePath(), Path::Type::Data );
+    const std::string logFile = Path::Get(GetLogFilePath(), Path::Type::Data);
 
-    if ( File::Exists( logFile ) )
+    if (File::Exists(logFile))
     {
-        File::Clear( logFile );
+        File::Clear(logFile);
     }
 
-    Console::Initf( "Log file location: %s", logFile );
-    Console::Initp( "Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime( &t ) );
+    Console::Initf("Log file location: %s", logFile);
+    Console::Initp("Log file opened on '{:%Y-%m-%dT%H:%M:%SZ}'", *std::localtime(&t));
 
-    Log( mStartupBuffer.str() );
+    Log(mStartupBuffer.str());
     mStartupBuffer.clear();
 }
 
 void LogManager::OnRelease()
 {
-    Printf( "Performed a clean exit..." );
+    Printf("Performed a clean exit...");
 }
 
-void LogManager::Log( const std::string &str ) const
+void LogManager::Log(const std::string &str) const
 {
-    std::lock_guard< std::recursive_mutex > lock( mMutex );
+    std::lock_guard< std::recursive_mutex > lock(mMutex);
 
     std::ofstream pFile;
-    File::WriteOpen( pFile, GetLogFilePath(), Path::Type::Data, std::ios::out | std::ios::app );
+    File::WriteOpen(pFile, GetLogFilePath(), Path::Type::Data, std::ios::out | std::ios::app);
 
     pFile << str;
 
     pFile.close();
 }
 
-void LogManager::Echo( const std::string &str, Console::LogMode type )
+void LogManager::Echo(const std::string &str, Console::LogMode type)
 {
-    std::lock_guard< std::recursive_mutex > lock( mMutex );
+    std::lock_guard< std::recursive_mutex > lock(mMutex);
 
 
-    std::string result = String::Place( "[{:%Y-%m-%dT%H:%M:%SZ}] {}: {}\n", Util::Now(), Console::GetName( type ), str );
+    std::string result = String::Place("[{:%Y-%m-%dT%H:%M:%SZ}] {}: {}\n", Util::Now(), Console::GetName(type), str);
 
-    if ( !IsInitialised() )
+    if (!IsInitialised())
     {
         mStartupBuffer << result;
     }
     else
     {
-        Log( result );
+        Log(result);
     }
 
 #if defined( _MSC_VER ) && IS_DEBUG
 
     //output to the visual studio output log
-    OutputDebugStringW( String::ToWString( result ).c_str() );
+    OutputDebugStringW(String::ToWString(result).c_str());
 
 #endif
 
@@ -125,15 +125,15 @@ void LogManager::Echo( const std::string &str, Console::LogMode type )
 
 std::string LogManager::GetLogFilePath() const
 {
-    return GetManagers()->configuration->GetString( "ConsoleLog" );
+    return GetManagers()->configuration->GetString("ConsoleLog");
 }
 
-bool LogManager::MayReport( Console::LogMode mode ) const
+bool LogManager::MayReport(Console::LogMode mode) const
 {
-    return MayReport( mode, mLogMode );
+    return MayReport(mode, mLogMode);
 }
 
-bool LogManager::MayReport( Console::LogMode mode, Console::LogMode current )
+bool LogManager::MayReport(Console::LogMode mode, Console::LogMode current)
 {
-    return static_cast<U32>( mode ) <= static_cast<U32>( current );
+    return static_cast<U32>(mode) <= static_cast<U32>(current);
 }

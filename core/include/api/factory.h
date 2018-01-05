@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,22 +33,22 @@
 
 namespace Factory
 {
-    EXPOSE_API( factory, Add );
-    EXPOSE_API_NOARG( factory, Add );
+    EXPOSE_API(factory, Add);
+    EXPOSE_API_NOARG(factory, Add);
 
-    EXPOSE_API( factory, Clear );
-    EXPOSE_API_NOARG( factory, Clear );
+    EXPOSE_API(factory, Clear);
+    EXPOSE_API_NOARG(factory, Clear);
 
-    EXPOSE_API( factory, ClearAll );
+    EXPOSE_API(factory, ClearAll);
 
-    EXPOSE_API( factory, Has );
-    EXPOSE_API_NOARG( factory, Has );
+    EXPOSE_API(factory, Has);
+    EXPOSE_API_NOARG(factory, Has);
 
-    EXPOSE_API( factory, Get );
-    EXPOSE_API_NOARG( factory, Get );
+    EXPOSE_API(factory, Get);
+    EXPOSE_API_NOARG(factory, Get);
 
-    EXPOSE_API( factory, Create );
-    EXPOSE_API_NOARG( factory, Create );
+    EXPOSE_API(factory, Create);
+    EXPOSE_API_NOARG(factory, Create);
 }
 
 #endif

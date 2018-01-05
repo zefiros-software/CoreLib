@@ -33,13 +33,13 @@
 
 namespace
 {
-    TEST( ThreadingVariableManager, Sanity )
+    TEST(ThreadingVariableManager, Sanity)
     {
         ThreadingVariableManager m;
         m.OnRelease();
     }
 
-    TEST( ThreadingVariableManager, OnSynchroniseMngr )
+    TEST(ThreadingVariableManager, OnSynchroniseMngr)
     {
         auto old = SystemManager::Get()->GetManagers()->threadingVariable;
         ThreadingVariableManager m;
@@ -49,11 +49,11 @@ namespace
         U8 val = 0;
         ThreadPtr< U8 > p;
 
-        p.Set( &val );
+        p.Set(&val);
 
         m.OnUpdate();
 
-        EXPECT_EQ( &val, p.Get() );
+        EXPECT_EQ(&val, p.Get());
 
         SystemManager::Get()->GetManagers()->threadingVariable = old;
     }

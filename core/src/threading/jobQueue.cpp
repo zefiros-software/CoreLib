@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,39 +33,39 @@ JobQueue::JobQueue() noexcept
 
 }
 
-JobQueue::JobQueue( const JobQueue &&queue ) noexcept
-    : mJobQueue( queue.mJobQueue ),
-      mUpdateQueue( queue.mUpdateQueue )
+JobQueue::JobQueue(const JobQueue &&queue) noexcept
+    : mJobQueue(queue.mJobQueue),
+      mUpdateQueue(queue.mUpdateQueue)
 {
 
 }
 
 JobQueue::~JobQueue() noexcept
 {
-    while ( !mUpdateQueue.empty() )
+    while (!mUpdateQueue.empty())
     {
         mUpdateQueue.back()->OnJobFinished();
         mUpdateQueue.pop();
     }
 }
 
-void JobQueue::Push( IThreadExecutable *const job )
+void JobQueue::Push(IThreadExecutable *const job)
 {
-    std::lock_guard< SpinLock > lock( mPushLock );
+    std::lock_guard< SpinLock > lock(mPushLock);
 
-    mUpdateQueue.push( job );
+    mUpdateQueue.push(job);
 }
 
 void JobQueue::Flush() noexcept
 {
-    while ( !mJobQueue.empty() )
+    while (!mJobQueue.empty())
     {
         mJobQueue.pop();
     }
 
-    while ( !mUpdateQueue.empty() )
+    while (!mUpdateQueue.empty())
     {
-        mJobQueue.push( mUpdateQueue.front() );
+        mJobQueue.push(mUpdateQueue.front());
 
         mUpdateQueue.pop();
     }
@@ -77,7 +77,7 @@ IThreadExecutable *JobQueue::Pop()
 
     mPopLock.lock();
 
-    if ( !mJobQueue.empty() )
+    if (!mJobQueue.empty())
     {
         job = mJobQueue.front();
         mJobQueue.pop();

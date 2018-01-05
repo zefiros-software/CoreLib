@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,17 +33,17 @@
 #include "config.h"
 
 
-Program::Program( S32 argc, const char **argv ) noexcept
-    : mDesc({{"", String::Place("{} - {}", std::string(PROGRAM_NAME), std::string(PROGRAM_COPYRIGHT))}}),
-      mIsHelpCommand(false),
-      mCLIParsed(false),
-      mIsInitialised(false),
-      mArgc(argc),
-      mArgv(argv)
+Program::Program(S32 argc, const char **argv) noexcept
+    : mDesc( { {"", String::Place("{} - {}", std::string(PROGRAM_NAME), std::string(PROGRAM_COPYRIGHT))}}),
+mIsHelpCommand(false),
+mCLIParsed(false),
+mIsInitialised(false),
+mArgc(argc),
+mArgv(argv)
 {
     // Create a system manager and provide it for global access
     // using the service locater pattern.
-    SystemManager* systemManager = new SystemManager(mArgc, mArgv);
+    SystemManager *systemManager = new SystemManager(mArgc, mArgv);
 
     // Provide our service locator
     SystemManager::Get(systemManager);
@@ -58,9 +58,9 @@ Program::~Program()
 
 void Program::Update()
 {
-    if ( !mIsHelpCommand )
+    if (!mIsHelpCommand)
     {
-        if ( !mIsInitialised )
+        if (!mIsInitialised)
         {
             Init();
         }
@@ -69,9 +69,10 @@ void Program::Update()
     }
 }
 
-void Program::Init( Console::LogMode logMode )
+void Program::Init(Console::LogMode logMode)
 {
     mCLIParsed = ParseCLI();
+
     if (mCLIParsed)
     {
         SystemManager::Get()->GetManagers()->log->SetMode(logMode);
@@ -87,12 +88,12 @@ void Program::Init( Console::LogMode logMode )
 
 bool Program::IsRunning() const noexcept
 {
-    if ( mIsHelpCommand || !mCLIParsed )
+    if (mIsHelpCommand || !mCLIParsed)
     {
         return false;
     }
 
-    if ( !mIsInitialised )
+    if (!mIsInitialised)
     {
         return true;
     }

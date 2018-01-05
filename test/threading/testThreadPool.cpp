@@ -44,20 +44,20 @@ namespace
         std::function<void()> mFunc;
     };
 
-    TEST( ThreadPool, Sanity )
+    TEST(ThreadPool, Sanity)
     {
         ThreadPool p;
     }
 
-    TEST( ThreadPool, Init )
+    TEST(ThreadPool, Init)
     {
         ThreadPool p;
         p.Init();
 
-        EXPECT_FALSE( p.IsRunning() );
+        EXPECT_FALSE(p.IsRunning());
     }
 
-    TEST( ThreadPool, Run )
+    TEST(ThreadPool, Run)
     {
         ThreadPool p;
         p.Init();
@@ -66,12 +66,12 @@ namespace
         Executable e;
         e.mFunc = [&] { ran = true; };
         JobQueue a;
-        a.Push( &e );
+        a.Push(&e);
         a.Flush();
 
-        p.Run( &a );
+        p.Run(&a);
         p.JoinAll();
 
-        EXPECT_TRUE( ran );
+        EXPECT_TRUE(ran);
     }
 }

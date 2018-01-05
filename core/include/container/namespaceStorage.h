@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -123,34 +123,34 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool Add( tStoredType *object, const tName &name, const Namespace ns = 0u )
+    bool Add(tStoredType *object, const tName &name, const Namespace ns = 0u)
     {
         // Separate the namespace on addin level
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            std::lock_guard< std::recursive_mutex > lock( mMutex );
+            std::lock_guard< std::recursive_mutex > lock(mMutex);
 
             std::unordered_map< tName, tStoredType * > &nameMap = mAddinObjects[ ns ];
 
-            const auto objectIt = nameMap.find( name );
+            const auto objectIt = nameMap.find(name);
 
-            if ( objectIt == nameMap.end() )
+            if (objectIt == nameMap.end())
             {
                 nameMap[ name ] = object;
-                mPluginAddins[ ns.GetPlugin() ].insert( ns.GetAddin() );
+                mPluginAddins[ ns.GetPlugin() ].insert(ns.GetAddin());
 
                 return true;
             }
         }
         else
         {
-            std::lock_guard< std::recursive_mutex > lock( mMutex );
+            std::lock_guard< std::recursive_mutex > lock(mMutex);
 
             std::unordered_map< tName, tStoredType * > &nameMap = mPluginObjects[ ns.GetPlugin() ];
 
-            const auto objectIt = nameMap.find( name );
+            const auto objectIt = nameMap.find(name);
 
-            if ( objectIt == nameMap.end() )
+            if (objectIt == nameMap.end())
             {
                 nameMap[ name ] = object;
 
@@ -169,23 +169,23 @@ public:
 
     void Clear()
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        for ( const auto &nameit : mPluginObjects )
+        for (const auto &nameit : mPluginObjects)
         {
             const std::unordered_map< tName, tStoredType * > &nameMap = nameit.second;
 
-            for ( const auto &it : nameMap )
+            for (const auto &it : nameMap)
             {
                 delete it.second;
             }
         }
 
-        for ( const auto &nameit : mAddinObjects )
+        for (const auto &nameit : mAddinObjects)
         {
             const std::unordered_map< tName, tStoredType * > &nameMap = nameit.second;
 
-            for ( const auto &it : nameMap )
+            for (const auto &it : nameMap)
             {
                 delete it.second;
             }
@@ -204,15 +204,15 @@ public:
      * @param   ns  The namespace.
      */
 
-    void Clear( const Namespace ns )
+    void Clear(const Namespace ns)
     {
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            RemoveObjectsByAddinNamespace( ns );
+            RemoveObjectsByAddinNamespace(ns);
         }
         else
         {
-            RemoveObjectsByPluginNamespace( ns.GetPlugin() );
+            RemoveObjectsByPluginNamespace(ns.GetPlugin());
         }
     }
 
@@ -225,41 +225,41 @@ public:
      * @param   ns      (optional) The namespace.
      */
 
-    void Remove( const tName &name, const Namespace ns = 0u )
+    void Remove(const tName &name, const Namespace ns = 0u)
     {
         std::unordered_map< tName, tStoredType * > *nameMap = nullptr;
 
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            const auto addinIt = mAddinObjects.find( ns );
+            const auto addinIt = mAddinObjects.find(ns);
 
-            if ( addinIt != mAddinObjects.end() )
+            if (addinIt != mAddinObjects.end())
             {
                 nameMap = &addinIt->second;
             }
         }
         else
         {
-            auto pluginIt = mPluginObjects.find( ns.GetPlugin() );
+            auto pluginIt = mPluginObjects.find(ns.GetPlugin());
 
-            if ( pluginIt != mPluginObjects.end() )
+            if (pluginIt != mPluginObjects.end())
             {
                 nameMap = &pluginIt->second;
             }
         }
 
 
-        if ( nameMap )
+        if (nameMap)
         {
-            const auto objectIt = nameMap->find( name );
+            const auto objectIt = nameMap->find(name);
 
-            if ( objectIt != nameMap->end() )
+            if (objectIt != nameMap->end())
             {
                 delete objectIt->second;
 
-                nameMap->erase( objectIt );
+                nameMap->erase(objectIt);
             }
         }
     }
@@ -280,36 +280,36 @@ public:
      * @return  null if it fails, else returns the stored object.
      */
 
-    tStoredType *Get( const tName &name, const Namespace ns = 0u ) const
+    tStoredType *Get(const tName &name, const Namespace ns = 0u) const
     {
         const std::unordered_map< tName, tStoredType * > *nameMap = nullptr;
 
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            const auto nameIt = mAddinObjects.find( ns );
+            const auto nameIt = mAddinObjects.find(ns);
 
-            if ( nameIt != mAddinObjects.end() )
+            if (nameIt != mAddinObjects.end())
             {
                 nameMap = &nameIt->second;
             }
         }
         else
         {
-            const auto nameIt = mPluginObjects.find( ns.GetPlugin() );
+            const auto nameIt = mPluginObjects.find(ns.GetPlugin());
 
-            if ( nameIt != mPluginObjects.end() )
+            if (nameIt != mPluginObjects.end())
             {
                 nameMap = &nameIt->second;
             }
         }
 
-        if ( nameMap )
+        if (nameMap)
         {
-            const auto objectIt = nameMap->find( name );
+            const auto objectIt = nameMap->find(name);
 
-            if ( objectIt != nameMap->end() )
+            if (objectIt != nameMap->end())
             {
                 return objectIt->second;
             }
@@ -334,34 +334,34 @@ public:
      * @return  true if it has an object stored under this name, false if not.
      */
 
-    bool Has( const tName &name, const Namespace ns = 0u ) const
+    bool Has(const tName &name, const Namespace ns = 0u) const
     {
         const std::unordered_map< tName, tStoredType * > *nameMap = nullptr;
 
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            const auto nameIt = mAddinObjects.find( ns );
+            const auto nameIt = mAddinObjects.find(ns);
 
-            if ( nameIt != mAddinObjects.end() )
+            if (nameIt != mAddinObjects.end())
             {
                 nameMap = &nameIt->second;
             }
         }
         else
         {
-            const auto nameIt = mPluginObjects.find( ns.GetPlugin() );
+            const auto nameIt = mPluginObjects.find(ns.GetPlugin());
 
-            if ( nameIt != mPluginObjects.end() )
+            if (nameIt != mPluginObjects.end())
             {
                 nameMap = &nameIt->second;
             }
         }
 
-        if ( nameMap )
+        if (nameMap)
         {
-            return nameMap->find( name ) != nameMap->end();
+            return nameMap->find(name) != nameMap->end();
         }
 
         return false;
@@ -380,17 +380,17 @@ public:
      * @return  true if the namespace is used, false if not.
      */
 
-    bool HasNamespace( const Namespace ns ) const
+    bool HasNamespace(const Namespace ns) const
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            return mAddinObjects.find( ns ) != mAddinObjects.end();
+            return mAddinObjects.find(ns) != mAddinObjects.end();
         }
 
-        return mPluginObjects.find( ns.GetPlugin() ) != mPluginObjects.end() ||
-               mPluginAddins.find( ns.GetPlugin() ) != mPluginAddins.end();
+        return mPluginObjects.find(ns.GetPlugin()) != mPluginObjects.end() ||
+               mPluginAddins.find(ns.GetPlugin()) != mPluginAddins.end();
     }
 
     /// @}
@@ -420,35 +420,35 @@ private:
      * @param   addinNs The addin namespace.
      */
 
-    void RemoveObjectsByAddinNamespace( const Namespace addinNs )
+    void RemoveObjectsByAddinNamespace(const Namespace addinNs)
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        const auto pluginIt = mAddinObjects.find( addinNs );
+        const auto pluginIt = mAddinObjects.find(addinNs);
 
-        if ( pluginIt != mAddinObjects.end() )
+        if (pluginIt != mAddinObjects.end())
         {
             const std::unordered_map< tName, tStoredType * > &objects = pluginIt->second;
 
-            for ( const auto &it : objects )
+            for (const auto &it : objects)
             {
                 delete it.second;
             }
 
-            mAddinObjects.erase( pluginIt );
+            mAddinObjects.erase(pluginIt);
         }
 
-        const auto addinIt = mPluginAddins.find( addinNs.GetPlugin() );
+        const auto addinIt = mPluginAddins.find(addinNs.GetPlugin());
 
-        if ( addinIt != mPluginAddins.end() )
+        if (addinIt != mPluginAddins.end())
         {
             std::unordered_set< Namespace > &addins = addinIt->second;
 
-            const auto &it = addins.find( addinNs.GetAddin() );
+            const auto &it = addins.find(addinNs.GetAddin());
 
-            if ( it != addins.end() )
+            if (it != addins.end())
             {
-                addins.erase( it );
+                addins.erase(it);
             }
         }
     }
@@ -461,36 +461,36 @@ private:
      * @param   pluginNs    The plugin namespace.
      */
 
-    void RemoveObjectsByPluginNamespace( const Namespace pluginNs )
+    void RemoveObjectsByPluginNamespace(const Namespace pluginNs)
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        const auto pluginIt = mPluginObjects.find( pluginNs );
+        const auto pluginIt = mPluginObjects.find(pluginNs);
 
-        if ( pluginIt != mPluginObjects.end() )
+        if (pluginIt != mPluginObjects.end())
         {
             const std::unordered_map< tName, tStoredType * > &objects = pluginIt->second;
 
-            for ( const auto &it : objects )
+            for (const auto &it : objects)
             {
                 delete it.second;
             }
 
-            mPluginObjects.erase( pluginIt );
+            mPluginObjects.erase(pluginIt);
         }
 
-        auto addinIt = mPluginAddins.find( pluginNs );
+        auto addinIt = mPluginAddins.find(pluginNs);
 
-        if ( addinIt != mPluginAddins.end() )
+        if (addinIt != mPluginAddins.end())
         {
             std::unordered_set< Namespace > addinIDs = addinIt->second;
 
-            for ( auto addinNs : addinIDs )
+            for (auto addinNs : addinIDs)
             {
-                RemoveObjectsByAddinNamespace( Namespace( pluginNs, addinNs ) );
+                RemoveObjectsByAddinNamespace(Namespace(pluginNs, addinNs));
             }
 
-            mPluginAddins.erase( addinIt );
+            mPluginAddins.erase(addinIt);
         }
     }
 

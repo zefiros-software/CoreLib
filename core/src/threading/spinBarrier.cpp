@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,8 +27,8 @@
 #include "threading/spinBarrier.h"
 
 
-SpinBarrier::SpinBarrier( U32 target ) noexcept
-    : MixedBarrier( target )
+SpinBarrier::SpinBarrier(U32 target) noexcept
+    : MixedBarrier(target)
 {
 
 }
@@ -36,5 +36,5 @@ SpinBarrier::SpinBarrier( U32 target ) noexcept
 void SpinBarrier::Wait()
 {
     const std::atomic_bool b{false};
-    MixedBarrier::Wait( b );
+    MixedBarrier::Wait(b);
 }

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,9 +43,9 @@ public:
 
     public:
 
-        const BitReference &operator=( bool val ) const noexcept;
+        const BitReference &operator=(bool val) const noexcept;
 
-        const BitReference &operator=( const BitReference &br ) const noexcept;
+        const BitReference &operator=(const BitReference &br) const noexcept;
 
         operator bool() const;
 
@@ -54,18 +54,18 @@ public:
         U64 &mInt;
         U64 mMask;
 
-        BitReference( U64 &integer, U64 mask ) noexcept;
+        BitReference(U64 &integer, U64 mask) noexcept;
     };
 
-    DenseBitset( size_t size = 0 ) noexcept;
+    DenseBitset(size_t size = 0) noexcept;
 
     void Reset() noexcept;
 
-    void Resize( size_t size ) noexcept;
+    void Resize(size_t size) noexcept;
 
-    bool operator[]( size_t bit ) const noexcept;
+    bool operator[](size_t bit) const noexcept;
 
-    BitReference operator[]( size_t bit ) noexcept;
+    BitReference operator[](size_t bit) noexcept;
 
 private:
 

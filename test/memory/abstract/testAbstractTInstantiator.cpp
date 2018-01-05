@@ -38,7 +38,7 @@ namespace
 
         U32 *Create() override
         {
-            return new U32( 42 );
+            return new U32(42);
         }
 
         virtual AbstractInstantiator *Copy() override
@@ -47,12 +47,12 @@ namespace
         }
     };
 
-    TEST( AbstractTInstantiator, ConstructDeconstruct )
+    TEST(AbstractTInstantiator, ConstructDeconstruct)
     {
         ImplTInstantiator inst;
     }
 
-    TEST( AbstractTInstantiator, Create )
+    TEST(AbstractTInstantiator, Create)
     {
         AbstractTInstantiator< U32 > *inst = new ImplTInstantiator;
         delete inst->Create();
@@ -60,12 +60,12 @@ namespace
     }
 
 
-    TEST( AbstractTInstantiator, CreateTypeCheck )
+    TEST(AbstractTInstantiator, CreateTypeCheck)
     {
         AbstractTInstantiator< U32 > *inst = new ImplTInstantiator;
         U32 *integer =  inst->Create();
 
-        EXPECT_EQ( 42u, *integer );
+        EXPECT_EQ(42u, *integer);
 
         delete integer;
         delete inst;

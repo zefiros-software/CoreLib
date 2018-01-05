@@ -32,15 +32,15 @@
 namespace
 {
 
-    TEST( ApplicationActivateEvent, SanityCheck )
+    TEST(ApplicationActivateEvent, SanityCheck)
     {
-        ApplicationActivateEvent a( true );
-        EXPECT_TRUE( a.IsActive() );
+        ApplicationActivateEvent a(true);
+        EXPECT_TRUE(a.IsActive());
     }
 
-    TEST( ApplicationActivateEvent, SanityCheck2 )
+    TEST(ApplicationActivateEvent, SanityCheck2)
     {
-        ApplicationActivateEvent a( false );
-        EXPECT_FALSE( a.IsActive() );
+        ApplicationActivateEvent a(false);
+        EXPECT_FALSE(a.IsActive());
     }
 }

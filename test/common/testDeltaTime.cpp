@@ -35,79 +35,79 @@
 namespace
 {
 
-    TEST( DeltaTime, GetDeltaTime, NoValue )
+    TEST(DeltaTime, GetDeltaTime, NoValue)
     {
         //! [Get]
         DeltaTime time;
 
-        EXPECT_FLOAT_EQ( Mathf::GetEpsilon< F32 >(), time.GetDeltaTime() );
-        EXPECT_FLOAT_EQ( Mathf::GetEpsilon< F32 >(), time.GetEasedDeltaTime() );
+        EXPECT_FLOAT_EQ(Mathf::GetEpsilon< F32 >(), time.GetDeltaTime());
+        EXPECT_FLOAT_EQ(Mathf::GetEpsilon< F32 >(), time.GetEasedDeltaTime());
         //! [Get]
     }
 
-    TEST( DeltaTime, GetElapsedMilliseconds, NoValue )
+    TEST(DeltaTime, GetElapsedMilliseconds, NoValue)
     {
         //! [GetMS]
         DeltaTime time;
-        EXPECT_LE( Mathf::GetEpsilon< F32 >(), time.GetElapsedMilliseconds() );
+        EXPECT_LE(Mathf::GetEpsilon< F32 >(), time.GetElapsedMilliseconds());
         //! [GetMS]
     }
 
-    TEST( DeltaTime, Update, Value )
+    TEST(DeltaTime, Update, Value)
     {
         DeltaTime time;
 
         time.Update();
 
-        EXPECT_LE( 1e-9, time.GetDeltaTime() );
-        EXPECT_LE( 1e-9, time.GetEasedDeltaTime() );
+        EXPECT_LE(1e-9, time.GetDeltaTime());
+        EXPECT_LE(1e-9, time.GetEasedDeltaTime());
     }
 
-    TEST( DeltaTime, Update, ValueSleep )
+    TEST(DeltaTime, Update, ValueSleep)
     {
         //! [Update]
         DeltaTime time;
 
-        std::this_thread::sleep_for( std::chrono::milliseconds( 17 ) );
+        std::this_thread::sleep_for(std::chrono::milliseconds(17));
 
         time.Update();
 
         // at least 16ms should have passed, sadly we don't know the right border of this interval
         // however, so we should check with >= comparison.
-        EXPECT_LE( 16 / 1000.0f, time.GetDeltaTime() );
-        EXPECT_LE( 16 / 1000.0f, time.GetEasedDeltaTime() );
-        EXPECT_LE( Mathf::GetEpsilon< F32 >(), time.GetElapsedMilliseconds() );
+        EXPECT_LE(16 / 1000.0f, time.GetDeltaTime());
+        EXPECT_LE(16 / 1000.0f, time.GetEasedDeltaTime());
+        EXPECT_LE(Mathf::GetEpsilon< F32 >(), time.GetElapsedMilliseconds());
         //! [Update]
     }
 
-    TEST( DeltaTime, Update, SleepUpdate )
+    TEST(DeltaTime, Update, SleepUpdate)
     {
         DeltaTime time;
 
-        std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 
         time.Update();
 
-        EXPECT_LE( 1, time.GetDeltaTime() );
-        EXPECT_LE( 1, time.GetEasedDeltaTime() );
+        EXPECT_LE(1, time.GetDeltaTime());
+        EXPECT_LE(1, time.GetEasedDeltaTime());
 
-        std::this_thread::sleep_for( std::chrono::milliseconds( 17 ) );
+        std::this_thread::sleep_for(std::chrono::milliseconds(17));
 
-        EXPECT_LE( 17, time.GetElapsedMilliseconds() );
+        EXPECT_LE(17, time.GetElapsedMilliseconds());
     }
 
-    TEST( DeltaTime, GetElapsedMilliseconds, ValueSleep )
+    TEST(DeltaTime, GetElapsedMilliseconds, ValueSleep)
     {
         //! [UpdateMS]
         DeltaTime time;
 
-        std::this_thread::sleep_for( std::chrono::milliseconds( 16 ) );
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));
 
         time.Update();
 
-        std::this_thread::sleep_for( std::chrono::milliseconds( 32 ) );
+        std::this_thread::sleep_for(std::chrono::milliseconds(32));
 
-        EXPECT_LE( 32, time.GetElapsedMilliseconds() );
+        EXPECT_LE(32, time.GetElapsedMilliseconds());
         //! [UpdateMS]
     }
 }

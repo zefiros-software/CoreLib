@@ -75,24 +75,24 @@ namespace
         }
     };
 
-    TEST( Instantiator, SanityCheck )
+    TEST(Instantiator, SanityCheck)
     {
         volatile Instantiator< Child, Base > instantiator;
     }
 
-    TEST( Instantiator, Copy )
+    TEST(Instantiator, Copy)
     {
         Instantiator< Child, Base > instantiator;
         delete instantiator.Copy();
     }
 
-    TEST( Instantiator, Create )
+    TEST(Instantiator, Create)
     {
         Instantiator< Child, Base > instantiator;
 
         Base *child = instantiator.Create();
-        EXPECT_EQ( 42u, child->GetValue() );
-        EXPECT_TRUE( child->IsDerived() );
+        EXPECT_EQ(42u, child->GetValue());
+        EXPECT_TRUE(child->IsDerived());
 
         delete child;
     }

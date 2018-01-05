@@ -33,26 +33,26 @@
 #include "engineTest.h"
 #include "common/progress.h"
 
-int main( int argc, const char **argv )
+int main(int argc, const char **argv)
 {
 #if OS_IS_WINDOWS
 
-    _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-    _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDERR );
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
     //_crtBreakAlloc = 0;
 
 #endif
 
-    Test::EnsureTestDirectories( { "common/" } );
+    Test::EnsureTestDirectories({ "common/" });
 
-    SystemManager *sysmgr = new SystemManager( argc, argv );
-    SystemManager::Get( sysmgr );
+    SystemManager *sysmgr = new SystemManager(argc, argv);
+    SystemManager::Get(sysmgr);
     sysmgr->RegisterManagers();
 
-    Console::SetMode( Console::LogMode::Disabled );
+    Console::SetMode(Console::LogMode::Disabled);
 
-    testing::InitGoogleTest( &argc, const_cast< char ** >( argv ) );
+    testing::InitGoogleTest(&argc, const_cast< char ** >(argv));
 
     U32 result = RUN_ALL_TESTS();
 

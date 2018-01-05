@@ -31,15 +31,15 @@
 
 namespace
 {
-    TEST( ThreadingEvent, SanityCheck )
+    TEST(ThreadingEvent, SanityCheck)
     {
-        ThreadingEvent a( true );
-        EXPECT_TRUE( a.IsThreadingActive() );
+        ThreadingEvent a(true);
+        EXPECT_TRUE(a.IsThreadingActive());
     }
 
-    TEST( ThreadingEvent, SanityCheck2 )
+    TEST(ThreadingEvent, SanityCheck2)
     {
-        ThreadingEvent a( false );
-        EXPECT_FALSE( a.IsThreadingActive() );
+        ThreadingEvent a(false);
+        EXPECT_FALSE(a.IsThreadingActive());
     }
 }

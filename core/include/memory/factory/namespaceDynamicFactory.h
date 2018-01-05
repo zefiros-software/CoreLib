@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -70,11 +70,11 @@ public:
      * @return  The new instance, NULL if no factory is found, or if the creation fails.
      */
 
-    tBase *Create( const tName &name ) const
+    tBase *Create(const tName &name) const
     {
-        tInstantiator *const factory = mFactories.Get( name );
+        tInstantiator *const factory = mFactories.Get(name);
 
-        if ( factory )
+        if (factory)
         {
             return factory->Create();
         }
@@ -97,9 +97,9 @@ public:
      * @return  null if it fails, else the factory.
      */
 
-    tInstantiator *Get( const tName &name ) const
+    tInstantiator *Get(const tName &name) const
     {
-        return mFactories.Get( name );
+        return mFactories.Get(name);
     }
 
     /**
@@ -112,9 +112,9 @@ public:
      * @return  The registered names by namespace.
      */
 
-    std::vector< tName > GetByNamespace( Namespace ns ) const
+    std::vector< tName > GetByNamespace(Namespace ns) const
     {
-        return mFactories.GetNames( ns );
+        return mFactories.GetNames(ns);
     }
 
     /// @}
@@ -140,9 +140,9 @@ public:
      */
 
     template< typename tT >
-    bool Register( const tName &name, Namespace ns = 0u )
+    bool Register(const tName &name, Namespace ns = 0u)
     {
-        return mFactories.Add( new Instantiator< tT, tBase >, name, ns );
+        return mFactories.Add(new Instantiator< tT, tBase >, name, ns);
     }
 
     /**
@@ -158,9 +158,9 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool RegisterExt( tInstantiator *factory, const tName &name, Namespace ns = 0u )
+    bool RegisterExt(tInstantiator *factory, const tName &name, Namespace ns = 0u)
     {
-        return mFactories.Add( factory, name, ns );
+        return mFactories.Add(factory, name, ns);
     }
 
     /**
@@ -171,9 +171,9 @@ public:
      * @param   ns  The ns.
      */
 
-    void Clear( Namespace ns )
+    void Clear(Namespace ns)
     {
-        mFactories.Clear( ns );
+        mFactories.Clear(ns);
     }
 
     /**
@@ -195,9 +195,9 @@ public:
      * @param   name    The name.
      */
 
-    void Remove( const tName &name )
+    void Remove(const tName &name)
     {
-        mFactories.Remove( name );
+        mFactories.Remove(name);
     }
 
     /// @}
@@ -215,9 +215,9 @@ public:
      * @return  true if registered, false if not.
      */
 
-    bool Has( const tName &name ) const
+    bool Has(const tName &name) const
     {
-        return mFactories.Has( name );
+        return mFactories.Has(name);
     }
 
     /// @}

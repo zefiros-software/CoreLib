@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,67 +47,67 @@ public:
     virtual void OnRelease() override;
 
     template< typename tT, typename tBase = tT >
-    AbstractTInstantiator< tBase > *Add( Namespace ns = 0U )
+    AbstractTInstantiator< tBase > *Add(Namespace ns = 0U)
     {
-        const std::type_index typeID = typeid( tT );
+        const std::type_index typeID = typeid(tT);
         AbstractInstantiator *instantiator = nullptr;
 
-        if ( !mFactories.Has( typeID, ns ) )
+        if (!mFactories.Has(typeID, ns))
         {
             instantiator = new Instantiator< tT, tBase >();
-            mFactories.Add( instantiator, typeID, ns );
+            mFactories.Add(instantiator, typeID, ns);
         }
         else
         {
-            Console::Errorf( LOG( "Factory already registered." ) );
+            Console::Errorf(LOG("Factory already registered."));
         }
 
-        return static_cast< AbstractTInstantiator< tBase > * >( instantiator );
+        return static_cast< AbstractTInstantiator< tBase > * >(instantiator);
     }
 
     template< typename tT, typename tBase = tT>
-    bool Add( AbstractTInstantiator< tBase > *instantiator, Namespace ns = 0u )
+    bool Add(AbstractTInstantiator< tBase > *instantiator, Namespace ns = 0u)
     {
-        const std::type_index typeID = typeid( tT );
+        const std::type_index typeID = typeid(tT);
 
-        if ( !mFactories.Has( typeID, ns ) )
+        if (!mFactories.Has(typeID, ns))
         {
-            mFactories.Add( instantiator, typeID, ns );
+            mFactories.Add(instantiator, typeID, ns);
 
             return true;
         }
         else
         {
-            Console::Errorf( LOG( "Factory already registered." ) );
+            Console::Errorf(LOG("Factory already registered."));
         }
 
         return false;
     }
 
     template< typename tT >
-    void Clear( Namespace ns = 0u )
+    void Clear(Namespace ns = 0u)
     {
-        mFactories.Remove( typeid( tT ), ns );
+        mFactories.Remove(typeid(tT), ns);
     }
 
-    void ClearAll( Namespace ns = 0u );
+    void ClearAll(Namespace ns = 0u);
 
     template< typename tT >
-    bool Has( Namespace ns = 0u ) const
+    bool Has(Namespace ns = 0u) const
     {
-        return mFactories.Has( typeid( tT ), ns );
+        return mFactories.Has(typeid(tT), ns);
     }
 
     template< typename tT, typename tBase = tT >
-    AbstractTInstantiator< tBase > *Get( Namespace ns = 0u ) const
+    AbstractTInstantiator< tBase > *Get(Namespace ns = 0u) const
     {
-        return static_cast< AbstractTInstantiator< tBase > * >( mFactories.Get( typeid( tT ), ns ) );
+        return static_cast< AbstractTInstantiator< tBase > * >(mFactories.Get(typeid(tT), ns));
     }
 
     template< typename tT, typename tBase = tT >
-    tT * Create( Namespace ns = 0u )
+    tT * Create(Namespace ns = 0u)
     {
-        return Get< tT, tBase >( ns )->Create();
+        return Get< tT, tBase >(ns)->Create();
     }
 
 private:

@@ -32,50 +32,50 @@
 namespace
 {
 
-    TEST( StringHash, CharArrayCstring )
+    TEST(StringHash, CharArrayCstring)
     {
         char testArray[] = "Single";
-        EXPECT_EQ( StringHash( testArray ).GetHash(), StringHash( "Single" ).GetHash() );
+        EXPECT_EQ(StringHash(testArray).GetHash(), StringHash("Single").GetHash());
     }
 
-    TEST( StringHash, NotEqual )
+    TEST(StringHash, NotEqual)
     {
-        EXPECT_NE( StringHash( "Zefiros Engine" ).GetHash(), StringHash( "Test" ).GetHash() );
+        EXPECT_NE(StringHash("Zefiros Engine").GetHash(), StringHash("Test").GetHash());
     }
 
-    TEST( StringHash, Deterministic )
+    TEST(StringHash, Deterministic)
     {
-        EXPECT_EQ( StringHash( "Zefiros Engine" ).GetHash(), StringHash( "Zefiros Engine" ).GetHash() );
+        EXPECT_EQ(StringHash("Zefiros Engine").GetHash(), StringHash("Zefiros Engine").GetHash());
     }
 
-    TEST( StringHash, Algorithm )
+    TEST(StringHash, Algorithm)
     {
         //! [StringHash]
-        EXPECT_EQ( Hash::Fnv1a( "Zefiros Engine" ), StringHash( "Zefiros Engine" ).GetHash() );
+        EXPECT_EQ(Hash::Fnv1a("Zefiros Engine"), StringHash("Zefiros Engine").GetHash());
         //! [StringHash]
     }
 
-    TEST( StringHash, Cstring )
+    TEST(StringHash, Cstring)
     {
         const std::string string = ::Test::GenerateRandomString();
-        EXPECT_EQ( Hash::Fnv1a( string.c_str() ), StringHash( string.c_str() ).GetHash() );
+        EXPECT_EQ(Hash::Fnv1a(string.c_str()), StringHash(string.c_str()).GetHash());
     }
 
-    TEST( StringHash, PreCalculated )
+    TEST(StringHash, PreCalculated)
     {
         const U32 num = ::Test::GenerateRandomU32();
-        EXPECT_EQ( num, StringHash( num ).GetHash() );
+        EXPECT_EQ(num, StringHash(num).GetHash());
     }
 
-    TEST( StringHash, NULL )
+    TEST(StringHash, NULL)
     {
-        EXPECT_NE( ( U32 )0, StringHash( "" ).GetHash() );
+        EXPECT_NE((U32)0, StringHash("").GetHash());
     }
 
-    TEST( StringHash, RandomString )
+    TEST(StringHash, RandomString)
     {
         const std::string string = ::Test::GenerateRandomString();
-        EXPECT_EQ( StringHash( string.c_str() ).GetHash(), StringHash( string.c_str() ).GetHash() );
+        EXPECT_EQ(StringHash(string.c_str()).GetHash(), StringHash(string.c_str()).GetHash());
     }
 
 }

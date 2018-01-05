@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -66,7 +66,7 @@ public:
      * @return  The string, when the key does not exist it returns "".
      */
 
-    std::string GetString( const std::string &key, const std::string &configName = "" );
+    std::string GetString(const std::string &key, const std::string &configName = "");
 
     /**
      * Gets a bool by a key from the configuration file with the given name.
@@ -77,7 +77,7 @@ public:
      * @return  The bool, when the key does not exist it returns false.
      */
 
-    bool GetBool( const std::string &key, const std::string &configName = "" );
+    bool GetBool(const std::string &key, const std::string &configName = "");
 
     /**
      * Gets a float by a key from the configuration file with the given name.
@@ -89,7 +89,7 @@ public:
      * @return  The float, when the key does not exist it returns 0.0f.
      */
 
-    F32 GetFloat( const std::string &key, const std::string &configName = "" );
+    F32 GetFloat(const std::string &key, const std::string &configName = "");
 
     /**
      * Gets an int by a key from the configuration file with the given name.
@@ -101,7 +101,7 @@ public:
      * @return  The int, when the key does not exist it returns 0.
      */
 
-    S32 GetInt( const std::string &key, const std::string &configName = "" );
+    S32 GetInt(const std::string &key, const std::string &configName = "");
 
     /// @}
 
@@ -120,8 +120,8 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool SetString( const std::string &key, const std::string &value, bool changeInFile = true,
-                    const std::string &configName = "" );
+    bool SetString(const std::string &key, const std::string &value, bool changeInFile = true,
+                   const std::string &configName = "");
 
     /**
      * Sets a bool value in the give configuration file on the given key.
@@ -135,8 +135,8 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool SetBool( const std::string &key, bool value, bool changeInFile = true,
-                  const std::string &configName = "" );
+    bool SetBool(const std::string &key, bool value, bool changeInFile = true,
+                 const std::string &configName = "");
 
     /**
      * Sets a float value in the give configuration file on the given key.
@@ -150,8 +150,8 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool SetFloat( const std::string &key, F32 value, bool changeInFile = true,
-                   const std::string &configName = "" );
+    bool SetFloat(const std::string &key, F32 value, bool changeInFile = true,
+                  const std::string &configName = "");
 
     /**
      * Sets an int value in the give configuration file on the given key.
@@ -165,8 +165,8 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool SetInt( const std::string &key, S32 value, bool changeInFile = true,
-                 const std::string &configName = "" );
+    bool SetInt(const std::string &key, S32 value, bool changeInFile = true,
+                const std::string &configName = "");
 
     /// @}
 
@@ -185,10 +185,10 @@ public:
      */
 
     template< class tT >
-    tT *Load( const std::string &filePath, const std::string &configName = "" )
+    tT *Load(const std::string &filePath, const std::string &configName = "")
     {
         tT *file = new tT();
-        LoadByObj( file, filePath, configName );
+        LoadByObj(file, filePath, configName);
         return file;
     }
 
@@ -203,15 +203,15 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool LoadByObj( ConfigurationFile *const conf, const std::string &filePath,
-                    const std::string &configName = "" );
+    bool LoadByObj(ConfigurationFile *const conf, const std::string &filePath,
+                   const std::string &configName = "");
 
     /// @}
 
 
     std::string GetConfigurationDirectory() const;
 
-    void SetGlobalConfigFileName( const std::string &name );
+    void SetGlobalConfigFileName(const std::string &name);
 
 private:
 
@@ -225,8 +225,8 @@ private:
     mutable std::recursive_mutex mMutex;
 
 
-    static void LogErrors( ConfigurationFile::ParseError error, const std::string &configName, const std::string &key = "",
-                           std::size_t lineNumber = 0, const std::string &value = "" );
+    static void LogErrors(ConfigurationFile::ParseError error, const std::string &configName, const std::string &key = "",
+                          std::size_t lineNumber = 0, const std::string &value = "");
 };
 
 

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -64,7 +64,7 @@ namespace Console
     * @param   mode The mode.
     */
 
-    EXPOSE_API( log, SetMode );
+    EXPOSE_API(log, SetMode);
 
     /**
     * Gets the logging mode.
@@ -72,7 +72,7 @@ namespace Console
     * @return The mode.
     */
 
-    EXPOSE_API( log, GetMode );
+    EXPOSE_API(log, GetMode);
 
     /// @}
 
@@ -91,7 +91,7 @@ namespace Console
 
     /// @{
 
-    EXPOSE_API( log, Printp );
+    EXPOSE_API(log, Printp);
 
     /// @}
 
@@ -107,7 +107,7 @@ namespace Console
 
     /// @{
 
-    EXPOSE_API( log, Printf );
+    EXPOSE_API(log, Printf);
 
     /// @}
 
@@ -126,7 +126,7 @@ namespace Console
 
     /// @{
 
-    EXPOSE_API( log, Errorp );
+    EXPOSE_API(log, Errorp);
 
     /// @}
 
@@ -139,7 +139,7 @@ namespace Console
     */
     /// @{
 
-    EXPOSE_API( log, Errorf );
+    EXPOSE_API(log, Errorf);
 
     /// @}
 
@@ -158,7 +158,7 @@ namespace Console
 
     /// @{
 
-    EXPOSE_API( log, Warningp );
+    EXPOSE_API(log, Warningp);
 
     /// @}
 
@@ -171,7 +171,7 @@ namespace Console
     */
     /// @{
 
-    EXPOSE_API( log, Warningf );
+    EXPOSE_API(log, Warningf);
 
     /// @}
 
@@ -190,7 +190,7 @@ namespace Console
 
     /// @{
 
-    EXPOSE_API( log, Initp );
+    EXPOSE_API(log, Initp);
 
     /// @}
 
@@ -203,7 +203,7 @@ namespace Console
     */
     /// @{
 
-    EXPOSE_API( log, Initf );
+    EXPOSE_API(log, Initf);
 
     /// @}
 
@@ -222,9 +222,9 @@ namespace Console
     */
 
     template< typename tT >
-    void Print( const tT &variable )
+    void Print(const tT &variable)
     {
-        Printf( String::To( variable ) );
+        Printf(String::To(variable));
     }
 
     /// @}
@@ -243,9 +243,9 @@ namespace Console
     * @note    The variable type has to be compatible with String::To()
     */
     template< typename tT >
-    void Error( const tT &variable )
+    void Error(const tT &variable)
     {
-        Errorf( String::To( variable ) );
+        Errorf(String::To(variable));
     }
 
 
@@ -265,9 +265,9 @@ namespace Console
     * @note    The variable type has to be compatible with String::To()
     */
     template< typename tT >
-    void Warning( const tT &variable )
+    void Warning(const tT &variable)
     {
-        Warningf( String::To( variable ) );
+        Warningf(String::To(variable));
     }
 
 
@@ -287,9 +287,9 @@ namespace Console
     * @note    The variable type has to be compatible with String::To()
     */
     template< typename tT >
-    void Init( const tT &variable )
+    void Init(const tT &variable)
     {
-        Initf( String::To( variable ) );
+        Initf(String::To(variable));
     }
 
     /**
@@ -299,7 +299,7 @@ namespace Console
     * @param   headerLength    (Optional) length of the header.
     */
 
-    void PrintTitle( const std::string &title, const U8 headerLength = 70 );
+    void PrintTitle(const std::string &title, const U8 headerLength = 70);
 
     /// @}
 };

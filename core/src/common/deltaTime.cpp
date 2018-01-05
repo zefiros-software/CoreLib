@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,16 +28,16 @@
 
 #include "common/deltaTime.h"
 
-DeltaTime::DeltaTime( U8 maxsize /* = 60 */ ) noexcept
-    : mTotalDeltaTimeValue( 0 ),
+DeltaTime::DeltaTime(U8 maxsize /* = 60 */) noexcept
+    : mTotalDeltaTimeValue(0),
 
       // Give the delta times a really small value, to prevent
       // a division by zero.
-      mEasedDeltaTime( Mathf::GetEpsilon< F32 >() ),
-      mDeltaTime( Mathf::GetEpsilon< F32 >() ),
-      mMaxSize( maxsize )
+      mEasedDeltaTime(Mathf::GetEpsilon< F32 >()),
+      mDeltaTime(Mathf::GetEpsilon< F32 >()),
+      mMaxSize(maxsize)
 {
-    assert( maxsize > 1 );
+    assert(maxsize > 1);
 
     // Get the current time
     mTime = boost::chrono::high_resolution_clock::now();
@@ -56,9 +56,9 @@ F32 DeltaTime::GetElapsedMilliseconds() const noexcept
     const boost::chrono::time_point< boost::chrono::high_resolution_clock> now =
         boost::chrono::high_resolution_clock::now();
 
-    boost::chrono::microseconds diff = boost::chrono::duration_cast<boost::chrono::microseconds>( now - mTime );
+    boost::chrono::microseconds diff = boost::chrono::duration_cast<boost::chrono::microseconds>(now - mTime);
 
-    const F32 elapsed = static_cast< F32 >( diff.count() / 1000.0f );
+    const F32 elapsed = static_cast< F32 >(diff.count() / 1000.0f);
 
     return elapsed != 0.0 ? elapsed : Mathf::GetEpsilon< F32 >();
 }
@@ -71,7 +71,7 @@ F32 DeltaTime::GetDeltaTime() const noexcept
 F32 DeltaTime::GetEasedDeltaTime() const noexcept
 {
     // If we don't have any records, just return the normal delta time
-    if ( mPreviousDeltaTimes.empty() )
+    if (mPreviousDeltaTimes.empty())
     {
         return GetDeltaTime();
     }
@@ -98,15 +98,15 @@ void DeltaTime::UpdateDeltaTime() noexcept
 
 void DeltaTime::UpdateEasedDeltaTime() noexcept
 {
-    mPreviousDeltaTimes.push_back( mDeltaTime );
+    mPreviousDeltaTimes.push_back(mDeltaTime);
 
     mTotalDeltaTimeValue += mDeltaTime;
 
     // Make sure the total sum of the delta times we recorded is never larger than one.
     // If it is bigger, remove records until the specifications are met.
     // Also make sure we don't store more values than we want to.
-    while ( ( mTotalDeltaTimeValue > 1.0f && !mPreviousDeltaTimes.empty() ) ||
-            mPreviousDeltaTimes.size() > static_cast<size_t >( mMaxSize ) )
+    while ((mTotalDeltaTimeValue > 1.0f && !mPreviousDeltaTimes.empty()) ||
+           mPreviousDeltaTimes.size() > static_cast<size_t >(mMaxSize))
     {
         mTotalDeltaTimeValue -= mPreviousDeltaTimes.front();
         mPreviousDeltaTimes.pop_front();

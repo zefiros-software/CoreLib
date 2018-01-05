@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,10 +37,10 @@ class MtQueue
 {
 public:
 
-    void Push( const Item &item )
+    void Push(const Item &item)
     {
-        std::unique_lock< std::mutex > mlocalLock( mLock );
-        mInternalQueue.push( item );
+        std::unique_lock< std::mutex > mlocalLock(mLock);
+        mInternalQueue.push(item);
         mlocalLock.unlock();
 
         //signal that there is new data :D
@@ -49,12 +49,12 @@ public:
 
     Item WaitAndPop()
     {
-        std::unique_lock< std::mutex > mlocalLock( mLock );
+        std::unique_lock< std::mutex > mlocalLock(mLock);
 
         //wait while its empty
-        while ( mInternalQueue.empty() )
+        while (mInternalQueue.empty())
         {
-            mNofity.wait( mlocalLock );
+            mNofity.wait(mlocalLock);
         }
 
         //get the item
@@ -64,11 +64,11 @@ public:
         return item;
     }
 
-    bool TryPop( Item &item )
+    bool TryPop(Item &item)
     {
-        std::unique_lock< std::mutex > mlocalLock( mLock );
+        std::unique_lock< std::mutex > mlocalLock(mLock);
 
-        if ( mInternalQueue.empty() )
+        if (mInternalQueue.empty())
         {
             return false;
         }
@@ -81,14 +81,14 @@ public:
 
     size_t Size() const noexcept
     {
-        std::unique_lock< std::mutex > mlocalLock( mLock );
+        std::unique_lock< std::mutex > mlocalLock(mLock);
 
         return mInternalQueue.size();
     }
 
     bool Empty() const noexcept
     {
-        std::unique_lock< std::mutex > mlocalLock( mLock );
+        std::unique_lock< std::mutex > mlocalLock(mLock);
 
         return mInternalQueue.empty();
     }

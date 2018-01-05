@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -77,8 +77,8 @@ public:
     {
         const char *wrappedString;
 
-        inline ConstCharPointer( const char *str ) noexcept
-            : wrappedString( str )
+        inline ConstCharPointer(const char *str) noexcept
+            : wrappedString(str)
         {
         }
     };
@@ -98,8 +98,8 @@ public:
      * @post StringHash( ConstCharPointer( (const char *)"<string>") ) ).GetHash() == Hash::Fnv1a( "<string>" )
      */
 
-    FORCEINLINE StringHash( ConstCharPointer str ) noexcept
-        : mHash( Hash::Fnv1a( str.wrappedString ) )
+    FORCEINLINE StringHash(ConstCharPointer str) noexcept
+        : mHash(Hash::Fnv1a(str.wrappedString))
     {
     }
 
@@ -114,8 +114,8 @@ public:
      */
 
     template< U32 N >
-    FORCEINLINE StringHash( const char( &str )[ N ] ) noexcept
-        : mHash( Fnv1a< N, N >::Hash( str ) )
+    FORCEINLINE StringHash(const char(&str)[ N ]) noexcept
+        : mHash(Fnv1a< N, N >::Hash(str))
     {
     }
 
@@ -127,7 +127,7 @@ public:
      * @post StringHash( U32 hash ).GetHash() == hash.
      */
 
-    StringHash( U32 hash ) noexcept;
+    StringHash(U32 hash) noexcept;
 
     /// @}
 
@@ -165,9 +165,9 @@ private:
     template < U32 N, U32 I >
     struct Fnv1a
     {
-        static FORCEINLINE U32 Hash( const char( &str )[ N ] ) noexcept
+        static FORCEINLINE U32 Hash(const char(&str)[ N ]) noexcept
         {
-            return ( Fnv1a < N, I - 1 >::Hash( str ) ^ str[ I - 1 ] ) * 16777619u;
+            return (Fnv1a < N, I - 1 >::Hash(str) ^ str[ I - 1 ]) * 16777619u;
         }
     };
 
@@ -182,9 +182,9 @@ private:
     template < U32 N >
     struct Fnv1a< N, 1 >
     {
-        static FORCEINLINE U32 Hash( const char( &str )[ N ] ) noexcept
+        static FORCEINLINE U32 Hash(const char(&str)[ N ]) noexcept
         {
-            return ( 2166136261u ^ str[ 0 ] ) * 16777619u;
+            return (2166136261u ^ str[ 0 ]) * 16777619u;
         }
     };
 

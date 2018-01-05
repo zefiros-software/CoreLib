@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,7 +60,7 @@ public:
      * @return  The new instance.
      */
 
-    virtual tBase *Create( const Param &param ) = 0;
+    virtual tBase *Create(const Param &param) = 0;
 
     /// @}
 

@@ -33,48 +33,48 @@
 
 namespace
 {
-    TEST( SystemManager, Sanity )
+    TEST(SystemManager, Sanity)
     {
-        SystemManager m( 0, nullptr );
+        SystemManager m(0, nullptr);
     }
 
-    TEST( SystemManager, FullCycle )
+    TEST(SystemManager, FullCycle)
     {
         SystemManager::Get()->Release();
 
-        SystemManager *sysmgr = new SystemManager( 0, nullptr );
-        SystemManager::Get( sysmgr );
+        SystemManager *sysmgr = new SystemManager(0, nullptr);
+        SystemManager::Get(sysmgr);
 
         sysmgr->RegisterManagers();
 
-        Console::SetMode( Console::LogMode::Disabled );
+        Console::SetMode(Console::LogMode::Disabled);
 
         sysmgr->Initialise();
         sysmgr->Update();
         sysmgr->Release();
 
-        sysmgr = new SystemManager( 0, nullptr );
-        SystemManager::Get( sysmgr );
+        sysmgr = new SystemManager(0, nullptr);
+        SystemManager::Get(sysmgr);
         sysmgr->RegisterManagers();
 
-        Console::SetMode( Console::LogMode::Disabled );
+        Console::SetMode(Console::LogMode::Disabled);
     }
 
-    TEST( SystemManager, ReleaseNS )
+    TEST(SystemManager, ReleaseNS)
     {
-        SystemManager m( 0, nullptr );
-        m.Release( 1 );
+        SystemManager m(0, nullptr);
+        m.Release(1);
     }
 
-    TEST( SystemManager, GetArgc )
+    TEST(SystemManager, GetArgc)
     {
-        SystemManager m( 0, nullptr );
-        EXPECT_EQ( 0, m.GetArgc() );
+        SystemManager m(0, nullptr);
+        EXPECT_EQ(0, m.GetArgc());
     }
 
-    TEST( SystemManager, GetArgv )
+    TEST(SystemManager, GetArgv)
     {
-        SystemManager m( 0, nullptr );
-        EXPECT_EQ( nullptr, m.GetArgv() );
+        SystemManager m(0, nullptr);
+        EXPECT_EQ(nullptr, m.GetArgv());
     }
 }

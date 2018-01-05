@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,21 +27,21 @@
 #include "memory/allocators/stackAllocator.h"
 
 StackAllocator::StackAllocator()
-    : mStack( 10, '@' ),
-      mCursor( 0 )
+    : mStack(10, '@'),
+      mCursor(0)
 {
 }
 
-StackAllocator::StackAllocator( size_t size )
-    : mStack( size + 1, '@' ),
-      mCursor( 0 )
+StackAllocator::StackAllocator(size_t size)
+    : mStack(size + 1, '@'),
+      mCursor(0)
 {
 }
 
 
-bool StackAllocator::FitsInStack( size_t bytes ) const
+bool StackAllocator::FitsInStack(size_t bytes) const
 {
-    return ( mCursor + bytes ) < mStack.size();
+    return (mCursor + bytes) < mStack.size();
 }
 
 void StackAllocator::Clear()
@@ -49,14 +49,14 @@ void StackAllocator::Clear()
     mCursor = 0;
 }
 
-StackAllocator::StackLocation StackAllocator::InternalAlloc( size_t allocSize )
+StackAllocator::StackLocation StackAllocator::InternalAlloc(size_t allocSize)
 {
-    if ( !FitsInStack( allocSize ) )
+    if (!FitsInStack(allocSize))
     {
-        mStack.resize( static_cast< size_t >( mStack.size() * 1.6f ) + allocSize, '~' );
+        mStack.resize(static_cast< size_t >(mStack.size() * 1.6f) + allocSize, '~');
     }
 
-    StackLocation ptr = ( ( mStack.data() + mCursor ) - mStack.data() );
+    StackLocation ptr = ((mStack.data() + mCursor) - mStack.data());
 
     mCursor += allocSize;
 

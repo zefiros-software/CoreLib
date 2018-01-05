@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -49,25 +49,25 @@ public:
     virtual void OnRelease() override;
     virtual void OnPostRelease() override;
 
-    virtual void OnRelease( Namespace ns ) override;
+    virtual void OnRelease(Namespace ns) override;
 
     template< typename tT >
-    tT *Add( Namespace ns = 0U )
+    tT *Add(Namespace ns = 0U)
     {
-        const std::type_index typeID = typeid( tT );
+        const std::type_index typeID = typeid(tT);
         tT *controller = new tT();
 
-        AddExt( typeID, controller, ns );
+        AddExt(typeID, controller, ns);
 
         return controller;
     }
 
-    void AddExt( std::type_index typeID, AbstractManager *mngr, Namespace ns = 0U );
+    void AddExt(std::type_index typeID, AbstractManager *mngr, Namespace ns = 0U);
 
     template< typename tT>
     tT *Get()
     {
-        return static_cast< tT * >( mControllers.Get( typeid( tT ) ) );
+        return static_cast< tT * >(mControllers.Get(typeid(tT)));
     }
 
 private:

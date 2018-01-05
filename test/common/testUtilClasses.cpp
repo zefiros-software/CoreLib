@@ -34,14 +34,14 @@
 namespace
 {
 
-    TEST( UtilClasses, NonCopyable )
+    TEST(UtilClasses, NonCopyable)
     {
-        EXPECT_FALSE( std::is_copy_constructible< NonCopyable< U8 > >::value );
+        EXPECT_FALSE(std::is_copy_constructible< NonCopyable< U8 > >::value);
     }
 
-    TEST( UtilClasses, NonCopyable2 )
+    TEST(UtilClasses, NonCopyable2)
     {
-        EXPECT_FALSE( std::is_copy_constructible< NonCopyable< void > >::value );
+        EXPECT_FALSE(std::is_copy_constructible< NonCopyable< void > >::value);
     }
 
 }

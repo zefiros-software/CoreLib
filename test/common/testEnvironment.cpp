@@ -31,32 +31,32 @@
 namespace
 {
 
-    TEST( Environment, Get, NonExisting )
+    TEST(Environment, Get, NonExisting)
     {
         const std::string var = "TEST_VAR";
 
-        EXPECT_FALSE( Environment::Has( var ) );
-        EXPECT_EQ( "", Environment::Get( var ) );
+        EXPECT_FALSE(Environment::Has(var));
+        EXPECT_EQ("", Environment::Get(var));
     }
 
-    TEST( Environment, Combo )
+    TEST(Environment, Combo)
     {
         // ![Combo]
         const std::string var = "TEST_VAR";
         const std::string value = ::Test::GenerateRandomString();
 
-        ASSERT_FALSE( Environment::Has( var ) );
-        ASSERT_EQ( "", Environment::Get( var ) );
+        ASSERT_FALSE(Environment::Has(var));
+        ASSERT_EQ("", Environment::Get(var));
 
-        Environment::Set( var, value );
+        Environment::Set(var, value);
 
-        EXPECT_EQ( value, Environment::Get( var ) );
-        ASSERT_TRUE( Environment::Has( var ) );
+        EXPECT_EQ(value, Environment::Get(var));
+        ASSERT_TRUE(Environment::Has(var));
 
-        Environment::Remove( var );
+        Environment::Remove(var);
 
-        EXPECT_EQ( "", Environment::Get( var ) );
-        ASSERT_FALSE( Environment::Has( var ) );
+        EXPECT_EQ("", Environment::Get(var));
+        ASSERT_FALSE(Environment::Has(var));
         // ![Combo]
     }
 

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ class ConfigurationFile;
 
 namespace Configuration
 {
-    EXPOSE_API( configuration, SetGlobalConfig );
+    EXPOSE_API(configuration, SetGlobalConfig);
 
     /// @name Get Value
     /// @{
@@ -50,25 +50,25 @@ namespace Configuration
      */
 
 
-    EXPOSE_API( configuration, GetString );
+    EXPOSE_API(configuration, GetString);
 
     /**
      * @see ConfigurationManager::GetBool()
      */
 
-    EXPOSE_API( configuration, GetBool );
+    EXPOSE_API(configuration, GetBool);
 
     /**
      * @see ConfigurationManager::GetFloat()
      */
 
-    EXPOSE_API( configuration, GetFloat );
+    EXPOSE_API(configuration, GetFloat);
 
     /**
      * @see ConfigurationManager::GetInt()
      */
 
-    EXPOSE_API( configuration, GetInt );
+    EXPOSE_API(configuration, GetInt);
 
     /// @}
 
@@ -79,25 +79,25 @@ namespace Configuration
      * @see ConfigurationManager::SetString()
      */
 
-    EXPOSE_API( configuration, SetString );
+    EXPOSE_API(configuration, SetString);
 
     /**
      * @see ConfigurationManager::SetBool()
      */
 
-    EXPOSE_API( configuration, SetBool );
+    EXPOSE_API(configuration, SetBool);
 
     /**
      * @see ConfigurationManager::SetFloat()
      */
 
-    EXPOSE_API( configuration, SetFloat );
+    EXPOSE_API(configuration, SetFloat);
 
     /**
      * @see ConfigurationManager::SetInt()
      */
 
-    EXPOSE_API( configuration, SetInt );
+    EXPOSE_API(configuration, SetInt);
 
     /// @}
 
@@ -112,7 +112,7 @@ namespace Configuration
      *          the configuration file.
      */
 
-    EXPOSE_API( configuration, Load );
+    EXPOSE_API(configuration, Load);
 }
 
 /// @}

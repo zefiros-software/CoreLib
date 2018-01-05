@@ -35,9 +35,9 @@ namespace
     {
     public:
 
-        U32 *Create( const U32 &param ) override
+        U32 *Create(const U32 &param) override
         {
-            return new U32( param );
+            return new U32(param);
         }
 
         virtual AbstractInstantiator *Copy() override
@@ -46,17 +46,17 @@ namespace
         }
     };
 
-    TEST( AbstractParamInstantiator, ConstructDeconstruct )
+    TEST(AbstractParamInstantiator, ConstructDeconstruct)
     {
         ImplParamInstantiator inst;
     }
 
-    TEST( AbstractParamInstantiator, Create )
+    TEST(AbstractParamInstantiator, Create)
     {
         AbstractParamInstantiator< U32, U32 > *inst = new ImplParamInstantiator;
-        U32 *ptr = inst->Create( 42 );
+        U32 *ptr = inst->Create(42);
 
-        EXPECT_EQ( 42u, *ptr );
+        EXPECT_EQ(42u, *ptr);
         delete ptr;
         delete inst;
     }

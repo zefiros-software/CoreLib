@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@
 bool Worker::IsNotReady::operator()() const
 {
     //override when we terminate
-    if ( mTerminate->load() )
+    if (mTerminate->load())
     {
         return true;
     }
@@ -39,31 +39,31 @@ bool Worker::IsNotReady::operator()() const
     return mIsRunning->load();
 }
 
-Worker::IsNotReady::IsNotReady( std::atomic< bool > *isrunning, std::atomic< bool > *terminate ) noexcept
-    : mIsRunning( isrunning ),
-      mTerminate( terminate )
+Worker::IsNotReady::IsNotReady(std::atomic< bool > *isrunning, std::atomic< bool > *terminate) noexcept
+    : mIsRunning(isrunning),
+      mTerminate(terminate)
 {
 
 }
 
-Worker::Worker( const Worker &init ) noexcept
+Worker::Worker(const Worker &init) noexcept
 {
     mQueueHook = init.GetQueueHook();
 
-    mIsRunning.store( false );
-    mTerminate.store( false );
+    mIsRunning.store(false);
+    mTerminate.store(false);
 }
 
-Worker::Worker( JobQueue **hook ) noexcept
-    : mQueueHook( hook ),
-      mIsRunning( false ),
-      mTerminate( false )
+Worker::Worker(JobQueue **hook) noexcept
+    : mQueueHook(hook),
+      mIsRunning(false),
+      mTerminate(false)
 {
 }
 
-Worker Worker::operator= ( const Worker &init ) const noexcept
+Worker Worker::operator= (const Worker &init) const noexcept
 {
-    return Worker( init.GetQueueHook() );
+    return Worker(init.GetQueueHook());
 }
 
 JobQueue **Worker::GetQueueHook()  const
@@ -71,28 +71,28 @@ JobQueue **Worker::GetQueueHook()  const
     return mQueueHook;
 }
 
-void Worker::OnPooledRun( std::pair< std::condition_variable *, std::mutex * > notification,
-                          std::pair< std::condition_variable *, std::mutex * > response, ThreadID threadID )
+void Worker::OnPooledRun(std::pair< std::condition_variable *, std::mutex * > notification,
+                         std::pair< std::condition_variable *, std::mutex * > response, ThreadID threadID)
 {
-    SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID( threadID );
+    SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID(threadID);
 
 
-    while ( !mTerminate.load() )
+    while (!mTerminate.load())
     {
-        std::unique_lock<std::mutex> lock( *notification.second );
-        notification.first->wait( lock, IsNotReady( &mIsRunning, &mTerminate ) );
+        std::unique_lock<std::mutex> lock(*notification.second);
+        notification.first->wait(lock, IsNotReady(&mIsRunning, &mTerminate));
         lock.unlock();
 
-        if ( mQueueHook )
+        if (mQueueHook)
         {
-            if ( *mQueueHook )
+            if (*mQueueHook)
             {
-                RunJobs( threadID );
+                RunJobs(threadID);
             }
         }
 
-        std::unique_lock< std::mutex > isRunningLock( *response.second );
-        mIsRunning.store( false );
+        std::unique_lock< std::mutex > isRunningLock(*response.second);
+        mIsRunning.store(false);
         isRunningLock.unlock();
 
         //notify the main thread to continue;
@@ -102,7 +102,7 @@ void Worker::OnPooledRun( std::pair< std::condition_variable *, std::mutex * > n
 
 void Worker::Activate()
 {
-    mIsRunning.store( true );
+    mIsRunning.store(true);
 }
 
 bool Worker::IsRunning() const
@@ -112,23 +112,23 @@ bool Worker::IsRunning() const
 
 void Worker::Terminate()
 {
-    mTerminate.store( true );
+    mTerminate.store(true);
 }
 
-void Worker::RunJobs( const ThreadID threadID ) const
+void Worker::RunJobs(const ThreadID threadID) const
 {
     IThreadExecutable *job;
 
-    while ( ( job = ( *mQueueHook )->Pop() ) != nullptr )
+    while ((job = (*mQueueHook)->Pop()) != nullptr)
     {
         // Windows dll unshared global memory issues are resolved by this.
         // Fuck windows and their lazy ass dll implementation. Finding this issue
         // cost me way too much time, and the bloke who removes this line will be sent
         // straight to hell and will be forced to listen "Friday" 24/7 whilst being gutted by
         // Mickey Mouse. Seriously, do not remove this line.
-        SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID( threadID );
+        SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID(threadID);
 
-        job->OnStartJob( threadID );
+        job->OnStartJob(threadID);
         job->OnRunJob();
         job->OnJobFinished();
     }

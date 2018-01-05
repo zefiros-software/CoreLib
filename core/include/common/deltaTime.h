@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ public:
      *                  when running a game on 60 fps.
      */
 
-    DeltaTime( U8 maxsize = 60 ) noexcept;
+    DeltaTime(U8 maxsize = 60) noexcept;
 
     /// @name Modifiers
     /// @{

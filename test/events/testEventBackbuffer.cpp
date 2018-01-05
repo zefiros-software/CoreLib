@@ -37,7 +37,7 @@ namespace
     public:
 
         EventTest()
-            : mVal( ::Test::GenerateRandomU32() )
+            : mVal(::Test::GenerateRandomU32())
         {
         }
 
@@ -49,12 +49,12 @@ namespace
     public:
 
         Callback()
-            : mVal( 0 ),
-              mWithArg( false )
+            : mVal(0),
+              mWithArg(false)
         {
         }
 
-        void OnArg( const EventTest &ev )
+        void OnArg(const EventTest &ev)
         {
             mWithArg = true;
             mVal = ev.mVal;
@@ -64,71 +64,71 @@ namespace
         bool mWithArg;
     };
 
-    TEST( EventBackBuffer, SanityCheck )
+    TEST(EventBackBuffer, SanityCheck)
     {
         EventBackBuffer< Callback, EventTest > m;
     }
 
-    TEST( EventBackBuffer, SetObserver )
+    TEST(EventBackBuffer, SetObserver)
     {
         Callback c;
         EventBackBuffer< Callback, EventTest > m;
-        m.Observe( &Callback::OnArg, &c );
+        m.Observe(&Callback::OnArg, &c);
 
-        EXPECT_TRUE( m.IsEmpty() );
+        EXPECT_TRUE(m.IsEmpty());
 
         EventTest e;
-        m.Notify( e );
+        m.Notify(e);
 
-        EXPECT_EQ( 0u, c.mVal );
-        EXPECT_FALSE( c.mWithArg );
+        EXPECT_EQ(0u, c.mVal);
+        EXPECT_FALSE(c.mWithArg);
 
-        EXPECT_FALSE( m.IsEmpty() );
+        EXPECT_FALSE(m.IsEmpty());
 
         m.Flush();
 
-        EXPECT_EQ( c.mVal, e.mVal );
-        EXPECT_TRUE( c.mWithArg );
+        EXPECT_EQ(c.mVal, e.mVal);
+        EXPECT_TRUE(c.mWithArg);
 
-        EXPECT_TRUE( m.IsEmpty() );
+        EXPECT_TRUE(m.IsEmpty());
     }
 
-    TEST( EventBackBuffer, Unobserve )
+    TEST(EventBackBuffer, Unobserve)
     {
         Callback c;
         EventBackBuffer< Callback, EventTest > m;
-        m.Observe( &Callback::OnArg, &c );
+        m.Observe(&Callback::OnArg, &c);
         EventTest e;
-        m.Notify( e );
+        m.Notify(e);
 
-        EXPECT_EQ( 0u, c.mVal );
-        EXPECT_FALSE( c.mWithArg );
+        EXPECT_EQ(0u, c.mVal);
+        EXPECT_FALSE(c.mWithArg);
 
         m.Unobserve();
         m.Flush();
 
-        EXPECT_EQ( 0u, c.mVal );
-        EXPECT_FALSE( c.mWithArg );
+        EXPECT_EQ(0u, c.mVal);
+        EXPECT_FALSE(c.mWithArg);
     }
 
-    TEST( EventBackBuffer, Clear )
+    TEST(EventBackBuffer, Clear)
     {
         Callback c;
         EventBackBuffer< Callback, EventTest > m;
-        m.Observe( &Callback::OnArg, &c );
+        m.Observe(&Callback::OnArg, &c);
         EventTest e;
-        m.Notify( e );
+        m.Notify(e);
 
-        EXPECT_EQ( 0u, c.mVal );
-        EXPECT_FALSE( c.mWithArg );
+        EXPECT_EQ(0u, c.mVal);
+        EXPECT_FALSE(c.mWithArg);
 
         m.Clear();
 
-        EXPECT_TRUE( m.IsEmpty() );
+        EXPECT_TRUE(m.IsEmpty());
 
         m.Flush();
 
-        EXPECT_EQ( 0u, c.mVal );
-        EXPECT_FALSE( c.mWithArg );
+        EXPECT_EQ(0u, c.mVal);
+        EXPECT_FALSE(c.mWithArg);
     }
 }

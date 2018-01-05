@@ -31,62 +31,62 @@
 
 namespace
 {
-    TEST( DenseBitset, SanityCheck )
+    TEST(DenseBitset, SanityCheck)
     {
         DenseBitset m;
     }
 
-    TEST( DenseBitset, SanityCheck2 )
+    TEST(DenseBitset, SanityCheck2)
     {
-        DenseBitset m( 2 );
-        EXPECT_FALSE( m[0] );
-        EXPECT_FALSE( m[1] );
+        DenseBitset m(2);
+        EXPECT_FALSE(m[0]);
+        EXPECT_FALSE(m[1]);
     }
 
-    TEST( DenseBitset, Set )
+    TEST(DenseBitset, Set)
     {
-        DenseBitset m( 2 );
+        DenseBitset m(2);
         m[0] = true;
-        EXPECT_TRUE( m[0] );
+        EXPECT_TRUE(m[0]);
     }
 
-    TEST( DenseBitset, Set2 )
+    TEST(DenseBitset, Set2)
     {
-        DenseBitset m( 2 );
+        DenseBitset m(2);
         DenseBitset::BitReference f = m[0];
         f = true;
 
-        EXPECT_TRUE( f );
+        EXPECT_TRUE(f);
     }
 
-    TEST( DenseBitset, Set3 )
+    TEST(DenseBitset, Set3)
     {
-        DenseBitset m( 2 );
+        DenseBitset m(2);
         DenseBitset::BitReference f = m[0];
         f = true;
         f = false;
 
-        EXPECT_FALSE( f );
+        EXPECT_FALSE(f);
     }
 
-    TEST( DenseBitset, Resize )
+    TEST(DenseBitset, Resize)
     {
-        DenseBitset m( 0 );
-        m.Resize( 2 );
-        DenseBitset::BitReference f( m[0] );
+        DenseBitset m(0);
+        m.Resize(2);
+        DenseBitset::BitReference f(m[0]);
         f = true;
 
-        EXPECT_TRUE( f );
+        EXPECT_TRUE(f);
     }
 
-    TEST( DenseBitset, Reset )
+    TEST(DenseBitset, Reset)
     {
-        DenseBitset m( 0 );
-        m.Resize( 2 );
+        DenseBitset m(0);
+        m.Resize(2);
         DenseBitset::BitReference f = m[0];
         f = true;
         m.Reset();
-        EXPECT_FALSE( f );
+        EXPECT_FALSE(f);
     }
 
 }

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,17 +31,17 @@ void PoolManager::OnRelease()
     mPools.Clear();
 }
 
-void PoolManager::OnRelease( Namespace ns )
+void PoolManager::OnRelease(Namespace ns)
 {
-    ClearAll( ns );
+    ClearAll(ns);
 }
 
-void PoolManager::ClearAll( const Namespace ns )
+void PoolManager::ClearAll(const Namespace ns)
 {
-    mPools.Clear( ns );
+    mPools.Clear(ns);
 }
 
-bool PoolManager::HasPools( const Namespace ns ) const
+bool PoolManager::HasPools(const Namespace ns) const
 {
-    return mPools.HasNamespace( ns );
+    return mPools.HasNamespace(ns);
 }

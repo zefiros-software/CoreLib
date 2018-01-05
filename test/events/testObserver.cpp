@@ -37,7 +37,7 @@ namespace
     public:
 
         EventTest()
-            : mVal( ::Test::GenerateRandomU32() )
+            : mVal(::Test::GenerateRandomU32())
         {
         }
 
@@ -49,13 +49,13 @@ namespace
     public:
 
         Callback()
-            : mVal( 0 ),
-              mWithArg( false ),
-              mNoArg( false )
+            : mVal(0),
+              mWithArg(false),
+              mNoArg(false)
         {
         }
 
-        void OnArg( const EventTest &ev )
+        void OnArg(const EventTest &ev)
         {
             mWithArg = true;
             mVal = ev.mVal;
@@ -71,136 +71,136 @@ namespace
         bool mNoArg;
     };
 
-    TEST( Observer, SanityCheck2 )
+    TEST(Observer, SanityCheck2)
     {
         Observer< Callback, void > m;
     }
 
-    TEST( Observer, Notify )
+    TEST(Observer, Notify)
     {
         Observer<Callback, EventTest> m;
-        m.Notify( IEvent() );
+        m.Notify(IEvent());
     }
 
-    TEST( Observer, Notify2 )
+    TEST(Observer, Notify2)
     {
         Observer<Callback, void > m;
         m.Notify();
     }
 
-    TEST( Observer, NotifyArg )
+    TEST(Observer, NotifyArg)
     {
         Callback c;
-        Observer< Callback, EventTest > m( &c, &Callback::OnArg );
+        Observer< Callback, EventTest > m(&c, &Callback::OnArg);
 
         EventTest e;
-        m.Notify( e );
+        m.Notify(e);
 
-        EXPECT_EQ( c.mVal, e.mVal );
-        EXPECT_TRUE( c.mWithArg );
-        EXPECT_FALSE( c.mNoArg );
+        EXPECT_EQ(c.mVal, e.mVal);
+        EXPECT_TRUE(c.mWithArg);
+        EXPECT_FALSE(c.mNoArg);
     }
 
-    TEST( Observer, NotifyArg2 )
+    TEST(Observer, NotifyArg2)
     {
         Callback c;
-        Observer< Callback, void > m( &c, &Callback::OnNoArg );
+        Observer< Callback, void > m(&c, &Callback::OnNoArg);
 
         m.Notify();
 
-        EXPECT_FALSE( c.mWithArg );
-        EXPECT_TRUE( c.mNoArg );
+        EXPECT_FALSE(c.mWithArg);
+        EXPECT_TRUE(c.mNoArg);
     }
 
-    TEST( Observer, NotifyNullPtr )
+    TEST(Observer, NotifyNullPtr)
     {
-        Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
+        Observer< Callback, EventTest > m(nullptr, &Callback::OnArg);
 
         EventTest e;
-        m.Notify( e );
+        m.Notify(e);
     }
 
-    TEST( Observer, NotifyNullPtr2 )
+    TEST(Observer, NotifyNullPtr2)
     {
-        Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
-
-        m.Notify();
-    }
-
-    TEST( Observer, OpEq )
-    {
-        Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
-        Callback c;
-        m = Observer< Callback, EventTest >( &c, &Callback::OnArg );
-
-        EventTest e;
-        m.Notify( e );
-
-        EXPECT_EQ( c.mVal, e.mVal );
-        EXPECT_TRUE( c.mWithArg );
-        EXPECT_FALSE( c.mNoArg );
-    }
-
-    TEST( Observer, OpEq2 )
-    {
-        Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
-        Callback c;
-        m = Observer< Callback, void >( &c, &Callback::OnNoArg );
-
-        m.Notify();
-
-        EXPECT_FALSE( c.mWithArg );
-        EXPECT_TRUE( c.mNoArg );
-    }
-
-    TEST( Observer, Copy )
-    {
-        Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
-        Observer< Callback, EventTest > m2( m );
-
-        EventTest e;
-        m.Notify( e );
-    }
-
-    TEST( Observer, Copy2 )
-    {
-        Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
-        Observer< Callback, void > m2( m );
+        Observer< Callback, void > m(nullptr, &Callback::OnNoArg);
 
         m.Notify();
     }
 
-    TEST( Observer, OpComp )
+    TEST(Observer, OpEq)
     {
-        Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
-        Observer< Callback, EventTest > m2( m );
-
-        EXPECT_EQ( m, m2 );
-    }
-
-    TEST( Observer, OpComp2 )
-    {
-        Observer< Callback, EventTest > m( nullptr, &Callback::OnArg );
+        Observer< Callback, EventTest > m(nullptr, &Callback::OnArg);
         Callback c;
-        Observer< Callback, EventTest > m2( &c, &Callback::OnArg );
+        m = Observer< Callback, EventTest >(&c, &Callback::OnArg);
 
-        EXPECT_NE( m, m2 );
+        EventTest e;
+        m.Notify(e);
+
+        EXPECT_EQ(c.mVal, e.mVal);
+        EXPECT_TRUE(c.mWithArg);
+        EXPECT_FALSE(c.mNoArg);
     }
 
-    TEST( Observer, OpComp3 )
+    TEST(Observer, OpEq2)
     {
-        Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
-        Observer< Callback, void > m2( m );
-
-        EXPECT_EQ( m, m2 );
-    }
-
-    TEST( Observer, OpComp4 )
-    {
-        Observer< Callback, void > m( nullptr, &Callback::OnNoArg );
+        Observer< Callback, void > m(nullptr, &Callback::OnNoArg);
         Callback c;
-        Observer< Callback, void > m2( &c, &Callback::OnNoArg );
+        m = Observer< Callback, void >(&c, &Callback::OnNoArg);
 
-        EXPECT_NE( m, m2 );
+        m.Notify();
+
+        EXPECT_FALSE(c.mWithArg);
+        EXPECT_TRUE(c.mNoArg);
+    }
+
+    TEST(Observer, Copy)
+    {
+        Observer< Callback, EventTest > m(nullptr, &Callback::OnArg);
+        Observer< Callback, EventTest > m2(m);
+
+        EventTest e;
+        m.Notify(e);
+    }
+
+    TEST(Observer, Copy2)
+    {
+        Observer< Callback, void > m(nullptr, &Callback::OnNoArg);
+        Observer< Callback, void > m2(m);
+
+        m.Notify();
+    }
+
+    TEST(Observer, OpComp)
+    {
+        Observer< Callback, EventTest > m(nullptr, &Callback::OnArg);
+        Observer< Callback, EventTest > m2(m);
+
+        EXPECT_EQ(m, m2);
+    }
+
+    TEST(Observer, OpComp2)
+    {
+        Observer< Callback, EventTest > m(nullptr, &Callback::OnArg);
+        Callback c;
+        Observer< Callback, EventTest > m2(&c, &Callback::OnArg);
+
+        EXPECT_NE(m, m2);
+    }
+
+    TEST(Observer, OpComp3)
+    {
+        Observer< Callback, void > m(nullptr, &Callback::OnNoArg);
+        Observer< Callback, void > m2(m);
+
+        EXPECT_EQ(m, m2);
+    }
+
+    TEST(Observer, OpComp4)
+    {
+        Observer< Callback, void > m(nullptr, &Callback::OnNoArg);
+        Callback c;
+        Observer< Callback, void > m2(&c, &Callback::OnNoArg);
+
+        EXPECT_NE(m, m2);
     }
 }

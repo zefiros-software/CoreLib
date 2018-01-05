@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,12 +35,12 @@
 // http://jmabille.github.io/blog/2014/12/06/aligned-memory-allocator/
 
 
-void *_InternalAlignedMalloc( size_t bytes, size_t alignment );
+void *_InternalAlignedMalloc(size_t bytes, size_t alignment);
 
-void _InternalAlignedFree( void *ptr );
+void _InternalAlignedFree(void *ptr);
 
-void *ZefAlignedMalloc( size_t bytes, size_t alignment );
+void *ZefAlignedMalloc(size_t bytes, size_t alignment);
 
-void ZefAlignedFree( void *ptr );
+void ZefAlignedFree(void *ptr);
 
 #endif

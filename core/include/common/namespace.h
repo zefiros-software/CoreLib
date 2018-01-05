@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -72,7 +72,7 @@ public:
      * @param   addinNamespace  The addin namespace.
      */
 
-    explicit Namespace( const Namespace pluginNamespace, const Namespace addinNamespace ) noexcept;
+    explicit Namespace(const Namespace pluginNamespace, const Namespace addinNamespace) noexcept;
 
     /**
      * Set both the plugin and addin namespace using a 32 bit integer, which then will be split automatically in two 16
@@ -81,7 +81,7 @@ public:
      * @param   fullNamespace The full namespace.
      */
 
-    Namespace( const U32 fullNamespace ) noexcept;
+    Namespace(const U32 fullNamespace) noexcept;
 
     /**
      * Set both the plugin and addin namespace, using their own integers.
@@ -90,7 +90,7 @@ public:
      * @param   addinNamespace  The addin namespace.
      */
 
-    Namespace( const U16 pluginNamespace, const U16 addinNamespace ) noexcept;
+    Namespace(const U16 pluginNamespace, const U16 addinNamespace) noexcept;
 
     /// @addtogroup Element access
     /// @{
@@ -188,7 +188,7 @@ public:
      * @return True if the both the addin and plugin namespace are equal.
      */
 
-    bool operator==( const Namespace &other ) const noexcept;
+    bool operator==(const Namespace &other) const noexcept;
 
     /**
      * Inequality operator.
@@ -198,7 +198,7 @@ public:
      * @return True if the either the addin or plugin namespace are not equal.
      */
 
-    bool operator!=( const Namespace &other ) const noexcept;
+    bool operator!=(const Namespace &other) const noexcept;
 
     /**
      * Function call operator.
@@ -222,9 +222,9 @@ namespace std
     template <>
     struct hash<Namespace>
     {
-        std::size_t operator()( const Namespace &k ) const noexcept
+        std::size_t operator()(const Namespace &k) const noexcept
         {
-            return static_cast< size_t >( k.GetNamespace() );
+            return static_cast< size_t >(k.GetNamespace());
         }
     };
 }

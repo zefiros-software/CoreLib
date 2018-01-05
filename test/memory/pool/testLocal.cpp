@@ -39,8 +39,8 @@ namespace
     public:
 
         ImplObjectPool()
-            : mBorrowedCount( 0 ),
-              mReturnedCount( 0 )
+            : mBorrowedCount(0),
+              mReturnedCount(0)
         {
 
         }
@@ -48,10 +48,10 @@ namespace
         U32 *Get() override
         {
             ++mBorrowedCount;
-            return new U32( 42 );
+            return new U32(42);
         }
 
-        void Dispose( U32 *object ) override
+        void Dispose(U32 *object) override
         {
             ++mReturnedCount;
             delete object;
@@ -75,7 +75,7 @@ namespace
 
     typedef ObjectPool< U32, U32, SimplePoolableInstantiator< U32, U32 > > U32Pool;
 
-    TEST( Local, DefaultConstruction )
+    TEST(Local, DefaultConstruction)
     {
         Managers::InitialisePoolManager();
 
@@ -83,19 +83,19 @@ namespace
         PoolManager *const poolMngr = holder->pool;
 
         U32Pool *const pool = static_cast< U32Pool * >
-                              ( poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32> >() );
+                              (poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32> >());
 
         {
             Local< U32 > local;
 
-            EXPECT_EQ( 1u, pool->GetBorrowedCount() );
+            EXPECT_EQ(1u, pool->GetBorrowedCount());
         }
-        EXPECT_EQ( 1u, pool->GetReturnedCount() );
+        EXPECT_EQ(1u, pool->GetReturnedCount());
 
         Managers::ReleasePoolManager();
     }
 
-    TEST( Local, ManagerConstruction )
+    TEST(Local, ManagerConstruction)
     {
         Managers::InitialisePoolManager();
 
@@ -103,48 +103,48 @@ namespace
         PoolManager *const poolMngr = holder->pool;
 
         U32Pool *const pool = static_cast< U32Pool * >
-                              ( poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32 > >() );
+                              (poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32 > >());
 
         {
-            Local< U32 > local( holder );
+            Local< U32 > local(holder);
 
-            EXPECT_EQ( 1u, pool->GetBorrowedCount() );
+            EXPECT_EQ(1u, pool->GetBorrowedCount());
         }
-        EXPECT_EQ( 1u, pool->GetReturnedCount() );
+        EXPECT_EQ(1u, pool->GetReturnedCount());
 
         Managers::ReleasePoolManager();
     }
 
-    TEST( Local, PoolConstruction )
+    TEST(Local, PoolConstruction)
     {
         U32Pool pool;
 
         {
-            Local< U32 > local( &pool );
+            Local< U32 > local(&pool);
 
-            EXPECT_EQ( 1u, pool.GetBorrowedCount() );
+            EXPECT_EQ(1u, pool.GetBorrowedCount());
         }
-        EXPECT_EQ( 1u, pool.GetReturnedCount() );
+        EXPECT_EQ(1u, pool.GetReturnedCount());
     }
 
-    TEST( Local, Retrieval )
+    TEST(Local, Retrieval)
     {
         ImplObjectPool pool;
-        Local< U32 > local( &pool );
+        Local< U32 > local(&pool);
 
         U32 *const obj = local.Get();
-        EXPECT_EQ( obj, ( U32 * const )local );
-        EXPECT_EQ( obj, *local );
-        EXPECT_EQ( obj, local.operator->() );
-        EXPECT_EQ( obj, ( ( const Local< U32 > * )&local )->operator->() );
-        EXPECT_EQ( 42u, *obj );
+        EXPECT_EQ(obj, (U32 * const)local);
+        EXPECT_EQ(obj, *local);
+        EXPECT_EQ(obj, local.operator->());
+        EXPECT_EQ(obj, ((const Local< U32 > *)&local)->operator->());
+        EXPECT_EQ(42u, *obj);
     }
 
-    TEST( Local, Recreate )
+    TEST(Local, Recreate)
     {
         ImplObjectPool pool;
         {
-            Local< U32 > local( &pool );
+            Local< U32 > local(&pool);
 
             U32 *const first = local;
 
@@ -152,12 +152,12 @@ namespace
 
             U32 *const second = local;
 
-            EXPECT_NE( first, second );
-            EXPECT_EQ( 42u, *second );
+            EXPECT_NE(first, second);
+            EXPECT_EQ(42u, *second);
         }
 
-        EXPECT_EQ( 2u, pool.GetBorrowedCount() );
-        EXPECT_EQ( 2u, pool.GetReturnedCount() );
+        EXPECT_EQ(2u, pool.GetBorrowedCount());
+        EXPECT_EQ(2u, pool.GetReturnedCount());
     }
 
     class ImplObjectPoolNullptr
@@ -166,8 +166,8 @@ namespace
     public:
 
         ImplObjectPoolNullptr()
-            : mBorrowedCount( 0 ),
-              mReturnedCount( 0 )
+            : mBorrowedCount(0),
+              mReturnedCount(0)
         {
 
         }
@@ -178,7 +178,7 @@ namespace
             return nullptr;
         }
 
-        void Dispose( U32 *object ) override
+        void Dispose(U32 *object) override
         {
             ++mReturnedCount;
             delete object;
@@ -200,13 +200,13 @@ namespace
         std::size_t mReturnedCount;
     };
 
-    TEST( Local, Nullptr )
+    TEST(Local, Nullptr)
     {
         ImplObjectPoolNullptr pool;
-        const Local< U32 > local( &pool );
+        const Local< U32 > local(&pool);
 
         const U32 *const obj = local.Get();
-        EXPECT_EQ( obj, nullptr );
+        EXPECT_EQ(obj, nullptr);
     }
 
 }

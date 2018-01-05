@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,24 +33,24 @@
 
 namespace Pool
 {
-    EXPOSE_API( pool, Remove );
-    EXPOSE_API_NOARG( pool, Remove );
+    EXPOSE_API(pool, Remove);
+    EXPOSE_API_NOARG(pool, Remove);
 
-    EXPOSE_API( pool, ClearAll );
+    EXPOSE_API(pool, ClearAll);
 
-    EXPOSE_API( pool, AddFromFactory );
-    EXPOSE_API_NOARG( pool, AddFromFactory );
+    EXPOSE_API(pool, AddFromFactory);
+    EXPOSE_API_NOARG(pool, AddFromFactory);
 
-    EXPOSE_API( pool, Add );
-    EXPOSE_API_NOARG( pool, Add );
+    EXPOSE_API(pool, Add);
+    EXPOSE_API_NOARG(pool, Add);
 
-    EXPOSE_API( pool, Get );
-    EXPOSE_API_NOARG( pool, Get );
+    EXPOSE_API(pool, Get);
+    EXPOSE_API_NOARG(pool, Get);
 
-    EXPOSE_API( pool, HasPools );
+    EXPOSE_API(pool, HasPools);
 
-    EXPOSE_API( pool, Has );
-    EXPOSE_API_NOARG( pool, Has );
+    EXPOSE_API(pool, Has);
+    EXPOSE_API_NOARG(pool, Has);
 }
 
 #endif

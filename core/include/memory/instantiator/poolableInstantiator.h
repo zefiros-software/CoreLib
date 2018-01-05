@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -58,8 +58,8 @@ public:
 
     PoolableInstantiator() noexcept
     {
-        static_assert( Util::IsChildParent< tT, tBase >::value,
-                       "PoolableInstantiator::PoolableInstantiator():\n\tThe child type should derive from the base type." );
+        static_assert(Util::IsChildParent< tT, tBase >::value,
+                      "PoolableInstantiator::PoolableInstantiator():\n\tThe child type should derive from the base type.");
     }
 
     /// @name Creation
@@ -87,7 +87,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void Destroy( tBase *object ) override
+    virtual void Destroy(tBase *object) override
     {
         delete object;
     }
@@ -104,7 +104,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void Initialise( tBase *const object ) override
+    virtual void Initialise(tBase *const object) override
     {
         object->OnInit();
     }
@@ -121,7 +121,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void Release( tBase *const object ) override
+    virtual void Release(tBase *const object) override
     {
         object->OnRelease();
     }

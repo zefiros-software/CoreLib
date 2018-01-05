@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,7 @@ public:
 
     virtual ~DynamicFactory()
     {
-        for ( auto it = mInstantiators.begin(); it != mInstantiators.end(); ++it )
+        for (auto it = mInstantiators.begin(); it != mInstantiators.end(); ++it)
         {
             delete it->second;
         }
@@ -72,11 +72,11 @@ public:
      * @return  The new instance, NULL if there is no instantiator stored under the given name.
      */
 
-    tBase *Create( const tName &name ) const
+    tBase *Create(const tName &name) const
     {
-        const auto it = mInstantiators.find( name );
+        const auto it = mInstantiators.find(name);
 
-        if ( it != mInstantiators.end() )
+        if (it != mInstantiators.end())
         {
             return it->second->Create();
         }
@@ -105,11 +105,11 @@ public:
      */
 
     template < typename Instantiated >
-    bool Register( const tName &name ) noexcept
+    bool Register(const tName &name) noexcept
     {
         Instantiator< Instantiated, tBase > *instantiator = new Instantiator< Instantiated, tBase >;
 
-        if ( !RegisterExt( instantiator, name ) )
+        if (!RegisterExt(instantiator, name))
         {
             delete instantiator;
             return false;
@@ -130,11 +130,11 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool RegisterExt( AbstractTInstantiator< tBase > *factory, const tName &name ) noexcept
+    bool RegisterExt(AbstractTInstantiator< tBase > *factory, const tName &name) noexcept
     {
-        const auto it = mInstantiators.find( name );
+        const auto it = mInstantiators.find(name);
 
-        if ( it == mInstantiators.end() )
+        if (it == mInstantiators.end())
         {
             mInstantiators[ name ] = factory;
             return true;
@@ -150,15 +150,15 @@ public:
      * @param   name    Identifier for the instantiator.
      */
 
-    void Remove( const tName &name ) noexcept
+    void Remove(const tName &name) noexcept
     {
-        const auto it = mInstantiators.find( name );
+        const auto it = mInstantiators.find(name);
 
-        if ( it != mInstantiators.end() )
+        if (it != mInstantiators.end())
         {
             delete it->second;
 
-            mInstantiators.erase( it );
+            mInstantiators.erase(it);
         }
     }
 
@@ -175,9 +175,9 @@ public:
      * @return  true if registered, false if not.
      */
 
-    bool Has( const tName &name ) const noexcept
+    bool Has(const tName &name) const noexcept
     {
-        return mInstantiators.find( name ) != mInstantiators.end();
+        return mInstantiators.find(name) != mInstantiators.end();
     }
 
     /// @}

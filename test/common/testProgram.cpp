@@ -32,66 +32,66 @@
 
 namespace
 {
-    void CleanManagerEnv( std::function<void()> f )
+    void CleanManagerEnv(std::function<void()> f)
     {
         SystemManager::Get()->Release();
 
         f();
 
-        SystemManager *sysmgr = new SystemManager( 0, nullptr );
-        SystemManager::Get( sysmgr );
+        SystemManager *sysmgr = new SystemManager(0, nullptr);
+        SystemManager::Get(sysmgr);
         sysmgr->RegisterManagers();
-        Console::SetMode( Console::LogMode::Disabled );
+        Console::SetMode(Console::LogMode::Disabled);
     }
 
-    TEST( Program, ParseCLI )
+    TEST(Program, ParseCLI)
     {
-        CleanManagerEnv( []()
+        CleanManagerEnv([]()
         {
             const char *argv[] = { "", "--help" };
-            Program program( 2, argv );
+            Program program(2, argv);
             program.Init();
-        } );
+        });
     }
 
-    TEST( Program, ParseCLI2 )
+    TEST(Program, ParseCLI2)
     {
-        CleanManagerEnv( []()
+        CleanManagerEnv([]()
         {
             const char *argv[] = { "", "--help" };
-            Program program( 2, argv );
-            program.AddOption( "dothings", "Do some things" );
+            Program program(2, argv);
+            program.AddOption("dothings", "Do some things");
             program.Init();
-        } );
+        });
     }
 
-    TEST( Program, ParseCLI3 )
+    TEST(Program, ParseCLI3)
     {
-        CleanManagerEnv( []()
+        CleanManagerEnv([]()
         {
             const char *argv[] = { "", "--help" };
-            Program program( 2, argv );
-            program.AddOption<size_t>( "dothings", "Do some things", []( Program::Options< size_t > v )
+            Program program(2, argv);
+            program.AddOption<size_t>("dothings", "Do some things", [](Program::Options< size_t > v)
             {
                 return v.Required();
-            } );
+            });
             program.Init();
-        } );
+        });
     }
 
-    TEST( Program, ParseCLI, HasOption )
+    TEST(Program, ParseCLI, HasOption)
     {
-        CleanManagerEnv( []()
+        CleanManagerEnv([]()
         {
             const char *argv[] = { "", "--dothings2" };
-            Program program( 2, argv );
-            program.AddOption<size_t>( "dothings", "Do some things", []( Program::Options< size_t > v )
+            Program program(2, argv);
+            program.AddOption<size_t>("dothings", "Do some things", [](Program::Options< size_t > v)
             {
                 return v.Required();
-            } );
+            });
             program.Init();
-            EXPECT_FALSE( program.HasOption( "dothings" ) );
-            EXPECT_FALSE( program.HasOption( "dothings2" ) );
-        } );
+            EXPECT_FALSE(program.HasOption("dothings"));
+            EXPECT_FALSE(program.HasOption("dothings2"));
+        });
     }
 }

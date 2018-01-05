@@ -44,15 +44,15 @@ namespace
     public:
 
         TestConfiguration()
-            : stringValue( ::Test::GenerateRandomString() ),
-              floatValue( ::Test::GenerateRandomF32() / 100 ),
-              intValue( ::Test::GenerateRandomS32() ),
-              boolValue( ::Test::GenerateRandomBool() )
+            : stringValue(::Test::GenerateRandomString()),
+              floatValue(::Test::GenerateRandomF32() / 100),
+              intValue(::Test::GenerateRandomS32()),
+              boolValue(::Test::GenerateRandomBool())
         {
-            AddStringKey( "stringValue", stringValue );
-            AddIntKey( "intValue", intValue );
-            AddFloatKey( "floatValue", floatValue );
-            AddBoolKey( "boolValue", boolValue );
+            AddStringKey("stringValue", stringValue);
+            AddIntKey("intValue", intValue);
+            AddFloatKey("floatValue", floatValue);
+            AddBoolKey("boolValue", boolValue);
         }
 
         const std::string stringValue;
@@ -70,8 +70,8 @@ namespace
     std::string gValue = "";
     ConfigurationFile::ParseError gError = ConfigurationFile::ParseError::None;
 
-    void LogErrors( ConfigurationFile::ParseError error, const std::string &configName,
-                    const std::string &key, std::size_t lineNumber, const std::string &value )
+    void LogErrors(ConfigurationFile::ParseError error, const std::string &configName,
+                   const std::string &key, std::size_t lineNumber, const std::string &value)
     {
         gConfigName = configName;
         gKey = key;
@@ -103,11 +103,11 @@ namespace
     std::string GenerateComment()
     {
         static std::default_random_engine generator;
-        static std::uniform_int_distribution<U32> distribution( 1, 5 );
+        static std::uniform_int_distribution<U32> distribution(1, 5);
 
         std::string comment = "";
 
-        for ( U32 i = 0, end = distribution( generator ); i < end; ++i )
+        for (U32 i = 0, end = distribution(generator); i < end; ++i)
         {
             comment += ::Test::GenerateRandomString() + "\n";
         }
@@ -115,123 +115,123 @@ namespace
         return comment;
     }
 
-    TEST( ConfigurationFile, DefaultConstructible )
+    TEST(ConfigurationFile, DefaultConstructible)
     {
-        EXPECT_TRUE( std::is_default_constructible<ConfigurationFile>::value );
+        EXPECT_TRUE(std::is_default_constructible<ConfigurationFile>::value);
     }
 
 
-    TEST( ConfigurationFile, HasKey, String )
+    TEST(ConfigurationFile, HasKey, String)
     {
         //! [HasKey]
         TestConfiguration config;
 
-        EXPECT_TRUE( config.HasKey( "stringValue" ) );
+        EXPECT_TRUE(config.HasKey("stringValue"));
         //! [HasKey]
     }
 
-    TEST( ConfigurationFile, HasKey, Int )
+    TEST(ConfigurationFile, HasKey, Int)
     {
         TestConfiguration config;
 
-        EXPECT_TRUE( config.HasKey( "intValue" ) );
+        EXPECT_TRUE(config.HasKey("intValue"));
     }
 
-    TEST( ConfigurationFile, HasKey, Float )
+    TEST(ConfigurationFile, HasKey, Float)
     {
         TestConfiguration config;
 
-        EXPECT_TRUE( config.HasKey( "floatValue" ) );
+        EXPECT_TRUE(config.HasKey("floatValue"));
     }
 
-    TEST( ConfigurationFile, HasKey, Bool )
+    TEST(ConfigurationFile, HasKey, Bool)
     {
         TestConfiguration config;
 
-        EXPECT_TRUE( config.HasKey( "boolValue" ) );
+        EXPECT_TRUE(config.HasKey("boolValue"));
     }
 
-    TEST( ConfigurationFile, IsStringKey )
+    TEST(ConfigurationFile, IsStringKey)
     {
         //! [IsStringKey]
         TestConfiguration config;
 
-        EXPECT_TRUE( config.IsStringKey( "stringValue" ) );
+        EXPECT_TRUE(config.IsStringKey("stringValue"));
         //! [IsStringKey]
     }
 
-    TEST( ConfigurationFile, IsIntKey )
+    TEST(ConfigurationFile, IsIntKey)
     {
         //! [IsIntKey]
         TestConfiguration config;
 
-        EXPECT_TRUE( config.IsIntKey( "intValue" ) );
+        EXPECT_TRUE(config.IsIntKey("intValue"));
         //! [IsIntKey]
     }
 
-    TEST( ConfigurationFile, IsFloatKey )
+    TEST(ConfigurationFile, IsFloatKey)
     {
         //! [IsFloatKey]
         TestConfiguration config;
 
-        EXPECT_TRUE( config.IsFloatKey( "floatValue" ) );
+        EXPECT_TRUE(config.IsFloatKey("floatValue"));
         //! [IsFloatKey]
     }
 
-    TEST( ConfigurationFile, IsBoolKey )
+    TEST(ConfigurationFile, IsBoolKey)
     {
         //! [IsBoolKey]
         TestConfiguration config;
 
-        EXPECT_TRUE( config.IsBoolKey( "boolValue" ) );
+        EXPECT_TRUE(config.IsBoolKey("boolValue"));
         //! [IsBoolKey]
     }
 
-    TEST( ConfigurationFile, PreParse, StringValue )
+    TEST(ConfigurationFile, PreParse, StringValue)
     {
         //! [GetString]
         TestConfiguration config;
 
-        EXPECT_EQ( config.stringValue, config.GetString( "stringValue" ) );
+        EXPECT_EQ(config.stringValue, config.GetString("stringValue"));
         //! [GetString]
     }
 
-    TEST( ConfigurationFile, PreParse, IntValue )
+    TEST(ConfigurationFile, PreParse, IntValue)
     {
         //! [GetInt]
         TestConfiguration config;
 
-        EXPECT_EQ( config.intValue, config.GetInt( "intValue" ) );
+        EXPECT_EQ(config.intValue, config.GetInt("intValue"));
         //! [GetInt]
     }
 
-    TEST( ConfigurationFile, PreParse, FloatValue )
+    TEST(ConfigurationFile, PreParse, FloatValue)
     {
         //! [GetFloat]
         TestConfiguration config;
 
-        EXPECT_EQ( config.floatValue, config.GetFloat( "floatValue" ) );
+        EXPECT_EQ(config.floatValue, config.GetFloat("floatValue"));
         //! [GetFloat]
     }
 
-    TEST( ConfigurationFile, PreParse, BoolValue )
+    TEST(ConfigurationFile, PreParse, BoolValue)
     {
         //! [GetBool]
         TestConfiguration config;
 
-        EXPECT_EQ( config.boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(config.boolValue, config.GetBool("boolValue"));
         //! [GetBool]
     }
 
-    TEST( ConfigurationFile, Parse, TestFile )
+    TEST(ConfigurationFile, Parse, TestFile)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         //! [Load]
         TestConfiguration config;
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -239,41 +239,41 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "stringValue" << " = \"" << strContent << "\"\n"
                    << "intValue" << " = " << intContent << "\n"
-                   << "floatValue" << " = " << String::To( floatValue ) << "\n"
-                   << "boolValue" << " = " << ( boolValue ? "true" : "false" );
+                   << "floatValue" << " = " << String::To(floatValue) << "\n"
+                   << "boolValue" << " = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         //! [Load]
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, WhiteSpace )
+    TEST(ConfigurationFile, Parse, WhiteSpace)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         //! [Load]
         TestConfiguration config;
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -281,38 +281,38 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "stringValue" << " = \"" << strContent << "\"\n"
                    << "\t\t\n"
                    << "intValue" << " = " << intContent << "\n"
                    << "\t\t\n"
-                   << "floatValue" << " = " << String::To( floatValue ) << "\n"
+                   << "floatValue" << " = " << String::To(floatValue) << "\n"
                    << "\t\t\n"
-                   << "boolValue" << " = " << ( boolValue ? "true" : "false" );
+                   << "boolValue" << " = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         //! [Load]
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, StressTest )
+    TEST(ConfigurationFile, Parse, StressTest)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         ConfigurationFile config;
@@ -326,114 +326,114 @@ namespace
         std::unordered_map< std::string, std::pair< S32, S32 > > mInts;
         std::unordered_map< std::string, std::pair< bool, bool > > mBools;
 
-        for ( size_t i = 0, end = cycli; i < end; ++i )
+        for (size_t i = 0, end = cycli; i < end; ++i)
         {
-            mStrings[ key + String::To( i ) ] = std::pair< std::string, std::string >( ::Test::GenerateRandomString(),
-                                                                                       ::Test::GenerateRandomString() );
+            mStrings[ key + String::To(i) ] = std::pair< std::string, std::string >(::Test::GenerateRandomString(),
+                                                                                    ::Test::GenerateRandomString());
 
-            mFloats[ key + String::To( i + end ) ] = std::pair< F32, F32 >( ::Test::GenerateRandomF32(),
-                                                                            ::Test::GenerateRandomF32() );
+            mFloats[ key + String::To(i + end) ] = std::pair< F32, F32 >(::Test::GenerateRandomF32(),
+                                                                         ::Test::GenerateRandomF32());
 
-            mInts[ key + String::To( i + end * 2 ) ] = std::pair< S32, S32 >( ::Test::GenerateRandomS32(),
-                                                                              ::Test::GenerateRandomS32() );
+            mInts[ key + String::To(i + end * 2) ] = std::pair< S32, S32 >(::Test::GenerateRandomS32(),
+                                                                           ::Test::GenerateRandomS32());
 
-            mBools[ key + String::To( i + end * 3 ) ] = std::pair< bool, bool >( ::Test::GenerateRandomBool(),
-                                                                                 ::Test::GenerateRandomBool() );
+            mBools[ key + String::To(i + end * 3) ] = std::pair< bool, bool >(::Test::GenerateRandomBool(),
+                                                                              ::Test::GenerateRandomBool());
         }
 
-        for ( auto it = mStrings.begin(), end = mStrings.end(); it != end; ++it )
+        for (auto it = mStrings.begin(), end = mStrings.end(); it != end; ++it)
         {
-            ASSERT_TRUE( config.AddStringKey( it->first, it->second.first, GenerateComment() ) );
-            ASSERT_TRUE( configReader.AddStringKey( it->first, it->second.first ) );
+            ASSERT_TRUE(config.AddStringKey(it->first, it->second.first, GenerateComment()));
+            ASSERT_TRUE(configReader.AddStringKey(it->first, it->second.first));
         }
 
-        for ( auto it = mFloats.begin(), end = mFloats.end(); it != end; ++it )
+        for (auto it = mFloats.begin(), end = mFloats.end(); it != end; ++it)
         {
-            ASSERT_TRUE( config.AddFloatKey( it->first, it->second.first, GenerateComment() ) );
-            ASSERT_TRUE( configReader.AddFloatKey( it->first, it->second.first ) );
+            ASSERT_TRUE(config.AddFloatKey(it->first, it->second.first, GenerateComment()));
+            ASSERT_TRUE(configReader.AddFloatKey(it->first, it->second.first));
         }
 
-        for ( auto it = mInts.begin(), end = mInts.end(); it != end; ++it )
+        for (auto it = mInts.begin(), end = mInts.end(); it != end; ++it)
         {
-            ASSERT_TRUE( config.AddIntKey( it->first, it->second.first, GenerateComment() ) );
-            ASSERT_TRUE( configReader.AddIntKey( it->first, it->second.first ) );
+            ASSERT_TRUE(config.AddIntKey(it->first, it->second.first, GenerateComment()));
+            ASSERT_TRUE(configReader.AddIntKey(it->first, it->second.first));
         }
 
-        for ( auto it = mBools.begin(), end = mBools.end(); it != end; ++it )
+        for (auto it = mBools.begin(), end = mBools.end(); it != end; ++it)
         {
-            ASSERT_TRUE( config.AddBoolKey( it->first, it->second.first, GenerateComment() ) );
-            ASSERT_TRUE( configReader.AddBoolKey( it->first, it->second.first ) );
+            ASSERT_TRUE(config.AddBoolKey(it->first, it->second.first, GenerateComment()));
+            ASSERT_TRUE(configReader.AddBoolKey(it->first, it->second.first));
         }
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
-        for ( auto it = mStrings.begin(), end = mStrings.end(); it != end; ++it )
+        for (auto it = mStrings.begin(), end = mStrings.end(); it != end; ++it)
         {
-            EXPECT_EQ( it->second.first, config.GetString( it->first ) );
-            config.SetString( it->first, it->second.second );
+            EXPECT_EQ(it->second.first, config.GetString(it->first));
+            config.SetString(it->first, it->second.second);
         }
 
-        for ( auto it = mFloats.begin(), end = mFloats.end(); it != end; ++it )
+        for (auto it = mFloats.begin(), end = mFloats.end(); it != end; ++it)
         {
-            EXPECT_FLOAT_EQ( it->second.first, config.GetFloat( it->first ) );
-            config.SetFloat( it->first, it->second.second );
+            EXPECT_FLOAT_EQ(it->second.first, config.GetFloat(it->first));
+            config.SetFloat(it->first, it->second.second);
         }
 
-        for ( auto it = mInts.begin(), end = mInts.end(); it != end; ++it )
+        for (auto it = mInts.begin(), end = mInts.end(); it != end; ++it)
         {
-            EXPECT_EQ( it->second.first, config.GetInt( it->first ) );
-            config.SetInt( it->first, it->second.second );
+            EXPECT_EQ(it->second.first, config.GetInt(it->first));
+            config.SetInt(it->first, it->second.second);
         }
 
-        for ( auto it = mBools.begin(), end = mBools.end(); it != end; ++it )
+        for (auto it = mBools.begin(), end = mBools.end(); it != end; ++it)
         {
-            EXPECT_EQ( it->second.first, config.GetBool( it->first ) );
-            config.SetBool( it->first, it->second.second );
+            EXPECT_EQ(it->second.first, config.GetBool(it->first));
+            config.SetBool(it->first, it->second.second);
         }
 
-        EXPECT_TRUE( configReader.Load( file, "testConfig", &LogErrors ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_TRUE(configReader.Load(file, "testConfig", &LogErrors));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
-        for ( auto it = mStrings.begin(), end = mStrings.end(); it != end; ++it )
+        for (auto it = mStrings.begin(), end = mStrings.end(); it != end; ++it)
         {
-            EXPECT_EQ( it->second.second, configReader.GetString( it->first ) );
+            EXPECT_EQ(it->second.second, configReader.GetString(it->first));
         }
 
-        for ( auto it = mFloats.begin(), end = mFloats.end(); it != end; ++it )
+        for (auto it = mFloats.begin(), end = mFloats.end(); it != end; ++it)
         {
-            EXPECT_FLOAT_EQ( it->second.second, configReader.GetFloat( it->first ) );
+            EXPECT_FLOAT_EQ(it->second.second, configReader.GetFloat(it->first));
         }
 
-        for ( auto it = mInts.begin(), end = mInts.end(); it != end; ++it )
+        for (auto it = mInts.begin(), end = mInts.end(); it != end; ++it)
         {
-            EXPECT_EQ( it->second.second, configReader.GetInt( it->first ) );
+            EXPECT_EQ(it->second.second, configReader.GetInt(it->first));
         }
 
-        for ( auto it = mBools.begin(), end = mBools.end(); it != end; ++it )
+        for (auto it = mBools.begin(), end = mBools.end(); it != end; ++it)
         {
-            EXPECT_EQ( it->second.second, configReader.GetBool( it->first ) );
+            EXPECT_EQ(it->second.second, configReader.GetBool(it->first));
         }
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, Comments )
+    TEST(ConfigurationFile, Parse, Comments)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -441,39 +441,39 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "#" << ::Test::GenerateRandomString() << "\n"
                    << "stringValue" << " = \"#" << strContent << "\"\n#" << ::Test::GenerateRandomString() << "\n"
                    << "intValue" << " = " << intContent << "\n"
-                   << "floatValue" << " = " << String::To( floatValue ) << "\n"
-                   << "boolValue" << " = " << ( boolValue ? "true" : "false" );
+                   << "floatValue" << " = " << String::To(floatValue) << "\n"
+                   << "boolValue" << " = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( "#" + strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ("#" + strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, Comments2 )
+    TEST(ConfigurationFile, Parse, Comments2)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -481,71 +481,71 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "#" << ::Test::GenerateRandomString() << "\n"
                    << "stringValue" << " = \'#"
                    << strContent << "\"\"\'\n#" << ::Test::GenerateRandomString() << "\n"
 
                    << "intValue" << " = " << intContent << "\n"
-                   << "floatValue" << " = " << String::To( floatValue ) << "\n"
-                   << "boolValue" << " = " << ( boolValue ? "true" : "false" );
+                   << "floatValue" << " = " << String::To(floatValue) << "\n"
+                   << "boolValue" << " = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( "#" + strContent + "\"\"", config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ("#" + strContent + "\"\"", config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, StringValue )
+    TEST(ConfigurationFile, Parse, StringValue)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         const std::string key = "key";
 
         const std::string content = ::Test::GenerateRandomString();
-        const std::string content2 = content.substr( 0, content.size() / 2 );
+        const std::string content2 = content.substr(0, content.size() / 2);
 
         {
             ResetLogErrors();
 
-            ASSERT_NE( content, content2 );
+            ASSERT_NE(content, content2);
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << key << " = \"" << content << "\"";
         }
 
         ConfigurationFile config;
-        EXPECT_TRUE( config.AddStringKey( key, content2 ) );
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.AddStringKey(key, content2));
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( content, config.GetString( key ) );
+        EXPECT_EQ(content, config.GetString(key));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, IntValue )
+    TEST(ConfigurationFile, Parse, IntValue)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         const std::string key = "key";
@@ -556,31 +556,31 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_NE( content, content2 );
+            ASSERT_NE(content, content2);
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << key << " = " << content;
         }
 
         ConfigurationFile config;
-        EXPECT_TRUE( config.AddIntKey( key, content2 ) );
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.AddIntKey(key, content2));
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( content, config.GetInt( key ) );
+        EXPECT_EQ(content, config.GetInt(key));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, FloatValue )
+    TEST(ConfigurationFile, Parse, FloatValue)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         const std::string key = "key";
@@ -591,31 +591,31 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_NE( content, content2 );
+            ASSERT_NE(content, content2);
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
-            stream << key << " = " << String::To( content );
+            File::WriteOpen(stream, file, Path::Type::None);
+            stream << key << " = " << String::To(content);
         }
 
         ConfigurationFile config;
-        EXPECT_TRUE( config.AddFloatKey( key, content2 ) );
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.AddFloatKey(key, content2));
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_FLOAT_EQ( content, config.GetFloat( key ) );
+        EXPECT_FLOAT_EQ(content, config.GetFloat(key));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, BoolValue )
+    TEST(ConfigurationFile, Parse, BoolValue)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         const std::string key = "key";
@@ -627,34 +627,34 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_NE( content, content2 );
+            ASSERT_NE(content, content2);
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
-            stream << key << " = " << ( content ? "true" : "false" ) << "\n"
+            File::WriteOpen(stream, file, Path::Type::None);
+            stream << key << " = " << (content ? "true" : "false") << "\n"
                    << key2 << " = " << content;
         }
 
         ConfigurationFile config;
-        EXPECT_TRUE( config.AddBoolKey( key, content2 ) );
-        EXPECT_TRUE( config.AddBoolKey( key2, content2 ) );
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.AddBoolKey(key, content2));
+        EXPECT_TRUE(config.AddBoolKey(key2, content2));
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( content, config.GetBool( key ) );
-        EXPECT_EQ( content, config.GetBool( key2 ) );
+        EXPECT_EQ(content, config.GetBool(key));
+        EXPECT_EQ(content, config.GetBool(key2));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, BoolValue2 )
+    TEST(ConfigurationFile, Parse, BoolValue2)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         const std::string key = "key";
@@ -666,34 +666,34 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_NE( content, content2 );
+            ASSERT_NE(content, content2);
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
-            stream << key << " = " << ( content ? "1" : "0" ) << "\n"
-                   << key2 << " = " << ( content ? "0" : "1" );
+            File::WriteOpen(stream, file, Path::Type::None);
+            stream << key << " = " << (content ? "1" : "0") << "\n"
+                   << key2 << " = " << (content ? "0" : "1");
         }
 
         ConfigurationFile config;
-        EXPECT_TRUE( config.AddBoolKey( key, content2 ) );
-        EXPECT_TRUE( config.AddBoolKey( key2, content2 ) );
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.AddBoolKey(key, content2));
+        EXPECT_TRUE(config.AddBoolKey(key2, content2));
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( content, config.GetBool( key ) );
-        EXPECT_EQ( content2, config.GetBool( key2 ) );
+        EXPECT_EQ(content, config.GetBool(key));
+        EXPECT_EQ(content2, config.GetBool(key2));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, NonExisting )
+    TEST(ConfigurationFile, Parse, NonExisting)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
         const std::string file2 = root + Path::GetUniqueFileName();
 
@@ -701,30 +701,30 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file2, Path::Type::None );
+            File::WriteOpen(stream, file2, Path::Type::None);
             stream << "stringValue = \"" << config.stringValue << "\"\n\n"
                    << "intValue = " << config.intValue << "\n\n"
-                   << "floatValue = " << String::To( config.floatValue ) << "\n\n"
-                   << "boolValue = " << ( config.boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(config.floatValue) << "\n\n"
+                   << "boolValue = " << (config.boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_TRUE( File::AreEqual( file, file2 ) );
+        EXPECT_TRUE(File::AreEqual(file, file2));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Parse, NonExistingPartial )
+    TEST(ConfigurationFile, Parse, NonExistingPartial)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
         const std::string file2 = root + Path::GetUniqueFileName();
 
@@ -732,37 +732,37 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
             {
                 std::ofstream stream;
-                File::WriteOpen( stream, file, Path::Type::None );
+                File::WriteOpen(stream, file, Path::Type::None);
                 stream << "stringValue = \"" << config.stringValue << "\"\n\n"
                        << "intValue = " << config.intValue << "\n\n";
             }
             {
                 std::ofstream stream;
-                File::WriteOpen( stream, file2, Path::Type::None );
+                File::WriteOpen(stream, file2, Path::Type::None);
                 stream << "stringValue = \"" << config.stringValue << "\"\n\n"
                        << "intValue = " << config.intValue << "\n\n"
-                       << "floatValue = " << String::To( config.floatValue ) << "\n\n"
-                       << "boolValue = " << ( config.boolValue ? "true" : "false" );
+                       << "floatValue = " << String::To(config.floatValue) << "\n\n"
+                       << "boolValue = " << (config.boolValue ? "true" : "false");
             }
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_TRUE( File::AreEqual( file, file2 ) );
+        EXPECT_TRUE(File::AreEqual(file, file2));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, NewValues, LeaveComment )
+    TEST(ConfigurationFile, NewValues, LeaveComment)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
         const std::string file2 = root + Path::GetUniqueFileName();
 
@@ -770,7 +770,7 @@ namespace
 
         TestConfiguration config;
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -778,48 +778,48 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             {
                 std::ofstream stream;
-                File::WriteOpen( stream, file, Path::Type::None );
+                File::WriteOpen(stream, file, Path::Type::None);
                 stream << "stringValue = \"" << config.stringValue << "\"#comment\n\n"
                        << "intValue = " << config.intValue << "\n\n"
-                       << "floatValue = " << String::To( config.floatValue ) << "\n\n"
-                       << "boolValue = " << ( config.boolValue ? "true" : "false" );
+                       << "floatValue = " << String::To(config.floatValue) << "\n\n"
+                       << "boolValue = " << (config.boolValue ? "true" : "false");
             }
 
             {
                 std::ofstream stream;
-                File::WriteOpen( stream, file2, Path::Type::None );
+                File::WriteOpen(stream, file2, Path::Type::None);
                 stream << "stringValue = \"" << strContent << "\"#comment\n\n"
                        << "intValue = " << intContent << "\n\n"
-                       << "floatValue = " << String::To( floatValue ) << "\n\n"
-                       << "boolValue = " << ( boolValue ? "true" : "false" );
+                       << "floatValue = " << String::To(floatValue) << "\n\n"
+                       << "boolValue = " << (boolValue ? "true" : "false");
             }
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetString( "stringValue", strContent ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetInt( "intValue", intContent ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetFloat( "floatValue", floatValue ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetBool( "boolValue", boolValue ) );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetString("stringValue", strContent));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetInt("intValue", intContent));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetFloat("floatValue", floatValue));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetBool("boolValue", boolValue));
 
-        EXPECT_TRUE( File::AreEqual( file, file2 ) );
+        EXPECT_TRUE(File::AreEqual(file, file2));
 
         //! [NewValues]
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, NewValues )
+    TEST(ConfigurationFile, NewValues)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
         const std::string file2 = root + Path::GetUniqueFileName();
 
@@ -827,7 +827,7 @@ namespace
 
         TestConfiguration config;
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent  = config.intValue / 2  + 1;
         const F32 floatValue  = config.floatValue / 2  + 1;
         const bool boolValue  = !config.boolValue;
@@ -835,43 +835,43 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file2, Path::Type::None );
+            File::WriteOpen(stream, file2, Path::Type::None);
             stream << "stringValue = \"" << strContent << "\"\n\n"
                    << "intValue = " << intContent << "\n\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetString( "stringValue", strContent ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetInt( "intValue", intContent ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetFloat( "floatValue", floatValue ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetBool( "boolValue", boolValue ) );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetString("stringValue", strContent));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetInt("intValue", intContent));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetFloat("floatValue", floatValue));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetBool("boolValue", boolValue));
 
-        EXPECT_TRUE( File::AreEqual( file, file2 ) );
+        EXPECT_TRUE(File::AreEqual(file, file2));
 
         //! [NewValues]
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, NewValues, NoChange )
+    TEST(ConfigurationFile, NewValues, NoChange)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
         const std::string file2 = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent  = config.intValue / 2  + 1;
         const F32 floatValue  = config.floatValue / 2  + 1;
         const bool boolValue  = !config.boolValue;
@@ -879,294 +879,294 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file2, Path::Type::None );
+            File::WriteOpen(stream, file2, Path::Type::None);
             stream << "stringValue = \"" << config.stringValue << "\"\n\n"
                    << "intValue = " << config.intValue << "\n\n"
-                   << "floatValue = " << String::To( config.floatValue ) << "\n\n"
-                   << "boolValue = " << ( config.boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(config.floatValue) << "\n\n"
+                   << "boolValue = " << (config.boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetString( "stringValue", strContent, false ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetInt( "intValue", intContent, false ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetFloat( "floatValue", floatValue, false ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetBool( "boolValue", boolValue, false ) );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetString("stringValue", strContent, false));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetInt("intValue", intContent, false));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetFloat("floatValue", floatValue, false));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetBool("boolValue", boolValue, false));
 
-        EXPECT_TRUE( File::AreEqual( file, file2 ) );
+        EXPECT_TRUE(File::AreEqual(file, file2));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::None, gError );
+        EXPECT_EQ(ConfigurationFile::ParseError::None, gError);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, SetValue, NoInit )
+    TEST(ConfigurationFile, SetValue, NoInit)
     {
         TestConfiguration config;
-        EXPECT_EQ( ConfigurationFile::ParseError::FailedToOpenFile, config.SetString( "stringValue",
-                                                                                      ::Test::GenerateRandomString() ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::FailedToOpenFile, config.SetInt( "intValue",
-                                                                                   ::Test::GenerateRandomS32() ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::FailedToOpenFile, config.SetFloat( "floatValue",
-                                                                                     ::Test::GenerateRandomF32() ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::FailedToOpenFile, config.SetBool( "boolValue",
-                                                                                    ::Test::GenerateRandomBool() ) );
+        EXPECT_EQ(ConfigurationFile::ParseError::FailedToOpenFile, config.SetString("stringValue",
+                                                                                    ::Test::GenerateRandomString()));
+        EXPECT_EQ(ConfigurationFile::ParseError::FailedToOpenFile, config.SetInt("intValue",
+                                                                                 ::Test::GenerateRandomS32()));
+        EXPECT_EQ(ConfigurationFile::ParseError::FailedToOpenFile, config.SetFloat("floatValue",
+                                                                                   ::Test::GenerateRandomF32()));
+        EXPECT_EQ(ConfigurationFile::ParseError::FailedToOpenFile, config.SetBool("boolValue",
+                                                                                  ::Test::GenerateRandomBool()));
     }
 
-    TEST( ConfigurationFile, SetValue, NotExistingString )
+    TEST(ConfigurationFile, SetValue, NotExistingString)
     {
         ConfigurationFile config;
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetString( "key", ::Test::GenerateRandomString() ) );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidKey, config.SetString("key", ::Test::GenerateRandomString()));
     }
 
-    TEST( ConfigurationFile, SetValue, NotExistingBool )
-    {
-        ConfigurationFile config;
-
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetBool( "key", ::Test::GenerateRandomBool() ) );
-    }
-
-    TEST( ConfigurationFile, SetValue, NotExistingFloat )
+    TEST(ConfigurationFile, SetValue, NotExistingBool)
     {
         ConfigurationFile config;
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetFloat( "key", ::Test::GenerateRandomF32() ) );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidKey, config.SetBool("key", ::Test::GenerateRandomBool()));
     }
 
-    TEST( ConfigurationFile, SetValue, NotExistingInt )
+    TEST(ConfigurationFile, SetValue, NotExistingFloat)
     {
         ConfigurationFile config;
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidKey, config.SetInt( "key", ::Test::GenerateRandomS32() ) );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidKey, config.SetFloat("key", ::Test::GenerateRandomF32()));
     }
 
-    TEST( ConfigurationFile, SetEmpty )
+    TEST(ConfigurationFile, SetValue, NotExistingInt)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        ConfigurationFile config;
+
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidKey, config.SetInt("key", ::Test::GenerateRandomS32()));
+    }
+
+    TEST(ConfigurationFile, SetEmpty)
+    {
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "";
         }
 
         const std::string value = ::Test::GenerateRandomString();
 
         ConfigurationFile config;
-        EXPECT_TRUE( config.Load( file, "testConfig" ) );
+        EXPECT_TRUE(config.Load(file, "testConfig"));
 
-        EXPECT_FALSE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.AddStringKey( "key", value ) );
-        EXPECT_EQ( ConfigurationFile::ParseError::None, config.SetString( "key", value + "$" ) );
+        EXPECT_FALSE(config.HasKey("key"));
+        EXPECT_TRUE(config.AddStringKey("key", value));
+        EXPECT_EQ(ConfigurationFile::ParseError::None, config.SetString("key", value + "$"));
 
-        EXPECT_EQ( value + "$", config.GetString( "key" ) );
-        EXPECT_TRUE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.IsStringKey( "key" ) );
+        EXPECT_EQ(value + "$", config.GetString("key"));
+        EXPECT_TRUE(config.HasKey("key"));
+        EXPECT_TRUE(config.IsStringKey("key"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, AddKey, String )
+    TEST(ConfigurationFile, AddKey, String)
     {
         //! [AddStringKey]
         const std::string value = ::Test::GenerateRandomString();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.AddStringKey( "key", value ) );
-        EXPECT_EQ( value, config.GetString( "key" ) );
-        EXPECT_TRUE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.IsStringKey( "key" ) );
+        EXPECT_FALSE(config.HasKey("key"));
+        EXPECT_TRUE(config.AddStringKey("key", value));
+        EXPECT_EQ(value, config.GetString("key"));
+        EXPECT_TRUE(config.HasKey("key"));
+        EXPECT_TRUE(config.IsStringKey("key"));
         //! [AddStringKey]
     }
 
-    TEST( ConfigurationFile, AddKey, Bool )
+    TEST(ConfigurationFile, AddKey, Bool)
     {
         //! [AddBoolKey]
         const bool value = ::Test::GenerateRandomBool();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.AddBoolKey( "key", value ) );
-        EXPECT_EQ( value, config.GetBool( "key" ) );
-        EXPECT_TRUE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.IsBoolKey( "key" ) );
+        EXPECT_FALSE(config.HasKey("key"));
+        EXPECT_TRUE(config.AddBoolKey("key", value));
+        EXPECT_EQ(value, config.GetBool("key"));
+        EXPECT_TRUE(config.HasKey("key"));
+        EXPECT_TRUE(config.IsBoolKey("key"));
         //! [AddBoolKey]
     }
 
-    TEST( ConfigurationFile, AddKey, Float )
+    TEST(ConfigurationFile, AddKey, Float)
     {
         //! [AddFloatKey]
         const F32 value = ::Test::GenerateRandomF32();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.AddFloatKey( "key", value ) );
-        EXPECT_FLOAT_EQ( value, config.GetFloat( "key" ) );
-        EXPECT_TRUE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.IsFloatKey( "key" ) );
+        EXPECT_FALSE(config.HasKey("key"));
+        EXPECT_TRUE(config.AddFloatKey("key", value));
+        EXPECT_FLOAT_EQ(value, config.GetFloat("key"));
+        EXPECT_TRUE(config.HasKey("key"));
+        EXPECT_TRUE(config.IsFloatKey("key"));
         //! [AddFloatKey]
     }
 
-    TEST( ConfigurationFile, AddKey, Int )
+    TEST(ConfigurationFile, AddKey, Int)
     {
         //! [AddIntKey]
         const S32 value = ::Test::GenerateRandomS32();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.AddIntKey( "key", value ) );
-        EXPECT_EQ( value, config.GetInt( "key" ) );
-        EXPECT_TRUE( config.HasKey( "key" ) );
-        EXPECT_TRUE( config.IsIntKey( "key" ) );
+        EXPECT_FALSE(config.HasKey("key"));
+        EXPECT_TRUE(config.AddIntKey("key", value));
+        EXPECT_EQ(value, config.GetInt("key"));
+        EXPECT_TRUE(config.HasKey("key"));
+        EXPECT_TRUE(config.IsIntKey("key"));
         //! [AddIntKey]
     }
 
-    TEST( ConfigurationFile, AddEmpty, String )
+    TEST(ConfigurationFile, AddEmpty, String)
     {
         const std::string value = ::Test::GenerateRandomString();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "" ) );
-        EXPECT_FALSE( config.AddStringKey( "", value ) );
-        EXPECT_EQ( "", config.GetString( "" ) );
-        EXPECT_FALSE( config.HasKey( "" ) );
+        EXPECT_FALSE(config.HasKey(""));
+        EXPECT_FALSE(config.AddStringKey("", value));
+        EXPECT_EQ("", config.GetString(""));
+        EXPECT_FALSE(config.HasKey(""));
     }
 
-    TEST( ConfigurationFile, AddEmpty, Bool )
+    TEST(ConfigurationFile, AddEmpty, Bool)
     {
         const bool value = ::Test::GenerateRandomBool();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "" ) );
-        EXPECT_FALSE( config.AddBoolKey( "", value ) );
-        EXPECT_FALSE( config.GetBool( "" ) );
-        EXPECT_FALSE( config.HasKey( "" ) );
+        EXPECT_FALSE(config.HasKey(""));
+        EXPECT_FALSE(config.AddBoolKey("", value));
+        EXPECT_FALSE(config.GetBool(""));
+        EXPECT_FALSE(config.HasKey(""));
     }
 
-    TEST( ConfigurationFile, AddEmpty, Float )
+    TEST(ConfigurationFile, AddEmpty, Float)
     {
         const F32 value = ::Test::GenerateRandomF32();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "" ) );
-        EXPECT_FALSE( config.AddFloatKey( "", value ) );
-        EXPECT_FLOAT_EQ( 0.0f, config.GetFloat( "" ) );
-        EXPECT_FALSE( config.HasKey( "" ) );
+        EXPECT_FALSE(config.HasKey(""));
+        EXPECT_FALSE(config.AddFloatKey("", value));
+        EXPECT_FLOAT_EQ(0.0f, config.GetFloat(""));
+        EXPECT_FALSE(config.HasKey(""));
     }
 
-    TEST( ConfigurationFile, AddEmpty, Int )
+    TEST(ConfigurationFile, AddEmpty, Int)
     {
         const S32 value = ::Test::GenerateRandomS32();
 
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.HasKey( "" ) );
-        EXPECT_FALSE( config.AddIntKey( "", value ) );
-        EXPECT_EQ( 0, config.GetInt( "" ) );
-        EXPECT_FALSE( config.HasKey( "" ) );
+        EXPECT_FALSE(config.HasKey(""));
+        EXPECT_FALSE(config.AddIntKey("", value));
+        EXPECT_EQ(0, config.GetInt(""));
+        EXPECT_FALSE(config.HasKey(""));
     }
 
 
-    TEST( ConfigurationFile, GetNotExisting, StringKey )
+    TEST(ConfigurationFile, GetNotExisting, StringKey)
     {
         ConfigurationFile config;
 
-        EXPECT_EQ( "", config.GetString( "key" ) );
+        EXPECT_EQ("", config.GetString("key"));
     }
 
-    TEST( ConfigurationFile, GetNotExisting, BoolKey )
+    TEST(ConfigurationFile, GetNotExisting, BoolKey)
     {
         ConfigurationFile config;
 
-        EXPECT_FALSE( config.GetBool( "key" ) );
+        EXPECT_FALSE(config.GetBool("key"));
     }
 
-    TEST( ConfigurationFile, GetNotExisting, FloatKey )
+    TEST(ConfigurationFile, GetNotExisting, FloatKey)
     {
         ConfigurationFile config;
 
-        EXPECT_FLOAT_EQ( 0.0f, config.GetFloat( "key" ) );
+        EXPECT_FLOAT_EQ(0.0f, config.GetFloat("key"));
     }
 
-    TEST( ConfigurationFile, GetNotExisting, IntKey )
+    TEST(ConfigurationFile, GetNotExisting, IntKey)
     {
         ConfigurationFile config;
 
-        EXPECT_EQ( 0, config.GetInt( "key" ) );
+        EXPECT_EQ(0, config.GetInt("key"));
     }
 
-    TEST( ConfigurationFile, FirstDefinedStays, Bool )
+    TEST(ConfigurationFile, FirstDefinedStays, Bool)
     {
         ConfigurationFile config;
 
-        EXPECT_TRUE( config.AddBoolKey( "key", true ) );
-        EXPECT_FALSE( config.AddStringKey( "key", "true" ) );
+        EXPECT_TRUE(config.AddBoolKey("key", true));
+        EXPECT_FALSE(config.AddStringKey("key", "true"));
 
-        EXPECT_TRUE( config.IsBoolKey( "key" ) );
-        EXPECT_FALSE( config.IsStringKey( "key" ) );
+        EXPECT_TRUE(config.IsBoolKey("key"));
+        EXPECT_FALSE(config.IsStringKey("key"));
     }
 
-    TEST( ConfigurationFile, FirstDefinedStays, String )
+    TEST(ConfigurationFile, FirstDefinedStays, String)
     {
         ConfigurationFile config;
 
-        EXPECT_TRUE( config.AddStringKey( "key", "true" ) );
-        EXPECT_FALSE( config.AddBoolKey( "key", true ) );
+        EXPECT_TRUE(config.AddStringKey("key", "true"));
+        EXPECT_FALSE(config.AddBoolKey("key", true));
 
-        EXPECT_TRUE( config.IsStringKey( "key" ) );
-        EXPECT_FALSE( config.IsBoolKey( "key" ) );
+        EXPECT_TRUE(config.IsStringKey("key"));
+        EXPECT_FALSE(config.IsBoolKey("key"));
     }
 
-    TEST( ConfigurationFile, FirstDefinedStays, Float )
+    TEST(ConfigurationFile, FirstDefinedStays, Float)
     {
         ConfigurationFile config;
 
-        EXPECT_TRUE( config.AddFloatKey( "key", 0.0f ) );
-        EXPECT_FALSE( config.AddIntKey( "key", 0 ) );
+        EXPECT_TRUE(config.AddFloatKey("key", 0.0f));
+        EXPECT_FALSE(config.AddIntKey("key", 0));
 
-        EXPECT_TRUE( config.IsFloatKey( "key" ) );
-        EXPECT_FALSE( config.IsIntKey( "key" ) );
+        EXPECT_TRUE(config.IsFloatKey("key"));
+        EXPECT_FALSE(config.IsIntKey("key"));
     }
 
-    TEST( ConfigurationFile, FirstDefinedStays, Int )
+    TEST(ConfigurationFile, FirstDefinedStays, Int)
     {
         ConfigurationFile config;
 
-        EXPECT_TRUE( config.AddIntKey( "key", 0 ) );
-        EXPECT_FALSE( config.AddFloatKey( "key", 0.0f ) );
+        EXPECT_TRUE(config.AddIntKey("key", 0));
+        EXPECT_FALSE(config.AddFloatKey("key", 0.0f));
 
-        EXPECT_TRUE( config.IsIntKey( "key" ) );
-        EXPECT_FALSE( config.IsFloatKey( "key" ) );
+        EXPECT_TRUE(config.IsIntKey("key"));
+        EXPECT_FALSE(config.IsFloatKey("key"));
     }
 
-    TEST( ConfigurationFile, Error, NoSeperatorNoCallback )
+    TEST(ConfigurationFile, Error, NoSeperatorNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "invalid \"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1174,38 +1174,38 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig" ) );
+        EXPECT_TRUE(config.Load(file, "testConfig"));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, NoSeperator )
+    TEST(ConfigurationFile, Error, NoSeperator)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "invalid \"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1213,45 +1213,45 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::NoSeperator, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( invalidLine, gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( "", gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::NoSeperator, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ(invalidLine, gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ("", gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, NotRegisteredNoCallback )
+    TEST(ConfigurationFile, Error, NotRegisteredNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1259,38 +1259,38 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "isNotRegistered = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig" ) );
+        EXPECT_TRUE(config.Load(file, "testConfig"));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, NotRegistered )
+    TEST(ConfigurationFile, Error, NotRegistered)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1298,45 +1298,45 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "isNotRegistered = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::NotRegistered, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "isNotRegistered", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidLine, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::NotRegistered, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("isNotRegistered", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidLine, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, IsDuplicateKeyNoCallback )
+    TEST(ConfigurationFile, Error, IsDuplicateKeyNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1344,38 +1344,38 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "stringValue = \"" << strContent << "\"\n"
                    << "stringValue = " << invalidLine << "\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig" ) );
+        EXPECT_TRUE(config.Load(file, "testConfig"));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, IsDuplicateKey )
+    TEST(ConfigurationFile, Error, IsDuplicateKey)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1383,45 +1383,45 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "stringValue = \"" << strContent << "\"\n"
                    << "stringValue = " << invalidLine << "\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::IsDuplicateKey, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "stringValue", gKey );
-        EXPECT_EQ( 2u, gLineNumber );
-        EXPECT_EQ( invalidLine, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::IsDuplicateKey, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("stringValue", gKey);
+        EXPECT_EQ(2u, gLineNumber);
+        EXPECT_EQ(invalidLine, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, NoValueNoCallback )
+    TEST(ConfigurationFile, Error, NoValueNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddStringKey( "invalidKey", "" ) );
+        ASSERT_TRUE(config.AddStringKey("invalidKey", ""));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1429,38 +1429,38 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = \n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig" ) );
+        EXPECT_TRUE(config.Load(file, "testConfig"));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, NoValue )
+    TEST(ConfigurationFile, Error, NoValue)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddStringKey( "invalidKey", "" ) );
+        ASSERT_TRUE(config.AddStringKey("invalidKey", ""));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1468,45 +1468,45 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = \n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::NoValue, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( "", gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::NoValue, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("invalidKey", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ("", gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, NoKeyNoCallback )
+    TEST(ConfigurationFile, Error, NoKeyNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1514,38 +1514,38 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << " = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig" ) );
+        EXPECT_TRUE(config.Load(file, "testConfig"));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, NoKey )
+    TEST(ConfigurationFile, Error, NoKey)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
 
         const std::string invalidLine = "\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1553,46 +1553,46 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << " = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_TRUE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_TRUE(config.Load(file, "testConfig", &LogErrors));
 
         // We continued parsing :)
-        EXPECT_EQ( strContent, config.GetString( "stringValue" ) );
-        EXPECT_EQ( intContent, config.GetInt( "intValue" ) );
-        EXPECT_FLOAT_EQ( floatValue, config.GetFloat( "floatValue" ) );
-        EXPECT_EQ( boolValue, config.GetBool( "boolValue" ) );
+        EXPECT_EQ(strContent, config.GetString("stringValue"));
+        EXPECT_EQ(intContent, config.GetInt("intValue"));
+        EXPECT_FLOAT_EQ(floatValue, config.GetFloat("floatValue"));
+        EXPECT_EQ(boolValue, config.GetBool("boolValue"));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::NoKey, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidLine, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::NoKey, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidLine, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidStringNoCallback )
+    TEST(ConfigurationFile, Error, InvalidStringNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddStringKey( "invalidKey", "" ) );
+        ASSERT_TRUE(config.AddStringKey("invalidKey", ""));
 
         const std::string invalidLine = "$\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1600,33 +1600,33 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig" ) );
+        EXPECT_FALSE(config.Load(file, "testConfig"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidString )
+    TEST(ConfigurationFile, Error, InvalidString)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddStringKey( "invalidKey", "" ) );
+        ASSERT_TRUE(config.AddStringKey("invalidKey", ""));
 
         const std::string invalidLine = "$\"" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1634,40 +1634,40 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_FALSE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidString, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidLine, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidString, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("invalidKey", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidLine, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidString2 )
+    TEST(ConfigurationFile, Error, InvalidString2)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddStringKey( "invalidKey", "" ) );
+        ASSERT_TRUE(config.AddStringKey("invalidKey", ""));
 
         const std::string invalidLine = "\"" + ::Test::GenerateRandomString() + "\'";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1675,40 +1675,40 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_FALSE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidString, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidLine, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidString, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("invalidKey", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidLine, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidString3 )
+    TEST(ConfigurationFile, Error, InvalidString3)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddStringKey( "invalidKey", "" ) );
+        ASSERT_TRUE(config.AddStringKey("invalidKey", ""));
 
         const std::string invalidLine = "\'" + ::Test::GenerateRandomString() + "\"";
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
@@ -1716,253 +1716,253 @@ namespace
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidLine << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_FALSE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidString, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidLine, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidString, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("invalidKey", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidLine, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidBoolNoCallback )
+    TEST(ConfigurationFile, Error, InvalidBoolNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddBoolKey( "invalidKey", false ) );
+        ASSERT_TRUE(config.AddBoolKey("invalidKey", false));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
-        const std::string invalidValue = ( boolValue ? "$trueorsomething" : "@falseorsomething" );
+        const std::string invalidValue = (boolValue ? "$trueorsomething" : "@falseorsomething");
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidValue << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig" ) );
+        EXPECT_FALSE(config.Load(file, "testConfig"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidBool )
+    TEST(ConfigurationFile, Error, InvalidBool)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddBoolKey( "invalidKey", false ) );
+        ASSERT_TRUE(config.AddBoolKey("invalidKey", false));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
-        const std::string invalidValue = ( boolValue ? "$trueorsomething" : "@falseorsomething" );
+        const std::string invalidValue = (boolValue ? "$trueorsomething" : "@falseorsomething");
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidValue << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_FALSE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidBool, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidValue, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidBool, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("invalidKey", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidValue, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidFloatNoCallback )
+    TEST(ConfigurationFile, Error, InvalidFloatNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddFloatKey( "invalidKey", 0.0f ) );
+        ASSERT_TRUE(config.AddFloatKey("invalidKey", 0.0f));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
-        const std::string invalidValue = "$" + String::To( floatValue );
+        const std::string invalidValue = "$" + String::To(floatValue);
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidValue << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig" ) );
+        EXPECT_FALSE(config.Load(file, "testConfig"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidFloat )
+    TEST(ConfigurationFile, Error, InvalidFloat)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddFloatKey( "invalidKey", 0.0f ) );
+        ASSERT_TRUE(config.AddFloatKey("invalidKey", 0.0f));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
-        const std::string invalidValue = "$" + String::To( floatValue );
+        const std::string invalidValue = "$" + String::To(floatValue);
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidValue << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_FALSE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidFloat, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidValue, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidFloat, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("invalidKey", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidValue, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidIntNoCallback )
+    TEST(ConfigurationFile, Error, InvalidIntNoCallback)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddIntKey( "invalidKey", 0 ) );
+        ASSERT_TRUE(config.AddIntKey("invalidKey", 0));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
-        const std::string invalidValue = "$" + String::To( intContent );
+        const std::string invalidValue = "$" + String::To(intContent);
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidValue << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig" ) );
+        EXPECT_FALSE(config.Load(file, "testConfig"));
 
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
-    TEST( ConfigurationFile, Error, InvalidInt )
+    TEST(ConfigurationFile, Error, InvalidInt)
     {
-        const std::string root = ::Test::GenerateDirectoryName( "common" );
+        const std::string root = ::Test::GenerateDirectoryName("common");
         const std::string file = root + Path::GetUniqueFileName();
 
         TestConfiguration config;
-        ASSERT_TRUE( config.AddIntKey( "invalidKey", 0 ) );
+        ASSERT_TRUE(config.AddIntKey("invalidKey", 0));
 
-        const std::string strContent = config.stringValue.substr( 0, config.stringValue.size() / 2 );
+        const std::string strContent = config.stringValue.substr(0, config.stringValue.size() / 2);
         const S32 intContent = config.intValue / 2 + 1;
         const F32 floatValue = config.floatValue / 2 + 1;
         const bool boolValue = !config.boolValue;
-        const std::string invalidValue = "$" + String::To( intContent );
+        const std::string invalidValue = "$" + String::To(intContent);
 
         {
             ResetLogErrors();
 
-            ASSERT_TRUE( Directory::Create( root ) );
-            ASSERT_TRUE( Directory::Exists( root ) );
+            ASSERT_TRUE(Directory::Create(root));
+            ASSERT_TRUE(Directory::Exists(root));
 
             std::ofstream stream;
-            File::WriteOpen( stream, file, Path::Type::None );
+            File::WriteOpen(stream, file, Path::Type::None);
             stream << "invalidKey = " << invalidValue << "\n"
                    << "stringValue = \"" << strContent << "\"\n"
                    << "intValue = " << intContent << "\n"
-                   << "floatValue = " << String::To( floatValue ) << "\n"
-                   << "boolValue = " << ( boolValue ? "true" : "false" );
+                   << "floatValue = " << String::To(floatValue) << "\n"
+                   << "boolValue = " << (boolValue ? "true" : "false");
         }
 
-        EXPECT_FALSE( config.Load( file, "testConfig", &LogErrors ) );
+        EXPECT_FALSE(config.Load(file, "testConfig", &LogErrors));
 
-        EXPECT_EQ( ConfigurationFile::ParseError::InvalidInt, gError );
-        EXPECT_EQ( "testConfig", gConfigName );
-        EXPECT_EQ( "invalidKey", gKey );
-        EXPECT_EQ( 1u, gLineNumber );
-        EXPECT_EQ( invalidValue, gValue );
+        EXPECT_EQ(ConfigurationFile::ParseError::InvalidInt, gError);
+        EXPECT_EQ("testConfig", gConfigName);
+        EXPECT_EQ("invalidKey", gKey);
+        EXPECT_EQ(1u, gLineNumber);
+        EXPECT_EQ(invalidValue, gValue);
 
         ResetLogErrors();
-        ::Test::CleanUp( root );
+        ::Test::CleanUp(root);
     }
 
 }

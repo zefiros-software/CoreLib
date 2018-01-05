@@ -35,8 +35,8 @@ namespace
     {
     public:
 
-        Base( U32 param )
-            : mValue( param )
+        Base(U32 param)
+            : mValue(param)
         {
 
         }
@@ -65,8 +65,8 @@ namespace
     {
     public:
 
-        Child( U32 param )
-            : Base( param )
+        Child(U32 param)
+            : Base(param)
         {
 
         }
@@ -79,29 +79,29 @@ namespace
 
     typedef ParamInstantiator< Child, U32, Base > ParamInstantiatorImpl;
 
-    TEST( ParamInstantiator, SanityCheck )
+    TEST(ParamInstantiator, SanityCheck)
     {
         volatile ParamInstantiatorImpl inst;
     }
 
-    TEST( ParamInstantiator, Create )
+    TEST(ParamInstantiator, Create)
     {
         ParamInstantiatorImpl inst;
 
-        Base *child = inst.Create( 0u );
-        Base *child2 = inst.Create( 42u );
+        Base *child = inst.Create(0u);
+        Base *child2 = inst.Create(42u);
 
-        EXPECT_EQ( 0u, child->GetValue() );
-        EXPECT_EQ( 42u, child2->GetValue() );
+        EXPECT_EQ(0u, child->GetValue());
+        EXPECT_EQ(42u, child2->GetValue());
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_TRUE( child->IsDerived() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_TRUE(child->IsDerived());
 
         delete child;
         delete child2;
     }
 
-    TEST( ParamInstantiator, Copy )
+    TEST(ParamInstantiator, Copy)
     {
         ParamInstantiatorImpl instantiator;
         delete instantiator.Copy();

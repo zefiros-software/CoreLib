@@ -30,50 +30,50 @@
 
 namespace
 {
-    TEST( FastQueue, SanityCheck )
+    TEST(FastQueue, SanityCheck)
     {
         FastQueue< U8 > m;
-        EXPECT_TRUE( m.IsEmpty() );
+        EXPECT_TRUE(m.IsEmpty());
     }
 
-    TEST( FastQueue, Queue )
+    TEST(FastQueue, Queue)
     {
         FastQueue< U8 > m;
-        m.Queue( 1 );
-        m.Queue( 2 );
-        m.Queue( 3 );
-        m.Queue( 4 );
-        m.Queue( 5 );
+        m.Queue(1);
+        m.Queue(2);
+        m.Queue(3);
+        m.Queue(4);
+        m.Queue(5);
 
-        EXPECT_EQ( 1, m.Front() );
+        EXPECT_EQ(1, m.Front());
     }
 
-    TEST( FastQueue, IsEmpty )
+    TEST(FastQueue, IsEmpty)
     {
         FastQueue< U8 > m;
-        m.Queue( 1 );
-        EXPECT_FALSE( m.IsEmpty() );
+        m.Queue(1);
+        EXPECT_FALSE(m.IsEmpty());
     }
 
-    TEST( FastQueue, IsEmpty2 )
+    TEST(FastQueue, IsEmpty2)
     {
         FastQueue< U8 > m;
-        m.Queue( 1 );
+        m.Queue(1);
         m.Dequeue();
-        EXPECT_TRUE( m.IsEmpty() );
+        EXPECT_TRUE(m.IsEmpty());
     }
 
-    TEST( FastQueue, Dequeue )
+    TEST(FastQueue, Dequeue)
     {
         FastQueue< U8 > m;
-        m.Queue( 1 );
-        m.Queue( 2 );
-        m.Queue( 3 );
-        m.Queue( 4 );
-        m.Queue( 5 );
+        m.Queue(1);
+        m.Queue(2);
+        m.Queue(3);
+        m.Queue(4);
+        m.Queue(5);
 
-        EXPECT_EQ( 1, m.Front() );
+        EXPECT_EQ(1, m.Front());
         m.Dequeue();
-        EXPECT_EQ( 2, m.Front() );
+        EXPECT_EQ(2, m.Front());
     }
 }

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,31 +55,31 @@ public:
     void OnRelease() override;
 
     template< typename tT >
-    const tT *Add( AbstractObserver *observer )
+    const tT *Add(AbstractObserver *observer)
     {
-        std::lock_guard< SpinLock > lock( mLock );
-        mOberservers[ GetClassID< tT >() ].push_back( observer );
+        std::lock_guard< SpinLock > lock(mLock);
+        mOberservers[ GetClassID< tT >() ].push_back(observer);
 
         return nullptr;
     }
 
     template< typename tT >
-    const tT *Remove( const AbstractObserver *observer, bool allowDelete = true )
+    const tT *Remove(const AbstractObserver *observer, bool allowDelete = true)
     {
-        std::lock_guard< SpinLock > lock( mLock );
+        std::lock_guard< SpinLock > lock(mLock);
 
         std::vector< AbstractObserver * > &observers = mOberservers[ GetClassID< tT >() ];
 
-        for ( auto it = observers.begin(), end = observers.end(); it != end; ++it )
+        for (auto it = observers.begin(), end = observers.end(); it != end; ++it)
         {
-            if ( *observer == **it )
+            if (*observer == **it)
             {
-                if ( allowDelete )
+                if (allowDelete)
                 {
                     delete *it;
                 }
 
-                observers.erase( it );
+                observers.erase(it);
                 break;
             }
         }
@@ -88,7 +88,7 @@ public:
     }
 
     template< typename tT >
-    void Post( const tT &event )
+    void Post(const tT &event)
     {
         mLock.lock();
 
@@ -96,16 +96,16 @@ public:
 
         mLock.unlock();
 
-        for ( AbstractObserver *observer : observers )
+        for (AbstractObserver *observer : observers)
         {
-            observer->Notify( event );
+            observer->Notify(event);
         }
     }
 
     template< typename tT >
     U32 GetClassID()
     {
-        return AssignClassID< tT >( *this );
+        return AssignClassID< tT >(*this);
     }
 
 private:
@@ -119,27 +119,27 @@ private:
     SpinLock mLock;
 
     template< typename tT >
-    static U32 AssignClassID( EventManager &eventManager )
+    static U32 AssignClassID(EventManager &eventManager)
     {
-        static U32 mClassId = CacheClassID< tT >( eventManager );
+        static U32 mClassId = CacheClassID< tT >(eventManager);
 
-        assert( mClassId > 0 && "A class ID of 0 is not allowed." );
+        assert(mClassId > 0 && "A class ID of 0 is not allowed.");
 
         return mClassId;
     }
 
     template< typename tT >
-    static U32 CacheClassID( EventManager &eventManager )
+    static U32 CacheClassID(EventManager &eventManager)
     {
-        const std::type_index typeIndex = std::type_index( typeid( tT ) );
+        const std::type_index typeIndex = std::type_index(typeid(tT));
 
-        std::lock_guard< SpinLock > lock( eventManager.mClassIDLock );
+        std::lock_guard< SpinLock > lock(eventManager.mClassIDLock);
 
-        auto it = eventManager.mClassIDCache.find( typeIndex );
+        auto it = eventManager.mClassIDCache.find(typeIndex);
 
-        if ( it == eventManager.mClassIDCache.end() )
+        if (it == eventManager.mClassIDCache.end())
         {
-            eventManager.mClassIDCache.insert( std::make_pair( typeIndex, ++eventManager.mClassIDCounter ) );
+            eventManager.mClassIDCache.insert(std::make_pair(typeIndex, ++eventManager.mClassIDCounter));
             return eventManager.mClassIDCounter;
         }
 
@@ -149,16 +149,16 @@ private:
 };
 
 template <class tC, class tN>
-void AbstractManager::Observe( void( tC::* method )( const tN & ) )
+void AbstractManager::Observe(void(tC::* method)(const tN &))
 {
-    GetManagers()->event->Add< tN >( new Observer< tC, tN >( static_cast<tC *const>( this ), method ) );
+    GetManagers()->event->Add< tN >(new Observer< tC, tN >(static_cast<tC *const>(this), method));
 }
 
 template< class tC, class tN >
-void AbstractManager::Unobserve( void ( tC::*method )( const tN & ) )
+void AbstractManager::Unobserve(void (tC::*method)(const tN &))
 {
-    Observer< tC, tN > observer( static_cast<tC *const>( this ), method );
-    GetManagers()->event->Remove< tN >( &observer );
+    Observer< tC, tN > observer(static_cast<tC *const>(this), method);
+    GetManagers()->event->Remove< tN >(&observer);
 }
 
 /// @}

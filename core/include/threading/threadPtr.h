@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,28 +43,28 @@ class ThreadPtr
 public:
 
     ThreadPtr() noexcept
-        : mPtr( nullptr ),
-          mNewPtr( nullptr ),
-          mThreadID( Thread::InvalidID )
+        : mPtr(nullptr),
+          mNewPtr(nullptr),
+          mThreadID(Thread::InvalidID)
     {
-        mScheduled.clear( boost::memory_order_relaxed );
+        mScheduled.clear(boost::memory_order_relaxed);
     }
 
-    explicit ThreadPtr( tT *ptr ) noexcept
-        : mPtr( ptr ),
-          mNewPtr( nullptr ),
-          mThreadID( Thread::InvalidID )
+    explicit ThreadPtr(tT *ptr) noexcept
+        : mPtr(ptr),
+          mNewPtr(nullptr),
+          mThreadID(Thread::InvalidID)
     {
-        mScheduled.clear( boost::memory_order_relaxed );
+        mScheduled.clear(boost::memory_order_relaxed);
     }
 
     virtual void OnSynchronise() override
     {
-        mScheduled.clear( boost::memory_order_release );
+        mScheduled.clear(boost::memory_order_release);
 
-        if ( mPtr )
+        if (mPtr)
         {
-            Dispose( mPtr );
+            Dispose(mPtr);
         }
 
         mPtr = mNewPtr;
@@ -73,7 +73,7 @@ public:
 
     tT *Get() const
     {
-        if ( mThreadID == SystemManager::Get()->GetManagers()->schedule->GetCurrentThreadID() )
+        if (mThreadID == SystemManager::Get()->GetManagers()->schedule->GetCurrentThreadID())
         {
             return mNewPtr;
         }
@@ -101,11 +101,11 @@ public:
         return mPtr;
     }
 
-    bool Set( tT *const ptr )
+    bool Set(tT *const ptr)
     {
-        if ( !mScheduled.test_and_set( boost::memory_order_acquire ) )
+        if (!mScheduled.test_and_set(boost::memory_order_acquire))
         {
-            ForcedSynchronisedSet( ptr );
+            ForcedSynchronisedSet(ptr);
 
             return true;
         }
@@ -113,16 +113,16 @@ public:
         return false;
     }
 
-    void ForcedSynchronisedSet( tT *const ptr )
+    void ForcedSynchronisedSet(tT *const ptr)
     {
         ManagerHolder *managerHolder = SystemManager::Get()->GetManagers();
 
         mNewPtr = ptr;
         mThreadID = managerHolder->schedule->GetCurrentThreadID();
-        managerHolder->threadingVariable->ScheduleThreadPtr( this );
+        managerHolder->threadingVariable->ScheduleThreadPtr(this);
     }
 
-    void ForcedUnsynchronisedSet( tT *const ptr )
+    void ForcedUnsynchronisedSet(tT *const ptr)
     {
         mPtr = ptr;
         mNewPtr = ptr;
@@ -138,7 +138,7 @@ protected:
 
     U8 mThreadID;
 
-    virtual void Dispose( tT * )
+    virtual void Dispose(tT *)
     {
     }
 };

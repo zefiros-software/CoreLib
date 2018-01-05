@@ -32,14 +32,14 @@
 namespace
 {
 
-    TEST( SpinBarrier, SanityCheck )
+    TEST(SpinBarrier, SanityCheck)
     {
-        SpinBarrier s( 1 );
+        SpinBarrier s(1);
     }
 
-    TEST( SpinBarrier, Wait )
+    TEST(SpinBarrier, Wait)
     {
-        SpinBarrier s( 1 );
+        SpinBarrier s(1);
         s.Wait();
     }
 }

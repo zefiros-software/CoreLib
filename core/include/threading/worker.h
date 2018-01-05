@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ public:
 
     struct IsNotReady
     {
-        IsNotReady( std::atomic< bool > *isrunning, std::atomic< bool > *terminate ) noexcept;
+        IsNotReady(std::atomic< bool > *isrunning, std::atomic< bool > *terminate) noexcept;
 
         bool operator()() const;
 
@@ -52,19 +52,19 @@ public:
         std::atomic< bool > *mTerminate;
     };
 
-    explicit Worker( JobQueue **hook ) noexcept;
-    Worker( const Worker & ) noexcept;
+    explicit Worker(JobQueue **hook) noexcept;
+    Worker(const Worker &) noexcept;
 
-    Worker operator= ( const Worker & ) const noexcept;
+    Worker operator= (const Worker &) const noexcept;
 
     JobQueue **GetQueueHook() const;
 
-    void OnPooledRun( std::pair< std::condition_variable *, std::mutex * > notification,
-                      std::pair< std::condition_variable *, std::mutex * > response, ThreadID threadID );
+    void OnPooledRun(std::pair< std::condition_variable *, std::mutex * > notification,
+                     std::pair< std::condition_variable *, std::mutex * > response, ThreadID threadID);
 
     void Activate();
 
-    void RunJobs( ThreadID threadID ) const;
+    void RunJobs(ThreadID threadID) const;
 
     bool IsRunning() const;
 

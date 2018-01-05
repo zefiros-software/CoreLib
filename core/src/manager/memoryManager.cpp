@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 #include "common/util.h"
 
 MemoryManager::ThreadAllocators::ThreadAllocators()
-    : blockAlloc( SIZE_OF_MB( 1 ) )
+    : blockAlloc(SIZE_OF_MB(1))
 {
 
 }
@@ -41,7 +41,7 @@ void MemoryManager::ThreadAllocators::Clear()
 //Clear all temp memory for a new frame
 void MemoryManager::OnUpdate()
 {
-    for ( ThreadID i = 0; i < PROGRAM_MAX_THREADS; ++i )
+    for (ThreadID i = 0; i < PROGRAM_MAX_THREADS; ++i)
     {
         mTempThreadAllocators[i].Clear();
     }

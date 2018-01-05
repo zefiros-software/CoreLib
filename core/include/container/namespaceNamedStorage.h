@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -91,22 +91,22 @@ public:
      * @return  true if it succeeds, false if it fails.
      */
 
-    bool Add( tStoredType *object, const tName &name, Namespace ns = 0u )
+    bool Add(tStoredType *object, const tName &name, Namespace ns = 0u)
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        auto objectIt = mObjects.find( name );
+        auto objectIt = mObjects.find(name);
 
-        if ( objectIt == mObjects.end() )
+        if (objectIt == mObjects.end())
         {
 
-            if ( ns.IsAddin() )
+            if (ns.IsAddin())
             {
                 const Namespace addinNs = ns.GetAddin();
                 std::unordered_set< tName > &nameSet = mAddinObjects[ ns ];
-                mPluginAddinsNamespaces[ ns.GetPlugin() ].insert( addinNs );
+                mPluginAddinsNamespaces[ ns.GetPlugin() ].insert(addinNs);
 
-                nameSet.insert( name );
+                nameSet.insert(name);
 
                 mObjects[ name ] = object;
                 mObjectName[ name ] = ns;
@@ -117,7 +117,7 @@ public:
 
                 std::unordered_set< tName > &nameSet = mPluginObjects[ pluginNs ];
 
-                nameSet.insert( name );
+                nameSet.insert(name);
 
                 mObjects[ name ] = object;
                 mObjectName[ name ] = ns;
@@ -137,9 +137,9 @@ public:
 
     void Clear()
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        for ( const auto &it : mObjects )
+        for (const auto &it : mObjects)
         {
             delete it.second;
         }
@@ -159,15 +159,15 @@ public:
      * @param   ns  The namespace.
      */
 
-    void Clear( const Namespace ns )
+    void Clear(const Namespace ns)
     {
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            RemoveObjectsByAddinNamespace( ns );
+            RemoveObjectsByAddinNamespace(ns);
         }
         else
         {
-            RemoveObjectsByPluginNamespace( ns.GetPlugin() );
+            RemoveObjectsByPluginNamespace(ns.GetPlugin());
         }
     }
 
@@ -180,49 +180,49 @@ public:
      * @param   name    The name.
      */
 
-    void Remove( const tName &name )
+    void Remove(const tName &name)
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        auto nameIt = mObjectName.find( name );
+        auto nameIt = mObjectName.find(name);
 
-        if ( nameIt != mObjectName.end() )
+        if (nameIt != mObjectName.end())
         {
-            const Namespace ns( nameIt->second );
+            const Namespace ns(nameIt->second);
 
             std::unordered_set< tName > *nameSet = nullptr;
 
-            if ( ns.IsAddin() )
+            if (ns.IsAddin())
             {
-                auto addinIt = mAddinObjects.find( ns );
+                auto addinIt = mAddinObjects.find(ns);
 
-                if ( addinIt != mAddinObjects.end() )
+                if (addinIt != mAddinObjects.end())
                 {
                     nameSet = &addinIt->second;
                 }
             }
             else
             {
-                auto pluginIt = mPluginObjects.find( ns.GetPlugin() );
+                auto pluginIt = mPluginObjects.find(ns.GetPlugin());
 
-                if ( pluginIt != mPluginObjects.end() )
+                if (pluginIt != mPluginObjects.end())
                 {
                     nameSet = &pluginIt->second;
                 }
             }
 
-            if ( nameSet )
+            if (nameSet)
             {
-                auto objectIt = nameSet->find( name );
+                auto objectIt = nameSet->find(name);
 
-                if ( objectIt != nameSet->end() )
+                if (objectIt != nameSet->end())
                 {
-                    nameSet->erase( objectIt );
+                    nameSet->erase(objectIt);
                 }
             }
         }
 
-        RemoveObjectName( name );
+        RemoveObjectName(name);
     }
 
     /// @}
@@ -240,13 +240,13 @@ public:
      * @return  nullptr if it fails, else returns the stored object.
      */
 
-    tStoredType *Get( const tName &name ) const
+    tStoredType *Get(const tName &name) const
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        auto objectIt = mObjects.find( name );
+        auto objectIt = mObjects.find(name);
 
-        if ( objectIt != mObjects.end() )
+        if (objectIt != mObjects.end())
         {
             return objectIt->second;
         }
@@ -269,17 +269,17 @@ public:
      * @return  The names used by this namespace.
      */
 
-    std::vector< tName > GetNames( const Namespace ns ) const
+    std::vector< tName > GetNames(const Namespace ns) const
     {
         std::vector< tName > objects;
 
-        if ( ns.IsAddin() )
+        if (ns.IsAddin())
         {
-            objects = GetNamesByAddinNamespace( ns );
+            objects = GetNamesByAddinNamespace(ns);
         }
         else
         {
-            objects = GetNamesByPluginNamespace( ns.GetPlugin() );
+            objects = GetNamesByPluginNamespace(ns.GetPlugin());
         }
 
         return objects;
@@ -300,11 +300,11 @@ public:
      * @return  true if it has an object stored under this name, false if not.
      */
 
-    bool Has( const tName &name ) const
+    bool Has(const tName &name) const
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        return mObjects.find( name ) != mObjects.end();
+        return mObjects.find(name) != mObjects.end();
     }
 
     /// @}
@@ -334,22 +334,22 @@ private:
      * @param   name    The name.
      */
 
-    void RemoveObjectName( const tName &name )
+    void RemoveObjectName(const tName &name)
     {
-        auto objectIt = mObjects.find( name );
+        auto objectIt = mObjects.find(name);
 
-        if ( objectIt != mObjects.end() )
+        if (objectIt != mObjects.end())
         {
             delete objectIt->second;
 
-            mObjects.erase( objectIt );
+            mObjects.erase(objectIt);
         }
 
-        auto nameIit = mObjectName.find( name );
+        auto nameIit = mObjectName.find(name);
 
-        if ( nameIit != mObjectName.end() )
+        if (nameIit != mObjectName.end())
         {
-            mObjectName.erase( nameIit );
+            mObjectName.erase(nameIit);
         }
     }
 
@@ -361,35 +361,35 @@ private:
      * @param   ns  The addin namespace.
      */
 
-    void RemoveObjectsByAddinNamespace( Namespace addinNs )
+    void RemoveObjectsByAddinNamespace(Namespace addinNs)
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        auto nameIt = mAddinObjects.find( addinNs );
+        auto nameIt = mAddinObjects.find(addinNs);
 
-        if ( nameIt != mAddinObjects.end() )
+        if (nameIt != mAddinObjects.end())
         {
             const std::unordered_set< tName > &identifiers = nameIt->second;
 
-            for ( const auto id : identifiers )
+            for (const auto id : identifiers)
             {
-                RemoveObjectName( id );
+                RemoveObjectName(id);
             }
 
-            mAddinObjects.erase( nameIt );
+            mAddinObjects.erase(nameIt);
         }
 
-        auto addinIt = mPluginAddinsNamespaces.find( addinNs.GetPlugin() );
+        auto addinIt = mPluginAddinsNamespaces.find(addinNs.GetPlugin());
 
-        if ( addinIt != mPluginAddinsNamespaces.end() )
+        if (addinIt != mPluginAddinsNamespaces.end())
         {
             std::unordered_set< Namespace > &addins = addinIt->second;
 
-            const auto it = addins.find( addinNs.GetAddin() );
+            const auto it = addins.find(addinNs.GetAddin());
 
-            if ( it != addins.end() )
+            if (it != addins.end())
             {
-                addins.erase( it );
+                addins.erase(it);
             }
         }
     }
@@ -402,36 +402,36 @@ private:
      * @param   pluginNs    The plugin namespace.
      */
 
-    void RemoveObjectsByPluginNamespace( Namespace pluginNs )
+    void RemoveObjectsByPluginNamespace(Namespace pluginNs)
     {
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        auto nameIt = mPluginObjects.find( pluginNs );
+        auto nameIt = mPluginObjects.find(pluginNs);
 
-        if ( nameIt != mPluginObjects.end() )
+        if (nameIt != mPluginObjects.end())
         {
             const std::unordered_set< tName > &identifiers = nameIt->second;
 
-            for ( const auto id : identifiers )
+            for (const auto id : identifiers)
             {
-                RemoveObjectName( id );
+                RemoveObjectName(id);
             }
 
-            mPluginObjects.erase( nameIt );
+            mPluginObjects.erase(nameIt);
         }
 
-        auto addinIt = mPluginAddinsNamespaces.find( pluginNs );
+        auto addinIt = mPluginAddinsNamespaces.find(pluginNs);
 
-        if ( addinIt != mPluginAddinsNamespaces.end() )
+        if (addinIt != mPluginAddinsNamespaces.end())
         {
             const std::unordered_set< Namespace > addinIDs = addinIt->second;
 
-            for ( auto addinNs : addinIDs )
+            for (auto addinNs : addinIDs)
             {
-                RemoveObjectsByAddinNamespace( Namespace( pluginNs, addinNs ) );
+                RemoveObjectsByAddinNamespace(Namespace(pluginNs, addinNs));
             }
 
-            mPluginAddinsNamespaces.erase( addinIt );
+            mPluginAddinsNamespaces.erase(addinIt);
         }
     }
 
@@ -445,21 +445,21 @@ private:
      * @return  The names used by the addin namespace.
      */
 
-    std::vector< tName > GetNamesByAddinNamespace( Namespace addinNs ) const
+    std::vector< tName > GetNamesByAddinNamespace(Namespace addinNs) const
     {
         std::vector< tName > objects;
 
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        auto pluginIt = mAddinObjects.find( addinNs );
+        auto pluginIt = mAddinObjects.find(addinNs);
 
-        if ( pluginIt != mAddinObjects.end() )
+        if (pluginIt != mAddinObjects.end())
         {
             const std::unordered_set< tName > &identifiers = pluginIt->second;
 
-            for ( const auto id : identifiers )
+            for (const auto id : identifiers)
             {
-                objects.push_back( id );
+                objects.push_back(id);
             }
         }
 
@@ -476,34 +476,34 @@ private:
      * @return  The names used by the plugin namespace.
      */
 
-    std::vector< tName > GetNamesByPluginNamespace( Namespace pluginNs ) const
+    std::vector< tName > GetNamesByPluginNamespace(Namespace pluginNs) const
     {
         std::vector< tName > objects;
 
-        std::lock_guard< std::recursive_mutex > lock( mMutex );
+        std::lock_guard< std::recursive_mutex > lock(mMutex);
 
-        auto nameIt = mPluginObjects.find( pluginNs );
+        auto nameIt = mPluginObjects.find(pluginNs);
 
-        if ( nameIt != mPluginObjects.end() )
+        if (nameIt != mPluginObjects.end())
         {
             const std::unordered_set< tName > &identifiers = nameIt->second;
 
-            for ( const auto id : identifiers )
+            for (const auto id : identifiers)
             {
-                objects.push_back( id );
+                objects.push_back(id);
             }
         }
 
-        auto addinIt = mPluginAddinsNamespaces.find( pluginNs );
+        auto addinIt = mPluginAddinsNamespaces.find(pluginNs);
 
-        if ( addinIt != mPluginAddinsNamespaces.end() )
+        if (addinIt != mPluginAddinsNamespaces.end())
         {
             const std::unordered_set< Namespace > &addinIDs = addinIt->second;
 
-            for ( const auto id : addinIDs )
+            for (const auto id : addinIDs)
             {
-                const std::vector< tName > newObjects = GetNamesByAddinNamespace( Namespace( pluginNs, id ) );
-                objects.insert( objects.end(), newObjects.begin(), newObjects.end() );
+                const std::vector< tName > newObjects = GetNamesByAddinNamespace(Namespace(pluginNs, id));
+                objects.insert(objects.end(), newObjects.begin(), newObjects.end());
             }
         }
 

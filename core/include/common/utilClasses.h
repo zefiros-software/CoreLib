@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,8 +55,8 @@ protected:
 
 private:
 
-    NonCopyable &operator=( const NonCopyable & );
-    NonCopyable( const NonCopyable & );
+    NonCopyable &operator=(const NonCopyable &);
+    NonCopyable(const NonCopyable &);
 };
 
 /**
@@ -68,7 +68,7 @@ class NonAssignable
 {
 private:
 
-    NonAssignable &operator=( const NonAssignable & );
+    NonAssignable &operator=(const NonAssignable &);
 };
 
 /// @}

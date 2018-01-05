@@ -35,7 +35,7 @@ void Managers::InitialisePoolManager()
 {
     PoolManager *const pool = SystemManager::Get()->GetManagers()->pool;
 
-    pool->SetManagers( SystemManager::Get()->GetManagers() );
+    pool->SetManagers(SystemManager::Get()->GetManagers());
 
     pool->PreInitialise();
     pool->Initialise();
@@ -53,7 +53,7 @@ void Managers::InitialiseFactoryManager()
 {
     FactoryManager *const factory = SystemManager::Get()->GetManagers()->factory;
 
-    factory->SetManagers( SystemManager::Get()->GetManagers() );
+    factory->SetManagers(SystemManager::Get()->GetManagers());
     factory->PreInitialise();
     factory->Initialise();
 }
@@ -70,7 +70,7 @@ void Managers::InitialiseEventManager()
 {
     EventManager *const ev = SystemManager::Get()->GetManagers()->event;
 
-    ev->SetManagers( SystemManager::Get()->GetManagers() );
+    ev->SetManagers(SystemManager::Get()->GetManagers());
     ev->PreInitialise();
     ev->Initialise();
 }

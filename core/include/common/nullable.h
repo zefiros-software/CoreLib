@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,19 +37,19 @@ public:
 
     Nullable() noexcept
         : mValue(),
-          mIsSet( false )
+          mIsSet(false)
     {
     }
 
-    Nullable( const tT &value ) noexcept
-        : mValue( value ),
-          mIsSet( true )
+    Nullable(const tT &value) noexcept
+        : mValue(value),
+          mIsSet(true)
     {
     }
 
-    Nullable( const Nullable &other ) noexcept
-        : mValue( other.mValue ),
-          mIsSet( other.mIsSet )
+    Nullable(const Nullable &other) noexcept
+        : mValue(other.mValue),
+          mIsSet(other.mIsSet)
     {
     }
 
@@ -57,44 +57,44 @@ public:
     {
     }
 
-    Nullable &operator=( const tT &value ) noexcept
+    Nullable &operator=(const tT &value) noexcept
     {
-        return Assign( value );
+        return Assign(value);
     }
 
-    Nullable &operator=( const Nullable &other ) noexcept
+    Nullable &operator=(const Nullable &other) noexcept
     {
-        return Assign( other );
+        return Assign(other);
     }
 
-    bool operator==( const Nullable<tT> &other ) const noexcept
+    bool operator==(const Nullable<tT> &other) const noexcept
     {
-        return ( !mIsSet && !other.mIsSet ) || ( !mIsSet == !other.mIsSet && mValue == other.mValue );
+        return (!mIsSet && !other.mIsSet) || (!mIsSet == !other.mIsSet && mValue == other.mValue);
     }
 
-    bool operator!=( const Nullable<tT> &other ) const noexcept
+    bool operator!=(const Nullable<tT> &other) const noexcept
     {
-        return !( *this == other );
+        return !(*this == other);
     }
 
-    bool operator>( const Nullable<tT> &other ) const noexcept
+    bool operator>(const Nullable<tT> &other) const noexcept
     {
         return *this != other  && *this >= other;
     }
 
-    bool operator<( const Nullable<tT> &other ) const noexcept
+    bool operator<(const Nullable<tT> &other) const noexcept
     {
-        if ( mIsSet && other.mIsSet )
+        if (mIsSet && other.mIsSet)
         {
             return mValue < other.mValue;
         }
 
-        if ( !mIsSet && !other.mIsSet )
+        if (!mIsSet && !other.mIsSet)
         {
             return false;
         }
 
-        if ( !mIsSet )
+        if (!mIsSet)
         {
             return true;
         }
@@ -112,16 +112,16 @@ public:
         return Get();
     }
 
-    Nullable &Assign( const tT &value ) noexcept
+    Nullable &Assign(const tT &value) noexcept
     {
         mValue = value;
         mIsSet = true;
         return *this;
     }
 
-    Nullable &Assign( const Nullable &other ) noexcept
+    Nullable &Assign(const Nullable &other) noexcept
     {
-        Nullable tmp( other );
+        Nullable tmp(other);
         mValue = other.mValue;
         mIsSet = other.mIsSet;
         return *this;
@@ -140,17 +140,17 @@ public:
 
     tT &Get() noexcept
     {
-        assert( mIsSet );
+        assert(mIsSet);
         return mValue;
     }
 
     const tT &Get() const noexcept
     {
-        assert( mIsSet );
+        assert(mIsSet);
         return mValue;
     }
 
-    const tT &Get( const tT &deflt ) const noexcept
+    const tT &Get(const tT &deflt) const noexcept
     {
         return !mIsSet ? deflt : mValue;
     }

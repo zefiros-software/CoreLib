@@ -33,31 +33,31 @@
 namespace Test
 {
 
-    void EnsureTestDirectories( const std::vector<std::string > &strs )
+    void EnsureTestDirectories(const std::vector<std::string > &strs)
     {
-        for ( auto dir : strs )
+        for (auto dir : strs)
         {
-            if ( Directory::Exists( dir ) )
+            if (Directory::Exists(dir))
             {
-                Directory::DeleteAll( dir );
+                Directory::DeleteAll(dir);
             }
 
-            Directory::CreateAll( dir );
-            ASSERT_TRUE( Directory::Exists( dir ) );
+            Directory::CreateAll(dir);
+            ASSERT_TRUE(Directory::Exists(dir));
         }
     }
 
-    void CleanUp( const std::string &path )
+    void CleanUp(const std::string &path)
     {
-        if ( File::Exists( path ) )
+        if (File::Exists(path))
         {
-            File::Delete( path );
-            ASSERT_FALSE( File::Exists( path ) );
+            File::Delete(path);
+            ASSERT_FALSE(File::Exists(path));
         }
         else
         {
-            Path::DeleteAll( path );
-            ASSERT_FALSE( Directory::Exists( path ) );
+            Path::DeleteAll(path);
+            ASSERT_FALSE(Directory::Exists(path));
         }
     }
 

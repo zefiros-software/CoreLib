@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,15 +31,15 @@
 
 namespace Hash
 {
-    U32 Fnv1a( const char *str ) noexcept
+    U32 Fnv1a(const char *str) noexcept
     {
-        assert( str );
-        const size_t length = strlen( str ) + 1;
+        assert(str);
+        const size_t length = strlen(str) + 1;
 
         // The FNV offset basis
         U32 hash = 2166136261u;
 
-        for ( size_t i = 0; i < length; ++i )
+        for (size_t i = 0; i < length; ++i)
         {
             hash ^= *str++;
 
@@ -50,10 +50,10 @@ namespace Hash
         return hash;
     }
 
-    size_t Combine( size_t seed, size_t val ) noexcept
+    size_t Combine(size_t seed, size_t val) noexcept
     {
         //rotating hash combine!
-        return seed ^ ( val + 0x9e3779b9 + ( seed << 6 ) + ( seed >> 2 ) );
+        return seed ^ (val + 0x9e3779b9 + (seed << 6) + (seed >> 2));
     }
 
 }

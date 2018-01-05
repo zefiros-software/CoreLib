@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,51 +40,51 @@ public:
 
     typedef std::ptrdiff_t BlockLocation;
 
-    explicit BlockAllocator( size_t blockSize );
+    explicit BlockAllocator(size_t blockSize);
 
     template< class tT >
-    BlockLocation Move( const tT &item )
+    BlockLocation Move(const tT &item)
     {
-        BlockAdvance( sizeof( tT ) );
+        BlockAdvance(sizeof(tT));
 
-        StackAllocator::StackLocation stackLoc =  mBlocks[mBlockPosition].Move< tT >( item );
+        StackAllocator::StackLocation stackLoc =  mBlocks[mBlockPosition].Move< tT >(item);
 
-        return GenerateBlockLocation( stackLoc );
+        return GenerateBlockLocation(stackLoc);
     }
 
     template< class tT >
     BlockLocation Alloc()
     {
-        BlockAdvance( sizeof( tT ) );
+        BlockAdvance(sizeof(tT));
 
         StackAllocator::StackLocation stackLoc =  mBlocks[mBlockPosition].Alloc< tT >();
 
-        return GenerateBlockLocation( stackLoc );
+        return GenerateBlockLocation(stackLoc);
     }
 
     template< class tT >
-    const tT *Extract( BlockLocation loc ) const
+    const tT *Extract(BlockLocation loc) const
     {
         // seperate in block  index and stack location
         StackAllocator::StackLocation stackLoc = loc % mBlockSize;
         size_t blockIndex = loc / mBlockSize;
 
-        return mBlocks[blockIndex].Extract< tT >( stackLoc );
+        return mBlocks[blockIndex].Extract< tT >(stackLoc);
     }
 
     template< class tT >
-    tT *Extract( BlockLocation loc )
+    tT *Extract(BlockLocation loc)
     {
         // seperate in block  index and stack location
         StackAllocator::StackLocation stackLoc = loc % mBlockSize;
         size_t blockIndex = loc / mBlockSize;
 
-        return mBlocks[blockIndex].Extract< tT >( stackLoc );
+        return mBlocks[blockIndex].Extract< tT >(stackLoc);
     }
 
     void Clear()
     {
-        for ( auto it = mBlocks.begin(), itend = mBlocks.end(); it != itend; ++it )
+        for (auto it = mBlocks.begin(), itend = mBlocks.end(); it != itend; ++it)
         {
             it->Clear();
         }
@@ -100,9 +100,9 @@ private:
 
     size_t mBlockPosition;
 
-    void BlockAdvance( size_t bytes );
+    void BlockAdvance(size_t bytes);
 
-    BlockLocation GenerateBlockLocation( StackAllocator::StackLocation stackLoc ) const;
+    BlockLocation GenerateBlockLocation(StackAllocator::StackLocation stackLoc) const;
 };
 
 #endif

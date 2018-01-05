@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,21 +53,21 @@ public:
     virtual void OnUpdate() override;
 
     template< class T >
-    BlockAllocator::BlockLocation TempAlloc( ThreadID tid )
+    BlockAllocator::BlockLocation TempAlloc(ThreadID tid)
     {
         return mTempThreadAllocators[tid].blockAlloc.Alloc< T >();
     }
 
     template< class T >
-    BlockAllocator::BlockLocation TempMove( ThreadID tid, const T &item )
+    BlockAllocator::BlockLocation TempMove(ThreadID tid, const T &item)
     {
-        return mTempThreadAllocators[tid].blockAlloc.Move< T >( item );
+        return mTempThreadAllocators[tid].blockAlloc.Move< T >(item);
     }
 
     template< class T >
-    T *ExtractTemp( ThreadID tid, BlockAllocator::BlockLocation loc )
+    T *ExtractTemp(ThreadID tid, BlockAllocator::BlockLocation loc)
     {
-        return mTempThreadAllocators[tid].blockAlloc.Extract< T >( loc );
+        return mTempThreadAllocators[tid].blockAlloc.Extract< T >(loc);
     }
 
 

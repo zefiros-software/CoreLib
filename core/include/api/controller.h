@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,15 +35,15 @@
 namespace Controller
 {
     //EXPOSE_API( controller, Add );
-    
+
     template< typename tT >
-    tT *Add( Namespace ns = 0U )
+    tT *Add(Namespace ns = 0U)
     {
-        return SystemManager::Get()->GetManagers()->controller->Add< tT >( ns );
+        return SystemManager::Get()->GetManagers()->controller->Add< tT >(ns);
     }
-    
-    EXPOSE_API( controller, Get );
-    EXPOSE_API_NOARG( controller, Get );
+
+    EXPOSE_API(controller, Get);
+    EXPOSE_API_NOARG(controller, Get);
 }
 
 #endif

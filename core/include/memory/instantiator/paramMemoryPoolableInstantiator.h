@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,30 +37,30 @@ class ParamMemoryPoolableInstantiator
 {
 public:
 
-    ParamMemoryPoolableInstantiator( tParam parameter, size_t blocksize = 1000, size_t maxBlocks = 1000 ) noexcept
-        : ParamPoolableInstantiator( parameter ),
-          mMemoryPool( blocksize, maxBlocks )
+    ParamMemoryPoolableInstantiator(tParam parameter, size_t blocksize = 1000, size_t maxBlocks = 1000) noexcept
+        : ParamPoolableInstantiator(parameter),
+          mMemoryPool(blocksize, maxBlocks)
     {
     }
 
     virtual tBase *Create() override
     {
         tBase *obj = mMemoryPool.Create();
-        obj->Initialise( this->mParameter );
+        obj->Initialise(this->mParameter);
         return obj;
     }
 
-    virtual void Destroy( tBase *object ) override
+    virtual void Destroy(tBase *object) override
     {
-        mMemoryPool.Destroy( object );
+        mMemoryPool.Destroy(object);
     }
 
     virtual AbstractInstantiator *Copy() override
     {
         return new ParamMemoryPoolableInstantiator< tT, tParam, tBase >
-               ( ParamPoolableInstantiator< tT, tParam, tBase >::mParameter,
-                 mMemoryPool.mBlockSize,
-                 mMemoryPool.mMaxBlocks );
+               (ParamPoolableInstantiator< tT, tParam, tBase >::mParameter,
+                mMemoryPool.mBlockSize,
+                mMemoryPool.mMaxBlocks);
     }
 
 private:

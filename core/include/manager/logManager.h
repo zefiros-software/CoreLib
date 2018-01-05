@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -66,7 +66,7 @@ public:
      * @param   mode The mode.
      */
 
-    void SetMode( Console::LogMode mode );
+    void SetMode(Console::LogMode mode);
 
     /**
      * Gets the logging mode.
@@ -103,9 +103,9 @@ public:
     /// @{
 
     template <typename... Args>
-    void Printp( Args &&... args )
+    void Printp(Args &&... args)
     {
-        Printf( String::Place( std::forward<Args>( args )... ) );
+        Printf(String::Place(std::forward<Args>(args)...));
     }
 
     /// @}
@@ -124,11 +124,11 @@ public:
 
 
     template <typename... Args>
-    void Printf( Args &&... args )
+    void Printf(Args &&... args)
     {
-        if ( MayReport( Console::LogMode::Print ) )
+        if (MayReport(Console::LogMode::Print))
         {
-            Echo( String::Format( std::forward<Args>( args )... ), Console::LogMode::Print );
+            Echo(String::Format(std::forward<Args>(args)...), Console::LogMode::Print);
         }
     }
 
@@ -150,9 +150,9 @@ public:
     /// @{
 
     template <typename... Args>
-    void Errorp( Args &&... args )
+    void Errorp(Args &&... args)
     {
-        Errorf( String::Place( std::forward<Args>( args )... ) );
+        Errorf(String::Place(std::forward<Args>(args)...));
     }
 
     /// @}
@@ -170,17 +170,17 @@ public:
     /// @{
 
     template <typename... Args>
-    void Errorf( const std::string &fmt, Args &&... args )
+    void Errorf(const std::string &fmt, Args &&... args)
     {
-        const std::string str = String::Format( fmt, std::forward<Args>( args )... );
+        const std::string str = String::Format(fmt, std::forward<Args>(args)...);
 
-        if ( MayReport( Console::LogMode::Error ) )
+        if (MayReport(Console::LogMode::Error))
         {
-            Echo( str, Console::LogMode::Error );
+            Echo(str, Console::LogMode::Error);
         }
 
 #ifndef ENGINE_SHIPVERSION
-        throw std::runtime_error( str );
+        throw std::runtime_error(str);
 #endif
     }
 
@@ -202,9 +202,9 @@ public:
     /// @{
 
     template <typename... Args>
-    void Warningp( Args &&... args )
+    void Warningp(Args &&... args)
     {
-        Warningf( String::Place( std::forward<Args>( args )... ) );
+        Warningf(String::Place(std::forward<Args>(args)...));
     }
 
     /// @}
@@ -222,11 +222,11 @@ public:
     /// @{
 
     template <typename... Args>
-    void Warningf( Args &&... args )
+    void Warningf(Args &&... args)
     {
-        if ( MayReport( Console::LogMode::Warning ) )
+        if (MayReport(Console::LogMode::Warning))
         {
-            Echo( String::Format( std::forward<Args>( args )... ), Console::LogMode::Warning );
+            Echo(String::Format(std::forward<Args>(args)...), Console::LogMode::Warning);
         }
     }
 
@@ -248,9 +248,9 @@ public:
     /// @{
 
     template <typename... Args>
-    void Initp( Args &&... args )
+    void Initp(Args &&... args)
     {
-        Initf( String::Place( std::forward<Args>( args )... ) );
+        Initf(String::Place(std::forward<Args>(args)...));
     }
 
     /// @}
@@ -268,11 +268,11 @@ public:
     /// @{
 
     template <typename... Args>
-    void Initf( Args &&... args )
+    void Initf(Args &&... args)
     {
-        if ( MayReport( Console::LogMode::Initialisation ) )
+        if (MayReport(Console::LogMode::Initialisation))
         {
-            Echo( String::Format( std::forward<Args>( args )... ), Console::LogMode::Initialisation );
+            Echo(String::Format(std::forward<Args>(args)...), Console::LogMode::Initialisation);
         }
     }
 
@@ -292,7 +292,7 @@ private:
      * @param   str The string.
      */
 
-    void Log( const std::string &str ) const;
+    void Log(const std::string &str) const;
 
     /**
      * Echoes the given string.
@@ -300,13 +300,13 @@ private:
      * @param   str The string.
      */
 
-    void Echo( const std::string &str, Console::LogMode type );
+    void Echo(const std::string &str, Console::LogMode type);
 
     std::string GetLogFilePath() const;
 
-    bool MayReport( Console::LogMode mode ) const;
+    bool MayReport(Console::LogMode mode) const;
 
-    static bool MayReport( Console::LogMode mode, Console::LogMode current );
+    static bool MayReport(Console::LogMode mode, Console::LogMode current);
 };
 
 /// @}

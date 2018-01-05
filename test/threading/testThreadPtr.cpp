@@ -32,126 +32,126 @@
 
 namespace
 {
-    TEST( ThreadPtr, Sanity )
+    TEST(ThreadPtr, Sanity)
     {
         ThreadPtr< U8 > p;
     }
 
-    TEST( ThreadPtr, Constr )
+    TEST(ThreadPtr, Constr)
     {
         U8 val = 0;
-        ThreadPtr< U8 > p( &val );
+        ThreadPtr< U8 > p(&val);
     }
 
-    TEST( ThreadPtr, OnSynchronise )
+    TEST(ThreadPtr, OnSynchronise)
     {
         U8 val = 0;
-        ThreadPtr< U8 > p( &val );
+        ThreadPtr< U8 > p(&val);
         p.OnSynchronise();
 
-        EXPECT_EQ( nullptr, p.UnsynchronisedGet() );
+        EXPECT_EQ(nullptr, p.UnsynchronisedGet());
     }
 
-    TEST( ThreadPtr, OnSynchronise2 )
+    TEST(ThreadPtr, OnSynchronise2)
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
-        p.Set( &val );
+        p.Set(&val);
         p.OnSynchronise();
 
-        EXPECT_EQ( &val, p.UnsynchronisedGet() );
+        EXPECT_EQ(&val, p.UnsynchronisedGet());
     }
 
-    TEST( ThreadPtr, SetTwice )
+    TEST(ThreadPtr, SetTwice)
     {
         U8 val = 0;
         U8 val2 = 0;
         ThreadPtr< U8 > p;
-        p.Set( &val );
-        p.Set( &val2 );
+        p.Set(&val);
+        p.Set(&val2);
         p.OnSynchronise();
 
-        EXPECT_EQ( &val, p.UnsynchronisedGet() );
+        EXPECT_EQ(&val, p.UnsynchronisedGet());
     }
 
-    TEST( ThreadPtr, Get )
+    TEST(ThreadPtr, Get)
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
-        p.Set( &val );
+        p.Set(&val);
         p.OnSynchronise();
 
-        EXPECT_EQ( &val, p.Get() );
+        EXPECT_EQ(&val, p.Get());
     }
 
-    TEST( ThreadPtr, Get2 )
+    TEST(ThreadPtr, Get2)
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
-        p.Set( &val );
+        p.Set(&val);
 
-        EXPECT_EQ( &val, p.Get() );
+        EXPECT_EQ(&val, p.Get());
     }
 
-    TEST( ThreadPtr, Get3 )
+    TEST(ThreadPtr, Get3)
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
-        p.Set( &val );
+        p.Set(&val);
 
-        EXPECT_EQ( &val, p.Get() );
+        EXPECT_EQ(&val, p.Get());
 
-        std::thread t( [&]
+        std::thread t([&]
         {
-            SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID( 1 );
-            EXPECT_EQ( nullptr, p.Get() );
-        } );
+            SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID(1);
+            EXPECT_EQ(nullptr, p.Get());
+        });
 
         t.join();
     }
 
-    TEST( ThreadPtr, Get4 )
+    TEST(ThreadPtr, Get4)
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
-        p.ForcedUnsynchronisedSet( &val );
+        p.ForcedUnsynchronisedSet(&val);
 
-        EXPECT_EQ( &val, p.Get() );
+        EXPECT_EQ(&val, p.Get());
 
-        std::thread t( [&]
+        std::thread t([&]
         {
-            SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID( 1 );
-            EXPECT_EQ( &val, p.Get() );
-        } );
+            SystemManager::Get()->GetManagers()->schedule->SetCurrentThreadID(1);
+            EXPECT_EQ(&val, p.Get());
+        });
 
         t.join();
     }
 
-    TEST( ThreadPtr, Op )
+    TEST(ThreadPtr, Op)
     {
         U8 val = 0;
         ThreadPtr< U8 > p;
-        p.ForcedUnsynchronisedSet( &val );
+        p.ForcedUnsynchronisedSet(&val);
 
-        EXPECT_EQ( &val, p );
+        EXPECT_EQ(&val, p);
     }
 
-    TEST( ThreadPtr, Op2 )
+    TEST(ThreadPtr, Op2)
     {
         U32 val = ::Test::GenerateRandomU32();
         ThreadPtr< U32 > p;
-        p.ForcedUnsynchronisedSet( &val );
+        p.ForcedUnsynchronisedSet(&val);
 
-        EXPECT_EQ( val, *p );
+        EXPECT_EQ(val, *p);
     }
 
-    TEST( ThreadPtr, Op3 )
+    TEST(ThreadPtr, Op3)
     {
         U32 val = ::Test::GenerateRandomU32();
         ThreadPtr< U32 > p;
-        p.ForcedUnsynchronisedSet( &val );
+        p.ForcedUnsynchronisedSet(&val);
 
-        EXPECT_EQ( &val, p.operator->() );
+        EXPECT_EQ(&val, p.operator->());
     }
 
 }

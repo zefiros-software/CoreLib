@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,29 +46,29 @@
 
 
 
-SystemManager::SystemManager( S32 argc, const char **argv )
-    : mArgc( argc ),
-      mArgv( argv )
+SystemManager::SystemManager(S32 argc, const char **argv)
+    : mArgc(argc),
+      mArgv(argv)
 {
     const std::string tempDir = Path::GetProgramTempDirectory();
 
-    if ( !Directory::Exists( tempDir ) )
+    if (!Directory::Exists(tempDir))
     {
-        Directory::CreateAll( tempDir );
+        Directory::CreateAll(tempDir);
     }
 
     const std::string dataDir = Path::GetProgramDataDirectory();
 
-    if ( !Directory::Exists( dataDir ) )
+    if (!Directory::Exists(dataDir))
     {
-        Directory::CreateAll( dataDir );
+        Directory::CreateAll(dataDir);
     }
 
     const std::string sharedDataDir = Path::GetProgramSharedDataDirectory();
 
-    if ( !Directory::Exists( sharedDataDir ) )
+    if (!Directory::Exists(sharedDataDir))
     {
-        Directory::CreateAll( sharedDataDir );
+        Directory::CreateAll(sharedDataDir);
     }
 }
 
@@ -80,24 +80,24 @@ void SystemManager::Initialise()
 {
     mManagerHolder.system = this;
 
-    Console::PrintTitle( "Pre-Initialising" );
+    Console::PrintTitle("Pre-Initialising");
     PreInitialiseManagers();
 
-    Console::PrintTitle( "Initialising" );
+    Console::PrintTitle("Initialising");
     InitialiseManagers();
 
-    Console::PrintTitle( "Post-Initialising" );
+    Console::PrintTitle("Post-Initialising");
     PostInitialiseManagers();
 
-    Console::PrintTitle( "Running" );
+    Console::PrintTitle("Running");
 }
 
 void SystemManager::Release()
 {
-    Console::PrintTitle( "Pre-Releasing" );
+    Console::PrintTitle("Pre-Releasing");
     PreReleaseManagers();
 
-    Console::PrintTitle( "Releasing" );
+    Console::PrintTitle("Releasing");
     ReleaseManagers();
 
     PostReleaseManagers();
@@ -107,9 +107,9 @@ void SystemManager::Release()
     delete this;
 }
 
-void SystemManager::Release( Namespace ns )
+void SystemManager::Release(Namespace ns)
 {
-    ReleaseManagers( ns );
+    ReleaseManagers(ns);
 }
 
 void SystemManager::Update()
@@ -132,44 +132,44 @@ ManagerHolder *SystemManager::GetManagers()
 
 void SystemManager::RegisterManagers()
 {
-    AddManager< MemoryManager >( &mManagerHolder.memory, "Memory",
-                                 static_cast< U32 >( AbstractManager::Type::Critical ) );
+    AddManager< MemoryManager >(&mManagerHolder.memory, "Memory",
+                                static_cast< U32 >(AbstractManager::Type::Critical));
 
-    AddManager< ProfilerManager >( &mManagerHolder.profile, "Profile",
-                                   static_cast<U32>( AbstractManager::Type::Critical ) );
+    AddManager< ProfilerManager >(&mManagerHolder.profile, "Profile",
+                                  static_cast<U32>(AbstractManager::Type::Critical));
 
-    AddManager< ApplicationManager >( &mManagerHolder.application, PROGRAM_NAME,
-                                      static_cast<U32>( AbstractManager::Type::Critical ) );
+    AddManager< ApplicationManager >(&mManagerHolder.application, PROGRAM_NAME,
+                                     static_cast<U32>(AbstractManager::Type::Critical));
 
 
-    AddManager< ConfigurationManager >( &mManagerHolder.configuration, "Configuration",
-                                        static_cast< U32 >( AbstractManager::Type::Critical ) );
+    AddManager< ConfigurationManager >(&mManagerHolder.configuration, "Configuration",
+                                       static_cast< U32 >(AbstractManager::Type::Critical));
 
-    AddManager< LogManager >( &mManagerHolder.log, "Log",
-                              static_cast< U32 >( AbstractManager::Type::Critical ) );
+    AddManager< LogManager >(&mManagerHolder.log, "Log",
+                             static_cast< U32 >(AbstractManager::Type::Critical));
 
-    AddManager< FactoryManager >( &mManagerHolder.factory, "Factory" );
+    AddManager< FactoryManager >(&mManagerHolder.factory, "Factory");
 
-    AddManager< PoolManager >( &mManagerHolder.pool, "Pool" );
+    AddManager< PoolManager >(&mManagerHolder.pool, "Pool");
 
-    AddManager< EventManager >( &mManagerHolder.event, "Event" );
+    AddManager< EventManager >(&mManagerHolder.event, "Event");
 
-    AddManager< ThreadingVariableManager >( &mManagerHolder.threadingVariable, "Threading Variable" );
+    AddManager< ThreadingVariableManager >(&mManagerHolder.threadingVariable, "Threading Variable");
 
-    AddManager< ScheduleManager >( &mManagerHolder.schedule, "Schedule" );
+    AddManager< ScheduleManager >(&mManagerHolder.schedule, "Schedule");
 
-    AddManager< PluginManager >( &mManagerHolder.plugin, "Plugin" );
+    AddManager< PluginManager >(&mManagerHolder.plugin, "Plugin");
 
 
     // should be last!
-    AddManager< ControllerManager >( &mManagerHolder.controller, "Controller" );
+    AddManager< ControllerManager >(&mManagerHolder.controller, "Controller");
 }
 
-SystemManager *SystemManager::Get( SystemManager *systemManager /* = nullptr */ )
+SystemManager *SystemManager::Get(SystemManager *systemManager /* = nullptr */)
 {
     static SystemManager *mSystemManager = nullptr;
 
-    if ( systemManager )
+    if (systemManager)
     {
         mSystemManager = systemManager;
         mSystemManager->mManagerHolder.system = systemManager;
@@ -195,106 +195,106 @@ const char **SystemManager::GetArgv() const
 
 void SystemManager::InitialiseManagers()
 {
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end() &&
-          mManagerHolder.application->IsRunning(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end() &&
+         mManagerHolder.application->IsRunning(); ++it)
     {
-        InitialiseManager( *it );
+        InitialiseManager(*it);
     }
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end() && mManagerHolder.application->IsRunning(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end() && mManagerHolder.application->IsRunning(); ++it)
     {
-        InitialiseManager( *it );
+        InitialiseManager(*it);
     }
 
-    Console::PrintTitle( "Finished initializing" );
+    Console::PrintTitle("Finished initializing");
 }
 
 void SystemManager::PreInitialiseManagers()
 {
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it)
     {
-        ( *it )->PreInitialise();
+        (*it)->PreInitialise();
     }
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end(); ++it)
     {
-        ( *it )->PreInitialise();
+        (*it)->PreInitialise();
     }
 }
 
 void SystemManager::PostInitialiseManagers()
 {
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it)
     {
-        ( *it )->PostInitialise();
+        (*it)->PostInitialise();
     }
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end(); ++it)
     {
-        ( *it )->PostInitialise();
+        (*it)->PostInitialise();
     }
 }
 
 void SystemManager::ReleaseManagers()
 {
-    for ( auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it )
+    for (auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it)
     {
-        ( *it )->Release();
+        (*it)->Release();
     }
 
-    for ( auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it )
+    for (auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it)
     {
-        ( *it )->Release();
+        (*it)->Release();
     }
 }
 
-void SystemManager::ReleaseManagers( Namespace ns )
+void SystemManager::ReleaseManagers(Namespace ns)
 {
-    for ( auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it )
+    for (auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it)
     {
-        ( *it )->OnRelease( ns );
+        (*it)->OnRelease(ns);
     }
 
-    for ( auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it )
+    for (auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it)
     {
-        ( *it )->OnRelease( ns );
+        (*it)->OnRelease(ns);
     }
 }
 
 void SystemManager::PreReleaseManagers()
 {
-    for ( auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it )
+    for (auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it)
     {
-        ( *it )->PreRelease();
+        (*it)->PreRelease();
     }
 
-    for ( auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it )
+    for (auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it)
     {
-        ( *it )->PreRelease();
+        (*it)->PreRelease();
     }
 }
 
 void SystemManager::PostReleaseManagers()
 {
-    for ( auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it )
+    for (auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it)
     {
-        ( *it )->PostRelease();
+        (*it)->PostRelease();
     }
 
-    for ( auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it )
+    for (auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it)
     {
-        ( *it )->PostRelease();
+        (*it)->PostRelease();
     }
 }
 
 void SystemManager::DeleteManagers()
 {
-    for ( auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it )
+    for (auto it = mManagersList.rbegin(); it != mManagersList.rend(); ++it)
     {
         delete *it;
     }
 
-    for ( auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it )
+    for (auto it = mCrititicalManagersList.rbegin(); it != mCrititicalManagersList.rend(); ++it)
     {
         delete *it;
     }
@@ -302,136 +302,136 @@ void SystemManager::DeleteManagers()
 
 void SystemManager::PreUpdateManagers()
 {
-    ProfileStart( "SystemManager::PreUpdateManagers()" );
+    ProfileStart("SystemManager::PreUpdateManagers()");
 
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->PreUpdate();
 
-        ProfileWaypoint( "SystemManager::PreUpdateManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::PreUpdateManagers()", manager->GetName());
     }
 
-    ProfileWaypoint( "SystemManager::PreUpdateManagers()", "CriticalManagers" );
+    ProfileWaypoint("SystemManager::PreUpdateManagers()", "CriticalManagers");
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->PreUpdate();
 
-        ProfileWaypoint( "SystemManager::PreUpdateManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::PreUpdateManagers()", manager->GetName());
     }
 
-    ProfileEnd( "SystemManager::PreUpdateManagers()" );
+    ProfileEnd("SystemManager::PreUpdateManagers()");
 }
 
 void SystemManager::UpdateManagers()
 {
-    ProfileStart( "SystemManager::UpdateManagers()" );
+    ProfileStart("SystemManager::UpdateManagers()");
 
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->Update();
 
-        ProfileWaypoint( "SystemManager::UpdateManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::UpdateManagers()", manager->GetName());
     }
 
-    ProfileWaypoint( "SystemManager::UpdateManagers()", "CriticalManagers" );
+    ProfileWaypoint("SystemManager::UpdateManagers()", "CriticalManagers");
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->Update();
 
-        ProfileWaypoint( "SystemManager::UpdateManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::UpdateManagers()", manager->GetName());
     }
 
-    ProfileEnd( "SystemManager::UpdateManagers()" );
+    ProfileEnd("SystemManager::UpdateManagers()");
 }
 
 void SystemManager::PostUpdateManagers()
 {
-    ProfileStart( "SystemManager::PostUpdateManagers()" );
+    ProfileStart("SystemManager::PostUpdateManagers()");
 
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->PostUpdate();
 
-        ProfileWaypoint( "SystemManager::PostUpdateManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::PostUpdateManagers()", manager->GetName());
     }
 
-    ProfileWaypoint( "SystemManager::PostUpdateManagers()", "CriticalManagers" );
+    ProfileWaypoint("SystemManager::PostUpdateManagers()", "CriticalManagers");
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->PostUpdate();
 
-        ProfileWaypoint( "SystemManager::PostUpdateManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::PostUpdateManagers()", manager->GetName());
     }
 
-    ProfileEnd( "SystemManager::PostUpdateManagers()" );
+    ProfileEnd("SystemManager::PostUpdateManagers()");
 }
 
 void SystemManager::SynchroniseManagers()
 {
-    ProfileStart( "SystemManager::SynchroniseManagers()" );
+    ProfileStart("SystemManager::SynchroniseManagers()");
 
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->Synchronise();
 
-        ProfileWaypoint( "SystemManager::SynchroniseManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::SynchroniseManagers()", manager->GetName());
     }
 
-    ProfileWaypoint( "SystemManager::SynchroniseManagers()", "CriticalManagers" );
+    ProfileWaypoint("SystemManager::SynchroniseManagers()", "CriticalManagers");
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->Synchronise();
 
-        ProfileWaypoint( "SystemManager::SynchroniseManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::SynchroniseManagers()", manager->GetName());
     }
 
-    ProfileEnd( "SystemManager::SynchroniseManagers()" );
+    ProfileEnd("SystemManager::SynchroniseManagers()");
 }
 
 void SystemManager::ProcessEventsManagers()
 {
-    ProfileStart( "SystemManager::SynchroniseManagers()" );
+    ProfileStart("SystemManager::SynchroniseManagers()");
 
-    for ( auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it )
+    for (auto it = mCrititicalManagersList.begin(); it != mCrititicalManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->ProcessEvents();
 
-        ProfileWaypoint( "SystemManager::SynchroniseManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::SynchroniseManagers()", manager->GetName());
     }
 
-    ProfileWaypoint( "SystemManager::SynchroniseManagers()", "CriticalManagers" );
+    ProfileWaypoint("SystemManager::SynchroniseManagers()", "CriticalManagers");
 
-    for ( auto it = mManagersList.begin(); it != mManagersList.end(); ++it )
+    for (auto it = mManagersList.begin(); it != mManagersList.end(); ++it)
     {
         AbstractManager *manager = *it;
         manager->ProcessEvents();
 
-        ProfileWaypoint( "SystemManager::SynchroniseManagers()", manager->GetName() );
+        ProfileWaypoint("SystemManager::SynchroniseManagers()", manager->GetName());
     }
 
-    ProfileEnd( "SystemManager::SynchroniseManagers()" );
+    ProfileEnd("SystemManager::SynchroniseManagers()");
 }
 
-void SystemManager::InitialiseManager( AbstractManager *const manager )
+void SystemManager::InitialiseManager(AbstractManager *const manager)
 {
     const std::string name = manager->GetName();
 
-    if ( name != "" )
+    if (name != "")
     {
-        Console::PrintTitle( name + " Manager" );
+        Console::PrintTitle(name + " Manager");
     }
 
     manager->Initialise();

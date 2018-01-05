@@ -46,11 +46,11 @@ namespace
     public:
 
         Callback()
-            : mArg( false )
+            : mArg(false)
         {
         }
 
-        void OnArg( const TestEvent & )
+        void OnArg(const TestEvent &)
         {
             mArg = true;
         }
@@ -58,92 +58,92 @@ namespace
         bool mArg;
     };
 
-    TEST( EventManager, Sanity )
+    TEST(EventManager, Sanity)
     {
         EventManager m;
     }
 
-    TEST( EventManager, Post )
+    TEST(EventManager, Post)
     {
         EventManager m;
-        m.Post( IEvent() );
+        m.Post(IEvent());
     }
 
-    TEST( EventManager, Post2 )
+    TEST(EventManager, Post2)
     {
         EventManager m;
-        m.Post( IEvent() );
+        m.Post(IEvent());
     }
 
-    TEST( EventManager, Add )
-    {
-        Callback c;
-        Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
-
-        EventManager m;
-
-        m.Add< TestEvent >( &o );
-        m.Post( TestEvent() );
-
-        EXPECT_TRUE( c.mArg );
-    }
-
-    TEST( EventManager, Remove )
+    TEST(EventManager, Add)
     {
         Callback c;
-        Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
+        Observer< Callback, TestEvent > o(&c, &Callback::OnArg);
 
         EventManager m;
 
-        m.Add< TestEvent >( &o );
-        m.Remove< TestEvent >( &o, false );
-        m.Post( TestEvent() );
+        m.Add< TestEvent >(&o);
+        m.Post(TestEvent());
 
-        EXPECT_FALSE( c.mArg );
+        EXPECT_TRUE(c.mArg);
     }
 
-    TEST( EventManager, Remove2 )
+    TEST(EventManager, Remove)
+    {
+        Callback c;
+        Observer< Callback, TestEvent > o(&c, &Callback::OnArg);
+
+        EventManager m;
+
+        m.Add< TestEvent >(&o);
+        m.Remove< TestEvent >(&o, false);
+        m.Post(TestEvent());
+
+        EXPECT_FALSE(c.mArg);
+    }
+
+    TEST(EventManager, Remove2)
     {
         Callback c;
         Callback c2;
-        Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
-        Observer< Callback, TestEvent > o2( &c2, &Callback::OnArg );
+        Observer< Callback, TestEvent > o(&c, &Callback::OnArg);
+        Observer< Callback, TestEvent > o2(&c2, &Callback::OnArg);
 
         EventManager m;
 
-        m.Add< TestEvent >( &o );
-        m.Add< TestEvent >( &o2 );
-        m.Remove< TestEvent >( &o2, false );
-        m.Post( TestEvent() );
+        m.Add< TestEvent >(&o);
+        m.Add< TestEvent >(&o2);
+        m.Remove< TestEvent >(&o2, false);
+        m.Post(TestEvent());
 
-        EXPECT_TRUE( c.mArg );
-        EXPECT_FALSE( c2.mArg );
+        EXPECT_TRUE(c.mArg);
+        EXPECT_FALSE(c2.mArg);
     }
 
-    TEST( EventManager, Remove3 )
+    TEST(EventManager, Remove3)
     {
         Callback c;
-        Observer< Callback, TestEvent > *o = new Observer< Callback, TestEvent >( &c, &Callback::OnArg );
+        Observer< Callback, TestEvent > *o = new Observer< Callback, TestEvent >(&c, &Callback::OnArg);
 
         EventManager m;
 
-        m.Add< TestEvent >( o );
-        m.Remove< TestEvent >( o );
-        m.Post( TestEvent() );
+        m.Add< TestEvent >(o);
+        m.Remove< TestEvent >(o);
+        m.Post(TestEvent());
 
-        EXPECT_FALSE( c.mArg );
+        EXPECT_FALSE(c.mArg);
     }
 
-    TEST( EventManager, RemoveNonExistent )
+    TEST(EventManager, RemoveNonExistent)
     {
         Callback c;
-        Observer< Callback, TestEvent > o( &c, &Callback::OnArg );
+        Observer< Callback, TestEvent > o(&c, &Callback::OnArg);
 
         EventManager m;
 
-        EXPECT_EQ( nullptr, m.Remove< TestEvent >( &o ) );
+        EXPECT_EQ(nullptr, m.Remove< TestEvent >(&o));
 
-        EXPECT_FALSE( c.mArg );
+        EXPECT_FALSE(c.mArg);
     }
 
     class TestManager
@@ -151,7 +151,7 @@ namespace
     {
     public:
 
-        void OnEvent( const TestEvent & )
+        void OnEvent(const TestEvent &)
         {
             called = true;
         }
@@ -159,33 +159,33 @@ namespace
         bool called = false;
     };
 
-    TEST( EventManager, Observe )
+    TEST(EventManager, Observe)
     {
         Managers::InitialiseEventManager();
 
         TestManager m;
-        m.SetManagers( System::GetManagers() );
-        m.Observe( &TestManager::OnEvent );
+        m.SetManagers(System::GetManagers());
+        m.Observe(&TestManager::OnEvent);
 
-        Event::Post( TestEvent() );
+        Event::Post(TestEvent());
 
-        EXPECT_TRUE( m.called );
+        EXPECT_TRUE(m.called);
 
         Managers::ReleaseEventManager();
     }
 
-    TEST( EventManager, Unobserve )
+    TEST(EventManager, Unobserve)
     {
         Managers::InitialiseEventManager();
 
         TestManager m;
-        m.SetManagers( System::GetManagers() );
-        m.Observe( &TestManager::OnEvent );
-        m.Unobserve( &TestManager::OnEvent );
+        m.SetManagers(System::GetManagers());
+        m.Observe(&TestManager::OnEvent);
+        m.Unobserve(&TestManager::OnEvent);
 
-        Event::Post( TestEvent() );
+        Event::Post(TestEvent());
 
-        EXPECT_FALSE( m.called );
+        EXPECT_FALSE(m.called);
 
         Managers::ReleaseEventManager();
     }

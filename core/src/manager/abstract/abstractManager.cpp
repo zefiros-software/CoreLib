@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,10 +29,10 @@
 #include "api/console.h"
 
 AbstractManager::AbstractManager()
-    : mInitialised( false ),
-      mFlags( 0 ),
-      mName( "" ),
-      mManagerHolder( nullptr )
+    : mInitialised(false),
+      mFlags(0),
+      mName(""),
+      mManagerHolder(nullptr)
 {
 }
 
@@ -43,7 +43,7 @@ AbstractManager::~AbstractManager()
 void AbstractManager::Initialise()
 {
     // Prevent the manager to be initialised from more than once.
-    if ( !mInitialised )
+    if (!mInitialised)
     {
         OnInit();
         mInitialised = true;
@@ -116,7 +116,7 @@ void AbstractManager::OnProcessEvents()
 {
 }
 
-void AbstractManager::SetName( const std::string &name )
+void AbstractManager::SetName(const std::string &name)
 {
     mName = name;
 }
@@ -126,7 +126,7 @@ const std::string &AbstractManager::GetName() const
     return mName;
 }
 
-void AbstractManager::SetManagers( ManagerHolder *const managerHolder )
+void AbstractManager::SetManagers(ManagerHolder *const managerHolder)
 {
     mManagerHolder = managerHolder;
 }
@@ -151,7 +151,7 @@ void AbstractManager::OnRelease()
 
 }
 
-void AbstractManager::OnRelease( Namespace )
+void AbstractManager::OnRelease(Namespace)
 {
 
 }
@@ -181,17 +181,17 @@ void AbstractManager::OnPostRelease()
 
 }
 
-bool AbstractManager::IsFlagSet( const U32 flag ) const
+bool AbstractManager::IsFlagSet(const U32 flag) const
 {
-    return IS_SET( mFlags, flag );
+    return IS_SET(mFlags, flag);
 }
 
-void AbstractManager::UnsetFlag( const U32 flag )
+void AbstractManager::UnsetFlag(const U32 flag)
 {
     mFlags &= ~flag;
 }
 
-void AbstractManager::SetFlag( const U32 flag )
+void AbstractManager::SetFlag(const U32 flag)
 {
     mFlags |= flag;
 }

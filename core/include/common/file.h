@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,8 +62,8 @@ namespace File
      * @snippet testFile.cpp ReadOpen
      */
 
-    void ReadOpen( std::ifstream &stream, const std::string &relFilepath, Path::Type type = Path::Type::Program,
-                   std::ios_base::openmode mode = std::ios_base::in );
+    void ReadOpen(std::ifstream &stream, const std::string &relFilepath, Path::Type type = Path::Type::Program,
+                  std::ios_base::openmode mode = std::ios_base::in);
 
     /**
      * Opens a write file stream on the correct path type.
@@ -81,8 +81,8 @@ namespace File
      * @snippet testFile.cpp WriteOpen
      */
 
-    void WriteOpen( std::ofstream &stream, const std::string &relFilepath, Path::Type type = Path::Type::Program,
-                    std::ios_base::openmode mode = std::ios_base::out );
+    void WriteOpen(std::ofstream &stream, const std::string &relFilepath, Path::Type type = Path::Type::Program,
+                   std::ios_base::openmode mode = std::ios_base::out);
 
     /**
      * Opens a file stream on the correct path type, with the default std::fstream modes.
@@ -98,8 +98,8 @@ namespace File
      * @snippet testFile.cpp Open
      */
 
-    void Open( std::fstream &stream, const std::string &relFilepath, Path::Type type = Path::Type::Program,
-               std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out );
+    void Open(std::fstream &stream, const std::string &relFilepath, Path::Type type = Path::Type::Program,
+              std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out);
 
     /**
      * Generates a temporary file name, statistically guaranteed to be (almost) unique.
@@ -128,8 +128,8 @@ namespace File
      * @snippet testFile.cpp TempOpen
      */
 
-    void TempOpen( std::fstream &stream, std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out |
-                                                                        std::ios_base::trunc );
+    void TempOpen(std::fstream &stream, std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out |
+                                                                       std::ios_base::trunc);
 
     /**
      * Gets a write/read file stream to a new temporary file, the user also gets the path of the located temporary file.
@@ -144,8 +144,8 @@ namespace File
      * @snippet testFile.cpp TempOpenPath
      */
 
-    void TempOpen( std::fstream &stream, std::string &filePath,
-                   std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out | std::ios_base::trunc );
+    void TempOpen(std::fstream &stream, std::string &filePath,
+                  std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out | std::ios_base::trunc);
 
     /// @}
 
@@ -171,7 +171,7 @@ namespace File
      * @snippet testFile.cpp Exists
      */
 
-    bool Exists( const std::string &filepath ) noexcept;
+    bool Exists(const std::string &filepath) noexcept;
 
     /**
      * Gets the file size, if it exists, in bytes. If the file doesn't exists, the size returned will be 0.
@@ -188,7 +188,7 @@ namespace File
      * @snippet testFile.cpp GetSize
      */
 
-    U64 Size( const std::string &filepath ) noexcept;
+    U64 Size(const std::string &filepath) noexcept;
 
     /**
      * Query if the file on the given filepath is empty. When the file doesn't exist, it will return true.
@@ -205,7 +205,7 @@ namespace File
      * @snippet testFile.cpp IsEmpty
      */
 
-    bool IsEmpty( const std::string &filepath ) noexcept;
+    bool IsEmpty(const std::string &filepath) noexcept;
 
     /**
      * Check whether the contents of two files are equal, however this function is only meant to work on text files.
@@ -226,7 +226,7 @@ namespace File
      * @snippet testFile.cpp AreEqual
      */
 
-    bool AreEqual( const std::string &filePath1, const std::string &filePath2 );
+    bool AreEqual(const std::string &filePath1, const std::string &filePath2);
 
     /**
      * Query if whether both given file paths point to the same physical file.
@@ -244,7 +244,7 @@ namespace File
      * @snippet file.cpp IsSame
      */
 
-    bool IsSame( const std::string &filePath1, const std::string &filePath2 );
+    bool IsSame(const std::string &filePath1, const std::string &filePath2);
 
     /**
      * Reads a whole text file and puts it in a string. If the file doesn't exist it will return an empty string.
@@ -261,7 +261,7 @@ namespace File
      * @snippet testFile.cpp ReadAllText
      */
 
-    std::string ReadAllText( const std::string &filepath );
+    std::string ReadAllText(const std::string &filepath);
 
     /**
      * Gets the timestamp on which the file was last modified. Returns 0 when the file doesn't exist.
@@ -278,7 +278,7 @@ namespace File
      * @snippet testFile.cpp ReadAllText
      */
 
-    std::time_t GetLastModified( const std::string &path ) noexcept;
+    std::time_t GetLastModified(const std::string &path) noexcept;
 
     /**
      * List al files in the given directory, either recursively or not recursive as indicated by the user. (defaults to
@@ -299,7 +299,7 @@ namespace File
      * @snippet testFile.cpp List
      */
 
-    std::vector< std::string > List( const std::string &directory, bool recursive = false ) noexcept;
+    std::vector< std::string > List(const std::string &directory, bool recursive = false) noexcept;
 
     /// @}
 
@@ -319,7 +319,7 @@ namespace File
      * @note Takes the filepath as-is.
      */
 
-    void SetLastModified( const std::string &path, std::time_t time );
+    void SetLastModified(const std::string &path, std::time_t time);
 
     /**
      * Clears the file from all data, if the file on the filepath exists, otherwise it won't do anything.
@@ -334,7 +334,7 @@ namespace File
      * @snippet testFile.cpp Clear
      */
 
-    void Clear( const std::string &filepath ) noexcept;
+    void Clear(const std::string &filepath) noexcept;
 
     /**
      * Deletes the given filepath.
@@ -351,7 +351,7 @@ namespace File
      * @snippet testFile.cpp Delete
      */
 
-    bool Delete( const std::string &filepath ) noexcept;
+    bool Delete(const std::string &filepath) noexcept;
 
     /**
      * Moves a file from the given path to the new path. When there is already a file on the new path, the overwrite
@@ -380,7 +380,7 @@ namespace File
      * @snippet testFile.cpp Move
      */
 
-    bool Move( const std::string &from, const std::string &to, const bool overwrite = false );
+    bool Move(const std::string &from, const std::string &to, const bool overwrite = false);
 
     /**
      * Copies a file from the given path to other path. When there is already a file on the new path, the overwrite
@@ -411,12 +411,12 @@ namespace File
      * @note Takes the filepath as-is.
      */
 
-    bool Copy( const std::string &from, const std::string &to, bool overwrite = false );
+    bool Copy(const std::string &from, const std::string &to, bool overwrite = false);
 
     /// @}
 
 
-    bool IsSharedLibrary( const std::string &s );
+    bool IsSharedLibrary(const std::string &s);
 
 }
 

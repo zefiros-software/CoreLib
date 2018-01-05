@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,8 +36,8 @@
 
 
 ApplicationManager::ApplicationManager()
-    : mApplicationIsRunning( true ),
-      mApplicationIsActive( true )
+    : mApplicationIsRunning(true),
+      mApplicationIsActive(true)
 {
 }
 
@@ -47,31 +47,31 @@ void ApplicationManager::OnInit()
     // can more effectively debug the different
     // versions of the engine when we only have
     // a console log.
-    Console::Initf( PROGRAM_NAME " build version '%s'", GetVersion() );
+    Console::Initf(PROGRAM_NAME " build version '%s'", GetVersion());
 
-    Console::Initf( "Working directory:\t\t'%s'.", Path::GetWorkingDirectory() );
-    Console::Initf( "Temporary directory:\t'%s'.", Path::GetProgramTempDirectory() );
-    Console::Initf( "Data directory:\t\t\t'%s'.", Path::GetProgramDataDirectory() );
-    Console::Initf( "Shared data directory:\t'%s'.", Path::GetProgramSharedDataDirectory() );
+    Console::Initf("Working directory:\t\t'%s'.", Path::GetWorkingDirectory());
+    Console::Initf("Temporary directory:\t'%s'.", Path::GetProgramTempDirectory());
+    Console::Initf("Data directory:\t\t\t'%s'.", Path::GetProgramDataDirectory());
+    Console::Initf("Shared data directory:\t'%s'.", Path::GetProgramSharedDataDirectory());
 }
 
 bool ApplicationManager::IsRunning() const
 {
-    std::lock_guard< std::mutex > lock( mMutex );
+    std::lock_guard< std::mutex > lock(mMutex);
 
     return mApplicationIsRunning;
 }
 
 bool ApplicationManager::IsActive() const
 {
-    std::lock_guard< std::mutex > lock( mMutex );
+    std::lock_guard< std::mutex > lock(mMutex);
 
     return mApplicationIsActive;
 }
 
 void ApplicationManager::Quit()
 {
-    std::lock_guard< std::mutex > lock( mMutex );
+    std::lock_guard< std::mutex > lock(mMutex);
 
     mApplicationIsRunning = false;
 }
@@ -87,5 +87,5 @@ bool ApplicationManager::IsDebug()
 
 std::string ApplicationManager::GetVersion() const
 {
-    return String::Format( "%i.%i.%i", PROGRAM_VERSION_MAJOR, PROGRAM_VERSION_MINOR, PROGRAM_VERSION_REVISION );
+    return String::Format("%i.%i.%i", PROGRAM_VERSION_MAJOR, PROGRAM_VERSION_MINOR, PROGRAM_VERSION_REVISION);
 }

@@ -40,7 +40,7 @@ namespace
             return new U32;
         }
 
-        void Dispose( U32 *object ) override
+        void Dispose(U32 *object) override
         {
             delete object;
         }
@@ -57,36 +57,36 @@ namespace
 
     };
 
-    TEST( AbstractObjectPool, ConstructDeconstruct )
+    TEST(AbstractObjectPool, ConstructDeconstruct)
     {
         ImplObjectPool inst;
     }
 
-    TEST( AbstractObjectPool, Get )
+    TEST(AbstractObjectPool, Get)
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
         delete inst->Get();
         delete inst;
     }
 
-    TEST( AbstractObjectPool, FastGet )
+    TEST(AbstractObjectPool, FastGet)
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
         delete inst->FastGet();
         delete inst;
     }
 
-    TEST( AbstractObjectPool, DisposeObject )
+    TEST(AbstractObjectPool, DisposeObject)
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
-        inst->Dispose( new U32 );
+        inst->Dispose(new U32);
         delete inst;
     }
 
-    TEST( AbstractObjectPool, GetDispose )
+    TEST(AbstractObjectPool, GetDispose)
     {
         AbstractObjectPool< U32 > *inst = new ImplObjectPool;
-        inst->Dispose( inst->Get() );
+        inst->Dispose(inst->Get());
         delete inst;
     }
 

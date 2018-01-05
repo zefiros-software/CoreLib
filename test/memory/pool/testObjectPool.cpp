@@ -65,7 +65,7 @@ namespace
     public:
 
         Child()
-            : mValue( 91 )
+            : mValue(91)
         {
         }
 
@@ -100,42 +100,42 @@ namespace
     public:
 
         ImplPoolableInstantiator()
-            : created( false ),
-              destroyed( false )
+            : created(false),
+              destroyed(false)
         {
         }
 
-        ImplPoolableInstantiator( const ImplPoolableInstantiator &other )
-            : created( other.created ),
-              destroyed( other.destroyed )
+        ImplPoolableInstantiator(const ImplPoolableInstantiator &other)
+            : created(other.created),
+              destroyed(other.destroyed)
         {
         }
 
         U32 *Create() override
         {
             created = true;
-            return new U32( 0 );
+            return new U32(0);
         }
 
-        void Destroy( U32 *object ) override
+        void Destroy(U32 *object) override
         {
             destroyed = true;
             delete object;
         }
 
-        virtual void Initialise( U32 *const object ) override
+        virtual void Initialise(U32 *const object) override
         {
             *object = 42u;
         }
 
-        virtual void Release( U32 *const object ) override
+        virtual void Release(U32 *const object) override
         {
             *object = 0;
         }
 
         virtual AbstractInstantiator *Copy() override
         {
-            return new ImplPoolableInstantiator( *this );
+            return new ImplPoolableInstantiator(*this);
         }
 
         bool created;
@@ -145,157 +145,157 @@ namespace
 
     typedef ObjectPool< Child, Base > ObjectPoolImpl;
 
-    TEST( ObjectPool, SanityCheck )
+    TEST(ObjectPool, SanityCheck)
     {
         volatile ObjectPoolImpl pool;
     }
 
-    TEST( ObjectPool, CustomInstantiator )
+    TEST(ObjectPool, CustomInstantiator)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        ObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
+        ObjectPool< U32, U32, ImplPoolableInstantiator > pool(inst, 0);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_TRUE( inst->destroyed );
+        EXPECT_TRUE(inst->destroyed);
     }
 
-    TEST( ObjectPool, TooFull )
+    TEST(ObjectPool, TooFull)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        ObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
+        ObjectPool< U32, U32, ImplPoolableInstantiator > pool(inst, 0);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.FastDispose( first );
+        pool.FastDispose(first);
 
-        EXPECT_TRUE( inst->destroyed );
+        EXPECT_TRUE(inst->destroyed);
     }
 
-    TEST( ObjectPool, CustomInstantiatorNonDefault )
+    TEST(ObjectPool, CustomInstantiatorNonDefault)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        ObjectPool< U32 > pool( inst, 1 );
+        ObjectPool< U32 > pool(inst, 1);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_FALSE( inst->destroyed );
-        EXPECT_EQ( 0u, *first );
+        EXPECT_FALSE(inst->destroyed);
+        EXPECT_EQ(0u, *first);
     }
 
-    TEST( ObjectPool, Get )
+    TEST(ObjectPool, Get)
     {
-        ObjectPoolImpl pool( 1 );
+        ObjectPoolImpl pool(1);
 
         Base *first = pool.Get();
-        EXPECT_EQ( 42u, first->GetValue() );
+        EXPECT_EQ(42u, first->GetValue());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_EQ( 0u, first->GetValue() );
+        EXPECT_EQ(0u, first->GetValue());
 
         Base *second = pool.Get();
         Base *third = pool.Get();
 
-        EXPECT_EQ( first, second );
-        EXPECT_NE( first, third );
+        EXPECT_EQ(first, second);
+        EXPECT_NE(first, third);
 
-        pool.Dispose( third );
-        pool.Dispose( second );
+        pool.Dispose(third);
+        pool.Dispose(second);
 
         Base *fourth = pool.Get();
 
-        EXPECT_EQ( third, fourth );
+        EXPECT_EQ(third, fourth);
 
-        pool.Dispose( fourth );
+        pool.Dispose(fourth);
     }
 
-    TEST( ObjectPool, FastGet )
+    TEST(ObjectPool, FastGet)
     {
         ObjectPoolImpl pool;
 
         Base *first = pool.FastGet();
-        EXPECT_EQ( 91u, first->GetValue() );
+        EXPECT_EQ(91u, first->GetValue());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
     }
 
-    TEST( ObjectPool, Dispose )
+    TEST(ObjectPool, Dispose)
     {
         ObjectPoolImpl pool;
-        pool.Dispose( pool.Get() );
-        pool.Dispose( pool.FastGet() );
+        pool.Dispose(pool.Get());
+        pool.Dispose(pool.FastGet());
     }
 
-    TEST( ObjectPool, FastDispose )
+    TEST(ObjectPool, FastDispose)
     {
         ObjectPoolImpl pool;
-        pool.FastDispose( pool.Get() );
-        pool.FastDispose( pool.FastGet() );
+        pool.FastDispose(pool.Get());
+        pool.FastDispose(pool.FastGet());
     }
 
-    TEST( ObjectPool, FastDisposeNoRelease )
+    TEST(ObjectPool, FastDisposeNoRelease)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        ObjectPool< U32 > pool( inst, 1 );
+        ObjectPool< U32 > pool(inst, 1);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.FastDispose( first );
+        pool.FastDispose(first);
 
-        EXPECT_FALSE( inst->destroyed );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_FALSE(inst->destroyed);
+        EXPECT_EQ(42u, *first);
     }
 
-    TEST( ObjectPool, GetBorrowedCount )
+    TEST(ObjectPool, GetBorrowedCount)
     {
         ObjectPoolImpl pool;
 
-        EXPECT_EQ( 0u, pool.GetBorrowedCount() );
+        EXPECT_EQ(0u, pool.GetBorrowedCount());
 
         Base *first = pool.FastGet();
 
-        EXPECT_EQ( 1u, pool.GetBorrowedCount() );
+        EXPECT_EQ(1u, pool.GetBorrowedCount());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
         Base *second = pool.Get();
 
-        EXPECT_EQ( 2u, pool.GetBorrowedCount() );
+        EXPECT_EQ(2u, pool.GetBorrowedCount());
 
-        pool.Dispose( second );
+        pool.Dispose(second);
     }
 
-    TEST( ObjectPool, GetReturnedCount )
+    TEST(ObjectPool, GetReturnedCount)
     {
         ObjectPoolImpl pool;
 
         Base *first = pool.FastGet();
 
-        EXPECT_EQ( 0u, pool.GetReturnedCount() );
+        EXPECT_EQ(0u, pool.GetReturnedCount());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_EQ( 1u, pool.GetReturnedCount() );
+        EXPECT_EQ(1u, pool.GetReturnedCount());
 
         Base *second = pool.Get();
-        pool.Dispose( second );
+        pool.Dispose(second);
 
-        EXPECT_EQ( 2u, pool.GetReturnedCount() );
+        EXPECT_EQ(2u, pool.GetReturnedCount());
     }
 
-    TEST( ObjectPool, CheckReturnedCount )
+    TEST(ObjectPool, CheckReturnedCount)
     {
         ObjectPoolImpl pool;
 

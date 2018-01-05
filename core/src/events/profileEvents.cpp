@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,10 @@
 
 #include "events/profileEvents.h"
 
-ProfileEvent::ProfileEvent( const std::string &name,
-                            std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept
-    : mName( name ),
-      mTime( time )
+ProfileEvent::ProfileEvent(const std::string &name,
+                           std::chrono::time_point< std::chrono::high_resolution_clock > time) noexcept
+    : mName(name),
+      mTime(time)
 {
 
 }
@@ -44,18 +44,18 @@ std::chrono::time_point< std::chrono::high_resolution_clock > ProfileEvent::GetT
     return mTime;
 }
 
-ProfileStartEvent::ProfileStartEvent( const std::string &name,
-                                      std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept
-    : ProfileEvent( name, time )
+ProfileStartEvent::ProfileStartEvent(const std::string &name,
+                                     std::chrono::time_point< std::chrono::high_resolution_clock > time) noexcept
+    : ProfileEvent(name, time)
 {
 
 }
 
-ProfileEndEvent::ProfileEndEvent( const std::string &name,
-                                  std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                                  std::chrono::microseconds duration ) noexcept
-    : ProfileEvent( name, time ),
-      mDuration( duration )
+ProfileEndEvent::ProfileEndEvent(const std::string &name,
+                                 std::chrono::time_point< std::chrono::high_resolution_clock > time,
+                                 std::chrono::microseconds duration) noexcept
+    : ProfileEvent(name, time),
+      mDuration(duration)
 {
 
 }
@@ -65,11 +65,11 @@ std::chrono::microseconds ProfileEndEvent::GetDuration() const noexcept
     return mDuration;
 }
 
-ProfileWaypointEvent::ProfileWaypointEvent( const std::string &name, const std::string &comment,
-                                            std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                                            std::chrono::microseconds duration ) noexcept
-    : ProfileEndEvent( name, time, duration ),
-      mComment( comment )
+ProfileWaypointEvent::ProfileWaypointEvent(const std::string &name, const std::string &comment,
+                                           std::chrono::time_point< std::chrono::high_resolution_clock > time,
+                                           std::chrono::microseconds duration) noexcept
+    : ProfileEndEvent(name, time, duration),
+      mComment(comment)
 {
 
 }
@@ -79,10 +79,10 @@ std::string ProfileWaypointEvent::GetCommment() const noexcept
     return mComment;
 }
 
-ProfileUpdateEvent::ProfileUpdateEvent( std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                                        std::chrono::microseconds duration ) noexcept
-    : mDuration( duration ),
-      mTime( time )
+ProfileUpdateEvent::ProfileUpdateEvent(std::chrono::time_point< std::chrono::high_resolution_clock > time,
+                                       std::chrono::microseconds duration) noexcept
+    : mDuration(duration),
+      mTime(time)
 {
 
 }

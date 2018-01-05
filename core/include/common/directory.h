@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,7 +60,7 @@ namespace Directory
      * @snippet testDirectory.cpp Exists
      */
 
-    bool Exists( const std::string &directory ) noexcept;
+    bool Exists(const std::string &directory) noexcept;
 
     /**
      * Queries if a given directory is empty.
@@ -78,7 +78,7 @@ namespace Directory
      * @snippet testDirectory.cpp IsEmpty
      */
 
-    bool IsEmpty( const std::string &directory, bool includeDirectories = true ) noexcept;
+    bool IsEmpty(const std::string &directory, bool includeDirectories = true) noexcept;
 
     /**
      * List directories in a given directory.
@@ -98,7 +98,7 @@ namespace Directory
      * @snippet testDirectory.cpp List
      */
 
-    std::vector< std::string > List( const std::string &directory, bool recursive = false ) noexcept;
+    std::vector< std::string > List(const std::string &directory, bool recursive = false) noexcept;
 
     /// @}
 
@@ -123,7 +123,7 @@ namespace Directory
      * @snippet testDirectory.cpp Delete
      */
 
-    bool Delete( const std::string &directory ) noexcept;
+    bool Delete(const std::string &directory) noexcept;
 
     /**
      * Deletes the given directory recursively, does nothing when the directory didn't exist. Naturally it won't delete
@@ -143,7 +143,7 @@ namespace Directory
      * @snippet testDirectory.cpp DeleteAll
      */
 
-    bool DeleteAll( const std::string &directory ) noexcept;
+    bool DeleteAll(const std::string &directory) noexcept;
 
     /**
      * Creates the given directory. The uppermost parent path should exist, for the directory to be created.
@@ -165,7 +165,7 @@ namespace Directory
      * @snippet testDirectory.cpp Create
      */
 
-    bool Create( const std::string &directory ) noexcept;
+    bool Create(const std::string &directory) noexcept;
 
     /**
      * Creates all directories in the given path.
@@ -184,7 +184,7 @@ namespace Directory
      * @snippet testDirectory.cpp CreateAll
      */
 
-    bool CreateAll( const std::string &directories ) noexcept;
+    bool CreateAll(const std::string &directories) noexcept;
 
     /**
      * Copies the given directory, to an other directory. Won't do anything when the from directory doesn't exist, or
@@ -212,7 +212,7 @@ namespace Directory
      * @snippet testDirectory.cpp Copy
      */
 
-    bool Copy( const std::string &from, const std::string &to ) noexcept;
+    bool Copy(const std::string &from, const std::string &to) noexcept;
 
     /**
      * Moves the given directory, and all of its contents, to an other directory. Won't do anything when the from
@@ -243,7 +243,7 @@ namespace Directory
      * @snippet testDirectory.cpp Move
      */
 
-    bool Move( const std::string &from, const std::string &to ) noexcept;
+    bool Move(const std::string &from, const std::string &to) noexcept;
 
     /// @}
 

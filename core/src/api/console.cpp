@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,17 @@
 
 namespace Console
 {
-    void PrintTitle( const std::string &title, const U8 headerLength /* = 70 */ )
+    void PrintTitle(const std::string &title, const U8 headerLength /* = 70 */)
     {
         const size_t titleLength = title.length();
         // Find the start of the header output
-        const size_t midoffset = ( headerLength - titleLength ) / 2 ;
+        const size_t midoffset = (headerLength - titleLength) / 2 ;
         std::stringstream ss;
 
         // Fill up the header
-        for ( U8 i = 0; i < headerLength; ++i )
+        for (U8 i = 0; i < headerLength; ++i)
         {
-            if ( i < midoffset || i > midoffset + titleLength )
+            if (i < midoffset || i > midoffset + titleLength)
             {
                 ss << "-";
             }
@@ -48,12 +48,12 @@ namespace Console
                 // inserted into the header, after that we skip to the
                 // last part of the header.
                 ss << title;
-                i += static_cast< U8 >( titleLength );
+                i += static_cast< U8 >(titleLength);
             }
         }
 
         /// Output the header as an init statement
-        Initf( ss.str() );
+        Initf(ss.str());
     }
 
 }

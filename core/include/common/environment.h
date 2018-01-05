@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,7 +59,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    std::string Get( const std::string &var ) noexcept;
+    std::string Get(const std::string &var) noexcept;
 
     /**
      * Sets an environment variable with the given value.
@@ -79,7 +79,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    bool Set( const std::string &var, const std::string &value ) noexcept;
+    bool Set(const std::string &var, const std::string &value) noexcept;
 
     /**
      * Query whether the given variable name exists.
@@ -94,7 +94,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    bool Has( const std::string &var ) noexcept;
+    bool Has(const std::string &var) noexcept;
 
     /**
      * Removes the environment variable.
@@ -113,7 +113,7 @@ namespace Environment
      * @snippet testEnvironment.cpp Combo
      */
 
-    bool Remove( const std::string &var ) noexcept;
+    bool Remove(const std::string &var) noexcept;
 
     /// @}
 };

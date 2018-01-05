@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,16 +36,16 @@ void ThreadingVariableManager::OnUpdate()
     SynchronisePtrVariables();
 }
 
-void ThreadingVariableManager::ScheduleThreadPtr( IThreadPtr *const threadPtr )
+void ThreadingVariableManager::ScheduleThreadPtr(IThreadPtr *const threadPtr)
 {
-    std::lock_guard< std::mutex > lock( mPtrMutex );
+    std::lock_guard< std::mutex > lock(mPtrMutex);
 
-    mPtrSynchronisation.Insert( threadPtr );
+    mPtrSynchronisation.Insert(threadPtr);
 }
 
 void ThreadingVariableManager::SynchronisePtrVariables()
 {
-    for ( IThreadPtr *var : mPtrSynchronisation.GetValues() )
+    for (IThreadPtr *var : mPtrSynchronisation.GetValues())
     {
         var->OnSynchronise();
     }

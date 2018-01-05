@@ -35,9 +35,9 @@
 
 namespace Test
 {
-    void EnsureTestDirectories( const std::vector<std::string > &strs );
+    void EnsureTestDirectories(const std::vector<std::string > &strs);
 
-    void CleanUp( const std::string &path );
+    void CleanUp(const std::string &path);
 }
 
 #endif

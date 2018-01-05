@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,9 +35,9 @@ class FastQueue
 {
 public:
 
-    void Queue( tT item ) noexcept
+    void Queue(tT item) noexcept
     {
-        mInbox.push_back( item );
+        mInbox.push_back(item);
     }
 
     void Dequeue() noexcept
@@ -64,11 +64,11 @@ private:
 
     void Move() noexcept
     {
-        if ( mOutbox.empty() )
+        if (mOutbox.empty())
         {
-            while ( !mInbox.empty() )
+            while (!mInbox.empty())
             {
-                mOutbox.push_back( mInbox.back() );
+                mOutbox.push_back(mInbox.back());
                 mInbox.pop_back();
             }
         }

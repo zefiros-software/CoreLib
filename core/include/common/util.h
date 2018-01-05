@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -330,11 +330,11 @@
 
 #if IS_DEBUG
 #   define ASSERT(condition, message)                                       \
- do {if (! (condition)) {                                                   \
-    std::cerr << __FILE__ << "(" << __LINE__ << "):\n" <<                   \
-    "Assertion `" << #condition << "` failed!\n" << (message) << std::endl; \
-    fflush(stderr);std::exit(-1);                                           \
-}} while(false)
+    do {if (! (condition)) {                                                   \
+            std::cerr << __FILE__ << "(" << __LINE__ << "):\n" <<                   \
+                      "Assertion `" << #condition << "` failed!\n" << (message) << std::endl; \
+            fflush(stderr);std::exit(-1);                                           \
+        }} while(false)
 #else
 #   define ASSERT(condition, message)
 #endif
@@ -363,7 +363,7 @@ namespace Util
      * @snippet testUtil.cpp HashCombine
      */
 
-    U32 BitExponent( U64 in ) noexcept;
+    U32 BitExponent(U64 in) noexcept;
 
     /**
      * Nearest power of 2 of the given value.
@@ -380,10 +380,10 @@ namespace Util
      */
 
     template< class tT >
-    tT NearestPower2( tT in ) noexcept
+    tT NearestPower2(tT in) noexcept
     {
-        static_assert( std::is_integral<tT>::value, "The type should be integral to have meaning." );
-        return  static_cast< tT >( Mathf::Pow( 2, static_cast< F64 >( BitExponent( in ) ) ) );
+        static_assert(std::is_integral<tT>::value, "The type should be integral to have meaning.");
+        return  static_cast< tT >(Mathf::Pow(2, static_cast< F64 >(BitExponent(in))));
     }
 
 
@@ -412,8 +412,8 @@ namespace Util
 
     template< typename tChild, typename tParent >
     struct IsChildParent
-    : std::integral_constant < bool, ( std::is_base_of<tParent, tChild >::value ||
-                                       std::is_same< tChild, tParent >::value ) >
+    : std::integral_constant < bool, (std::is_base_of<tParent, tChild >::value ||
+                                      std::is_same< tChild, tParent >::value) >
       {
       };
 

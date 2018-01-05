@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,16 +41,16 @@ public:
 
     StackAllocator();
 
-    StackAllocator( size_t size );
+    StackAllocator(size_t size);
 
     template< class tItem >
-    StackLocation Move( const tItem &item )
+    StackLocation Move(const tItem &item)
     {
         StackLocation loc = Alloc< tItem >();
 
-        U8 *ptr = Extract<U8>( loc );
+        U8 *ptr = Extract<U8>(loc);
 
-        memcpy( ptr, &item, sizeof( tItem ) );
+        memcpy(ptr, &item, sizeof(tItem));
 
         return loc;
     }
@@ -58,30 +58,30 @@ public:
     template< class tItem >
     StackLocation Alloc()
     {
-        size_t size = sizeof( tItem );
+        size_t size = sizeof(tItem);
 
-        return InternalAlloc( size );
+        return InternalAlloc(size);
     }
 
     template< class tItem >
-    const tItem *Extract( StackLocation location ) const
+    const tItem *Extract(StackLocation location) const
     {
-        return reinterpret_cast<const tItem *>( mStack.data() + location );
+        return reinterpret_cast<const tItem *>(mStack.data() + location);
     }
 
     template< class tItem >
-    tItem *Extract( StackLocation location )
+    tItem *Extract(StackLocation location)
     {
-        return reinterpret_cast<tItem *>( mStack.data() + location );
+        return reinterpret_cast<tItem *>(mStack.data() + location);
     }
 
-    bool FitsInStack( size_t bytes ) const;
+    bool FitsInStack(size_t bytes) const;
 
     void Clear();
 
 private:
 
-    StackLocation InternalAlloc( size_t allocSize );
+    StackLocation InternalAlloc(size_t allocSize);
 
     std::vector< U8 > mStack;
 

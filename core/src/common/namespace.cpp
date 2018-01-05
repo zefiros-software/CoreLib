@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,27 +27,27 @@
 #include "common/namespace.h"
 
 Namespace::Namespace() noexcept
-    : mAddinNamespace( 0 ),
-      mPluginNamespace( 0 )
+    : mAddinNamespace(0),
+      mPluginNamespace(0)
 {
 }
 
 
-Namespace::Namespace( const U16 pluginNamespace, const U16 addinNamespace ) noexcept
-    : mAddinNamespace( addinNamespace ),
-      mPluginNamespace( pluginNamespace )
+Namespace::Namespace(const U16 pluginNamespace, const U16 addinNamespace) noexcept
+    : mAddinNamespace(addinNamespace),
+      mPluginNamespace(pluginNamespace)
 {
 }
 
-Namespace::Namespace( const U32 fullNamespace ) noexcept
-    : mAddinNamespace( fullNamespace >> 16 ),
-      mPluginNamespace( ( ( fullNamespace << 16 ) >> 16 ) )
+Namespace::Namespace(const U32 fullNamespace) noexcept
+    : mAddinNamespace(fullNamespace >> 16),
+      mPluginNamespace(((fullNamespace << 16) >> 16))
 {
 }
 
-Namespace::Namespace( const Namespace pluginNamespace, const Namespace addinNamespace ) noexcept
-    : mAddinNamespace( addinNamespace.GetAddinNamespace() ),
-      mPluginNamespace( pluginNamespace.GetPluginNamespace() )
+Namespace::Namespace(const Namespace pluginNamespace, const Namespace addinNamespace) noexcept
+    : mAddinNamespace(addinNamespace.GetAddinNamespace()),
+      mPluginNamespace(pluginNamespace.GetPluginNamespace())
 {
 }
 
@@ -63,17 +63,17 @@ U16 Namespace::GetPluginNamespace() const noexcept
 
 Namespace Namespace::GetAddin() const noexcept
 {
-    return Namespace( 0, mAddinNamespace );
+    return Namespace(0, mAddinNamespace);
 }
 
 Namespace Namespace::GetPlugin() const noexcept
 {
-    return Namespace( mPluginNamespace, 0 );
+    return Namespace(mPluginNamespace, 0);
 }
 
 U32 Namespace::GetNamespace() const noexcept
 {
-    return ( mAddinNamespace << 16 ) | mPluginNamespace;
+    return (mAddinNamespace << 16) | mPluginNamespace;
 }
 
 bool Namespace::IsAddin() const noexcept
@@ -81,12 +81,12 @@ bool Namespace::IsAddin() const noexcept
     return mAddinNamespace != 0;
 }
 
-bool Namespace::operator!=( const Namespace &other ) const noexcept
+bool Namespace::operator!=(const Namespace &other) const noexcept
 {
     return mAddinNamespace != other.mAddinNamespace || mPluginNamespace != other.mPluginNamespace;
 }
 
-bool Namespace::operator==( const Namespace &other ) const noexcept
+bool Namespace::operator==(const Namespace &other) const noexcept
 {
     return mAddinNamespace == other.mAddinNamespace && mPluginNamespace == other.mPluginNamespace;
 }

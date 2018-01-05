@@ -30,68 +30,68 @@
 
 namespace
 {
-    TEST( FactoryManager, Sanity )
+    TEST(FactoryManager, Sanity)
     {
         FactoryManager m;
     }
 
-    TEST( FactoryManager, Add )
+    TEST(FactoryManager, Add)
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();
 
-        EXPECT_TRUE( m.Has< U32 >() );
-        EXPECT_EQ( fac, m.Get< U32 >() );
+        EXPECT_TRUE(m.Has< U32 >());
+        EXPECT_EQ(fac, m.Get< U32 >());
     }
 
-    TEST( FactoryManager, AddFactoryInst )
+    TEST(FactoryManager, AddFactoryInst)
     {
         FactoryManager m;
         auto instantiator = new Instantiator< U32 >();
-        EXPECT_TRUE( m.Add< U32 >( instantiator ) );
+        EXPECT_TRUE(m.Add< U32 >(instantiator));
 
-        EXPECT_TRUE( m.Has< U32 >() );
-        EXPECT_EQ( instantiator, m.Get< U32 >() );
+        EXPECT_TRUE(m.Has< U32 >());
+        EXPECT_EQ(instantiator, m.Get< U32 >());
     }
 
-    TEST( FactoryManager, AddFactoryInstTwice )
+    TEST(FactoryManager, AddFactoryInstTwice)
     {
         FactoryManager m;
         auto instantiator = new Instantiator< U32 >();
-        EXPECT_TRUE( m.Add< U32 >( instantiator ) );
-        EXPECT_ANY_THROW( m.Add< U32 >( instantiator ) );
+        EXPECT_TRUE(m.Add< U32 >(instantiator));
+        EXPECT_ANY_THROW(m.Add< U32 >(instantiator));
     }
 
-    TEST( FactoryManager, Create )
+    TEST(FactoryManager, Create)
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();
 
-        EXPECT_TRUE( m.Has< U32 >() );
-        EXPECT_EQ( fac, m.Get< U32 >() );
+        EXPECT_TRUE(m.Has< U32 >());
+        EXPECT_EQ(fac, m.Get< U32 >());
         delete m.Create< U32 >();
     }
 
-    TEST( FactoryManager, AddFactoryTwice )
+    TEST(FactoryManager, AddFactoryTwice)
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();
-        EXPECT_EQ( fac, m.Get< U32 >() );
-        EXPECT_ANY_THROW( m.Add< U32 >() );
+        EXPECT_EQ(fac, m.Get< U32 >());
+        EXPECT_ANY_THROW(m.Add< U32 >());
     }
 
-    TEST( FactoryManager, Release )
+    TEST(FactoryManager, Release)
     {
         FactoryManager m;
         auto fac = m.Add< U32 >();
 
-        EXPECT_TRUE( m.Has< U32 >() );
-        EXPECT_EQ( fac, m.Get< U32 >() );
+        EXPECT_TRUE(m.Has< U32 >());
+        EXPECT_EQ(fac, m.Get< U32 >());
 
         m.Clear< U32 >();
 
-        EXPECT_FALSE( m.Has< U32 >() );
-        EXPECT_EQ( nullptr, m.Get< U32 >() );
+        EXPECT_FALSE(m.Has< U32 >());
+        EXPECT_EQ(nullptr, m.Get< U32 >());
     }
 
 }

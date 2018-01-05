@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,11 +57,11 @@ public:
 
     void RunEventJobs();
 
-    bool RegisterJob( IThreadExecutable *const job, IThreadExecutable::Type type = IThreadExecutable::Type::Worker );
+    bool RegisterJob(IThreadExecutable *const job, IThreadExecutable::Type type = IThreadExecutable::Type::Worker);
 
-    bool RegisterJob( IThreadExecutable *job, U32 threadGroupID );
+    bool RegisterJob(IThreadExecutable *job, U32 threadGroupID);
 
-    bool RegisterSynchronisationJob( IThreadExecutable *job, U32 threadGroupID );
+    bool RegisterSynchronisationJob(IThreadExecutable *job, U32 threadGroupID);
 
     void RunMainJobs();
 
@@ -75,11 +75,11 @@ public:
 
     void RunSynchronisationThreadGroupJobs();
 
-    void RunMainWorkerQueue( JobQueue *queue ) const;
+    void RunMainWorkerQueue(JobQueue *queue) const;
 
     static ThreadID GetCurrentThreadID();
 
-    static void SetCurrentThreadID( const ThreadID threadID );
+    static void SetCurrentThreadID(const ThreadID threadID);
 
     static U32 GetMainThreadID();
 
@@ -89,21 +89,21 @@ public:
     void SetGlobalThreadID()
     {
         // one for the main thread
-        const ThreadID threadCount = static_cast< ThreadID >( GetThreadCount() + 1 );
-        SpinBarrier barrier( threadCount );
+        const ThreadID threadCount = static_cast< ThreadID >(GetThreadCount() + 1);
+        SpinBarrier barrier(threadCount);
         JobQueue queue;
 
-        std::vector< GlobalThreadIDJob< tT > > threadJobs( threadCount, GlobalThreadIDJob< tT >( this, &barrier ) );
+        std::vector< GlobalThreadIDJob< tT > > threadJobs(threadCount, GlobalThreadIDJob< tT >(this, &barrier));
 
-        for ( GlobalThreadIDJob< tT > &job : threadJobs )
+        for (GlobalThreadIDJob< tT > &job : threadJobs)
         {
-            queue.Push( &job );
+            queue.Push(&job);
         }
 
         queue.Flush();
-        mThreadPool.Run( &queue );
+        mThreadPool.Run(&queue);
 
-        RunMainWorkerQueue( &queue );
+        RunMainWorkerQueue(&queue);
 
         mThreadPool.JoinAll();
     }
@@ -116,16 +116,16 @@ private:
     {
     public:
 
-        explicit GlobalThreadIDJob( ScheduleManager *scheduleManager, SpinBarrier *barrier )
-            : mScheduleManager( scheduleManager ),
-              mBarrier( barrier )
+        explicit GlobalThreadIDJob(ScheduleManager *scheduleManager, SpinBarrier *barrier)
+            : mScheduleManager(scheduleManager),
+              mBarrier(barrier)
         {
 
         }
 
-        virtual void OnStartJob( ThreadID threadID ) override
+        virtual void OnStartJob(ThreadID threadID) override
         {
-            mScheduleManager->SetCurrentThreadID( threadID );
+            mScheduleManager->SetCurrentThreadID(threadID);
         }
 
         virtual void OnRunJob() override
@@ -158,7 +158,7 @@ private:
     std::future< void > mLoaderThread;
     bool mLoaderIsRunning;
 
-    void RunThreadGroups( std::unordered_map< U32, JobQueue > &queues );
+    void RunThreadGroups(std::unordered_map< U32, JobQueue > &queues);
 
 };
 

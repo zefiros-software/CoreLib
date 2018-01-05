@@ -30,14 +30,14 @@
 
 namespace
 {
-    TEST( ScheduleManager, Sanity )
+    TEST(ScheduleManager, Sanity)
     {
         ScheduleManager m;
     }
 
-    TEST( ScheduleManager, GetMainThreadID )
+    TEST(ScheduleManager, GetMainThreadID)
     {
         ScheduleManager m;
-        EXPECT_EQ( 0u, m.GetMainThreadID() );
+        EXPECT_EQ(0u, m.GetMainThreadID());
     }
 }

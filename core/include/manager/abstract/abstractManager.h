@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -99,7 +99,7 @@ public:
 
     virtual void OnRelease();
 
-    virtual void OnRelease( Namespace ns );
+    virtual void OnRelease(Namespace ns);
 
     /**
      * Executes the initialisation event.
@@ -132,7 +132,7 @@ public:
     /// @name Miscellaneous
     /// @{
 
-    virtual void SetName( const std::string &name );
+    virtual void SetName(const std::string &name);
 
     /**
      * Gets the manager name. This may be equal to "".
@@ -153,7 +153,7 @@ public:
      * @param [in,out]  managerHolder   If non-null, the manager holder.
      */
 
-    void SetManagers( ManagerHolder *const managerHolder );
+    void SetManagers(ManagerHolder *const managerHolder);
 
     /**
      * Gets the other managers.
@@ -163,21 +163,21 @@ public:
 
     ManagerHolder *GetManagers() const;
 
-    bool IsFlagSet( const U32 flag ) const;
+    bool IsFlagSet(const U32 flag) const;
 
-    void UnsetFlag( const U32 flag );
+    void UnsetFlag(const U32 flag);
 
-    void SetFlag( const U32 flag );
+    void SetFlag(const U32 flag);
 
     /// @}
 
     bool IsInitialised() const;
 
     template< class tC, class tN >
-    void Observe( void ( tC::*method )( const tN & ) );
+    void Observe(void (tC::*method)(const tN &));
 
     template< class tC, class tN >
-    void Unobserve( void ( tC::*method )( const tN & ) );
+    void Unobserve(void (tC::*method)(const tN &));
 
 protected:
 

@@ -44,32 +44,32 @@ namespace String
 {
     namespace
     {
-        void ParseFlags( std::ostream &str, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt )
+        void ParseFlags(std::ostream &str, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt)
         {
             bool isFlag = true;
 
-            while ( isFlag && itFmt != endFmt )
+            while (isFlag && itFmt != endFmt)
             {
-                switch ( *itFmt )
+                switch (*itFmt)
                 {
                 case '-':
-                    str.setf( std::ios::left );
+                    str.setf(std::ios::left);
                     ++itFmt;
                     break;
 
                 case '+':
-                    str.setf( std::ios::showpos );
+                    str.setf(std::ios::showpos);
                     ++itFmt;
                     break;
 
                 case '0':
-                    str.fill( '0' );
-                    str.setf( std::ios::internal );
+                    str.fill('0');
+                    str.setf(std::ios::internal);
                     ++itFmt;
                     break;
 
                 case '#':
-                    str.setf( std::ios::showpoint | std::ios::showbase );
+                    str.setf(std::ios::showpoint | std::ios::showbase);
                     ++itFmt;
                     break;
 
@@ -81,50 +81,50 @@ namespace String
         }
 
 
-        void ParseWidth( std::ostream &str, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt )
+        void ParseWidth(std::ostream &str, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt)
         {
             int width = 0;
 
-            while ( itFmt != endFmt && isdigit( *itFmt ) )
+            while (itFmt != endFmt && isdigit(*itFmt))
             {
                 width = 10 * width + *itFmt - '0';
                 ++itFmt;
             }
 
-            if ( width != 0 )
+            if (width != 0)
             {
-                str.width( width );
+                str.width(width);
             }
         }
 
 
-        void ParsePrec( std::ostream &str, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt )
+        void ParsePrec(std::ostream &str, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt)
         {
-            if ( itFmt != endFmt && *itFmt == '.' )
+            if (itFmt != endFmt && *itFmt == '.')
             {
                 ++itFmt;
                 int prec = 0;
 
-                while ( itFmt != endFmt && isdigit( *itFmt ) )
+                while (itFmt != endFmt && isdigit(*itFmt))
                 {
                     prec = 10 * prec + *itFmt - '0';
                     ++itFmt;
                 }
 
-                if ( prec >= 0 )
+                if (prec >= 0)
                 {
-                    str.precision( prec );
+                    str.precision(prec);
                 }
             }
         }
 
-        char ParseMod( std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt )
+        char ParseMod(std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt)
         {
             char mod = 0;
 
-            if ( itFmt != endFmt )
+            if (itFmt != endFmt)
             {
-                switch ( *itFmt )
+                switch (*itFmt)
                 {
                 case 'l':
                 case 'h':
@@ -138,17 +138,17 @@ namespace String
             return mod;
         }
 
-        std::size_t ParseIndex( std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt )
+        std::size_t ParseIndex(std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt)
         {
             int index = 0;
 
-            while ( itFmt != endFmt && isdigit( *itFmt ) )
+            while (itFmt != endFmt && isdigit(*itFmt))
             {
                 index = 10 * index + *itFmt - '0';
                 ++itFmt;
             }
 
-            if ( itFmt != endFmt && *itFmt == ']' )
+            if (itFmt != endFmt && *itFmt == ']')
             {
                 ++itFmt;
             }
@@ -156,9 +156,9 @@ namespace String
             return index;
         }
 
-        void PrepareFormat( std::ostream &str, char type )
+        void PrepareFormat(std::ostream &str, char type)
         {
-            switch ( type )
+            switch (type)
             {
             case 'd':
             case 'i':
@@ -192,108 +192,108 @@ namespace String
         }
 
 
-        void WriteAnyInt( std::ostream &str, const ::boost::any &any )
+        void WriteAnyInt(std::ostream &str, const ::boost::any &any)
         {
-            if ( any.type() == typeid( char ) )
+            if (any.type() == typeid(char))
             {
-                str << static_cast<int>( boost::any_cast<char>( any ) );
+                str << static_cast<int>(boost::any_cast<char>(any));
             }
-            else if ( any.type() == typeid( signed char ) )
+            else if (any.type() == typeid(signed char))
             {
-                str << static_cast<int>( boost::any_cast<signed char>( any ) );
+                str << static_cast<int>(boost::any_cast<signed char>(any));
             }
-            else if ( any.type() == typeid( unsigned char ) )
+            else if (any.type() == typeid(unsigned char))
             {
-                str << static_cast<unsigned>( boost::any_cast<unsigned char>( any ) );
+                str << static_cast<unsigned>(boost::any_cast<unsigned char>(any));
             }
-            else if ( any.type() == typeid( short ) )
+            else if (any.type() == typeid(short))
             {
-                str << boost::any_cast<short>( any );
+                str << boost::any_cast<short>(any);
             }
-            else if ( any.type() == typeid( unsigned short ) )
+            else if (any.type() == typeid(unsigned short))
             {
-                str << boost::any_cast<unsigned short>( any );
+                str << boost::any_cast<unsigned short>(any);
             }
-            else if ( any.type() == typeid( int ) )
+            else if (any.type() == typeid(int))
             {
-                str << boost::any_cast<int>( any );
+                str << boost::any_cast<int>(any);
             }
-            else if ( any.type() == typeid( unsigned int ) )
+            else if (any.type() == typeid(unsigned int))
             {
-                str << boost::any_cast<unsigned int>( any );
+                str << boost::any_cast<unsigned int>(any);
             }
-            else if ( any.type() == typeid( long ) )
+            else if (any.type() == typeid(long))
             {
-                str << boost::any_cast<long>( any );
+                str << boost::any_cast<long>(any);
             }
-            else if ( any.type() == typeid( unsigned long ) )
+            else if (any.type() == typeid(unsigned long))
             {
-                str << boost::any_cast<unsigned long>( any );
+                str << boost::any_cast<unsigned long>(any);
             }
-            else if ( any.type() == typeid( S64 ) )
+            else if (any.type() == typeid(S64))
             {
-                str << boost::any_cast<S64>( any );
+                str << boost::any_cast<S64>(any);
             }
-            else if ( any.type() == typeid( U64 ) )
+            else if (any.type() == typeid(U64))
             {
-                str << boost::any_cast<U64>( any );
+                str << boost::any_cast<U64>(any);
             }
-            else if ( any.type() == typeid( bool ) )
+            else if (any.type() == typeid(bool))
             {
-                str << boost::any_cast<bool>( any );
+                str << boost::any_cast<bool>(any);
             }
         }
 
 
-        void formatOne( std::string &result, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt,
-                        std::vector< boost::any >::const_iterator &itVal )
+        void formatOne(std::string &result, std::string::const_iterator &itFmt, const std::string::const_iterator &endFmt,
+                       std::vector< boost::any >::const_iterator &itVal)
         {
             std::ostringstream str;
 
             try
             {
-                ParseFlags( str, itFmt, endFmt );
-                ParseWidth( str, itFmt, endFmt );
-                ParsePrec( str, itFmt, endFmt );
-                char mod = ParseMod( itFmt, endFmt );
+                ParseFlags(str, itFmt, endFmt);
+                ParseWidth(str, itFmt, endFmt);
+                ParsePrec(str, itFmt, endFmt);
+                char mod = ParseMod(itFmt, endFmt);
 
-                if ( itFmt != endFmt )
+                if (itFmt != endFmt)
                 {
                     char type = *itFmt++;
-                    PrepareFormat( str, type );
+                    PrepareFormat(str, type);
 
-                    switch ( type )
+                    switch (type)
                     {
                     case 'b':
-                        str << boost::any_cast<bool>( *itVal++ );
+                        str << boost::any_cast<bool>(*itVal++);
                         break;
 
                     case 'c':
-                        str << boost::any_cast<char>( *itVal++ );
+                        str << boost::any_cast<char>(*itVal++);
                         break;
 
                     case 'd':
                     case 'i':
-                        switch ( mod )
+                        switch (mod)
                         {
                         case 'l':
-                            str << boost::any_cast<long>( *itVal++ );
+                            str << boost::any_cast<long>(*itVal++);
                             break;
 
                         case 'L':
-                            str << boost::any_cast<S64>( *itVal++ );
+                            str << boost::any_cast<S64>(*itVal++);
                             break;
 
                         case 'h':
-                            str << boost::any_cast<short>( *itVal++ );
+                            str << boost::any_cast<short>(*itVal++);
                             break;
 
                         case '?':
-                            WriteAnyInt( str, *itVal++ );
+                            WriteAnyInt(str, *itVal++);
                             break;
 
                         default:
-                            str << boost::any_cast<int>( *itVal++ );
+                            str << boost::any_cast<int>(*itVal++);
                             break;
                         }
 
@@ -303,26 +303,26 @@ namespace String
                     case 'u':
                     case 'x':
                     case 'X':
-                        switch ( mod )
+                        switch (mod)
                         {
                         case 'l':
-                            str << boost::any_cast<unsigned long>( *itVal++ );
+                            str << boost::any_cast<unsigned long>(*itVal++);
                             break;
 
                         case 'L':
-                            str << boost::any_cast<U64>( *itVal++ );
+                            str << boost::any_cast<U64>(*itVal++);
                             break;
 
                         case 'h':
-                            str << boost::any_cast<unsigned short>( *itVal++ );
+                            str << boost::any_cast<unsigned short>(*itVal++);
                             break;
 
                         case '?':
-                            WriteAnyInt( str, *itVal++ );
+                            WriteAnyInt(str, *itVal++);
                             break;
 
                         default:
-                            str << boost::any_cast<unsigned>( *itVal++ );
+                            str << boost::any_cast<unsigned>(*itVal++);
                             break;
                         }
 
@@ -331,33 +331,33 @@ namespace String
                     case 'e':
                     case 'E':
                     case 'f':
-                        switch ( mod )
+                        switch (mod)
                         {
                         case 'l':
-                            str << boost::any_cast<long double>( *itVal++ );
+                            str << boost::any_cast<long double>(*itVal++);
                             break;
 
                         case 'L':
-                            str << boost::any_cast<long double>( *itVal++ );
+                            str << boost::any_cast<long double>(*itVal++);
                             break;
 
                         case 'h':
-                            str << boost::any_cast<float>( *itVal++ );
+                            str << boost::any_cast<float>(*itVal++);
                             break;
 
                         default:
-                            str << boost::any_cast<double>( *itVal++ );
+                            str << boost::any_cast<double>(*itVal++);
                             break;
                         }
 
                         break;
 
                     case 's':
-                        str << boost::any_cast<std::string>( *itVal++ );
+                        str << boost::any_cast<std::string>(*itVal++);
                         break;
 
                     case 'z':
-                        str << boost::any_cast<std::size_t>( *itVal++ );
+                        str << boost::any_cast<std::size_t>(*itVal++);
                         break;
 
                     case 'I':
@@ -367,161 +367,161 @@ namespace String
                     }
                 }
             }
-            catch ( ::boost::bad_any_cast & )
+            catch (::boost::bad_any_cast &)
             {
                 str << "[ERRFMT]";
             }
 
-            result.append( str.str() );
+            result.append(str.str());
         }
     }
 
-    std::string Format( const std::string &fmt )
+    std::string Format(const std::string &fmt)
     {
         return fmt;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value )
+    std::string Format(const std::string &fmt, const boost::any &value)
     {
         std::vector<boost::any> args;
-        args.push_back( value );
+        args.push_back(value);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2 )
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2)
     {
         std::vector<boost::any> args;
-        args.push_back( value1 );
-        args.push_back( value2 );
+        args.push_back(value1);
+        args.push_back(value2);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3 )
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3)
     {
         std::vector<boost::any> args;
-        args.push_back( value1 );
-        args.push_back( value2 );
-        args.push_back( value3 );
+        args.push_back(value1);
+        args.push_back(value2);
+        args.push_back(value3);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4 )
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4)
     {
         std::vector<boost::any> args;
-        args.push_back( value1 );
-        args.push_back( value2 );
-        args.push_back( value3 );
-        args.push_back( value4 );
+        args.push_back(value1);
+        args.push_back(value2);
+        args.push_back(value3);
+        args.push_back(value4);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5 )
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5)
     {
         std::vector<boost::any> args;
-        args.push_back( value1 );
-        args.push_back( value2 );
-        args.push_back( value3 );
-        args.push_back( value4 );
-        args.push_back( value5 );
+        args.push_back(value1);
+        args.push_back(value2);
+        args.push_back(value3);
+        args.push_back(value4);
+        args.push_back(value5);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6 )
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6)
     {
         std::vector<boost::any> args;
-        args.push_back( value1 );
-        args.push_back( value2 );
-        args.push_back( value3 );
-        args.push_back( value4 );
-        args.push_back( value5 );
-        args.push_back( value6 );
+        args.push_back(value1);
+        args.push_back(value2);
+        args.push_back(value3);
+        args.push_back(value4);
+        args.push_back(value5);
+        args.push_back(value6);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6,
-                        const boost::any &value7 )
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6,
+                       const boost::any &value7)
     {
         std::vector<boost::any> args;
-        args.push_back( value1 );
-        args.push_back( value2 );
-        args.push_back( value3 );
-        args.push_back( value4 );
-        args.push_back( value5 );
-        args.push_back( value6 );
-        args.push_back( value7 );
+        args.push_back(value1);
+        args.push_back(value2);
+        args.push_back(value3);
+        args.push_back(value4);
+        args.push_back(value5);
+        args.push_back(value6);
+        args.push_back(value7);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6,
-                        const boost::any &value7, const boost::any &value8 )
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6,
+                       const boost::any &value7, const boost::any &value8)
     {
         std::vector<boost::any> args;
-        args.push_back( value1 );
-        args.push_back( value2 );
-        args.push_back( value3 );
-        args.push_back( value4 );
-        args.push_back( value5 );
-        args.push_back( value6 );
-        args.push_back( value7 );
-        args.push_back( value8 );
+        args.push_back(value1);
+        args.push_back(value2);
+        args.push_back(value3);
+        args.push_back(value4);
+        args.push_back(value5);
+        args.push_back(value6);
+        args.push_back(value7);
+        args.push_back(value8);
         std::string result;
-        Format( result, fmt, args );
+        Format(result, fmt, args);
         return result;
     }
 
-    void Format( std::string &result, const std::string &fmt, const std::vector<boost::any> &values )
+    void Format(std::string &result, const std::string &fmt, const std::vector<boost::any> &values)
     {
         std::string::const_iterator itFmt  = fmt.begin();
         std::string::const_iterator endFmt = fmt.end();
         std::vector<boost::any>::const_iterator itVal  = values.begin();
         std::vector<boost::any>::const_iterator endVal = values.end();
 
-        while ( itFmt != endFmt )
+        while (itFmt != endFmt)
         {
-            switch ( *itFmt )
+            switch (*itFmt)
             {
             case '%':
                 ++itFmt;
 
-                if ( itFmt != endFmt && itVal != endVal )
+                if (itFmt != endFmt && itVal != endVal)
                 {
-                    if ( *itFmt == '[' )
+                    if (*itFmt == '[')
                     {
                         ++itFmt;
-                        std::size_t index = ParseIndex( itFmt, endFmt );
+                        std::size_t index = ParseIndex(itFmt, endFmt);
 
-                        if ( index < values.size() )
+                        if (index < values.size())
                         {
                             std::vector<boost::any>::const_iterator it = values.begin() + index;
-                            formatOne( result, itFmt, endFmt, it );
+                            formatOne(result, itFmt, endFmt, it);
                         }
                     }
                     else
                     {
-                        formatOne( result, itFmt, endFmt, itVal );
+                        formatOne(result, itFmt, endFmt, itVal);
                     }
                 }
-                else if ( itFmt != endFmt )
+                else if (itFmt != endFmt)
                 {
                     result += *itFmt++;
                 }

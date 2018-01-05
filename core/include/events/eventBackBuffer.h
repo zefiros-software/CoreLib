@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,9 +41,9 @@ class EventBackBuffer
 {
 public:
 
-    void Observe( void( tC::* method )( const tN & ), tC *object )
+    void Observe(void(tC::* method)(const tN &), tC *object)
     {
-        mObserver = Observer< tC, tN >( static_cast<tC *const>( object ), method );
+        mObserver = Observer< tC, tN >(static_cast<tC *const>(object), method);
     }
 
     void Unobserve()
@@ -51,25 +51,25 @@ public:
         mObserver = Observer< tC, tN >();
     }
 
-    void Notify( tN command )
+    void Notify(tN command)
     {
-        std::lock_guard< SpinLock > lock( mLock );
+        std::lock_guard< SpinLock > lock(mLock);
 
-        mCommands.Queue( command );
+        mCommands.Queue(command);
     }
 
     void Flush()
     {
         FastQueue< tN > commands;
         {
-            std::lock_guard< SpinLock > lock( mLock );
+            std::lock_guard< SpinLock > lock(mLock);
 
-            std::swap( mCommands, commands );
+            std::swap(mCommands, commands);
         }
 
-        while ( !commands.IsEmpty() )
+        while (!commands.IsEmpty())
         {
-            mObserver.Notify( commands.Front() );
+            mObserver.Notify(commands.Front());
 
             commands.Dequeue();
         }
@@ -77,16 +77,16 @@ public:
 
     bool IsEmpty() const
     {
-        std::lock_guard< SpinLock > lock( mLock );
+        std::lock_guard< SpinLock > lock(mLock);
 
         return mCommands.IsEmpty();
     }
 
     void Clear()
     {
-        std::lock_guard< SpinLock > lock( mLock );
+        std::lock_guard< SpinLock > lock(mLock);
 
-        while ( !mCommands.IsEmpty() )
+        while (!mCommands.IsEmpty())
         {
             mCommands.Dequeue();
         }

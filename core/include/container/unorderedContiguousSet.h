@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,19 +36,19 @@ class UnorderedContiguousSet
 public:
 
     UnorderedContiguousSet() noexcept
-        : mSize( 0 )
+        : mSize(0)
     {
 
     }
 
-    bool Insert( const tItem item ) noexcept
+    bool Insert(const tItem item) noexcept
     {
-        auto it = mSearchBlock.find( item );
+        auto it = mSearchBlock.find(item);
 
-        if ( it == mSearchBlock.end() )
+        if (it == mSearchBlock.end())
         {
-            mContiguousBlock.push_back( item );
-            mSearchBlock.insert( std::make_pair( item, mSize++ ) );
+            mContiguousBlock.push_back(item);
+            mSearchBlock.insert(std::make_pair(item, mSize++));
 
             return true;
         }
@@ -56,11 +56,11 @@ public:
         return false;
     }
 
-    bool Delete( const tItem item ) noexcept
+    bool Delete(const tItem item) noexcept
     {
-        auto it = mSearchBlock.find( item );
+        auto it = mSearchBlock.find(item);
 
-        if ( it != mSearchBlock.end() )
+        if (it != mSearchBlock.end())
         {
             size_t i = it->second;
 
@@ -68,7 +68,7 @@ public:
 
             mContiguousBlock.pop_back();
 
-            mSearchBlock.erase( item );
+            mSearchBlock.erase(item);
 
             return true;
         }
@@ -76,9 +76,9 @@ public:
         return false;
     }
 
-    bool Has( const tItem item ) const noexcept
+    bool Has(const tItem item) const noexcept
     {
-        return mSearchBlock.find( item ) != mSearchBlock.end();
+        return mSearchBlock.find(item) != mSearchBlock.end();
     }
 
     void Clear() noexcept

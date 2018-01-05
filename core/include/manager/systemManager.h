@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ class SystemManager
 {
 public:
 
-    SystemManager( S32 argc, const char **argv );
+    SystemManager(S32 argc, const char **argv);
 
     virtual ~SystemManager();
 
@@ -62,7 +62,7 @@ public:
 
     virtual void Release();
 
-    virtual void Release( Namespace ns );
+    virtual void Release(Namespace ns);
 
     /**
      * Updates all managers.
@@ -101,7 +101,7 @@ public:
      * @return  The system manager.
      */
 
-    static SystemManager *Get( SystemManager *systemManager = nullptr );
+    static SystemManager *Get(SystemManager *systemManager = nullptr);
 
     /// @}
 
@@ -134,36 +134,36 @@ protected:
      */
 
     template< typename tT >
-    tT *AddManager( tT **managerStorage, const std::string &name, U32 flags = 0 )
+    tT *AddManager(tT **managerStorage, const std::string &name, U32 flags = 0)
     {
         tT *manager = new tT;
         *managerStorage = manager;
 
-        InitialiseManager( manager, flags, name );
+        InitialiseManager(manager, flags, name);
 
-        if ( IS_SET( flags, ( U32 )AbstractManager::Type::Critical ) )
+        if (IS_SET(flags, (U32)AbstractManager::Type::Critical))
         {
-            mCrititicalManagersList.push_back( manager );
+            mCrititicalManagersList.push_back(manager);
         }
         else
         {
-            mManagersList.push_back( manager );
+            mManagersList.push_back(manager);
         }
 
 
         return manager;
     }
 
-    virtual void InitialiseManager( AbstractManager *manager, U32 flags, const std::string &name )
+    virtual void InitialiseManager(AbstractManager *manager, U32 flags, const std::string &name)
     {
-        manager->SetFlag( flags );
-        manager->SetName( name );
-        manager->SetManagers( &mManagerHolder );
+        manager->SetFlag(flags);
+        manager->SetName(name);
+        manager->SetManagers(&mManagerHolder);
     }
 
     void InitialiseManagers();
 
-    static void InitialiseManager( AbstractManager *const manager );
+    static void InitialiseManager(AbstractManager *const manager);
 
     void PreInitialiseManagers();
 
@@ -171,7 +171,7 @@ protected:
 
     void ReleaseManagers();
 
-    void ReleaseManagers( Namespace ns );
+    void ReleaseManagers(Namespace ns);
 
     void PreReleaseManagers();
 

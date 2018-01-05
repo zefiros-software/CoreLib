@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,75 +45,75 @@ void ProfilerManager::OnUpdate()
 {
     std::chrono::time_point< std::chrono::high_resolution_clock > time = std::chrono::high_resolution_clock::now();
 
-    GetManagers()->event->Post( ProfileUpdateEvent( time,
-                                                    std::chrono::duration_cast< std::chrono::microseconds >( mLastUpdate - time ) ) );
+    GetManagers()->event->Post(ProfileUpdateEvent(time,
+                                                  std::chrono::duration_cast< std::chrono::microseconds >(mLastUpdate - time)));
 
     mLastUpdate = time;
 }
 
-void ProfilerManager::Start( const std::string &name )
+void ProfilerManager::Start(const std::string &name)
 {
     std::chrono::time_point< std::chrono::high_resolution_clock > time = std::chrono::high_resolution_clock::now();
     {
-        std::lock_guard< std::mutex > lock( mMutex );
+        std::lock_guard< std::mutex > lock(mMutex);
 
-        auto it = mTimings.find( name );
+        auto it = mTimings.find(name);
 
-        if ( it == mTimings.end() )
+        if (it == mTimings.end())
         {
             mTimings[ name ] = time;
         }
         else
         {
-            Console::Warningf( LOG( "Profile request '%s' already started." ), name );
+            Console::Warningf(LOG("Profile request '%s' already started."), name);
         }
     }
 
-    GetManagers()->event->Post( ProfileStartEvent( name, time ) );
+    GetManagers()->event->Post(ProfileStartEvent(name, time));
 }
 
-void ProfilerManager::Waypoint( const std::string &name, const std::string &comment )
+void ProfilerManager::Waypoint(const std::string &name, const std::string &comment)
 {
     std::chrono::microseconds duration;
     std::chrono::time_point< std::chrono::high_resolution_clock > time = std::chrono::high_resolution_clock::now();
     {
-        std::lock_guard< std::mutex > lock( mMutex );
+        std::lock_guard< std::mutex > lock(mMutex);
 
-        auto it = mTimings.find( name );
+        auto it = mTimings.find(name);
 
-        if ( it != mTimings.end() )
+        if (it != mTimings.end())
         {
-            duration = std::chrono::duration_cast<std::chrono::microseconds>( time - it->second );
+            duration = std::chrono::duration_cast<std::chrono::microseconds>(time - it->second);
 
-            GetManagers()->event->Post( ProfileWaypointEvent( name, comment, time, duration ) );
+            GetManagers()->event->Post(ProfileWaypointEvent(name, comment, time, duration));
         }
         else
         {
-            Console::Warningf( LOG( "Trying to waypoint an unknown profile request '%s'." ), name );
+            Console::Warningf(LOG("Trying to waypoint an unknown profile request '%s'."), name);
         }
     }
 }
 
-void ProfilerManager::End( const std::string &name )
+void ProfilerManager::End(const std::string &name)
 {
     std::chrono::microseconds duration;
     std::chrono::time_point< std::chrono::high_resolution_clock > time = std::chrono::high_resolution_clock::now();
 
     {
-        std::lock_guard< std::mutex > lock( mMutex );
+        std::lock_guard< std::mutex > lock(mMutex);
 
-        auto it = mTimings.find( name );
+        auto it = mTimings.find(name);
 
-        if ( it != mTimings.end() )
+        if (it != mTimings.end())
         {
-            duration = std::chrono::duration_cast< std::chrono::microseconds >( time - it->second );
-            mTimings.erase( it );
+            duration = std::chrono::duration_cast< std::chrono::microseconds >(time - it->second);
+            mTimings.erase(it);
 
-            GetManagers()->event->Post( ProfileEndEvent( name, time, duration ) );
+            GetManagers()->event->Post(ProfileEndEvent(name, time, duration));
         }
         else
         {
-            Console::Warningf( LOG( "Trying to end unknown profile request '%s'." ), name );
+            Console::Warningf(LOG("Trying to end unknown profile request '%s'."), name);
         }
     }
 }
@@ -122,9 +122,9 @@ void ProfilerManager::StartMemoryLeakDetection()
 {
 #if defined(COMP_IS_MSVC) && IS_DEBUG
 
-    _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-    _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDERR );
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
     //_crtBreakAlloc = 0;
 
 #endif

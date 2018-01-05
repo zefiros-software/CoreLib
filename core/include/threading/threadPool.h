@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,14 +46,14 @@ class ThreadPool
 
 public:
 
-    explicit ThreadPool( const U32 capacity = 16, const U32 startThreadID = 0 ) noexcept;
+    explicit ThreadPool(const U32 capacity = 16, const U32 startThreadID = 0) noexcept;
     ~ThreadPool() noexcept;
 
     void Init();
 
     bool IsRunning() const noexcept;
 
-    void Run( JobQueue *jobs );
+    void Run(JobQueue *jobs);
 
     void JoinAll();
 

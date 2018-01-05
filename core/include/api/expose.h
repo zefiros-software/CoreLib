@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,35 +33,35 @@
 #include <boost/tti/has_member_function.hpp>
 
 #define EXPOSE_API( manager, func )                                                                 \
-template <typename... Args>                                                                         \
-auto func(Args &&... args)                                                                          \
--> decltype(SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...))        \
-{                                                                                                   \
-    return SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...);         \
-}
+    template <typename... Args>                                                                         \
+    auto func(Args &&... args)                                                                          \
+    -> decltype(SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...))        \
+    {                                                                                                   \
+        return SystemManager::Get()->GetManagers()->manager->func(std::forward<Args>(args)...);         \
+    }
 
 #define EXPOSE_API_NOARG( manager, func )                                                           \
-template < typename... Args >                                                                       \
-auto func()                                                                                         \
--> decltype( SystemManager::Get()->GetManagers()->manager->func< Args... >() )                      \
-{                                                                                                   \
-    return SystemManager::Get()->GetManagers()->manager->func< Args... >();                         \
-}
+    template < typename... Args >                                                                       \
+    auto func()                                                                                         \
+    -> decltype( SystemManager::Get()->GetManagers()->manager->func< Args... >() )                      \
+    {                                                                                                   \
+        return SystemManager::Get()->GetManagers()->manager->func< Args... >();                         \
+    }
 
 #define EXPOSE_CONTROLLER_API( controller, func )                                                   \
-template <typename... Args>                                                                         \
-auto func(Args &&... args)                                                                          \
--> decltype(Controller::Get<controller>()->func(std::forward<Args>(args)...))                       \
-{                                                                                                   \
-    return Controller::Get<controller>()->func(std::forward<Args>(args)...);                        \
-}
+    template <typename... Args>                                                                         \
+    auto func(Args &&... args)                                                                          \
+    -> decltype(Controller::Get<controller>()->func(std::forward<Args>(args)...))                       \
+    {                                                                                                   \
+        return Controller::Get<controller>()->func(std::forward<Args>(args)...);                        \
+    }
 
 #define EXPOSE_CONTROLLER_API_NOARG( controller, func )                                             \
-template < typename... Args >                                                                       \
-auto func()                                                                                         \
--> decltype( Controller::Get<controller>()->func< Args... >() )                                     \
-{                                                                                                   \
-    return Controller::Get<controller>()->func< Args... >();                                        \
-}
+    template < typename... Args >                                                                       \
+    auto func()                                                                                         \
+    -> decltype( Controller::Get<controller>()->func< Args... >() )                                     \
+    {                                                                                                   \
+        return Controller::Get<controller>()->func< Args... >();                                        \
+    }
 
 #endif

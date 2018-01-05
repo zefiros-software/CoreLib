@@ -57,94 +57,94 @@ namespace
 
     typedef UnsychronisedMemoryPoolInstantiator< Child, Base > UnsychronisedMemoryPoolInstantiatorImpl;
 
-    TEST( UnsychronisedMemoryPoolInstantiator, SanityCheck )
+    TEST(UnsychronisedMemoryPoolInstantiator, SanityCheck)
     {
         volatile UnsychronisedMemoryPoolInstantiatorImpl inst;
     }
 
-    TEST( UnsychronisedMemoryPoolInstantiator, Create )
+    TEST(UnsychronisedMemoryPoolInstantiator, Create)
     {
         UnsychronisedMemoryPoolInstantiatorImpl inst;
 
         Base *child = inst.Create();
 
-        EXPECT_TRUE( child->IsDerived() );
+        EXPECT_TRUE(child->IsDerived());
 
-        inst.Destroy( child );
+        inst.Destroy(child);
     }
 
-    TEST( UnsychronisedMemoryPoolInstantiator, EmptyCreate )
+    TEST(UnsychronisedMemoryPoolInstantiator, EmptyCreate)
     {
-        UnsychronisedMemoryPoolInstantiatorImpl inst( 0, 0 );
+        UnsychronisedMemoryPoolInstantiatorImpl inst(0, 0);
 
         Base *child = inst.Create();
 
-        EXPECT_TRUE( child->IsDerived() );
+        EXPECT_TRUE(child->IsDerived());
 
-        inst.Destroy( child );
+        inst.Destroy(child);
     }
 
-    TEST( UnsychronisedMemoryPoolInstantiator, NearEmptyCreate )
+    TEST(UnsychronisedMemoryPoolInstantiator, NearEmptyCreate)
     {
-        UnsychronisedMemoryPoolInstantiatorImpl inst( 1, 1 );
-
-        Base *child = inst.Create();
-        Base *child2 = inst.Create();
-
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_TRUE( child2->IsDerived() );
-
-        inst.Destroy( child );
-        inst.Destroy( child2 );
-    }
-
-    TEST( UnsychronisedMemoryPoolInstantiator, ContiguousMemoryCheck )
-    {
-        UnsychronisedMemoryPoolInstantiatorImpl inst( 2, 1 );
+        UnsychronisedMemoryPoolInstantiatorImpl inst(1, 1);
 
         Base *child = inst.Create();
         Base *child2 = inst.Create();
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_TRUE( child2->IsDerived() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_TRUE(child2->IsDerived());
 
-        inst.Destroy( child );
-        inst.Destroy( child2 );
-
-        EXPECT_EQ( 1, Mathf::Abs( static_cast< S32 >( child2 - child ) ) );
+        inst.Destroy(child);
+        inst.Destroy(child2);
     }
 
-    TEST( UnsychronisedMemoryPoolInstantiator, MultipleBlocks )
+    TEST(UnsychronisedMemoryPoolInstantiator, ContiguousMemoryCheck)
     {
-        UnsychronisedMemoryPoolInstantiatorImpl inst( 1, 2 );
+        UnsychronisedMemoryPoolInstantiatorImpl inst(2, 1);
 
         Base *child = inst.Create();
         Base *child2 = inst.Create();
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_TRUE( child2->IsDerived() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_TRUE(child2->IsDerived());
 
-        inst.Destroy( child );
-        inst.Destroy( child2 );
+        inst.Destroy(child);
+        inst.Destroy(child2);
+
+        EXPECT_EQ(1, Mathf::Abs(static_cast< S32 >(child2 - child)));
     }
 
-    TEST( UnsychronisedMemoryPoolInstantiator, MemoryLeaks )
+    TEST(UnsychronisedMemoryPoolInstantiator, MultipleBlocks)
     {
-        UnsychronisedMemoryPoolInstantiatorImpl inst( 10, 10 );
+        UnsychronisedMemoryPoolInstantiatorImpl inst(1, 2);
+
+        Base *child = inst.Create();
+        Base *child2 = inst.Create();
+
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_TRUE(child2->IsDerived());
+
+        inst.Destroy(child);
+        inst.Destroy(child2);
+    }
+
+    TEST(UnsychronisedMemoryPoolInstantiator, MemoryLeaks)
+    {
+        UnsychronisedMemoryPoolInstantiatorImpl inst(10, 10);
         std::vector< Base * > ptrs;
 
-        for ( U32 i = 0; i < 500; ++i )
+        for (U32 i = 0; i < 500; ++i)
         {
-            ptrs.push_back( inst.Create() );
+            ptrs.push_back(inst.Create());
         }
 
-        for ( Base *ptr : ptrs )
+        for (Base *ptr : ptrs)
         {
-            inst.Destroy( ptr );
+            inst.Destroy(ptr);
         }
     }
 
-    TEST( UnsychronisedMemoryPoolInstantiator, Copy )
+    TEST(UnsychronisedMemoryPoolInstantiator, Copy)
     {
         UnsychronisedMemoryPoolInstantiatorImpl instantiator;
         delete instantiator.Copy();

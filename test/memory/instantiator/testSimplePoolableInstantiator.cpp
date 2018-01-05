@@ -33,12 +33,12 @@ namespace
 
     typedef SimplePoolableInstantiator< U32, U32 > SimplePoolableInstantiatorImpl;
 
-    TEST( PoolableInstantiator, SanityCheck )
+    TEST(PoolableInstantiator, SanityCheck)
     {
         volatile SimplePoolableInstantiatorImpl inst;
     }
 
-    TEST( SimplePoolableInstantiator, Create )
+    TEST(SimplePoolableInstantiator, Create)
     {
         SimplePoolableInstantiatorImpl inst;
 
@@ -47,43 +47,43 @@ namespace
         delete child;
     }
 
-    TEST( SimplePoolableInstantiator, OnInit )
+    TEST(SimplePoolableInstantiator, OnInit)
     {
         SimplePoolableInstantiatorImpl inst;
 
         U32 *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
         delete child;
     }
 
-    TEST( SimplePoolableInstantiator, Release )
+    TEST(SimplePoolableInstantiator, Release)
     {
         SimplePoolableInstantiatorImpl inst;
 
         U32 *child = inst.Create();
 
-        inst.Initialise( child );
-        inst.Release( child );
+        inst.Initialise(child);
+        inst.Release(child);
 
         delete child;
     }
 
-    TEST( SimplePoolableInstantiator, Destroy )
+    TEST(SimplePoolableInstantiator, Destroy)
     {
         SimplePoolableInstantiatorImpl inst;
 
         U32 *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
-        inst.Release( child );
+        inst.Release(child);
 
-        inst.Destroy( child );
+        inst.Destroy(child);
     }
 
-    TEST( SimplePoolableInstantiator, Copy )
+    TEST(SimplePoolableInstantiator, Copy)
     {
         SimplePoolableInstantiatorImpl instantiator;
         delete instantiator.Copy();

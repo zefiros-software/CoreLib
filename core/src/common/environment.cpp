@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,59 +37,59 @@
 namespace Environment
 {
 
-    std::string Get( const std::string &var ) noexcept
+    std::string Get(const std::string &var) noexcept
     {
 #if OS_IS_WINDOWS
         char *buf = nullptr;
         size_t sz = 0;
         std::string result;
 
-        if ( _dupenv_s( &buf, &sz, var.c_str() ) == 0 )
+        if (_dupenv_s(&buf, &sz, var.c_str()) == 0)
         {
-            if ( buf )
+            if (buf)
             {
                 result = buf;
-                free( buf );
+                free(buf);
             }
         }
 
         return result;
 #else
-        const char *svar = getenv( var.c_str() );
+        const char *svar = getenv(var.c_str());
         return svar ? svar : "";
 #endif
     }
 
-    bool Set( const std::string &var, const std::string &value ) noexcept
+    bool Set(const std::string &var, const std::string &value) noexcept
     {
 #if OS_IS_WINDOWS
-        return _putenv( ( var + "=" + value ).c_str() ) == 0;
+        return _putenv((var + "=" + value).c_str()) == 0;
 #else
-        return setenv( var.c_str(), value.c_str(), 1 ) == 0;
+        return setenv(var.c_str(), value.c_str(), 1) == 0;
 #endif
     }
 
-    bool Has( const std::string &var ) noexcept
+    bool Has(const std::string &var) noexcept
     {
 #if OS_IS_WINDOWS
         char *buf = nullptr;
         size_t sz = 0;
-        _dupenv_s( &buf, &sz, var.c_str() ) ;
+        _dupenv_s(&buf, &sz, var.c_str()) ;
         bool result = buf != nullptr;
-        free( buf );
+        free(buf);
 
         return result;
 #else
-        return getenv( var.c_str() ) != nullptr;
+        return getenv(var.c_str()) != nullptr;
 #endif
     }
 
-    bool Remove( const std::string &var ) noexcept
+    bool Remove(const std::string &var) noexcept
     {
 #if OS_IS_WINDOWS
-        return Environment::Set( var, "" );
+        return Environment::Set(var, "");
 #else
-        return unsetenv( var.c_str() ) == 0;
+        return unsetenv(var.c_str()) == 0;
 #endif
     }
 

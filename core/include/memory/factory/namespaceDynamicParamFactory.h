@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,9 +62,9 @@ public:
      */
 
     template< typename tT >
-    bool Register( const tName &name, Namespace ns = 0u )
+    bool Register(const tName &name, Namespace ns = 0u)
     {
-        return this->mFactories.Add( new ParamInstantiator< tT, tParam, tBase >, name, ns );
+        return this->mFactories.Add(new ParamInstantiator< tT, tParam, tBase >, name, ns);
     }
 
     /// @}
@@ -85,13 +85,13 @@ public:
      * @return  The new instance.
      */
 
-    tBase *Create( const tName &name, const tParam &parameter ) const
+    tBase *Create(const tName &name, const tParam &parameter) const
     {
-        tInstantiator *const factory = this->mFactories.Get( name );
+        tInstantiator *const factory = this->mFactories.Get(name);
 
-        if ( factory )
+        if (factory)
         {
-            return factory->Create( parameter );
+            return factory->Create(parameter);
         }
 
         return nullptr;

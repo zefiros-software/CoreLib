@@ -32,34 +32,34 @@
 
 namespace
 {
-    TEST( TestPlugin, Plugin4 )
+    TEST(TestPlugin, Plugin4)
     {
-        EXPECT_EQ( 42u, Test4::GetNumber() );
+        EXPECT_EQ(42u, Test4::GetNumber());
     }
 
-    TEST( TestPlugin, IsInit )
+    TEST(TestPlugin, IsInit)
     {
         SystemManager::Get()->Release();
 
-        SystemManager *sysmgr = new SystemManager( 0, nullptr );
-        SystemManager::Get( sysmgr );
+        SystemManager *sysmgr = new SystemManager(0, nullptr);
+        SystemManager::Get(sysmgr);
 
         sysmgr->RegisterManagers();
 
         Plugin::Add< Test4Plugin >();
 
-        Console::SetMode( Console::LogMode::Disabled );
+        Console::SetMode(Console::LogMode::Disabled);
 
         sysmgr->Initialise();
 
-        EXPECT_TRUE( Test4::IsInitialised() );
+        EXPECT_TRUE(Test4::IsInitialised());
 
         sysmgr->Release();
 
-        sysmgr = new SystemManager( 0, nullptr );
-        SystemManager::Get( sysmgr );
+        sysmgr = new SystemManager(0, nullptr);
+        SystemManager::Get(sysmgr);
         sysmgr->RegisterManagers();
 
-        Console::SetMode( Console::LogMode::Disabled );
+        Console::SetMode(Console::LogMode::Disabled);
     }
 }

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -144,8 +144,8 @@ public:
      * This of course is a very simple, non functional function, but we hope you get the idea from this.
      */
 
-    typedef void ( *ErrorHandler )( ParseError error, const std::string &configName, const std::string &key,
-                                    std::size_t lineNumber, const std::string &value );
+    typedef void (*ErrorHandler)(ParseError error, const std::string &configName, const std::string &key,
+                                 std::size_t lineNumber, const std::string &value);
 
     /// @}
 
@@ -172,7 +172,7 @@ public:
      * @snippet testConfigurationFile.cpp GetString
      */
 
-    std::string GetString( const std::string &key ) const noexcept;
+    std::string GetString(const std::string &key) const noexcept;
 
     /**
      * Gets the bool from a key.
@@ -190,7 +190,7 @@ public:
      * @snippet testConfigurationFile.cpp GetBool
      */
 
-    bool GetBool( const std::string &key ) const noexcept;
+    bool GetBool(const std::string &key) const noexcept;
 
     /**
      * Gets the float from a key.
@@ -208,7 +208,7 @@ public:
      * @snippet testConfigurationFile.cpp GetFloat
      */
 
-    F32 GetFloat( const std::string &key ) const noexcept;
+    F32 GetFloat(const std::string &key) const noexcept;
 
     /**
      * Gets the int from a key.
@@ -226,7 +226,7 @@ public:
      * @snippet testConfigurationFile.cpp GetInt
      */
 
-    S32 GetInt( const std::string &key ) const noexcept;
+    S32 GetInt(const std::string &key) const noexcept;
 
     /// @}
 
@@ -248,7 +248,7 @@ public:
      * @snippet testConfigurationFile.cpp IsStringKey
      */
 
-    bool IsStringKey( const std::string &key ) const noexcept;
+    bool IsStringKey(const std::string &key) const noexcept;
 
     /**
      * Query if the given key is a float key.
@@ -264,7 +264,7 @@ public:
      * @snippet testConfigurationFile.cpp IsFloatKey
      */
 
-    bool IsFloatKey( const std::string &key ) const noexcept;
+    bool IsFloatKey(const std::string &key) const noexcept;
 
     /**
      * Query if the given key is a bool key.
@@ -280,7 +280,7 @@ public:
      * @snippet testConfigurationFile.cpp IsBoolKey
      */
 
-    bool IsBoolKey( const std::string &key ) const noexcept;
+    bool IsBoolKey(const std::string &key) const noexcept;
 
     /**
      * Query if the given key is an int key.
@@ -296,7 +296,7 @@ public:
      * @snippet testConfigurationFile.cpp IsIntKey
      */
 
-    bool IsIntKey( const std::string &key ) const noexcept;
+    bool IsIntKey(const std::string &key) const noexcept;
 
     /**
      * Query if the given key is a valid key.
@@ -312,7 +312,7 @@ public:
      * @snippet testConfigurationFile.cpp HasKey
      */
 
-    bool HasKey( const std::string &key ) const noexcept;
+    bool HasKey(const std::string &key) const noexcept;
 
     /// @}
 
@@ -343,7 +343,7 @@ public:
      * @snippet testConfigurationFile.cpp NewValues
      */
 
-    ParseError SetString( const std::string &key, const std::string &value, bool changeInFile = true );
+    ParseError SetString(const std::string &key, const std::string &value, bool changeInFile = true);
 
     /**
      * Sets a bool value on a key.
@@ -368,7 +368,7 @@ public:
      * @snippet testConfigurationFile.cpp NewValues
      */
 
-    ParseError SetBool( const std::string &key, const bool value, bool changeInFile = true );
+    ParseError SetBool(const std::string &key, const bool value, bool changeInFile = true);
 
     /**
      * Sets a float value on a key.
@@ -393,7 +393,7 @@ public:
      * @snippet testConfigurationFile.cpp NewValues
      */
 
-    ParseError SetFloat( const std::string &key, const F32 value, bool changeInFile = true );
+    ParseError SetFloat(const std::string &key, const F32 value, bool changeInFile = true);
 
     /**
      * Sets an int value on a key.
@@ -418,7 +418,7 @@ public:
      * @snippet testConfigurationFile.cpp NewValues
      */
 
-    ParseError SetInt( const std::string &key, const S32 value, bool changeInFile = true );
+    ParseError SetInt(const std::string &key, const S32 value, bool changeInFile = true);
 
     /// @}
 
@@ -448,7 +448,7 @@ public:
      * @snippet testConfigurationFile.cpp AddStringKey
      */
 
-    bool AddStringKey( const std::string &key, const std::string &defaultValue, const std::string &comment = "" ) noexcept;
+    bool AddStringKey(const std::string &key, const std::string &defaultValue, const std::string &comment = "") noexcept;
 
     /**
      * Adds a bool key. Multi line comments will be converted automatically.
@@ -473,7 +473,7 @@ public:
      * @snippet testConfigurationFile.cpp AddBoolKey
      */
 
-    bool AddBoolKey( const std::string &key, const bool defaultValue, const std::string &comment = "" ) noexcept;
+    bool AddBoolKey(const std::string &key, const bool defaultValue, const std::string &comment = "") noexcept;
 
     /**
      * Adds a float key. Multi line comments will be converted automatically.
@@ -498,7 +498,7 @@ public:
      * @snippet testConfigurationFile.cpp AddFloatKey
      */
 
-    bool AddFloatKey( const std::string &key, const F32 defaultValue, const std::string &comment = "" ) noexcept;
+    bool AddFloatKey(const std::string &key, const F32 defaultValue, const std::string &comment = "") noexcept;
 
     /**
      * Adds an int key. Multi line comments will be converted automatically.
@@ -523,7 +523,7 @@ public:
      * @snippet testConfigurationFile.cpp AddIntKey
      */
 
-    bool AddIntKey( const std::string &key, const S32 defaultValue, const std::string &comment = "" ) noexcept;
+    bool AddIntKey(const std::string &key, const S32 defaultValue, const std::string &comment = "") noexcept;
 
     /// @}
 
@@ -588,7 +588,7 @@ public:
      * @snippet testConfigurationFile.cpp Load
      */
 
-    bool Load( const std::string &filePath, const std::string &configName, ErrorHandler errorHandler = nullptr );
+    bool Load(const std::string &filePath, const std::string &configName, ErrorHandler errorHandler = nullptr);
 
     /// @}
 
@@ -625,8 +625,8 @@ private:
     std::vector< std::string > mKeys;
 
     /// Make the class un-assignable
-    ConfigurationFile &operator=( const ConfigurationFile & );
-    ConfigurationFile( const ConfigurationFile & );
+    ConfigurationFile &operator=(const ConfigurationFile &);
+    ConfigurationFile(const ConfigurationFile &);
 
     /**
      * Parses the given line and add it to the stored configuration.
@@ -639,8 +639,8 @@ private:
      * @return Whether we can continue parsing.
      */
 
-    bool ParseLine( const std::string &line, const size_t lineNumber, const size_t commentStart,
-                    ErrorHandler errorHandler );
+    bool ParseLine(const std::string &line, const size_t lineNumber, const size_t commentStart,
+                   ErrorHandler errorHandler);
 
     /**
      * Change value on the given key.
@@ -651,7 +651,7 @@ private:
      * @return true if it succeeds, false if it fails.
      */
 
-    bool ChangeKey( const std::string &key, const std::string &value ) const;
+    bool ChangeKey(const std::string &key, const std::string &value) const;
 
     /**
      * Adds unset keys in the physical configuration file with their default value.
@@ -662,7 +662,7 @@ private:
      * @return true if it succeeds, false if it fails.
      */
 
-    bool FixUnsetKeys( const std::string &lastLine );
+    bool FixUnsetKeys(const std::string &lastLine);
 
     /**
      * Gets the position of the comment in the given line.
@@ -672,7 +672,7 @@ private:
      * @return The comment position, std::string::npos if the line doensn't have a comment.
      */
 
-    static size_t GetCommentPosition( const std::string &line ) noexcept;
+    static size_t GetCommentPosition(const std::string &line) noexcept;
 
     /**
      * Removes the comment in the given line.
@@ -682,7 +682,7 @@ private:
      * @return The position of the comment, std::string::npos if the line didn't have a comment.
      */
 
-    static size_t RemoveComment( std::string &line ) noexcept;
+    static size_t RemoveComment(std::string &line) noexcept;
 
 };
 

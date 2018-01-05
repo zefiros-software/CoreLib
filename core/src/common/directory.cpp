@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,48 +30,48 @@
 namespace Directory
 {
 
-    bool Exists( const std::string &directory ) noexcept
+    bool Exists(const std::string &directory) noexcept
     {
-        return boost::filesystem::exists( directory ) && boost::filesystem::is_directory( directory );
+        return boost::filesystem::exists(directory) && boost::filesystem::is_directory(directory);
     }
 
-    bool IsEmpty( const std::string &directory, bool includeDirectories /*= true */ ) noexcept
+    bool IsEmpty(const std::string &directory, bool includeDirectories /*= true */) noexcept
     {
-        if ( includeDirectories )
+        if (includeDirectories)
         {
-            return Path::List( directory, false ).empty();
+            return Path::List(directory, false).empty();
         }
 
-        return File::List( directory, false ).empty();
+        return File::List(directory, false).empty();
     }
 
-    std::vector< std::string > List( const std::string &directory, bool recursive /*= false */ ) noexcept
+    std::vector< std::string > List(const std::string &directory, bool recursive /*= false */) noexcept
     {
-        const std::vector< boost::filesystem::path > contents = Path::List( directory, recursive );
+        const std::vector< boost::filesystem::path > contents = Path::List(directory, recursive);
         std::vector< std::string > directories;
 
-        for ( const boost::filesystem::path &fsPath : contents )
+        for (const boost::filesystem::path &fsPath : contents)
         {
-            if ( boost::filesystem::is_directory( fsPath ) )
+            if (boost::filesystem::is_directory(fsPath))
             {
-                directories.push_back( Path::FixStyle( fsPath.generic_string() ) );
+                directories.push_back(Path::FixStyle(fsPath.generic_string()));
             }
         }
 
         return directories;
     }
 
-    bool Delete( const std::string &directory ) noexcept
+    bool Delete(const std::string &directory) noexcept
     {
-        if ( Exists( directory ) )
+        if (Exists(directory))
         {
             try
             {
-                boost::filesystem::remove( directory );
+                boost::filesystem::remove(directory);
 
                 return true;
             }
-            catch ( const boost::filesystem::filesystem_error & )
+            catch (const boost::filesystem::filesystem_error &)
             {
                 // We tried to delete a non empty folder, which is not allowed with this function
             }
@@ -80,16 +80,16 @@ namespace Directory
         return false;
     }
 
-    bool DeleteAll( const std::string &directory ) noexcept
+    bool DeleteAll(const std::string &directory) noexcept
     {
-        if ( Exists( directory ) )
+        if (Exists(directory))
         {
             try
             {
-                boost::filesystem::remove_all( directory );
+                boost::filesystem::remove_all(directory);
                 return true;
             }
-            catch ( boost::filesystem::filesystem_error & )
+            catch (boost::filesystem::filesystem_error &)
             {
                 // also false
             }
@@ -98,40 +98,40 @@ namespace Directory
         return false;
     }
 
-    bool Create( const std::string &directory ) noexcept
+    bool Create(const std::string &directory) noexcept
     {
         try
         {
-            return boost::filesystem::create_directory( directory );
+            return boost::filesystem::create_directory(directory);
         }
-        catch ( const std::exception & )
+        catch (const std::exception &)
         {
             return false;
         }
     }
 
-    bool CreateAll( const std::string &directories ) noexcept
+    bool CreateAll(const std::string &directories) noexcept
     {
         try
         {
-            boost::filesystem::create_directories( directories );
+            boost::filesystem::create_directories(directories);
         }
-        catch ( const boost::filesystem::filesystem_error & )
+        catch (const boost::filesystem::filesystem_error &)
         {
             return false;
         }
 
-        return Exists( directories );
+        return Exists(directories);
     }
 
-    bool Copy( const std::string &from, const std::string &to ) noexcept
+    bool Copy(const std::string &from, const std::string &to) noexcept
     {
-        if ( Exists( from ) && !Exists( to ) )
+        if (Exists(from) && !Exists(to))
         {
             // boost::filesystem::absolute( from ) != boost::filesystem::absolute( to ) && is only true if Exists( from ) && !Exists( to )
-            if ( !Path::IsParent( from, to ) )
+            if (!Path::IsParent(from, to))
             {
-                boost::filesystem::copy_directory( from, to );
+                boost::filesystem::copy_directory(from, to);
 
                 return true;
             }
@@ -140,14 +140,14 @@ namespace Directory
         return false;
     }
 
-    bool Move( const std::string &from, const std::string &to ) noexcept
+    bool Move(const std::string &from, const std::string &to) noexcept
     {
-        if ( Exists( from ) && !Exists( to ) )
+        if (Exists(from) && !Exists(to))
         {
             // boost::filesystem::absolute( from ) != boost::filesystem::absolute( to ) && is only true if Exists( from ) && !Exists( to )
-            if ( !Path::IsParent( from, to ) )
+            if (!Path::IsParent(from, to))
             {
-                boost::filesystem::rename( from, to );
+                boost::filesystem::rename(from, to);
 
                 return true;
             }

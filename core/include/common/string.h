@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,7 @@ namespace String
      */
 
     template< typename tT >
-    std::string To( const tT &value )
+    std::string To(const tT &value)
     {
         std::stringstream ss;
         ss << value;
@@ -67,42 +67,42 @@ namespace String
      */
 
     template<>
-    std::string To< F32 >( const F32 &value );
+    std::string To< F32 >(const F32 &value);
 
     /**
      * @see ToString
      */
 
     template<>
-    std::string To< F64 >( const F64 &value );
+    std::string To< F64 >(const F64 &value);
 
     /**
      * @see ToString
      */
 
     template<>
-    std::string To< S32 >( const S32 &value );
+    std::string To< S32 >(const S32 &value);
 
     /**
      * @see ToString
      */
 
     template<>
-    std::string To< S64 >( const S64 &value );
+    std::string To< S64 >(const S64 &value);
 
     /**
      * @see ToString
      */
 
     template<>
-    std::string To< U32 >( const U32 &value );
+    std::string To< U32 >(const U32 &value);
 
     /**
      * @see ToString
      */
 
     template<>
-    std::string To< U64 >( const U64 &value );
+    std::string To< U64 >(const U64 &value);
 
     /**
      * Converts a string to the given type.
@@ -120,11 +120,11 @@ namespace String
      */
 
     template <typename tT>
-    tT From( const std::string &str )
+    tT From(const std::string &str)
     {
-        std::istringstream ss( str );
+        std::istringstream ss(str);
         tT result;
-        return ( ss >> result ) ? result : 0;
+        return (ss >> result) ? result : 0;
     }
 
     /**
@@ -132,42 +132,42 @@ namespace String
      */
 
     template<>
-    F32 From< F32 >( const std::string &str );
+    F32 From< F32 >(const std::string &str);
 
     /**
      * @see FromString
      */
 
     template<>
-    F64 From< F64 >( const std::string &str );
+    F64 From< F64 >(const std::string &str);
 
     /**
      * @see FromString
      */
 
     template<>
-    S32 From< S32 >( const std::string &str );
+    S32 From< S32 >(const std::string &str);
 
     /**
      * @see FromString
      */
 
     template<>
-    S64 From< S64 >( const std::string &str );
+    S64 From< S64 >(const std::string &str);
 
     /**
      * @see FromString
      */
 
     template<>
-    U32 From< U32 >( const std::string &str );
+    U32 From< U32 >(const std::string &str);
 
     /**
      * @see FromString
      */
 
     template<>
-    U64 From< U64 >( const std::string &str );
+    U64 From< U64 >(const std::string &str);
 
     /**
      * Converts a std::wstring to a std::string.
@@ -182,7 +182,7 @@ namespace String
      * @snippet testUtil.cpp WStringToString
      */
 
-    std::string FromWString( const std::wstring &wstr );
+    std::string FromWString(const std::wstring &wstr);
 
     /**
      * Converts a std::string to a std::wstring.
@@ -197,7 +197,7 @@ namespace String
      * @snippet testUtil.cpp StringToWString
      */
 
-    std::wstring ToWString( const std::string &str );
+    std::wstring ToWString(const std::string &str);
 
     /// @}
 
@@ -219,7 +219,7 @@ namespace String
      * @snippet testUtil.cpp IsWhiteSpace
      */
 
-    bool IsWhiteSpace( const std::string &str );
+    bool IsWhiteSpace(const std::string &str);
 
     /**
      * Trims the given string, by removing all trailing and heading whitespace.
@@ -238,7 +238,7 @@ namespace String
      * @snippet testUtil.cpp Trim
      */
 
-    std::string Trim( const std::string &str ) noexcept;
+    std::string Trim(const std::string &str) noexcept;
 
     /**
      * Split a string into parts seperated by the given seperator.
@@ -263,7 +263,7 @@ namespace String
      * @snippet testUtil.cpp StringSplit Trimmed
      */
 
-    std::vector< std::string > Split( const std::string &str, char sep, bool trim = false ) noexcept;
+    std::vector< std::string > Split(const std::string &str, char sep, bool trim = false) noexcept;
 
     /**
      * Replaces all occurrences of a certain string, in a larger string by an other given string.
@@ -282,7 +282,7 @@ namespace String
      * @snippet testUtil.cpp Replace
      */
 
-    std::string Replace( const std::string &str, const std::string &search, const std::string &format ) noexcept;
+    std::string Replace(const std::string &str, const std::string &search, const std::string &format) noexcept;
 
     /**
      * Capitalises the given string, by uppercasing the first letter.
@@ -299,11 +299,11 @@ namespace String
      * @snippet testUtil.cpp Capitalise
      */
 
-    std::string Capitalise( const std::string &str ) noexcept;
+    std::string Capitalise(const std::string &str) noexcept;
 
-    std::string Repeat( const std::string &str, size_t n ) noexcept;
+    std::string Repeat(const std::string &str, size_t n) noexcept;
 
-    std::wstring Repeat( const std::wstring &str, size_t n ) noexcept;
+    std::wstring Repeat(const std::wstring &str, size_t n) noexcept;
 
     /// @}
 

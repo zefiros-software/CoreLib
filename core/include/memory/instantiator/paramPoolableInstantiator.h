@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -68,18 +68,18 @@ public:
      * @param [in,out]  parameter   If non-null, the parameter.
      */
 
-    ParamPoolableInstantiator( tParam parameter ) noexcept
-        : mParameter( parameter )
+    ParamPoolableInstantiator(tParam parameter) noexcept
+        : mParameter(parameter)
     {
-        static_assert( Util::IsChildParent< tT, tBase >::value,
-                       "ParamPoolableInstantiator::ParamPoolableInstantiator():\n\tThe child type should derive from the base type." );
-        static_assert( std::is_default_constructible< tT >::value,
-                       "ParamPoolableInstantiator::ParamPoolableInstantiator():\n\tInstantiated type should be default constructible." );
+        static_assert(Util::IsChildParent< tT, tBase >::value,
+                      "ParamPoolableInstantiator::ParamPoolableInstantiator():\n\tThe child type should derive from the base type.");
+        static_assert(std::is_default_constructible< tT >::value,
+                      "ParamPoolableInstantiator::ParamPoolableInstantiator():\n\tInstantiated type should be default constructible.");
     }
 
 
-    ParamPoolableInstantiator( const ParamPoolableInstantiator &other ) noexcept
-        : mParameter( other.mParameter )
+    ParamPoolableInstantiator(const ParamPoolableInstantiator &other) noexcept
+        : mParameter(other.mParameter)
     {
     }
 
@@ -94,7 +94,7 @@ public:
 
     virtual tBase *Create() override
     {
-        return new tT( mParameter );
+        return new tT(mParameter);
     }
 
     /// @}
@@ -108,7 +108,7 @@ public:
      * @param [in,out]  object The object.
      */
 
-    virtual void Destroy( tBase *object ) override
+    virtual void Destroy(tBase *object) override
     {
         delete object;
     }
@@ -125,7 +125,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void Initialise( tBase *const object ) override
+    virtual void Initialise(tBase *const object) override
     {
         object->OnInit();
     }
@@ -142,7 +142,7 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void Release( tBase *const object ) override
+    virtual void Release(tBase *const object) override
     {
         object->OnRelease();
     }
@@ -151,7 +151,7 @@ public:
 
     virtual AbstractInstantiator *Copy() override
     {
-        return new ParamPoolableInstantiator< tT, tParam, tBase >( *this );
+        return new ParamPoolableInstantiator< tT, tParam, tBase >(*this);
     }
 
 protected:

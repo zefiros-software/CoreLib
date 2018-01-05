@@ -30,61 +30,61 @@
 
 namespace
 {
-    TEST( BlockAllocator, SanityCheck )
+    TEST(BlockAllocator, SanityCheck)
     {
-        BlockAllocator b( 4 );
+        BlockAllocator b(4);
     }
 
-    TEST( BlockAllocator, Alloc )
+    TEST(BlockAllocator, Alloc)
     {
-        BlockAllocator s( 4 );
-        EXPECT_EQ( 0, s.Alloc<U8>() );
-        EXPECT_EQ( 1, s.Alloc<U8>() );
-        EXPECT_EQ( 4, s.Alloc<U64>() );
-        EXPECT_EQ( 8, s.Alloc<U64>() );
+        BlockAllocator s(4);
+        EXPECT_EQ(0, s.Alloc<U8>());
+        EXPECT_EQ(1, s.Alloc<U8>());
+        EXPECT_EQ(4, s.Alloc<U64>());
+        EXPECT_EQ(8, s.Alloc<U64>());
     }
 
-    TEST( BlockAllocator, Move )
-    {
-        U64 f = 503;
-        BlockAllocator s( 4 );
-        EXPECT_EQ( 0, s.Alloc<U8>() );
-        EXPECT_EQ( 1, s.Alloc<U8>() );
-        EXPECT_EQ( 4, s.Move( f ) );
-        EXPECT_EQ( 8, s.Alloc<U64>() );
-
-        EXPECT_EQ( f, *s.Extract<U64>( 4 ) );
-    }
-
-    TEST( BlockAllocator, Move2 )
+    TEST(BlockAllocator, Move)
     {
         U64 f = 503;
-        BlockAllocator s( 4 );
-        EXPECT_EQ( 0, s.Alloc<U8>() );
-        EXPECT_EQ( 4, s.Move( f ) );
-        EXPECT_EQ( 12, s.Alloc<U8>() );
-        EXPECT_EQ( 8, s.Alloc<U64>() );
+        BlockAllocator s(4);
+        EXPECT_EQ(0, s.Alloc<U8>());
+        EXPECT_EQ(1, s.Alloc<U8>());
+        EXPECT_EQ(4, s.Move(f));
+        EXPECT_EQ(8, s.Alloc<U64>());
 
-        EXPECT_EQ( f, *( ( const BlockAllocator & )s ).Extract<U64>( 4 ) );
+        EXPECT_EQ(f, *s.Extract<U64>(4));
     }
 
-    TEST( BlockAllocator, Clear )
+    TEST(BlockAllocator, Move2)
+    {
+        U64 f = 503;
+        BlockAllocator s(4);
+        EXPECT_EQ(0, s.Alloc<U8>());
+        EXPECT_EQ(4, s.Move(f));
+        EXPECT_EQ(12, s.Alloc<U8>());
+        EXPECT_EQ(8, s.Alloc<U64>());
+
+        EXPECT_EQ(f, *((const BlockAllocator &)s).Extract<U64>(4));
+    }
+
+    TEST(BlockAllocator, Clear)
     {
         const U8 f[2] = { 8, 14 };
-        BlockAllocator s( 1 );
-        BlockAllocator::BlockLocation l = s.Move( f[0] );
-        BlockAllocator::BlockLocation l2 = s.Move( f[1] );
+        BlockAllocator s(1);
+        BlockAllocator::BlockLocation l = s.Move(f[0]);
+        BlockAllocator::BlockLocation l2 = s.Move(f[1]);
 
-        EXPECT_EQ( 8, *s.Extract<U8>( l ) );
-        EXPECT_EQ( 14, *s.Extract<U8>( l2 ) );
+        EXPECT_EQ(8, *s.Extract<U8>(l));
+        EXPECT_EQ(14, *s.Extract<U8>(l2));
 
         s.Clear();
 
         const U8 f2[2] = { 12, 80 };
-        BlockAllocator::BlockLocation fl = s.Move( f2[0] );
-        BlockAllocator::BlockLocation fl2 = s.Move( f2[1] );
+        BlockAllocator::BlockLocation fl = s.Move(f2[0]);
+        BlockAllocator::BlockLocation fl2 = s.Move(f2[1]);
 
-        EXPECT_EQ( 12, *s.Extract<U8>( fl ) );
-        EXPECT_EQ( 80, *s.Extract<U8>( fl2 ) );
+        EXPECT_EQ(12, *s.Extract<U8>(fl));
+        EXPECT_EQ(80, *s.Extract<U8>(fl2));
     }
 }

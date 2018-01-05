@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -89,7 +89,7 @@ namespace Path
      * @return The correct path.
      */
 
-    std::string Get( const std::string &path, Type type = Type::Program ) noexcept;
+    std::string Get(const std::string &path, Type type = Type::Program) noexcept;
 
     /// @}
 
@@ -115,7 +115,7 @@ namespace Path
      * @return The relative path from the 'from' path to the 'to' path.
      */
 
-    std::string ResolveRelative( const std::string &from, const std::string &to, bool sameRoot = true ) noexcept;
+    std::string ResolveRelative(const std::string &from, const std::string &to, bool sameRoot = true) noexcept;
 
     /**
      * Fixes the path style to the unix style, since that is the one we use internally. All directories will have a
@@ -126,7 +126,7 @@ namespace Path
      * @return The fixed path style.
      */
 
-    std::string FixStyle( const std::string &filePath ) noexcept;
+    std::string FixStyle(const std::string &filePath) noexcept;
 
     /**
      * Normalises the path.
@@ -144,7 +144,7 @@ namespace Path
      * @return A canonicalised (normalised) path.
      */
 
-    std::string Canonical( const std::string &path, bool absolute = false ) noexcept;
+    std::string Canonical(const std::string &path, bool absolute = false) noexcept;
 
     /**
      * Query if 'from' is a parent path of 'to'.
@@ -155,7 +155,7 @@ namespace Path
      * @return True if parent, false if not.
      */
 
-    bool IsParent( const std::string &from, const std::string &to ) noexcept;
+    bool IsParent(const std::string &from, const std::string &to) noexcept;
 
     /**
      * Gets the file name part from a full path.
@@ -172,7 +172,7 @@ namespace Path
      * @return The file name part.
      */
 
-    std::string GetFileName( const std::string &path, const bool stripExtension = false ) noexcept;
+    std::string GetFileName(const std::string &path, const bool stripExtension = false) noexcept;
 
     /**
      * Gets the directory part from a full path.
@@ -187,7 +187,7 @@ namespace Path
      * @return  The directory part.
      */
 
-    std::string GetDirectory( const std::string &path ) noexcept;
+    std::string GetDirectory(const std::string &path) noexcept;
 
     /**
      * Gets an extension, either with or without the ".", from a given file path. When the file has no extension, we
@@ -205,7 +205,7 @@ namespace Path
      * @return The extension.
      */
 
-    std::string GetExtension( const std::string &filepath, const bool addDot = false ) noexcept;
+    std::string GetExtension(const std::string &filepath, const bool addDot = false) noexcept;
 
     /**
      * Query if the 'filepath' has an extension.
@@ -215,7 +215,7 @@ namespace Path
      * @return True if it has an extension, false if not.
      */
 
-    bool HasExtension( const std::string &filepath ) noexcept;
+    bool HasExtension(const std::string &filepath) noexcept;
 
     /**
      * Generates a statistically guaranteed unique file name, with the given extension. (insert Murhpy's law joke here)
@@ -227,7 +227,7 @@ namespace Path
      * @note When an empty extension is given, "", the function will return a directory path.
      */
 
-    std::string GetUniqueFileName( const std::string &extension = ".tmp" ) noexcept;
+    std::string GetUniqueFileName(const std::string &extension = ".tmp") noexcept;
 
     /**
      * Generates a statistically guaranteed unique directory.
@@ -367,7 +367,7 @@ namespace Path
      * anything with it.
      */
 
-    std::vector< boost::filesystem::path > List( const std::string &directory, bool recursive = false ) noexcept;
+    std::vector< boost::filesystem::path > List(const std::string &directory, bool recursive = false) noexcept;
 
     /**
      * List directory content, directories and files, in a given directory.
@@ -382,7 +382,7 @@ namespace Path
      * anything with it.
      */
 
-    std::vector< std::string > ListContent( const std::string &directory, bool recursive = false ) noexcept;
+    std::vector< std::string > ListContent(const std::string &directory, bool recursive = false) noexcept;
 
     /**
      * Gets the current working directory.
@@ -405,7 +405,7 @@ namespace Path
      * @return true if it succeeds, false if it fails.
      */
 
-    bool SetWorkingDirectory( const std::string &workingDirectory ) noexcept;
+    bool SetWorkingDirectory(const std::string &workingDirectory) noexcept;
 
     /**
      * Recursively deletes the given path, deleting both files and directories.
@@ -413,7 +413,7 @@ namespace Path
      * @param   path Full pathname of the file.
      */
 
-    void DeleteAll( const std::string &path ) noexcept;
+    void DeleteAll(const std::string &path) noexcept;
 
     /// @}
 }

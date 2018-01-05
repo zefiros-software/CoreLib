@@ -36,7 +36,7 @@ namespace
     public:
 
         Base()
-            : mValue( 84 )
+            : mValue(84)
         {
         }
         virtual ~Base()
@@ -74,7 +74,7 @@ namespace
     public:
 
         Child()
-            : mValue( nullptr )
+            : mValue(nullptr)
         {
         }
 
@@ -90,7 +90,7 @@ namespace
 
         void OnInit() override
         {
-            mValue = new U32( *Base::GetValue() );
+            mValue = new U32(*Base::GetValue());
         }
 
         void OnRelease() override
@@ -105,73 +105,73 @@ namespace
 
     typedef PoolableInstantiator< Child, Base > PoolableInstantiatorImpl;
 
-    TEST( PoolableInstantiator, SanityCheck )
+    TEST(PoolableInstantiator, SanityCheck)
     {
         volatile PoolableInstantiatorImpl inst;
     }
 
-    TEST( PoolableInstantiator, Create )
+    TEST(PoolableInstantiator, Create)
     {
         PoolableInstantiatorImpl inst;
 
         Base *child = inst.Create();
         child->OnInit();
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 84u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(84u, *child->GetValue());
 
         delete child->GetValue();
         delete child;
     }
 
-    TEST( PoolableInstantiator, OnInit )
+    TEST(PoolableInstantiator, OnInit)
     {
         PoolableInstantiatorImpl inst;
 
         Base *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 84u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(84u, *child->GetValue());
 
         delete child->GetValue();
         delete child;
     }
 
-    TEST( PoolableInstantiator, Release )
+    TEST(PoolableInstantiator, Release)
     {
         PoolableInstantiatorImpl inst;
 
         Base *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 84u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(84u, *child->GetValue());
 
-        inst.Release( child );
+        inst.Release(child);
 
         delete child;
     }
 
-    TEST( PoolableInstantiator, Destroy )
+    TEST(PoolableInstantiator, Destroy)
     {
         PoolableInstantiatorImpl inst;
 
         Base *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 84u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(84u, *child->GetValue());
 
-        inst.Release( child );
+        inst.Release(child);
 
-        inst.Destroy( child );
+        inst.Destroy(child);
     }
 
-    TEST( PoolableInstantiator, Copy )
+    TEST(PoolableInstantiator, Copy)
     {
         PoolableInstantiatorImpl instantiator;
         delete instantiator.Copy();

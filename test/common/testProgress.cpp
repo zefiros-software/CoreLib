@@ -33,9 +33,9 @@
 
 namespace
 {
-    TEST( Progress, InitializerList )
+    TEST(Progress, InitializerList)
     {
-        for ( auto i: Progress( { 1, 2, 3, 4 } ) )
+        for (auto i : Progress({ 1, 2, 3, 4 }))
         {
             (void)i;
             //std::cout << i;
@@ -64,7 +64,7 @@ namespace
         {
             for (auto i : Progress(5))
             {
-                for (auto k: Progress(3))
+                for (auto k : Progress(3))
                 {
                     (void)i, (void)j, (void)k;
                     //std::cout << i;

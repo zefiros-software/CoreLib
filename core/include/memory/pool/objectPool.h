@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -76,14 +76,14 @@ public:
      * @note    Takes ownership of the instantiator.
      */
 
-    explicit ObjectPool( AbstractPoolableInstantiator< tBase > *instantiator, size_t capacity = 500 ) noexcept
-        : mCapacity( capacity ),
-          mBorrowedObjectsCount( 0 ),
-          mReturnedObjectsCount( 0 ),
-          mInstantiator( instantiator )
+    explicit ObjectPool(AbstractPoolableInstantiator< tBase > *instantiator, size_t capacity = 500) noexcept
+        : mCapacity(capacity),
+          mBorrowedObjectsCount(0),
+          mReturnedObjectsCount(0),
+          mInstantiator(instantiator)
     {
-        static_assert( Util::IsChildParent< tT, tBase >::value,
-                       "ObjectPool::ObjectPool():\n\tThe child type should derive from the base type." );
+        static_assert(Util::IsChildParent< tT, tBase >::value,
+                      "ObjectPool::ObjectPool():\n\tThe child type should derive from the base type.");
     }
 
     /**
@@ -92,14 +92,14 @@ public:
      * @param   capacity    (optional) The maximum of kept alive objects.
      */
 
-    explicit ObjectPool( size_t capacity = 500 )
-        : mCapacity( capacity ),
-          mBorrowedObjectsCount( 0 ),
-          mReturnedObjectsCount( 0 ),
-          mInstantiator( new tInstantiator )
+    explicit ObjectPool(size_t capacity = 500)
+        : mCapacity(capacity),
+          mBorrowedObjectsCount(0),
+          mReturnedObjectsCount(0),
+          mInstantiator(new tInstantiator)
     {
-        static_assert( Util::IsChildParent< tT, tBase >::value,
-                       "ObjectPool::ObjectPool():\n\tThe child type should derive from the base type." );
+        static_assert(Util::IsChildParent< tT, tBase >::value,
+                      "ObjectPool::ObjectPool():\n\tThe child type should derive from the base type.");
     }
 
     /**
@@ -108,18 +108,18 @@ public:
 
     virtual ~ObjectPool()
     {
-        for ( auto it = mPool.begin(); it != mPool.end(); ++it )
+        for (auto it = mPool.begin(); it != mPool.end(); ++it)
         {
-            mInstantiator->Destroy( *it );
+            mInstantiator->Destroy(*it);
         }
 
-        if ( ObjectPool<tT, tBase, tInstantiator>::GetBorrowedCount() !=
-                ObjectPool<tT, tBase, tInstantiator>::GetReturnedCount() )
+        if (ObjectPool<tT, tBase, tInstantiator>::GetBorrowedCount() !=
+            ObjectPool<tT, tBase, tInstantiator>::GetReturnedCount())
         {
-            Console::Warningf( LOG( "There are more objects borrowed than returned, this can cause memory leaks." ) );
+            Console::Warningf(LOG("There are more objects borrowed than returned, this can cause memory leaks."));
         }
 
-        SAFE_DELETE( mInstantiator );
+        SAFE_DELETE(mInstantiator);
     }
 
     /// @name Retrieve Objects
@@ -137,7 +137,7 @@ public:
     {
         tBase *const object = FastGet();
 
-        mInstantiator->Initialise( object );
+        mInstantiator->Initialise(object);
 
         return object;
     }
@@ -152,7 +152,7 @@ public:
 
     tBase *FastGet() override
     {
-        std::lock_guard< SpinLock > lock( mSpinLock );
+        std::lock_guard< SpinLock > lock(mSpinLock);
 
         ++mBorrowedObjectsCount;
 
@@ -173,11 +173,11 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    void Dispose( tBase *object ) override
+    void Dispose(tBase *object) override
     {
-        mInstantiator->Release( object );
+        mInstantiator->Release(object);
 
-        FastDispose( object );
+        FastDispose(object);
     }
 
     /**
@@ -189,21 +189,21 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    void FastDispose( tBase *object )
+    void FastDispose(tBase *object)
     {
         mSpinLock.lock();
 
         ++mReturnedObjectsCount;
 
-        if ( mPool.size() < mCapacity )
+        if (mPool.size() < mCapacity)
         {
-            mPool.push_back( object );
+            mPool.push_back(object);
             mSpinLock.unlock();
         }
         else
         {
             mSpinLock.unlock();
-            mInstantiator->Destroy( object );
+            mInstantiator->Destroy(object);
         }
     }
 
@@ -222,7 +222,7 @@ public:
 
     size_t GetBorrowedCount() const noexcept override
     {
-        std::lock_guard< SpinLock > lock( mSpinLock );
+        std::lock_guard< SpinLock > lock(mSpinLock);
 
         return mBorrowedObjectsCount;
     }
@@ -237,7 +237,7 @@ public:
 
     size_t GetReturnedCount() const noexcept override
     {
-        std::lock_guard< SpinLock > lock( mSpinLock );
+        std::lock_guard< SpinLock > lock(mSpinLock);
 
         return mReturnedObjectsCount;
     }
@@ -274,7 +274,7 @@ private:
     {
         tBase *object;
 
-        if ( !mPool.empty() )
+        if (!mPool.empty())
         {
             object = mPool.back();
             mPool.pop_back();

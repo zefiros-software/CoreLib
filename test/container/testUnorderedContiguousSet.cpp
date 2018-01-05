@@ -30,94 +30,94 @@
 
 namespace
 {
-    TEST( UnorderedContiguousSet, SanityCheck )
+    TEST(UnorderedContiguousSet, SanityCheck)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_EQ( 0u, f.Size() );
+        EXPECT_EQ(0u, f.Size());
     }
 
-    TEST( UnorderedContiguousSet, Insert )
+    TEST(UnorderedContiguousSet, Insert)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_EQ( 0u, f.Size() );
-        EXPECT_TRUE( f.Insert( 2 ) );
-        EXPECT_TRUE( f.Insert( 4 ) );
-        EXPECT_TRUE( f.Has( 2 ) );
-        EXPECT_FALSE( f.Has( 3 ) );
-        EXPECT_EQ( 2u, f.Size() );
+        EXPECT_EQ(0u, f.Size());
+        EXPECT_TRUE(f.Insert(2));
+        EXPECT_TRUE(f.Insert(4));
+        EXPECT_TRUE(f.Has(2));
+        EXPECT_FALSE(f.Has(3));
+        EXPECT_EQ(2u, f.Size());
     }
 
-    TEST( UnorderedContiguousSet, InsertDouble )
+    TEST(UnorderedContiguousSet, InsertDouble)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_EQ( 0u, f.Size() );
-        EXPECT_TRUE( f.Insert( 2 ) );
-        EXPECT_FALSE( f.Insert( 2 ) );
-        EXPECT_TRUE( f.Has( 2 ) );
-        EXPECT_EQ( 1u, f.Size() );
+        EXPECT_EQ(0u, f.Size());
+        EXPECT_TRUE(f.Insert(2));
+        EXPECT_FALSE(f.Insert(2));
+        EXPECT_TRUE(f.Has(2));
+        EXPECT_EQ(1u, f.Size());
     }
 
-    TEST( UnorderedContiguousSet, GetValues )
+    TEST(UnorderedContiguousSet, GetValues)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_EQ( 0u, f.Size() );
-        EXPECT_TRUE( f.Insert( 2 ) );
-        EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
-        EXPECT_THAT( f.GetValues(), matcher );
+        EXPECT_EQ(0u, f.Size());
+        EXPECT_TRUE(f.Insert(2));
+        EXPECT_TRUE(f.Insert(4));
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >(2u, 4u);
+        EXPECT_THAT(f.GetValues(), matcher);
     }
 
-    TEST( UnorderedContiguousSet, GetValuesConst )
+    TEST(UnorderedContiguousSet, GetValuesConst)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_EQ( 0u, f.Size() );
-        EXPECT_TRUE( f.Insert( 2 ) );
-        EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
-        EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
+        EXPECT_EQ(0u, f.Size());
+        EXPECT_TRUE(f.Insert(2));
+        EXPECT_TRUE(f.Insert(4));
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >(2u, 4u);
+        EXPECT_THAT(((const UnorderedContiguousSet<U8> &)f).GetValues(), matcher);
     }
 
-    TEST( UnorderedContiguousSet, Delete )
+    TEST(UnorderedContiguousSet, Delete)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_TRUE( f.Insert( 2 ) );
-        EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
-        EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
+        EXPECT_TRUE(f.Insert(2));
+        EXPECT_TRUE(f.Insert(4));
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >(2u, 4u);
+        EXPECT_THAT(((const UnorderedContiguousSet<U8> &)f).GetValues(), matcher);
 
-        EXPECT_TRUE( f.Delete( 4 ) );
-        EXPECT_FALSE( f.Has( 4 ) );
-        EXPECT_EQ( 1u, f.Size() );
-        auto matcher2 = ::testing::UnorderedElementsAre< U8 >( 2u );
-        EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher2 );
+        EXPECT_TRUE(f.Delete(4));
+        EXPECT_FALSE(f.Has(4));
+        EXPECT_EQ(1u, f.Size());
+        auto matcher2 = ::testing::UnorderedElementsAre< U8 >(2u);
+        EXPECT_THAT(((const UnorderedContiguousSet<U8> &)f).GetValues(), matcher2);
     }
 
-    TEST( UnorderedContiguousSet, DeleteNotExists )
+    TEST(UnorderedContiguousSet, DeleteNotExists)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_TRUE( f.Insert( 2 ) );
-        EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
-        EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
+        EXPECT_TRUE(f.Insert(2));
+        EXPECT_TRUE(f.Insert(4));
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >(2u, 4u);
+        EXPECT_THAT(((const UnorderedContiguousSet<U8> &)f).GetValues(), matcher);
 
-        EXPECT_FALSE( f.Delete( 20 ) );
-        EXPECT_EQ( 2u, f.Size() );
-        EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
+        EXPECT_FALSE(f.Delete(20));
+        EXPECT_EQ(2u, f.Size());
+        EXPECT_THAT(((const UnorderedContiguousSet<U8> &)f).GetValues(), matcher);
     }
 
-    TEST( UnorderedContiguousSet, Clear )
+    TEST(UnorderedContiguousSet, Clear)
     {
         UnorderedContiguousSet< U8 > f;
-        EXPECT_TRUE( f.Insert( 2 ) );
-        EXPECT_TRUE( f.Insert( 4 ) );
-        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >( 2u, 4u );
-        EXPECT_THAT( ( ( const UnorderedContiguousSet<U8> & )f ).GetValues(), matcher );
+        EXPECT_TRUE(f.Insert(2));
+        EXPECT_TRUE(f.Insert(4));
+        auto matcher = ::testing::UnorderedElementsAre< U8, U8 >(2u, 4u);
+        EXPECT_THAT(((const UnorderedContiguousSet<U8> &)f).GetValues(), matcher);
 
         f.Clear();
 
-        EXPECT_EQ( 0u, f.Size() );
-        EXPECT_FALSE( f.Has( 2 ) );
-        EXPECT_FALSE( f.Has( 4 ) );
-        EXPECT_EQ( 0u, f.GetValues().size() );
+        EXPECT_EQ(0u, f.Size());
+        EXPECT_FALSE(f.Has(2));
+        EXPECT_FALSE(f.Has(4));
+        EXPECT_EQ(0u, f.GetValues().size());
     }
 }

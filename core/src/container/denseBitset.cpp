@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,9 +27,9 @@
 #include "container/denseBitset.h"
 
 
-const DenseBitset::BitReference &DenseBitset::BitReference::operator=( bool val ) const noexcept
+const DenseBitset::BitReference &DenseBitset::BitReference::operator=(bool val) const noexcept
 {
-    if ( val )
+    if (val)
     {
         mInt |= mMask;
     }
@@ -41,44 +41,44 @@ const DenseBitset::BitReference &DenseBitset::BitReference::operator=( bool val 
     return *this;
 }
 
-const DenseBitset::BitReference &DenseBitset::BitReference::operator=( const BitReference &br ) const noexcept
+const DenseBitset::BitReference &DenseBitset::BitReference::operator=(const BitReference &br) const noexcept
 {
-    return this->operator =( bool( br ) );
+    return this->operator =(bool(br));
 }
 
 DenseBitset::BitReference::operator bool() const
 {
-    return ( ( mInt & mMask ) != 0 ) ? true : false;
+    return ((mInt & mMask) != 0) ? true : false;
 }
 
-DenseBitset::BitReference::BitReference( U64 &integer, U64 mask ) noexcept
-    : mInt( integer ),
-      mMask( mask )
+DenseBitset::BitReference::BitReference(U64 &integer, U64 mask) noexcept
+    : mInt(integer),
+      mMask(mask)
 {
 
 }
 
-DenseBitset::DenseBitset( size_t size /*= 0 */ ) noexcept
+DenseBitset::DenseBitset(size_t size /*= 0 */) noexcept
 {
-    Resize( size );
+    Resize(size);
 }
 
 void DenseBitset::Reset() noexcept
 {
-    std::fill( mBits.begin(), mBits.end(), 0x00 );
+    std::fill(mBits.begin(), mBits.end(), 0x00);
 }
 
-void DenseBitset::Resize( size_t size ) noexcept
+void DenseBitset::Resize(size_t size) noexcept
 {
-    mBits.resize( ( size >> 6 ) + 1 );
+    mBits.resize((size >> 6) + 1);
 }
 
-bool DenseBitset::operator[]( size_t bit ) const noexcept
+bool DenseBitset::operator[](size_t bit) const noexcept
 {
-    return ( ( mBits[( bit >> 6 )] ) & ( static_cast< U64 >( 1 ) << ( bit & 63 ) ) ) != 0;
+    return ((mBits[(bit >> 6)]) & (static_cast< U64 >(1) << (bit & 63))) != 0;
 }
 
-DenseBitset::BitReference DenseBitset::operator[]( size_t bit ) noexcept
+DenseBitset::BitReference DenseBitset::operator[](size_t bit) noexcept
 {
-    return BitReference( mBits[bit >> 6], static_cast< U64 >( 1 ) << ( bit & 63 ) );
+    return BitReference(mBits[bit >> 6], static_cast< U64 >(1) << (bit & 63));
 }

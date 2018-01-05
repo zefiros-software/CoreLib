@@ -131,31 +131,31 @@ namespace String
 
     ///@{
 
-    std::string Format( const std::string &fmt );
+    std::string Format(const std::string &fmt);
 
-    std::string Format( const std::string &fmt, const boost::any &value );
+    std::string Format(const std::string &fmt, const boost::any &value);
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2 );
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2);
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3 );
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3);
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4 );
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4);
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5 );
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5);
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6 );
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6);
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6,
-                        const boost::any &value7 );
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6,
+                       const boost::any &value7);
 
-    std::string Format( const std::string &fmt, const boost::any &value1, const boost::any &value2,
-                        const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6 ,
-                        const boost::any &value7, const boost::any &value8 );
+    std::string Format(const std::string &fmt, const boost::any &value1, const boost::any &value2,
+                       const boost::any &value3, const boost::any &value4, const boost::any &value5, const boost::any &value6,
+                       const boost::any &value7, const boost::any &value8);
 
     /**
      * This function is a bit different from the other String Formatters. There isn't a predefined number
@@ -170,7 +170,7 @@ namespace String
      * @return  The formatted string.
      */
 
-    void Format( std::string &result, const std::string &fmt, const std::vector< boost::any > &values );
+    void Format(std::string &result, const std::string &fmt, const std::vector< boost::any > &values);
 
     /// @}
 
@@ -186,9 +186,9 @@ namespace String
      * @return The formatted value.
      */
     template <typename... Args>
-    std::string Place( Args &&... args )
+    std::string Place(Args &&... args)
     {
-        return fmt::format( std::forward<Args>( args )... );
+        return fmt::format(std::forward<Args>(args)...);
     }
 
     /// @}

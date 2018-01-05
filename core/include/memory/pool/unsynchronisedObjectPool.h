@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -73,14 +73,14 @@ public:
      * @note    Takes ownership of the instantiator.
      */
 
-    explicit UnsynchronisedObjectPool( AbstractPoolableInstantiator< tBase > *instantiator, size_t capacity = 500 )
-        : mCapacity( capacity ),
-          mBorrowedObjectsCount( 0 ),
-          mReturnedObjectsCount( 0 ),
-          mInstantiator( instantiator )
+    explicit UnsynchronisedObjectPool(AbstractPoolableInstantiator< tBase > *instantiator, size_t capacity = 500)
+        : mCapacity(capacity),
+          mBorrowedObjectsCount(0),
+          mReturnedObjectsCount(0),
+          mInstantiator(instantiator)
     {
-        static_assert( Util::IsChildParent< tT, tBase >::value,
-                       "UnsynchronisedObjectPool::UnsynchronisedObjectPool():\n\tThe child type should derive from the base type." );
+        static_assert(Util::IsChildParent< tT, tBase >::value,
+                      "UnsynchronisedObjectPool::UnsynchronisedObjectPool():\n\tThe child type should derive from the base type.");
     }
 
     /**
@@ -89,14 +89,14 @@ public:
      * @param   capacity    (optional) The maximum of kept alive objects.
      */
 
-    explicit UnsynchronisedObjectPool( size_t capacity = 500 )
-        : mCapacity( capacity ),
-          mBorrowedObjectsCount( 0 ),
-          mReturnedObjectsCount( 0 ),
-          mInstantiator( new tInstantiator )
+    explicit UnsynchronisedObjectPool(size_t capacity = 500)
+        : mCapacity(capacity),
+          mBorrowedObjectsCount(0),
+          mReturnedObjectsCount(0),
+          mInstantiator(new tInstantiator)
     {
-        static_assert( Util::IsChildParent< tT, tBase >::value,
-                       "ObjectPool::ObjectPool():\n\tThe child type should derive from the base type." );
+        static_assert(Util::IsChildParent< tT, tBase >::value,
+                      "ObjectPool::ObjectPool():\n\tThe child type should derive from the base type.");
     }
 
     /**
@@ -105,14 +105,14 @@ public:
 
     virtual ~UnsynchronisedObjectPool()
     {
-        for ( auto it = mPool.begin(); it != mPool.end(); ++it )
+        for (auto it = mPool.begin(); it != mPool.end(); ++it)
         {
-            mInstantiator->Destroy( *it );
+            mInstantiator->Destroy(*it);
         }
 
-        assert( GetBorrowedCount() == GetReturnedCount() );
+        assert(GetBorrowedCount() == GetReturnedCount());
 
-        SAFE_DELETE( mInstantiator );
+        SAFE_DELETE(mInstantiator);
     }
 
     /// @name Retrieve Objects
@@ -128,7 +128,7 @@ public:
     {
         tBase *const object = FastGet();
 
-        mInstantiator->Initialise( object );
+        mInstantiator->Initialise(object);
 
         return object;
     }
@@ -158,19 +158,19 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    virtual void Dispose( tBase *object ) override
+    virtual void Dispose(tBase *object) override
     {
-        mInstantiator->Release( object );
+        mInstantiator->Release(object);
 
         ++mReturnedObjectsCount;
 
-        if ( mPool.size() < mCapacity )
+        if (mPool.size() < mCapacity)
         {
-            mPool.push_back( object );
+            mPool.push_back(object);
         }
         else
         {
-            mInstantiator->Destroy( object );
+            mInstantiator->Destroy(object);
         }
     }
 
@@ -181,17 +181,17 @@ public:
      * @param [in,out]  object  The object.
      */
 
-    void FastDispose( tBase *object )
+    void FastDispose(tBase *object)
     {
         ++mReturnedObjectsCount;
 
-        if ( mPool.size() < mCapacity )
+        if (mPool.size() < mCapacity)
         {
-            mPool.push_back( object );
+            mPool.push_back(object);
         }
         else
         {
-            mInstantiator->Destroy( object );
+            mInstantiator->Destroy(object);
         }
     }
 
@@ -252,7 +252,7 @@ private:
     {
         tBase *object;
 
-        if ( !mPool.empty() )
+        if (!mPool.empty())
         {
             object = mPool.back();
             mPool.pop_back();

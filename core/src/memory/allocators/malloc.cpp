@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <emmintrin.h>
 
-void *_InternalAlignedMalloc( size_t bytes, size_t alignment )
+void *_InternalAlignedMalloc(size_t bytes, size_t alignment)
 {
     /*
     size_t offset = alignment; //+ sizeof( size_t );
@@ -49,12 +49,12 @@ void *_InternalAlignedMalloc( size_t bytes, size_t alignment )
 
     return ptr2;
     */
-    
+
     // Just use the sse alloc
-    return _mm_malloc( bytes, alignment );
+    return _mm_malloc(bytes, alignment);
 }
 
-void _InternalAlignedFree( void *ptr )
+void _InternalAlignedFree(void *ptr)
 {
     /*
     if ( ptr != nullptr )
@@ -62,18 +62,18 @@ void _InternalAlignedFree( void *ptr )
         free( *( static_cast< void ** >( ptr ) - 1 ) );
     }
     */
-    
-    _mm_free( ptr );
+
+    _mm_free(ptr);
 }
 
-void *ZefAlignedMalloc( size_t bytes, size_t alignment )
+void *ZefAlignedMalloc(size_t bytes, size_t alignment)
 {
     // TODO add lib specific allocs
-    return _InternalAlignedMalloc( bytes, alignment );
+    return _InternalAlignedMalloc(bytes, alignment);
 }
 
-void ZefAlignedFree( void *ptr )
+void ZefAlignedFree(void *ptr)
 {
     // TODO add lib specific frees
-    return _InternalAlignedFree( ptr );
+    return _InternalAlignedFree(ptr);
 }

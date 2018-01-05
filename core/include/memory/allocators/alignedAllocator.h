@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,12 +39,12 @@ public:
 
     AlignedAllocator() throw()
     {}
-    AlignedAllocator( const AlignedAllocator & ) throw()
+    AlignedAllocator(const AlignedAllocator &) throw()
     {}
     ~AlignedAllocator() throw()
     {}
     template <class U>
-    inline AlignedAllocator( const AlignedAllocator<U, N> & ) throw()
+    inline AlignedAllocator(const AlignedAllocator<U, N> &) throw()
     {}
 
     typedef T value_type;
@@ -60,23 +60,23 @@ public:
         typedef AlignedAllocator< Y, N > other;
     };
 
-    inline pointer addres( reference ref )
+    inline pointer addres(reference ref)
     {
         return &ref;
     }
 
-    inline const_pointer addres( const_reference ref )
+    inline const_pointer addres(const_reference ref)
     {
         return &ref;
     }
 
-    inline pointer allocate( size_type n, std::allocator<void>::const_pointer t = nullptr )
+    inline pointer allocate(size_type n, std::allocator<void>::const_pointer t = nullptr)
     {
         (void) t;
-        
-        pointer address = static_cast< pointer >( ZefAlignedMalloc( sizeof( T ) * n, N ) );
 
-        if ( address == nullptr )
+        pointer address = static_cast< pointer >(ZefAlignedMalloc(sizeof(T) * n, N));
+
+        if (address == nullptr)
         {
             throw std::bad_alloc();
         }
@@ -84,41 +84,41 @@ public:
         return address;
     }
 
-    inline void deallocate( pointer ptr, size_type )
+    inline void deallocate(pointer ptr, size_type)
     {
-        ZefAlignedFree( ptr );
+        ZefAlignedFree(ptr);
     }
 
-    inline void construct( pointer p, const_reference val )
+    inline void construct(pointer p, const_reference val)
     {
-        new( p ) value_type( val );
+        new (p) value_type(val);
     }
 
-    inline void destroy( pointer p )
+    inline void destroy(pointer p)
     {
         p->~value_type();
     }
 
     static inline size_type max_size()
     {
-        return ~size_type( 0 ) / sizeof( T );
+        return ~size_type(0) / sizeof(T);
     }
 };
 
 template< class T1, U32 N1, class T2, U32 N2 >
-bool operator==( const AlignedAllocator<T1,N1>& lhs, const AlignedAllocator<T2, N2>& rhs )
+bool operator==(const AlignedAllocator<T1, N1> &lhs, const AlignedAllocator<T2, N2> &rhs)
 {
     // prevent warning
     (void) lhs;
     (void) rhs;
-    
+
     return N1 == N2;
 }
 
 template< class T1, U32 N1, class T2, U32 N2 >
-bool operator!=( const AlignedAllocator<T1,N1>& lhs, const AlignedAllocator<T2, N2>& rhs )
+bool operator!=(const AlignedAllocator<T1, N1> &lhs, const AlignedAllocator<T2, N2> &rhs)
 {
-    return !( lhs == rhs );
+    return !(lhs == rhs);
 }
 
 #endif

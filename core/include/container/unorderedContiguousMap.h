@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2015 Koen Visscher, Paul Visscher and individual contributors.
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,19 +35,19 @@ class UnorderedContiguousMap
 public:
 
     UnorderedContiguousMap()
-        : mSize( 0 )
+        : mSize(0)
     {
 
     }
 
-    bool Insert( const Key &key, const Item &item )
+    bool Insert(const Key &key, const Item &item)
     {
-        auto it = mSearchBlock.find( key );
+        auto it = mSearchBlock.find(key);
 
-        if ( it == mSearchBlock.end() )
+        if (it == mSearchBlock.end())
         {
-            mContiguousBlock.push_back( item );
-            mSearchBlock.insert( std::make_pair( key, mSize++ ) );
+            mContiguousBlock.push_back(item);
+            mSearchBlock.insert(std::make_pair(key, mSize++));
 
             return true;
         }
@@ -55,11 +55,11 @@ public:
         return false;
     }
 
-    bool Delete( const Key &key )
+    bool Delete(const Key &key)
     {
-        auto it = mSearchBlock.find( key );
+        auto it = mSearchBlock.find(key);
 
-        if ( it != mSearchBlock.end() )
+        if (it != mSearchBlock.end())
         {
             size_t i = it->second;
 
@@ -67,7 +67,7 @@ public:
 
             mContiguousBlock.pop_back();
 
-            mSearchBlock.erase( key );
+            mSearchBlock.erase(key);
 
             return true;
         }
@@ -75,39 +75,39 @@ public:
         return false;
     }
 
-    bool Has( const Key &key ) const
+    bool Has(const Key &key) const
     {
-        return mSearchBlock.find( key ) != mSearchBlock.end();
+        return mSearchBlock.find(key) != mSearchBlock.end();
     }
-    
-    Item *Find( const Key &key )
+
+    Item *Find(const Key &key)
     {
-        auto it = mSearchBlock.find( key );
-        
-        if ( it != mSearchBlock.end() )
+        auto it = mSearchBlock.find(key);
+
+        if (it != mSearchBlock.end())
         {
             Item *rval = &mContiguousBlock[it->second];
-            
+
             return rval;
         }
-        
+
         return nullptr;
     }
-    
-    const Item *CFind( const Key &key ) const
+
+    const Item *CFind(const Key &key) const
     {
-        auto it = mSearchBlock.find( key );
-        
-        if ( it != mSearchBlock.end() )
+        auto it = mSearchBlock.find(key);
+
+        if (it != mSearchBlock.end())
         {
             const Item *rval = &mContiguousBlock[it->second];
-            
+
             return rval;
         }
-        
+
         return nullptr;
     }
-    
+
     void Clear()
     {
         mContiguousBlock.clear();

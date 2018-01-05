@@ -65,7 +65,7 @@ namespace
     public:
 
         Child()
-            : mValue( 91 )
+            : mValue(91)
         {
         }
 
@@ -100,15 +100,15 @@ namespace
     public:
 
         ImplPoolableInstantiator()
-            : created( false ),
-              destroyed( false )
+            : created(false),
+              destroyed(false)
         {
 
         }
 
-        ImplPoolableInstantiator( const ImplPoolableInstantiator &other )
-            : created( other.created ),
-              destroyed( other.destroyed )
+        ImplPoolableInstantiator(const ImplPoolableInstantiator &other)
+            : created(other.created),
+              destroyed(other.destroyed)
         {
 
         }
@@ -116,28 +116,28 @@ namespace
         virtual U32 *Create() override
         {
             created = true;
-            return new U32( 0 );
+            return new U32(0);
         }
 
-        virtual void Destroy( U32 *object ) override
+        virtual void Destroy(U32 *object) override
         {
             destroyed = true;
             delete object;
         }
 
-        virtual void Initialise( U32 *const object ) override
+        virtual void Initialise(U32 *const object) override
         {
             *object = 42;
         }
 
-        virtual void Release( U32 *const object ) override
+        virtual void Release(U32 *const object) override
         {
             *object = 0;
         }
 
         virtual AbstractInstantiator *Copy() override
         {
-            return new ImplPoolableInstantiator( *this );
+            return new ImplPoolableInstantiator(*this);
         }
 
         bool created;
@@ -147,154 +147,154 @@ namespace
 
     typedef UnsynchronisedObjectPool< Child, Base > UnsynchronisedObjectPoolImpl;
 
-    TEST( UnsynchronisedObjectPool, SanityCheck )
+    TEST(UnsynchronisedObjectPool, SanityCheck)
     {
         volatile UnsynchronisedObjectPoolImpl pool;
     }
 
-    TEST( UnsynchronisedObjectPool, CustomInstantiator )
+    TEST(UnsynchronisedObjectPool, CustomInstantiator)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        UnsynchronisedObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
+        UnsynchronisedObjectPool< U32, U32, ImplPoolableInstantiator > pool(inst, 0);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_TRUE( inst->destroyed );
+        EXPECT_TRUE(inst->destroyed);
     }
 
-    TEST( UnsynchronisedObjectPool, TooFull )
+    TEST(UnsynchronisedObjectPool, TooFull)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        UnsynchronisedObjectPool< U32, U32, ImplPoolableInstantiator > pool( inst, 0 );
+        UnsynchronisedObjectPool< U32, U32, ImplPoolableInstantiator > pool(inst, 0);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.FastDispose( first );
+        pool.FastDispose(first);
 
-        EXPECT_TRUE( inst->destroyed );
+        EXPECT_TRUE(inst->destroyed);
     }
 
-    TEST( UnsynchronisedObjectPool, CustomInstantiatorNonDefault )
+    TEST(UnsynchronisedObjectPool, CustomInstantiatorNonDefault)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        UnsynchronisedObjectPool< U32 > pool( inst, 1 );
+        UnsynchronisedObjectPool< U32 > pool(inst, 1);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_FALSE( inst->destroyed );
-        EXPECT_EQ( 0u, *first );
+        EXPECT_FALSE(inst->destroyed);
+        EXPECT_EQ(0u, *first);
     }
 
-    TEST( UnsynchronisedObjectPool, Get )
+    TEST(UnsynchronisedObjectPool, Get)
     {
-        UnsynchronisedObjectPoolImpl pool( 1 );
+        UnsynchronisedObjectPoolImpl pool(1);
 
         Base *first = pool.Get();
-        EXPECT_EQ( 42u, first->GetValue() );
+        EXPECT_EQ(42u, first->GetValue());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_EQ( 0u, first->GetValue() );
+        EXPECT_EQ(0u, first->GetValue());
 
         Base *second = pool.Get();
         Base *third = pool.Get();
 
-        EXPECT_EQ( first, second );
-        EXPECT_NE( first, third );
+        EXPECT_EQ(first, second);
+        EXPECT_NE(first, third);
 
-        pool.Dispose( third );
-        pool.Dispose( second );
+        pool.Dispose(third);
+        pool.Dispose(second);
 
         Base *fourth = pool.Get();
 
-        EXPECT_EQ( third, fourth );
+        EXPECT_EQ(third, fourth);
 
-        pool.Dispose( fourth );
+        pool.Dispose(fourth);
     }
 
-    TEST( UnsynchronisedObjectPool, FastGet )
+    TEST(UnsynchronisedObjectPool, FastGet)
     {
         UnsynchronisedObjectPoolImpl pool;
 
         Base *first = pool.FastGet();
-        EXPECT_EQ( 91u, first->GetValue() );
+        EXPECT_EQ(91u, first->GetValue());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
     }
 
-    TEST( UnsynchronisedObjectPool, Dispose )
+    TEST(UnsynchronisedObjectPool, Dispose)
     {
         UnsynchronisedObjectPoolImpl pool;
-        pool.Dispose( pool.Get() );
-        pool.Dispose( pool.FastGet() );
+        pool.Dispose(pool.Get());
+        pool.Dispose(pool.FastGet());
     }
 
-    TEST( UnsynchronisedObjectPool, FastDispose )
+    TEST(UnsynchronisedObjectPool, FastDispose)
     {
         UnsynchronisedObjectPoolImpl pool;
-        pool.FastDispose( pool.Get() );
-        pool.FastDispose( pool.FastGet() );
+        pool.FastDispose(pool.Get());
+        pool.FastDispose(pool.FastGet());
     }
 
-    TEST( UnsynchronisedObjectPool, FastDisposeNoRelease )
+    TEST(UnsynchronisedObjectPool, FastDisposeNoRelease)
     {
         ImplPoolableInstantiator *inst = new ImplPoolableInstantiator;
-        UnsynchronisedObjectPool< U32 > pool( inst, 1 );
+        UnsynchronisedObjectPool< U32 > pool(inst, 1);
 
         U32 *first = pool.Get();
-        EXPECT_TRUE( inst->created );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_TRUE(inst->created);
+        EXPECT_EQ(42u, *first);
 
-        pool.FastDispose( first );
+        pool.FastDispose(first);
 
-        EXPECT_FALSE( inst->destroyed );
-        EXPECT_EQ( 42u, *first );
+        EXPECT_FALSE(inst->destroyed);
+        EXPECT_EQ(42u, *first);
     }
 
-    TEST( UnsynchronisedObjectPool, GetBorrowedCount )
+    TEST(UnsynchronisedObjectPool, GetBorrowedCount)
     {
         UnsynchronisedObjectPoolImpl pool;
 
-        EXPECT_EQ( 0u, pool.GetBorrowedCount() );
+        EXPECT_EQ(0u, pool.GetBorrowedCount());
 
         Base *first = pool.FastGet();
 
-        EXPECT_EQ( 1u, pool.GetBorrowedCount() );
+        EXPECT_EQ(1u, pool.GetBorrowedCount());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
         Base *second = pool.Get();
 
-        EXPECT_EQ( 2u, pool.GetBorrowedCount() );
+        EXPECT_EQ(2u, pool.GetBorrowedCount());
 
-        pool.Dispose( second );
+        pool.Dispose(second);
     }
 
-    TEST( UnsynchronisedObjectPool, GetReturnedCount )
+    TEST(UnsynchronisedObjectPool, GetReturnedCount)
     {
         UnsynchronisedObjectPoolImpl pool;
 
         Base *first = pool.FastGet();
 
-        EXPECT_EQ( 0u, pool.GetReturnedCount() );
+        EXPECT_EQ(0u, pool.GetReturnedCount());
 
-        pool.Dispose( first );
+        pool.Dispose(first);
 
-        EXPECT_EQ( 1u, pool.GetReturnedCount() );
+        EXPECT_EQ(1u, pool.GetReturnedCount());
 
         Base *second = pool.Get();
-        pool.Dispose( second );
+        pool.Dispose(second);
 
-        EXPECT_EQ( 2u, pool.GetReturnedCount() );
+        EXPECT_EQ(2u, pool.GetReturnedCount());
     }
 
 }

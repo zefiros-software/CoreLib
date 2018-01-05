@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,15 +27,15 @@
 #include "common/util.h"
 namespace boost
 {
-    void throw_exception( std::exception const &e )
+    void throw_exception(std::exception const &e)
     {
         throw e;
     }
 }
 
-U32 Util::BitExponent( const U64 in ) noexcept
+U32 Util::BitExponent(const U64 in) noexcept
 {
-    return static_cast<U32>( Mathf::Log2( in ) );
+    return static_cast<U32>(Mathf::Log2(in));
 }
 
 std::tm Util::Now() noexcept
@@ -43,8 +43,8 @@ std::tm Util::Now() noexcept
 #include "warnings/push.h"
 #include "warnings/unsafeFunction.h"
 
-    std::time_t t = std::time( nullptr );
-    return *std::localtime( &t );
+    std::time_t t = std::time(nullptr);
+    return *std::localtime(&t);
 
 #include "warnings/pop.h"
 

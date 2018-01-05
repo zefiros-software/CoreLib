@@ -35,23 +35,23 @@ namespace
     {
     };
 
-    TEST( ControllerManager, Sanity )
+    TEST(ControllerManager, Sanity)
     {
         ControllerManager m;
     }
 
-    TEST( ControllerManager, AddGet )
+    TEST(ControllerManager, AddGet)
     {
         ControllerManager m;
         AbstractManager *cn = m.Add< TestManager >();
-        EXPECT_EQ( cn, m.Get<TestManager>() );
+        EXPECT_EQ(cn, m.Get<TestManager>());
     }
 
-    TEST( ControllerManager, ReleaseNS )
+    TEST(ControllerManager, ReleaseNS)
     {
         ControllerManager m;
         m.Add< TestManager >();
-        m.OnRelease( 0 );
-        EXPECT_EQ( nullptr, m.Get<TestManager>() );
+        m.OnRelease(0);
+        EXPECT_EQ(nullptr, m.Get<TestManager>());
     }
 }

@@ -43,70 +43,70 @@ namespace
         bool mRan = false;
     };
 
-    TEST( JobQueue, SanityCheck )
+    TEST(JobQueue, SanityCheck)
     {
         JobQueue a;
-        EXPECT_EQ( 0u, a.Size() );
+        EXPECT_EQ(0u, a.Size());
     }
 
-    TEST( JobQueue, Push )
+    TEST(JobQueue, Push)
     {
         Executable e;
         JobQueue a;
-        a.Push( &e );
+        a.Push(&e);
 
-        EXPECT_EQ( 0u, a.Size() );
-        EXPECT_FALSE( e.mRan );
+        EXPECT_EQ(0u, a.Size());
+        EXPECT_FALSE(e.mRan);
     }
 
-    TEST( JobQueue, Pop )
+    TEST(JobQueue, Pop)
     {
         Executable e;
         JobQueue a;
-        a.Push( &e );
-        EXPECT_EQ( 0u, a.Size() );
-        EXPECT_EQ( nullptr, a.Pop() );
-        EXPECT_FALSE( e.mRan );
+        a.Push(&e);
+        EXPECT_EQ(0u, a.Size());
+        EXPECT_EQ(nullptr, a.Pop());
+        EXPECT_FALSE(e.mRan);
     }
 
-    TEST( JobQueue, Pop2 )
+    TEST(JobQueue, Pop2)
     {
         Executable e;
         JobQueue a;
-        a.Push( &e );
+        a.Push(&e);
         a.Flush();
-        EXPECT_EQ( 1u, a.Size() );
-        EXPECT_EQ( &e, a.Pop() );
-        EXPECT_EQ( 0u, a.Size() );
-        EXPECT_FALSE( e.mRan );
+        EXPECT_EQ(1u, a.Size());
+        EXPECT_EQ(&e, a.Pop());
+        EXPECT_EQ(0u, a.Size());
+        EXPECT_FALSE(e.mRan);
     }
 
-    TEST( JobQueue, Pop3 )
+    TEST(JobQueue, Pop3)
     {
         Executable e;
         JobQueue a;
-        a.Push( &e );
+        a.Push(&e);
         a.Flush();
-        a.Push( &e );
+        a.Push(&e);
         a.Flush();
-        EXPECT_EQ( 1u, a.Size() );
-        EXPECT_EQ( &e, a.Pop() );
-        EXPECT_EQ( nullptr, a.Pop() );
-        EXPECT_EQ( 0u, a.Size() );
-        EXPECT_FALSE( e.mRan );
+        EXPECT_EQ(1u, a.Size());
+        EXPECT_EQ(&e, a.Pop());
+        EXPECT_EQ(nullptr, a.Pop());
+        EXPECT_EQ(0u, a.Size());
+        EXPECT_FALSE(e.mRan);
     }
 
-    TEST( JobQueue, Move )
+    TEST(JobQueue, Move)
     {
         Executable e;
         JobQueue t;
-        t.Push( &e );
+        t.Push(&e);
         t.Flush();
 
-        JobQueue a( std::move( t ) );
-        EXPECT_EQ( 1u, a.Size() );
-        EXPECT_EQ( &e, a.Pop() );
-        EXPECT_EQ( 0u, a.Size() );
-        EXPECT_FALSE( e.mRan );
+        JobQueue a(std::move(t));
+        EXPECT_EQ(1u, a.Size());
+        EXPECT_EQ(&e, a.Pop());
+        EXPECT_EQ(0u, a.Size());
+        EXPECT_FALSE(e.mRan);
     }
 }

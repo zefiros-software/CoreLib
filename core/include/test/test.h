@@ -1,28 +1,28 @@
 /**
-* @cond ___LICENSE___
-*
-* Copyright (c) 2017 Zefiros Software
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-* @endcond
-*/
+ * @cond ___LICENSE___
+ *
+ * Copyright (c) 2016-2018 Zefiros Software.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @endcond
+ */
 
 #pragma once
 #ifndef __TEST_H__
@@ -86,7 +86,7 @@
 
 namespace Test
 {
-    inline std::string GenerateDirectoryName( const std::string &root = "" )
+    inline std::string GenerateDirectoryName(const std::string &root = "")
     {
         return root != "" ? Path::Canonical(root + "/" + Path::GetUniqueDirectory()) : Path::GetUniqueDirectory();
     }
@@ -94,8 +94,8 @@ namespace Test
 
     inline std::string GenerateRandomString()
     {
-        static std::default_random_engine generator = std::default_random_engine( TEST_RANDOM_SEED );
-        static std::uniform_int_distribution<U32> distribution( 0, 57 );
+        static std::default_random_engine generator = std::default_random_engine(TEST_RANDOM_SEED);
+        static std::uniform_int_distribution<U32> distribution(0, 57);
         // Imagine the boredom it took to write this :)
         // Sometimes I wonder whether this is the real life...
         static const char *lyrics[58] =
@@ -172,7 +172,7 @@ namespace Test
             "Anyway the wind blows."
         };
 
-        return lyrics[distribution( generator )];
+        return lyrics[distribution(generator)];
     }
 
     template< U32 N >
@@ -180,21 +180,21 @@ namespace Test
     {
         std::unordered_set< std::string > set;
 
-        while ( set.size() < N )
+        while (set.size() < N)
         {
-            set.insert( GenerateRandomString() );
+            set.insert(GenerateRandomString());
         }
 
-        return std::vector< std::string >( set.begin(), set.end() );
+        return std::vector< std::string >(set.begin(), set.end());
     }
 
 
     inline S32 GenerateRandomS32()
     {
-        static std::default_random_engine generator = std::default_random_engine( TEST_RANDOM_SEED );
-        static std::uniform_int_distribution<S32> distribution( std::numeric_limits<S32>::min(),
-                                                                std::numeric_limits<S32>::max() );
-        return distribution( generator );
+        static std::default_random_engine generator = std::default_random_engine(TEST_RANDOM_SEED);
+        static std::uniform_int_distribution<S32> distribution(std::numeric_limits<S32>::min(),
+                                                               std::numeric_limits<S32>::max());
+        return distribution(generator);
     }
 
     template< U32 N >
@@ -202,20 +202,20 @@ namespace Test
     {
         std::unordered_set< S32 > set;
 
-        while ( set.size() < N )
+        while (set.size() < N)
         {
-            set.insert( GenerateRandomS32() );
+            set.insert(GenerateRandomS32());
         }
 
-        return std::vector< S32 >( set.begin(), set.end() );
+        return std::vector< S32 >(set.begin(), set.end());
     }
 
     inline U32 GenerateRandomU32()
     {
-        static std::default_random_engine generator = std::default_random_engine( TEST_RANDOM_SEED );
-        static std::uniform_int_distribution<U32> distribution( std::numeric_limits<U32>::min(),
-                                                                std::numeric_limits<U32>::max() );
-        return distribution( generator );
+        static std::default_random_engine generator = std::default_random_engine(TEST_RANDOM_SEED);
+        static std::uniform_int_distribution<U32> distribution(std::numeric_limits<U32>::min(),
+                                                               std::numeric_limits<U32>::max());
+        return distribution(generator);
     }
 
     template< U32 N >
@@ -223,19 +223,19 @@ namespace Test
     {
         std::unordered_set< U32 > set;
 
-        while ( set.size() < N )
+        while (set.size() < N)
         {
-            set.insert( GenerateRandomS32() );
+            set.insert(GenerateRandomS32());
         }
 
-        return std::vector< U32 >( set.begin(), set.end() );
+        return std::vector< U32 >(set.begin(), set.end());
     }
 
     inline F32 GenerateRandomF32()
     {
-        static std::default_random_engine generator = std::default_random_engine( TEST_RANDOM_SEED );
-        static std::uniform_real_distribution<F32> distribution( -1000000, 1000000 );
-        return distribution( generator );
+        static std::default_random_engine generator = std::default_random_engine(TEST_RANDOM_SEED);
+        static std::uniform_real_distribution<F32> distribution(-1000000, 1000000);
+        return distribution(generator);
     }
 
     template< U32 N >
@@ -243,12 +243,12 @@ namespace Test
     {
         std::unordered_set< F32 > set;
 
-        while ( set.size() < N )
+        while (set.size() < N)
         {
-            set.insert( GenerateRandomS32() );
+            set.insert(GenerateRandomS32());
         }
 
-        return std::vector< F32 >( set.begin(), set.end() );
+        return std::vector< F32 >(set.begin(), set.end());
     }
 
     inline bool GenerateRandomBool()
@@ -258,27 +258,27 @@ namespace Test
         // https://connect.microsoft.com/VisualStudio/feedback/details/811611/std-generate-canonical-does-not-generate-random-number-in-range-0-1#
         // This will hold the same result, however we need more codez, and apparently
         // more documentation.
-        static std::default_random_engine generator = std::default_random_engine( TEST_RANDOM_SEED );
-        static std::uniform_real_distribution<F32> distribution( 0, 1 );
-        return distribution( generator ) > 0.5f;
+        static std::default_random_engine generator = std::default_random_engine(TEST_RANDOM_SEED);
+        static std::uniform_real_distribution<F32> distribution(0, 1);
+        return distribution(generator) > 0.5f;
     }
 
-    inline void GenerateRandomFile( const std::string &path, std::string content = "" )
+    inline void GenerateRandomFile(const std::string &path, std::string content = "")
     {
-        if ( content == "" )
+        if (content == "")
         {
             content = GenerateRandomString() + "\n" + GenerateRandomString() + "\n" + GenerateRandomString();
         }
 
-        ASSERT_FALSE( File::Exists( path ) );
+        ASSERT_FALSE(File::Exists(path));
 
         std::ofstream file;
-        File::WriteOpen( file, path, Path::Type::None );
+        File::WriteOpen(file, path, Path::Type::None);
         file << content;
         file.close();
 
-        ASSERT_TRUE( File::Exists( path ) );
-        ASSERT_EQ( content, File::ReadAllText( path ) );
+        ASSERT_TRUE(File::Exists(path));
+        ASSERT_EQ(content, File::ReadAllText(path));
     }
 }
 

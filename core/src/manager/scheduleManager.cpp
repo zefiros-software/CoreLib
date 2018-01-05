@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,30 +34,30 @@
 #include "config.h"
 
 #if OS_IS_WINDOWS
-__declspec( thread ) ThreadID gThreadID = Thread::InvalidID;
+__declspec(thread) ThreadID gThreadID = Thread::InvalidID;
 #else
 __thread ThreadID gThreadID = Thread::InvalidID;
 #endif
 
 ScheduleManager::ScheduleManager()
-    :  mThreadPool( GetThreadCount(), 1 ),
-       mLoaderHook( &mLoaderQueue ),
-       mLoaderWorker( &mLoaderHook ),
-       mLoaderIsRunning( false )
+    :  mThreadPool(GetThreadCount(), 1),
+       mLoaderHook(&mLoaderQueue),
+       mLoaderWorker(&mLoaderHook),
+       mLoaderIsRunning(false)
 {
 }
 
 void ScheduleManager::OnPreInit()
 {
     mThreadPool.Init();
-    SetCurrentThreadID( Thread::MainThreadID );
+    SetCurrentThreadID(Thread::MainThreadID);
 }
 
 void ScheduleManager::OnRelease()
 {
     mThreadPool.JoinAll();
 
-    if ( mLoaderThread.valid() )
+    if (mLoaderThread.valid())
     {
         mLoaderThread.wait();
     }
@@ -72,7 +72,7 @@ void ScheduleManager::OnUpdate()
     RunMainJobs();
 
     // Let the main thread help
-    RunMainWorkerQueue( &mWorkerQueue );
+    RunMainWorkerQueue(&mWorkerQueue);
 
     mThreadPool.JoinAll();
 
@@ -81,7 +81,7 @@ void ScheduleManager::OnUpdate()
     // workers are clock synchronised so join them
     mThreadPool.JoinAll();
 
-    GetManagers()->event->Post( ThreadingEvent( false ) );
+    GetManagers()->event->Post(ThreadingEvent(false));
 }
 
 void ScheduleManager::OnSynchronise()
@@ -100,28 +100,28 @@ void ScheduleManager::OnProcessEvents()
     RunEventJobs();
 }
 
-bool ScheduleManager::RegisterJob( IThreadExecutable *const job, IThreadExecutable::Type type )
+bool ScheduleManager::RegisterJob(IThreadExecutable *const job, IThreadExecutable::Type type)
 {
-    switch ( type )
+    switch (type)
     {
     case IThreadExecutable::Type::Worker:
-        mWorkerQueue.Push( job );
+        mWorkerQueue.Push(job);
         break;
 
     case IThreadExecutable::Type::Loader:
-        mLoaderQueue.Push( job );
+        mLoaderQueue.Push(job);
         break;
 
     case IThreadExecutable::Type::Main:
-        mMainThreadQueue.Push( job );
+        mMainThreadQueue.Push(job);
         break;
 
     case IThreadExecutable::Type::Synchronisation:
-        mSyncQueue.Push( job );
+        mSyncQueue.Push(job);
         break;
 
     case IThreadExecutable::Type::Event:
-        mEventQueue.Push( job );
+        mEventQueue.Push(job);
         break;
 
     default:
@@ -131,37 +131,37 @@ bool ScheduleManager::RegisterJob( IThreadExecutable *const job, IThreadExecutab
     return true;
 }
 
-bool ScheduleManager::RegisterJob( IThreadExecutable *job, U32 threadGroupID )
+bool ScheduleManager::RegisterJob(IThreadExecutable *job, U32 threadGroupID)
 {
-    auto it = mWorkerThreadGroups.find( threadGroupID );
+    auto it = mWorkerThreadGroups.find(threadGroupID);
 
-    if ( it == mWorkerThreadGroups.end() )
+    if (it == mWorkerThreadGroups.end())
     {
         JobQueue queue;
-        queue.Push( job );
-        mWorkerThreadGroups.emplace( threadGroupID, std::move( queue ) );
+        queue.Push(job);
+        mWorkerThreadGroups.emplace(threadGroupID, std::move(queue));
     }
     else
     {
-        it->second.Push( job );
+        it->second.Push(job);
     }
 
     return true;
 }
 
-bool ScheduleManager::RegisterSynchronisationJob( IThreadExecutable *job, U32 threadGroupID )
+bool ScheduleManager::RegisterSynchronisationJob(IThreadExecutable *job, U32 threadGroupID)
 {
-    auto it = mSyncThreadGroups.find( threadGroupID );
+    auto it = mSyncThreadGroups.find(threadGroupID);
 
-    if ( it == mSyncThreadGroups.end() )
+    if (it == mSyncThreadGroups.end())
     {
         JobQueue queue;
-        queue.Push( job );
-        mSyncThreadGroups.emplace( threadGroupID, std::move( queue ) );
+        queue.Push(job);
+        mSyncThreadGroups.emplace(threadGroupID, std::move(queue));
     }
     else
     {
-        it->second.Push( job );
+        it->second.Push(job);
     }
 
     return true;
@@ -169,30 +169,30 @@ bool ScheduleManager::RegisterSynchronisationJob( IThreadExecutable *job, U32 th
 
 void ScheduleManager::RunLoaderJobs()
 {
-    if ( !mLoaderIsRunning )
+    if (!mLoaderIsRunning)
     {
         mLoaderQueue.Flush();
 
-        if ( mLoaderQueue.Size() > 0 )
+        if (mLoaderQueue.Size() > 0)
         {
             mLoaderIsRunning = true;
 
             try
             {
-                mLoaderThread = std::async( std::launch::async, &Worker::RunJobs, mLoaderWorker, Thread::LoaderID );
+                mLoaderThread = std::async(std::launch::async, &Worker::RunJobs, mLoaderWorker, Thread::LoaderID);
             }
-            catch ( const std::error_code & )
+            catch (const std::error_code &)
             {
-                mLoaderWorker.RunJobs( Thread::FailedLoaderID );
+                mLoaderWorker.RunJobs(Thread::FailedLoaderID);
                 mLoaderIsRunning = false;
             }
         }
 
     }
 
-    if ( mLoaderThread.valid() )
+    if (mLoaderThread.valid())
     {
-        switch ( mLoaderThread.wait_for( std::chrono::seconds( 0 ) ) )
+        switch (mLoaderThread.wait_for(std::chrono::seconds(0)))
         {
         case std::future_status::ready:
             mLoaderIsRunning = false;
@@ -215,47 +215,47 @@ void ScheduleManager::RunLoaderJobs()
 
 void ScheduleManager::RunWorkerThreadGroupJobs()
 {
-    RunThreadGroups( mWorkerThreadGroups );
+    RunThreadGroups(mWorkerThreadGroups);
 }
 
 void ScheduleManager::RunSynchronisationThreadGroupJobs()
 {
-    RunThreadGroups( mSyncThreadGroups );
+    RunThreadGroups(mSyncThreadGroups);
 }
 
 U32 ScheduleManager::GetThreadCount()
 {
-    return std::min< U32 >( std::max< U32 >( std::thread::hardware_concurrency(), 2 ) - 1, PROGRAM_MAX_THREADS );
+    return std::min< U32 >(std::max< U32 >(std::thread::hardware_concurrency(), 2) - 1, PROGRAM_MAX_THREADS);
 }
 
 void ScheduleManager::RunMainJobs()
 {
     mMainThreadQueue.Flush();
 
-    RunMainWorkerQueue( &mMainThreadQueue );
+    RunMainWorkerQueue(&mMainThreadQueue);
 }
 
 void ScheduleManager::RunWorkerJobs()
 {
     mWorkerQueue.Flush();
-    mThreadPool.Run( &mWorkerQueue );
+    mThreadPool.Run(&mWorkerQueue);
 
-    GetManagers()->event->Post( ThreadingEvent( true ) );
+    GetManagers()->event->Post(ThreadingEvent(true));
 }
 
 void ScheduleManager::RunEventJobs()
 {
     mEventQueue.Flush();
 
-    RunMainWorkerQueue( &mEventQueue );
+    RunMainWorkerQueue(&mEventQueue);
 }
 
 void ScheduleManager::RunSynchronisationJobs()
 {
     mSyncQueue.Flush();
-    mThreadPool.Run( &mSyncQueue );
+    mThreadPool.Run(&mSyncQueue);
 
-    RunMainWorkerQueue( &mSyncQueue );
+    RunMainWorkerQueue(&mSyncQueue);
 }
 
 U32 ScheduleManager::GetMainThreadID()
@@ -263,10 +263,10 @@ U32 ScheduleManager::GetMainThreadID()
     return Thread::MainThreadID;
 }
 
-void ScheduleManager::RunMainWorkerQueue( JobQueue *queue ) const
+void ScheduleManager::RunMainWorkerQueue(JobQueue *queue) const
 {
-    Worker mainThreadWorker( &queue );
-    mainThreadWorker.RunJobs( Thread::MainThreadID );
+    Worker mainThreadWorker(&queue);
+    mainThreadWorker.RunJobs(Thread::MainThreadID);
 }
 
 ThreadID ScheduleManager::GetCurrentThreadID()
@@ -274,23 +274,23 @@ ThreadID ScheduleManager::GetCurrentThreadID()
     return gThreadID;
 }
 
-void ScheduleManager::SetCurrentThreadID( const ThreadID threadID )
+void ScheduleManager::SetCurrentThreadID(const ThreadID threadID)
 {
     gThreadID = threadID;
 }
 
-void ScheduleManager::RunThreadGroups( std::unordered_map< U32, JobQueue > &queues )
+void ScheduleManager::RunThreadGroups(std::unordered_map< U32, JobQueue > &queues)
 {
-    for ( auto &job : queues )
+    for (auto &job : queues)
     {
         JobQueue *queue = &job.second;
 
         queue->Flush();
 
-        if ( queue->Size() > 0 )
+        if (queue->Size() > 0)
         {
-            mThreadPool.Run( queue );
-            RunMainWorkerQueue( queue );
+            mThreadPool.Run(queue);
+            RunMainWorkerQueue(queue);
 
             mThreadPool.JoinAll();
         }

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,26 +37,26 @@ class Observer
 public:
 
     Observer()
-        : mObject( nullptr ),
-          mMethod( nullptr )
+        : mObject(nullptr),
+          mMethod(nullptr)
     {
     }
 
     template< typename tC2 >
-    Observer( tC *const object, void ( tC2:: * method )( const tN & ) )
-        : mObject( object ),
-          mMethod( static_cast< void ( tC::* )( const tN & ) >( method ) )
+    Observer(tC *const object, void (tC2:: * method)(const tN &))
+        : mObject(object),
+          mMethod(static_cast< void (tC::*)(const tN &) >(method))
     {
     }
 
-    Observer( const Observer &observer )
-        : AbstractObserver( observer ),
-          mObject( observer.mObject ),
-          mMethod( observer.mMethod )
+    Observer(const Observer &observer)
+        : AbstractObserver(observer),
+          mObject(observer.mObject),
+          mMethod(observer.mMethod)
     {
     }
 
-    Observer &operator=( const Observer &observer )
+    Observer &operator=(const Observer &observer)
     {
         mObject = observer.mObject;
         mMethod = observer.mMethod;
@@ -64,27 +64,27 @@ public:
         return *this;
     }
 
-    void Notify( const tN &event ) const
+    void Notify(const tN &event) const
     {
-        if ( mObject && mMethod )
+        if (mObject && mMethod)
         {
-            ( mObject->*mMethod )( event );
+            (mObject->*mMethod)(event);
         }
     }
 
-    virtual void Notify( const IEvent &event ) const override
+    virtual void Notify(const IEvent &event) const override
     {
-        Notify( static_cast<const tN &>( event ) );
+        Notify(static_cast<const tN &>(event));
     }
 
-    virtual bool operator==( const AbstractObserver &other ) const override
+    virtual bool operator==(const AbstractObserver &other) const override
     {
         return other.GetObject() == GetObject();
     }
 
-    virtual bool operator!=( const AbstractObserver &other ) const override
+    virtual bool operator!=(const AbstractObserver &other) const override
     {
-        return !( *this == other );
+        return !(*this == other);
     }
 
 protected:
@@ -97,7 +97,7 @@ protected:
 private:
 
     tC *mObject;
-    void ( tC::*mMethod )( const tN & );
+    void (tC::*mMethod)(const tN &);
 };
 
 template< typename tC >
@@ -107,25 +107,25 @@ class Observer< tC, void >
 public:
 
     Observer()
-        : mObject( nullptr ),
-          mMethod( nullptr )
+        : mObject(nullptr),
+          mMethod(nullptr)
     {
     }
 
-    Observer( tC *const object, void ( tC::*method )() )
-        : mObject( object ),
-          mMethod( method )
+    Observer(tC *const object, void (tC::*method)())
+        : mObject(object),
+          mMethod(method)
     {
     }
 
-    Observer( const Observer &observer )
-        : AbstractObserver( observer ),
-          mObject( observer.mObject ),
-          mMethod( observer.mMethod )
+    Observer(const Observer &observer)
+        : AbstractObserver(observer),
+          mObject(observer.mObject),
+          mMethod(observer.mMethod)
     {
     }
 
-    Observer &operator=( const Observer &observer )
+    Observer &operator=(const Observer &observer)
     {
         mObject = observer.mObject;
         mMethod = observer.mMethod;
@@ -135,25 +135,25 @@ public:
 
     void Notify() const
     {
-        if ( mObject && mMethod )
+        if (mObject && mMethod)
         {
-            ( mObject->*mMethod )();
+            (mObject->*mMethod)();
         }
     }
 
-    virtual void Notify( const IEvent & ) const override
+    virtual void Notify(const IEvent &) const override
     {
         Notify();
     }
 
-    virtual bool operator==( const AbstractObserver &other ) const override
+    virtual bool operator==(const AbstractObserver &other) const override
     {
         return other.GetObject() == GetObject();
     }
 
-    virtual bool operator!=( const AbstractObserver &other ) const override
+    virtual bool operator!=(const AbstractObserver &other) const override
     {
-        return !( *this == other );
+        return !(*this == other);
     }
 
 protected:
@@ -166,7 +166,7 @@ protected:
 private:
 
     tC *mObject;
-    void ( tC::*mMethod )();
+    void (tC::*mMethod)();
 };
 
 #endif

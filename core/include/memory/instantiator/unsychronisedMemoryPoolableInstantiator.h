@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,8 +37,8 @@ class UnsynchronisedMemoryPoolableInstantiator
 {
 public:
 
-    UnsynchronisedMemoryPoolableInstantiator( size_t blocksize = 1000, size_t maxBlocks = 1000 ) noexcept
-        : mMemoryPool( blocksize, maxBlocks )
+    UnsynchronisedMemoryPoolableInstantiator(size_t blocksize = 1000, size_t maxBlocks = 1000) noexcept
+        : mMemoryPool(blocksize, maxBlocks)
     {
     }
 
@@ -47,14 +47,14 @@ public:
         return mMemoryPool.Create();
     }
 
-    virtual void Destroy( tBase *object ) override
+    virtual void Destroy(tBase *object) override
     {
-        mMemoryPool.Destroy( object );
+        mMemoryPool.Destroy(object);
     }
 
     virtual AbstractInstantiator *Copy() override
     {
-        return new UnsynchronisedMemoryPoolableInstantiator< tT, tBase >( mMemoryPool.mBlockSize, mMemoryPool.mMaxBlocks );
+        return new UnsynchronisedMemoryPoolableInstantiator< tT, tBase >(mMemoryPool.mBlockSize, mMemoryPool.mMaxBlocks);
     }
 
 private:

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,15 +27,15 @@
 #include "manager/eventManager.h"
 
 EventManager::EventManager()
-    : mClassIDCounter( 0 )
+    : mClassIDCounter(0)
 {
 }
 
 void EventManager::OnRelease()
 {
-    for ( auto &observers : mOberservers )
+    for (auto &observers : mOberservers)
     {
-        for ( auto it = observers.second.begin(), end = observers.second.end(); it != end; ++it )
+        for (auto it = observers.second.begin(), end = observers.second.end(); it != end; ++it)
         {
             delete *it;
         }

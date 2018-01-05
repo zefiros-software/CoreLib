@@ -30,30 +30,30 @@
 
 namespace
 {
-    TEST( ApplicationManager, Sanity )
+    TEST(ApplicationManager, Sanity)
     {
         ApplicationManager m;
-        EXPECT_TRUE( m.IsRunning() );
-        EXPECT_TRUE( m.IsActive() );
+        EXPECT_TRUE(m.IsRunning());
+        EXPECT_TRUE(m.IsActive());
     }
 
-    TEST( ApplicationManager, Quit )
+    TEST(ApplicationManager, Quit)
     {
         ApplicationManager m;
         m.Quit();
-        EXPECT_FALSE( m.IsRunning() );
-        EXPECT_TRUE( m.IsActive() );
+        EXPECT_FALSE(m.IsRunning());
+        EXPECT_TRUE(m.IsActive());
     }
 
-    TEST( ApplicationManager, OnInit )
+    TEST(ApplicationManager, OnInit)
     {
         ApplicationManager m;
         m.OnInit();
     }
 
-    TEST( ApplicationManager, IsDebug )
+    TEST(ApplicationManager, IsDebug)
     {
         ApplicationManager m;
-        EXPECT_EQ( ( bool )IS_DEBUG, m.IsDebug() );
+        EXPECT_EQ((bool)IS_DEBUG, m.IsDebug());
     }
 }

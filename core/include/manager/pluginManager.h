@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,17 +62,17 @@ public:
     {
         tT *p = new tT();
         const std::string name = GetName< tT >();
-        p->SetName( name );
-        StorePlugin( PluginInfo{ p, typeid( tT )}, "static", name );
+        p->SetName(name);
+        StorePlugin(PluginInfo{ p, typeid(tT)}, "static", name);
         return p;
     }
 
-    void SetBlackList( const std::set< std::string > &blacklist );
+    void SetBlackList(const std::set< std::string > &blacklist);
 
     template< typename tT >
-    static std::string GetName( tT * = nullptr )
+    static std::string GetName(tT * = nullptr)
     {
-        Console::Error( LOG( "This should never be called, make sure you have the correct includes!" ) );
+        Console::Error(LOG("This should never be called, make sure you have the correct includes!"));
         return "";
     }
 
@@ -82,19 +82,19 @@ private:
     std::set< std::string > mBlacklist;
     std::set< std::string > mAreLoaded;
 
-    void LoadPlugins( const std::vector< std::string > &plugins );
+    void LoadPlugins(const std::vector< std::string > &plugins);
 
-    bool LoadPlugin( boost::dll::shared_library *lib, std::string pluginName, std::string plugin );
+    bool LoadPlugin(boost::dll::shared_library *lib, std::string pluginName, std::string plugin);
 
-    void StorePlugin( const PluginInfo &info, std::string plugin, std::string pluginName );
+    void StorePlugin(const PluginInfo &info, std::string plugin, std::string pluginName);
 
-    bool IsBlacklisted( const std::string &name ) const;
+    bool IsBlacklisted(const std::string &name) const;
 
-    bool IsLoaded( const std::string &name ) const;
+    bool IsLoaded(const std::string &name) const;
 
-    static std::string GetName( const std::string &plugin );
+    static std::string GetName(const std::string &plugin);
 
-    static std::string GetLoadFunction( const std::string &fileName );
+    static std::string GetLoadFunction(const std::string &fileName);
 
     static std::vector< std::string > FindPlugins();
 

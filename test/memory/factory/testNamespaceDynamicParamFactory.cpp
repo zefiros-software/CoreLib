@@ -35,8 +35,8 @@ namespace
     {
     public:
 
-        Base( U32 param )
-            : mValue( param )
+        Base(U32 param)
+            : mValue(param)
         {
 
         }
@@ -65,8 +65,8 @@ namespace
     {
     public:
 
-        Child( U32 param )
-            : Base( param )
+        Child(U32 param)
+            : Base(param)
         {
         }
 
@@ -78,40 +78,40 @@ namespace
 
     typedef NamespaceDynamicParamFactory< U32, Base, U32 > NamespaceDynamicParamFactoryImpl;
 
-    TEST( NamespaceDynamicParamFactory, SanityCheck )
+    TEST(NamespaceDynamicParamFactory, SanityCheck)
     {
         volatile NamespaceDynamicParamFactoryImpl factory;
     }
 
-    TEST( NamespaceDynamicParamFactory, CreateInstanceNone )
+    TEST(NamespaceDynamicParamFactory, CreateInstanceNone)
     {
         NamespaceDynamicParamFactoryImpl factory;
 
-        EXPECT_EQ( NULL, factory.Create( 0, 0 ) );
+        EXPECT_EQ(NULL, factory.Create(0, 0));
     }
 
-    TEST( NamespaceDynamicParamFactory, Create )
+    TEST(NamespaceDynamicParamFactory, Create)
     {
         NamespaceDynamicParamFactoryImpl factory;
-        factory.Register< Base >( 0 );
-        factory.Register< Child >( 1 );
+        factory.Register< Base >(0);
+        factory.Register< Child >(1);
 
-        Base *base = factory.Create( 0, 42 );
-        Base *base2 = factory.Create( 0, 0 );
-        Base *child = factory.Create( 1, 42 );
-        Base *child2 = factory.Create( 1, 0 );
+        Base *base = factory.Create(0, 42);
+        Base *base2 = factory.Create(0, 0);
+        Base *child = factory.Create(1, 42);
+        Base *child2 = factory.Create(1, 0);
 
-        EXPECT_FALSE( base->IsDerived() );
-        EXPECT_EQ( 42u, base->GetValue() );
+        EXPECT_FALSE(base->IsDerived());
+        EXPECT_EQ(42u, base->GetValue());
 
-        EXPECT_FALSE( base2->IsDerived() );
-        EXPECT_EQ( 0u, base2->GetValue() );
+        EXPECT_FALSE(base2->IsDerived());
+        EXPECT_EQ(0u, base2->GetValue());
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 42u, child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(42u, child->GetValue());
 
-        EXPECT_TRUE( child2->IsDerived() );
-        EXPECT_EQ( 0u, child2->GetValue() );
+        EXPECT_TRUE(child2->IsDerived());
+        EXPECT_EQ(0u, child2->GetValue());
 
         delete base;
         delete base2;

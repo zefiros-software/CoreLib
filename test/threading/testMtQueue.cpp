@@ -31,34 +31,34 @@
 
 namespace
 {
-    TEST( MtQueue, SanityCheck )
+    TEST(MtQueue, SanityCheck)
     {
         MtQueue< U32 > a;
-        EXPECT_EQ( 0u, a.Size() );
-        EXPECT_TRUE( a.Empty() );
+        EXPECT_EQ(0u, a.Size());
+        EXPECT_TRUE(a.Empty());
     }
 
-    TEST( MtQueue, Push )
+    TEST(MtQueue, Push)
     {
         MtQueue< U32 > a;
-        a.Push( 51 );
-        EXPECT_EQ( 1u, a.Size() );
-        EXPECT_FALSE( a.Empty() );
+        a.Push(51);
+        EXPECT_EQ(1u, a.Size());
+        EXPECT_FALSE(a.Empty());
     }
 
-    TEST( MtQueue, WaitAndPop )
+    TEST(MtQueue, WaitAndPop)
     {
         MtQueue< U32 > a;
-        a.Push( 51 );
-        EXPECT_EQ( 51u, a.WaitAndPop() );
+        a.Push(51);
+        EXPECT_EQ(51u, a.WaitAndPop());
     }
 
-    TEST( MtQueue, TryPop )
+    TEST(MtQueue, TryPop)
     {
         MtQueue< U32 > a;
-        a.Push( 51 );
+        a.Push(51);
         U32 val;
-        EXPECT_TRUE( a.TryPop( val ) );
-        EXPECT_EQ( 51u, val );
+        EXPECT_TRUE(a.TryPop(val));
+        EXPECT_EQ(51u, val);
     }
 }

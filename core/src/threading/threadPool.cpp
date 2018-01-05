@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,34 +29,34 @@
 #include "threading/worker.h"
 
 
-ThreadPool::ThreadPool( const U32 capacity /*= 16*/, const U32 startThreadID /*= 0 */ ) noexcept
-    : mQueueHook( nullptr ),
-      mLastQueueSize( 0 ),
-      mStartThreadID( startThreadID )
+ThreadPool::ThreadPool(const U32 capacity /*= 16*/, const U32 startThreadID /*= 0 */) noexcept
+    : mQueueHook(nullptr),
+      mLastQueueSize(0),
+      mStartThreadID(startThreadID)
 {
-    mWorkers.resize( capacity, Worker( &mQueueHook ) );
-    mThreads.reserve( capacity );
+    mWorkers.resize(capacity, Worker(&mQueueHook));
+    mThreads.reserve(capacity);
 }
 
 ThreadPool::~ThreadPool() noexcept
 {
-    std::unique_lock<std::mutex> lock( mMutex );
+    std::unique_lock<std::mutex> lock(mMutex);
 
     //set safe to nullptr
     mQueueHook = nullptr;
 
     lock.unlock();
 
-    for ( auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it )
+    for (auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it)
     {
         it->Terminate();
     }
 
     mNotification.notify_all();
 
-    for ( auto it = mThreads.begin(), end = mThreads.end(); it != end; ++it )
+    for (auto it = mThreads.begin(), end = mThreads.end(); it != end; ++it)
     {
-        if ( it->joinable() )
+        if (it->joinable())
         {
             it->join();
         }
@@ -67,15 +67,15 @@ void ThreadPool::Init()
 {
     U32 threadID = mStartThreadID;
 
-    for ( auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it, ++threadID )
+    for (auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it, ++threadID)
     {
         try
         {
-            mThreads.emplace_back( std::thread( &Worker::OnPooledRun, it,
-                                                std::make_pair( &mNotification, &mMutex ),
-                                                std::make_pair( &mRespond, &mRespondMutex ), threadID ) );
+            mThreads.emplace_back(std::thread(&Worker::OnPooledRun, it,
+                                              std::make_pair(&mNotification, &mMutex),
+                                              std::make_pair(&mRespond, &mRespondMutex), threadID));
         }
-        catch ( const std::system_error & )
+        catch (const std::system_error &)
         {
         }
     }
@@ -83,9 +83,9 @@ void ThreadPool::Init()
 
 bool ThreadPool::IsRunning() const noexcept
 {
-    for ( auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it )
+    for (auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it)
     {
-        if ( ( *it ).IsRunning() )
+        if ((*it).IsRunning())
         {
             return true;
         }
@@ -94,18 +94,18 @@ bool ThreadPool::IsRunning() const noexcept
     return false;
 }
 
-void ThreadPool::Run( JobQueue *jobs )
+void ThreadPool::Run(JobQueue *jobs)
 {
-    std::unique_lock<std::mutex> lock( mMutex );
+    std::unique_lock<std::mutex> lock(mMutex);
 
-    if ( ( mLastQueueSize = jobs->Size() ) > 0 )
+    if ((mLastQueueSize = jobs->Size()) > 0)
     {
         mQueueHook = jobs;
 
         //Do a manual activation to make sure the isRunning is set on time!
-        for ( auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it )
+        for (auto it = mWorkers.begin(), end = mWorkers.end(); it != end; ++it)
         {
-            ( *it ).Activate();
+            (*it).Activate();
         }
 
         mNotification.notify_all();
@@ -114,13 +114,13 @@ void ThreadPool::Run( JobQueue *jobs )
 
 void ThreadPool::JoinAll()
 {
-    std::unique_lock<std::mutex> lock( mRespondMutex );
+    std::unique_lock<std::mutex> lock(mRespondMutex);
 
-    if ( mLastQueueSize > 0 )
+    if (mLastQueueSize > 0)
     {
-        while ( IsRunning() )
+        while (IsRunning())
         {
-            mRespond.wait( lock );
+            mRespond.wait(lock);
         }
     }
 }

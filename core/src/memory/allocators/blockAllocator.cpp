@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,27 +26,27 @@
 #include "memory/allocators/blockAllocator.h"
 
 
-BlockAllocator::BlockAllocator( size_t blockSize )
-    : mBlocks( 1, StackAllocator( blockSize ) ),
-      mBlockSize( blockSize ),
-      mBlockPosition( 0 )
+BlockAllocator::BlockAllocator(size_t blockSize)
+    : mBlocks(1, StackAllocator(blockSize)),
+      mBlockSize(blockSize),
+      mBlockPosition(0)
 {
 
 }
 
-void BlockAllocator::BlockAdvance( size_t bytes )
+void BlockAllocator::BlockAdvance(size_t bytes)
 {
     //determine if we can accomodate this item in the current block
-    if ( !mBlocks[mBlockPosition].FitsInStack( bytes ) )
+    if (!mBlocks[mBlockPosition].FitsInStack(bytes))
     {
         //advance the block
         mBlockPosition++;
-        mBlocks.push_back( StackAllocator( mBlockSize ) );
+        mBlocks.push_back(StackAllocator(mBlockSize));
     }
 }
 
-BlockAllocator::BlockLocation BlockAllocator::GenerateBlockLocation( StackAllocator::StackLocation stackLoc ) const
+BlockAllocator::BlockLocation BlockAllocator::GenerateBlockLocation(StackAllocator::StackLocation stackLoc) const
 {
     //patch the location to deal with the block advance
-    return stackLoc + ( mBlockPosition * mBlockSize );
+    return stackLoc + (mBlockPosition * mBlockSize);
 }

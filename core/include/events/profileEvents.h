@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +38,7 @@ class ProfileEvent
 {
 public:
 
-    ProfileEvent( const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept;
+    ProfileEvent(const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time) noexcept;
 
     std::string GetName() const noexcept;
 
@@ -55,8 +55,8 @@ class ProfileStartEvent
 {
 public:
 
-    ProfileStartEvent( const std::string &name,
-                       std::chrono::time_point< std::chrono::high_resolution_clock > time ) noexcept;
+    ProfileStartEvent(const std::string &name,
+                      std::chrono::time_point< std::chrono::high_resolution_clock > time) noexcept;
 };
 
 class ProfileEndEvent
@@ -64,8 +64,8 @@ class ProfileEndEvent
 {
 public:
 
-    ProfileEndEvent( const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                     std::chrono::microseconds duration ) noexcept;
+    ProfileEndEvent(const std::string &name, std::chrono::time_point< std::chrono::high_resolution_clock > time,
+                    std::chrono::microseconds duration) noexcept;
 
     std::chrono::microseconds GetDuration() const noexcept;
 
@@ -80,9 +80,9 @@ class ProfileWaypointEvent
 {
 public:
 
-    ProfileWaypointEvent( const std::string &name, const std::string &comment,
-                          std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                          std::chrono::microseconds duration ) noexcept;
+    ProfileWaypointEvent(const std::string &name, const std::string &comment,
+                         std::chrono::time_point< std::chrono::high_resolution_clock > time,
+                         std::chrono::microseconds duration) noexcept;
 
 
     std::string GetCommment() const noexcept;
@@ -98,8 +98,8 @@ class ProfileUpdateEvent
 {
 public:
 
-    ProfileUpdateEvent( std::chrono::time_point< std::chrono::high_resolution_clock > time,
-                        std::chrono::microseconds duration ) noexcept;
+    ProfileUpdateEvent(std::chrono::time_point< std::chrono::high_resolution_clock > time,
+                       std::chrono::microseconds duration) noexcept;
 
     std::chrono::time_point< std::chrono::high_resolution_clock > GetTime() const noexcept;
 

@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -77,7 +77,7 @@ namespace Hash
      *    http://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function.
      */
 
-    U32 Fnv1a( const char *str ) noexcept;
+    U32 Fnv1a(const char *str) noexcept;
 
     /**
      * Combine two hashes to a new hash.
@@ -92,7 +92,7 @@ namespace Hash
      *
      * @snippet testUtil.cpp HashCombine
      */
-    size_t Combine( size_t seed, size_t val ) noexcept;
+    size_t Combine(size_t seed, size_t val) noexcept;
 }
 
 /// @}

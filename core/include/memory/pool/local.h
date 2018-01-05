@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,9 +55,9 @@ public:
      * @param   ns                      (optional) the namespace.
      */
 
-    explicit Local( ManagerHolder *const managerHolder, Namespace ns = 0u )
+    explicit Local(ManagerHolder *const managerHolder, Namespace ns = 0u)
     {
-        mPool = managerHolder->pool->Get< tT >( ns );
+        mPool = managerHolder->pool->Get< tT >(ns);
         mPooledObject = mPool->Get();
     }
 
@@ -68,7 +68,7 @@ public:
      * @param [in,out]  pool    If non-null, the pool.
      */
 
-    explicit Local( AbstractObjectPool< tBase > *const pool )
+    explicit Local(AbstractObjectPool< tBase > *const pool)
     {
         mPool = pool;
         mPooledObject = mPool->Get();
@@ -81,9 +81,9 @@ public:
      * @param   ns  (optional) the namespace.
      */
 
-    explicit Local( Namespace ns = 0u )
+    explicit Local(Namespace ns = 0u)
     {
-        mPool = SystemManager::Get()->GetManagers()->pool->Get< tT >( ns );
+        mPool = SystemManager::Get()->GetManagers()->pool->Get< tT >(ns);
         mPooledObject = mPool->Get();
     }
 
@@ -93,7 +93,7 @@ public:
 
     ~Local()
     {
-        if ( mPooledObject )
+        if (mPooledObject)
         {
             Dispose();
         }
@@ -109,7 +109,7 @@ public:
 
     void Dispose()
     {
-        mPool->Dispose( mPooledObject );
+        mPool->Dispose(mPooledObject);
         mPooledObject = nullptr;
     }
 

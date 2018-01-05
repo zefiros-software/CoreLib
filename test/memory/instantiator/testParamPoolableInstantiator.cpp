@@ -36,12 +36,12 @@ namespace
     public:
 
         Base()
-            : mValue( 0 )
+            : mValue(0)
         {
         }
 
-        Base( U32 param )
-            : mValue( param )
+        Base(U32 param)
+            : mValue(param)
         {
         }
 
@@ -80,13 +80,13 @@ namespace
     public:
 
         Child()
-            : mValue( nullptr )
+            : mValue(nullptr)
         {
         }
 
-        Child( U32 param )
-            : Base( param ),
-              mValue( nullptr )
+        Child(U32 param)
+            : Base(param),
+              mValue(nullptr)
         {
 
         }
@@ -103,7 +103,7 @@ namespace
 
         void OnInit() override
         {
-            mValue = new U32( *Base::GetValue() );
+            mValue = new U32(*Base::GetValue());
         }
 
         void OnRelease() override
@@ -118,75 +118,75 @@ namespace
 
     typedef ParamPoolableInstantiator< Child, U32, Base > ParamPoolableInstantiatorImpl;
 
-    TEST( ParamPoolableInstantiator, SanityCheck )
+    TEST(ParamPoolableInstantiator, SanityCheck)
     {
-        volatile ParamPoolableInstantiatorImpl inst( 42u );
+        volatile ParamPoolableInstantiatorImpl inst(42u);
     }
 
-    TEST( ParamPoolableInstantiator, Create )
+    TEST(ParamPoolableInstantiator, Create)
     {
-        ParamPoolableInstantiatorImpl inst( 42u );
+        ParamPoolableInstantiatorImpl inst(42u);
 
         Base *child = inst.Create();
         child->OnInit();
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 42u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(42u, *child->GetValue());
 
         delete child->GetValue();
         delete child;
     }
 
-    TEST( ParamPoolableInstantiator, OnInit )
+    TEST(ParamPoolableInstantiator, OnInit)
     {
-        ParamPoolableInstantiatorImpl inst( 42u );
+        ParamPoolableInstantiatorImpl inst(42u);
 
         Base *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 42u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(42u, *child->GetValue());
 
         delete child->GetValue();
         delete child;
     }
 
-    TEST( ParamPoolableInstantiator, Release )
+    TEST(ParamPoolableInstantiator, Release)
     {
-        ParamPoolableInstantiatorImpl inst( 42u );
+        ParamPoolableInstantiatorImpl inst(42u);
 
         Base *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 42u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(42u, *child->GetValue());
 
-        inst.Release( child );
+        inst.Release(child);
 
         delete child;
     }
 
-    TEST( ParamPoolableInstantiator, Destroy )
+    TEST(ParamPoolableInstantiator, Destroy)
     {
-        ParamPoolableInstantiatorImpl inst( 42u );
+        ParamPoolableInstantiatorImpl inst(42u);
 
         Base *child = inst.Create();
 
-        inst.Initialise( child );
+        inst.Initialise(child);
 
-        EXPECT_TRUE( child->IsDerived() );
-        EXPECT_EQ( 42u, *child->GetValue() );
+        EXPECT_TRUE(child->IsDerived());
+        EXPECT_EQ(42u, *child->GetValue());
 
-        inst.Release( child );
+        inst.Release(child);
 
-        inst.Destroy( child );
+        inst.Destroy(child);
     }
 
-    TEST( ParamPoolableInstantiator, Copy )
+    TEST(ParamPoolableInstantiator, Copy)
     {
-        ParamPoolableInstantiatorImpl instantiator( 42 );
+        ParamPoolableInstantiatorImpl instantiator(42);
         delete instantiator.Copy();
     }
 

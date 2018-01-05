@@ -1,7 +1,7 @@
 /**
  * @cond ___LICENSE___
  *
- * Copyright (c) 2017 Zefiros Software
+ * Copyright (c) 2016-2018 Zefiros Software.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,16 +53,16 @@ public:
 
     ParamInstantiator() noexcept
     {
-        static_assert( Util::IsChildParent< tT, tBase >::value,
-                       "ParamInstantiator::ParamInstantiator():\n\tThe child type should derive from the base type." );
+        static_assert(Util::IsChildParent< tT, tBase >::value,
+                      "ParamInstantiator::ParamInstantiator():\n\tThe child type should derive from the base type.");
     }
 
     /// @name Object creation
     /// @{
 
-    virtual tBase *Create( const tParam &param ) override
+    virtual tBase *Create(const tParam &param) override
     {
-        return new tT( param );
+        return new tT(param);
     }
 
     /// @}
