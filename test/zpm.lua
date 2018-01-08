@@ -46,11 +46,7 @@ workspace "CoreLib-ZPM"
             
             zpm.uses {
                 "Zefiros-Software/CoreLib"
-            }      
-            
-            zpm.uses {
-                "Zefiros-Software/CoreLib"
-            }          
+            }              
                     
             includedirs {
                 "../core/include/",
