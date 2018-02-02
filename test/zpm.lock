@@ -1,0 +1,77 @@
+{
+  "definition": "./",
+  "optionals": [],
+  "private": {
+    "libraries": [ {
+      "definition": "../",
+      "hash": "LOCAL",
+      "name": "Zefiros-Software/CoreLib",
+      "public": {
+        "libraries": [ {
+          "definition": "https://github.com/Zefiros-Software/Boost.git",
+          "hash": "b143a5b72075f47307a23e680889d8434c8afc54",
+          "name": "Zefiros-Software/Boost",
+          "repository": "https://github.com/boostorg/boost.git",
+          "settings": {
+            "filesystem": true,
+            "programoptions": true
+          },
+          "tag": "boost-1.66.0",
+          "version": "1.66.0",
+          "versionRequirement": ">1.61.0"
+        }, {
+          "definition": "https://github.com/Zefiros-Software/Fmt.git",
+          "hash": "135ab5cf71ed731fc9fa0653051e7d4884a3652f",
+          "name": "Zefiros-Software/Fmt",
+          "repository": "https://github.com/fmtlib/fmt.git",
+          "tag": "4.1.0",
+          "version": "4.1.0",
+          "versionRequirement": "^4.0.0"
+        }, {
+          "definition": "https://github.com/Zefiros-Software/Date.git",
+          "hash": "d9052cffa2014a2bf23f15064c97f57ec042be14",
+          "name": "Zefiros-Software/Date",
+          "repository": "https://github.com/HowardHinnant/date.git",
+          "tag": "v2.4",
+          "version": "2.4",
+          "versionRequirement": "^2.1.0"
+        }, {
+          "definition": "https://github.com/Zefiros-Software/MathLib.git",
+          "hash": "3e8035dd3478334c95752bc3d82364c5b72685d1",
+          "name": "Zefiros-Software/MathLib",
+          "repository": "https://github.com/Zefiros-Software/MathLib.git",
+          "tag": "HEAD",
+          "versionRequirement": "@head"
+        } ]
+      },
+      "repository": "../",
+      "tag": "DIR"
+    } ],
+    "modules": [ {
+      "definition": "https://github.com/Zefiros-Software/ZefirosDefaults.git",
+      "hash": "df8271feedcdca09c201d6c64ec0bb40f4548d65",
+      "name": "Zefiros-Software/Zefiros-Defaults",
+      "public": {
+        "libraries": [ {
+          "definition": "https://github.com/Zefiros-Software/GoogleTest.git",
+          "hash": "3d27bdef53a5783a4150f74414d7636b7a5a3851",
+          "name": "Zefiros-Software/GoogleTest",
+          "repository": "https://github.com/google/googletest.git",
+          "tag": "HEAD",
+          "versionRequirement": "@head || ^1.0.0"
+        }, {
+          "definition": "https://github.com/Zefiros-Software/GoogleBenchmark.git",
+          "hash": "e1c3a83b8197cf02e794f61228461c27d4e78cfb",
+          "name": "Zefiros-Software/GoogleBenchmark",
+          "repository": "https://github.com/google/benchmark.git",
+          "tag": "HEAD",
+          "versionRequirement": "@head"
+        } ]
+      },
+      "repository": "https://github.com/Zefiros-Software/ZefirosDefaults.git",
+      "tag": "HEAD",
+      "versionRequirement": "@head"
+    } ]
+  },
+  "repository": "./"
+}
