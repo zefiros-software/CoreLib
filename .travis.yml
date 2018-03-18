@@ -66,11 +66,11 @@ global:
   - PROJECT=CoreLib
   - PROJECT_DIRECTORY=core
 install:
-- source /dev/stdin <<< "$(curl -s https://raw.githubusercontent.com/Zefiros-Software/ZPM/features/refactor/script/install-zpm.sh)"
+- source /dev/stdin <<< "$(curl -s https://raw.githubusercontent.com/Zefiros-Software/ZPM/dev/script/install-zpm.sh)"
 script:
 - zpm run build-ci-library
 after_success:
 - zpm run deploy-ci-library
 notifications:
   slack:
-    secure: TWijsoFU5A220ya64vPYKuLuthcOz2Ybe4XSWJ5fDQUYv4YVOZVf588o7031RB6Im9sxxWhD0qykyQWZZugAwEjaLYbnCnNjx9k7KoF0IUs2nniD/oUrYgwO4o6o88FwF/z/+uuewteIGYbzVXWEsgzDcoU98f16J/0xCHpYsDVZamvnN0RQpAw9jDRQvK6k5LTz05jNO4xG1C5RwdP5dc/qzxMfGgDOqJzQRCkNZiqtcvyoFMH7lskhOCOcxCFk7P+jb832H0+JWcDH9HNP0d6EefORSLsmP4u9q8rIALuZb7VrZnu8+PdgUTP5BPduXnaaNs0iLxPvGWrN05hD5Y9jrq6pH2/RjPcLqdNWY0tuI1oxDuNh6AbAY02m+6H0JMJaWMOTIggha/mFLYojxVhvqUlqyo6uOtu+i6+YIUgZMDAARKPTc9rd7hRZNUWLxZA0bkMlsIA+QC08PpbBE+/Kbu5Rr4Ei3e+1EJ2I1RJjX3ZujCMTD/WJWXO9gTU5wQG0HNCzcR4I4vaXNpz6cuTcYHzmuY7BpW+v/q1xw+F8+0jg9410jeH+lzdp6jFw75cdI85DEkrlIGElKQToSqAO/hDjruXfOWk2usKOUHNYn1ViDNKVlyuHVFWUqyiMa/xF2w2LqgDIhXY+0yMEwQgfvKp+K9JqVOppAqrts94=
+    secure: akTPZ7Xm1LBGGD6m7etXoWi0GmJbmNEh1MbsQsQScGwIQBJXVbNNLQCT1Wbw1tY4WCu64HnlcdJ/HWbQkusIBmlNHCkqNL6Hske4DcjicCIvCh0q/nPWDcFFDYr8+SzbM+/YqQYbeV0qWexA4EP+2yBXxU3qjVeIk7DMEjKBqLH5eWhCIQpeK+bEHA8g+qohsDgwwIzau5iF1992AbixnSAnAmLT3y1v+gg5av30bH96G8DOgwYJg8QOfUYxBiY5X0CQHmoq12+BB6mpC4AWGIyq3C/7Tqny4/wBkPfcobFlt8ywl1S4C7h1b52mKQRDff/jZgqoIJcFejFI7YLYHZ76OiHvloADVL3lQsegUO3uiWPHZm/nuTOUIE+2l2QmfFGgLnV3W8cOY+jCGlDc42z2WwFGw0I2kyCvujWrmyKp4sp41YIDNxdPP2jkTnTCAUWcvmxeWQsV6MEAawyUrKskJXAOZoK0xgtiz0+o8VCocJx+ThD3VLaSFT/FbBdHAZsFw+scccK/eq9wwl7GuNTN7sF05jHbGR08LHaChpYqwh9YyXs/pJkDR/3COpEfJRIcpP14Y41u4OgT/vVDuLlyr1IVN8Dgu4+5ZBt9QavbQdQDDwI+B0kJtVNwd2cGyMy4iM+xyKRZr4hhf692p8BVI6mFChxajmRoTDGXcwc=
