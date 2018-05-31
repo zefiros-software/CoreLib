@@ -43,7 +43,7 @@
 
 template < typename tT, typename tBase = tT >
 class Local
-    : NonCopyable < Local< tT, tBase > >
+    : NonCopyable < Local< tT, tBase >>
 {
 public:
 

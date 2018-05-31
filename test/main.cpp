@@ -23,7 +23,7 @@
  *
  * @endcond
  */
- 
+
 #include "manager/systemManager.h"
 
 

@@ -57,14 +57,14 @@ public:
     AbstractObjectPool< tBase > *AddFromFactory(const Namespace ns = 0U, size_t capacity = 500)
     {
         const std::type_index typeID = typeid(tT);
-        ObjectPool< tT, tBase, AbstractPoolableInstantiator<tBase> > *pool = nullptr;
+        ObjectPool< tT, tBase, AbstractPoolableInstantiator<tBase>> *pool = nullptr;
 
         if (!mPools.Has(typeID, ns))
         {
             AbstractPoolableInstantiator<tBase> *inst = static_cast< AbstractPoolableInstantiator<tBase> *>
                                                         (GetManagers()->factory->Get< tT >()->Copy());
 
-            pool = new ObjectPool< tT, tBase, AbstractPoolableInstantiator<tBase> >(inst, capacity);
+            pool = new ObjectPool< tT, tBase, AbstractPoolableInstantiator<tBase>>(inst, capacity);
             mPools.Add(pool, typeID, ns);
         }
         else
@@ -75,7 +75,7 @@ public:
         return pool;
     }
 
-    template< typename tT, typename tBase = tT, typename tInstantiator = PoolableInstantiator< tT, tBase > >
+    template< typename tT, typename tBase = tT, typename tInstantiator = PoolableInstantiator< tT, tBase >>
     AbstractObjectPool< tBase > *Add(const Namespace ns = 0U, size_t capacity = 500)
     {
         const std::type_index typeID = typeid(tT);

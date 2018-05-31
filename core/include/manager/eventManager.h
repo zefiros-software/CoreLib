@@ -110,7 +110,7 @@ public:
 
 private:
 
-    std::unordered_map< U32, std::vector< AbstractObserver * > > mOberservers;
+    std::unordered_map< U32, std::vector< AbstractObserver * >> mOberservers;
     std::unordered_map< std::type_index, U32 > mClassIDCache;
 
     SpinLock mClassIDLock;

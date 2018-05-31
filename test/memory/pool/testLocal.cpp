@@ -73,7 +73,7 @@ namespace
         std::size_t mReturnedCount;
     };
 
-    typedef ObjectPool< U32, U32, SimplePoolableInstantiator< U32, U32 > > U32Pool;
+    typedef ObjectPool< U32, U32, SimplePoolableInstantiator< U32, U32 >> U32Pool;
 
     TEST(Local, DefaultConstruction)
     {
@@ -83,7 +83,7 @@ namespace
         PoolManager *const poolMngr = holder->pool;
 
         U32Pool *const pool = static_cast< U32Pool * >
-                              (poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32> >());
+                              (poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32>>());
 
         {
             Local< U32 > local;
@@ -103,7 +103,7 @@ namespace
         PoolManager *const poolMngr = holder->pool;
 
         U32Pool *const pool = static_cast< U32Pool * >
-                              (poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32 > >());
+                              (poolMngr->Add< U32, U32, SimplePoolableInstantiator< U32, U32 >>());
 
         {
             Local< U32 > local(holder);

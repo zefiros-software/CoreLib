@@ -398,13 +398,13 @@ public:
 private:
 
     // Holds the objects stored under the full addin namespace.
-    std::unordered_map< Namespace, std::unordered_map< tName, tStoredType * > > mAddinObjects;
+    std::unordered_map< Namespace, std::unordered_map< tName, tStoredType * >> mAddinObjects;
 
     // Holds the objects stored directly under the plugin namespace.
-    std::unordered_map< Namespace, std::unordered_map< tName, tStoredType * > > mPluginObjects;
+    std::unordered_map< Namespace, std::unordered_map< tName, tStoredType * >> mPluginObjects;
 
     // Holds the addin namespaces per plugin namespace, so we know what plugins have what addins.
-    std::unordered_map< Namespace, std::unordered_set< Namespace > > mPluginAddins;
+    std::unordered_map< Namespace, std::unordered_set< Namespace >> mPluginAddins;
 
     // Mutex for our threadsafety.
     mutable std::recursive_mutex mMutex;

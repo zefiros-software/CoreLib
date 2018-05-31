@@ -48,7 +48,7 @@
  * @sa  NamespaceDynamicFactory<tName, tBase, tInstantiator>
  */
 
-template < typename tName, typename tBase, typename tParam, typename tInstantiator = AbstractParamInstantiator< tBase, tParam >  >
+template < typename tName, typename tBase, typename tParam, typename tInstantiator = AbstractParamInstantiator< tBase, tParam >>
 class NamespaceDynamicParamFactory
     : public NamespaceDynamicFactory< tName, tBase, tInstantiator >
 {

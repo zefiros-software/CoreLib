@@ -58,7 +58,7 @@
 template< typename tT, typename tParam, typename tBase = tT >
 class ParamPoolableInstantiator
     : public PoolableInstantiator< tBase >,
-      NonAssignable< ParamPoolableInstantiator< tT, tParam, tBase > >
+      NonAssignable< ParamPoolableInstantiator< tT, tParam, tBase >>
 {
 public:
 

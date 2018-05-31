@@ -29,7 +29,7 @@
 
 size_t gActiveProgressBars = 0;
 
-ProgressBar< std::vector< int32_t > > Progress(int32_t val)
+ProgressBar< std::vector< int32_t >> Progress(int32_t val)
 {
-    return ProgressBar< std::vector< int32_t > >(Range<int32_t>(val));
+    return ProgressBar< std::vector< int32_t >>(Range<int32_t>(val));
 }

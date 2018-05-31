@@ -563,7 +563,7 @@ bool ConfigurationFile::ChangeKey(const std::string &key, const std::string &val
 bool ConfigurationFile::FixUnsetKeys(const std::string &lastLine)
 {
     bool success = true;
-    std::vector< std::pair< std::string, std::string > > usedKeys;
+    std::vector< std::pair< std::string, std::string >> usedKeys;
 
     for (const std::string &key : mKeys)
     {

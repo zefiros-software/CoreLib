@@ -60,7 +60,7 @@ public:
 
 private:
 
-    std::unordered_map< std::string, std::chrono::time_point< std::chrono::high_resolution_clock > > mTimings;
+    std::unordered_map< std::string, std::chrono::time_point< std::chrono::high_resolution_clock >> mTimings;
     std::chrono::time_point< std::chrono::high_resolution_clock > mLastUpdate;
     std::mutex mMutex;
 

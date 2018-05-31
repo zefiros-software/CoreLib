@@ -53,7 +53,7 @@
 template< typename tT, typename tBase = tT >
 class UnsychronisedMemoryPoolInstantiator
     : public AbstractMemoryPoolInstantiator< tBase >,
-      NonAssignable < UnsychronisedMemoryPoolInstantiator< tT, tBase > >
+      NonAssignable < UnsychronisedMemoryPoolInstantiator< tT, tBase >>
 {
 public:
 

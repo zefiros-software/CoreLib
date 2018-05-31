@@ -93,7 +93,7 @@ public:
         SpinBarrier barrier(threadCount);
         JobQueue queue;
 
-        std::vector< GlobalThreadIDJob< tT > > threadJobs(threadCount, GlobalThreadIDJob< tT >(this, &barrier));
+        std::vector< GlobalThreadIDJob< tT >> threadJobs(threadCount, GlobalThreadIDJob< tT >(this, &barrier));
 
         for (GlobalThreadIDJob< tT > &job : threadJobs)
         {

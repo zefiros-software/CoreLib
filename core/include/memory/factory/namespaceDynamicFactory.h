@@ -52,7 +52,7 @@
  * @sa NamespaceNamedStorage
  */
 
-template < typename tName, typename tBase, typename tInstantiator = AbstractTInstantiator< tBase > >
+template < typename tName, typename tBase, typename tInstantiator = AbstractTInstantiator< tBase >>
 class NamespaceDynamicFactory
 {
 public:

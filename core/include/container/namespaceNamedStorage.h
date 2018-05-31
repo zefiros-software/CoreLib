@@ -312,13 +312,13 @@ public:
 private:
 
     /// Holds the objects stored under the full addin namespace.
-    std::unordered_map< Namespace, std::unordered_set< tName > > mAddinObjects;
+    std::unordered_map< Namespace, std::unordered_set< tName >> mAddinObjects;
 
     /// Holds the objects stored directly under the plugin namespace.
-    std::unordered_map< Namespace, std::unordered_set< tName > > mPluginObjects;
+    std::unordered_map< Namespace, std::unordered_set< tName >> mPluginObjects;
 
     /// Holds the addin namespaces per plugin namespace, so we know what plugins have what addins.
-    std::unordered_map< Namespace, std::unordered_set< Namespace > > mPluginAddinsNamespaces;
+    std::unordered_map< Namespace, std::unordered_set< Namespace >> mPluginAddinsNamespaces;
 
     /// Holds the objects stored under their names
     std::unordered_map< tName, tStoredType * > mObjects;

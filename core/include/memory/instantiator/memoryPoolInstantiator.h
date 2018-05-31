@@ -57,7 +57,7 @@
 template< typename tT, typename tBase = tT >
 class MemoryPoolInstantiator
     : public AbstractMemoryPoolInstantiator< tBase >,
-      NonAssignable < MemoryPoolInstantiator< tT, tBase > >
+      NonAssignable < MemoryPoolInstantiator< tT, tBase >>
 {
 public:
 

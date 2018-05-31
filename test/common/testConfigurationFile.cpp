@@ -321,10 +321,10 @@ namespace
         const std::size_t cycli = 10;
         const std::string key = "key_";
 
-        std::unordered_map< std::string, std::pair< std::string, std::string > > mStrings;
-        std::unordered_map< std::string, std::pair< F32, F32 > > mFloats;
-        std::unordered_map< std::string, std::pair< S32, S32 > > mInts;
-        std::unordered_map< std::string, std::pair< bool, bool > > mBools;
+        std::unordered_map< std::string, std::pair< std::string, std::string >> mStrings;
+        std::unordered_map< std::string, std::pair< F32, F32 >> mFloats;
+        std::unordered_map< std::string, std::pair< S32, S32 >> mInts;
+        std::unordered_map< std::string, std::pair< bool, bool >> mBools;
 
         for (size_t i = 0, end = cycli; i < end; ++i)
         {

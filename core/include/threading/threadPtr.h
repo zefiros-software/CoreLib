@@ -38,7 +38,7 @@
 template< typename tT >
 class ThreadPtr
     : public IThreadPtr,
-      NonAssignable< ThreadPtr< tT > >
+      NonAssignable< ThreadPtr< tT >>
 {
 public:
 

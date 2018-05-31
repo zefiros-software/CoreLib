@@ -60,7 +60,7 @@ struct IotaWrapper
 template<class tT>
 std::vector<tT> Range(const tT &first, const tT &last)
 {
-    IotaWrapper<tT, std::function< tT(tT &) > > iota(first, [ = ](tT & n)
+    IotaWrapper<tT, std::function< tT(tT &) >> iota(first, [ = ](tT & n)
     {
         return n + 1;
     });
@@ -72,7 +72,7 @@ std::vector<tT> Range(const tT &first, const tT &last)
 template<class tT, class Incr>
 std::vector<tT> Range(const tT &first, const tT &last, const tT &increment)
 {
-    IotaWrapper<tT, std::function< tT(tT &) > > iota(first, [ = ](tT & n)
+    IotaWrapper<tT, std::function< tT(tT &) >> iota(first, [ = ](tT & n)
     {
         return n + increment;
     });

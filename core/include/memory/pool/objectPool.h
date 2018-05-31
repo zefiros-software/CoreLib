@@ -61,7 +61,7 @@
  * @sa  AbstractObjectPool<tBase>
  */
 
-template< typename tT, typename tBase = tT, typename tInstantiator = PoolableInstantiator< tT, tBase > >
+template< typename tT, typename tBase = tT, typename tInstantiator = PoolableInstantiator< tT, tBase >>
 class ObjectPool
     : public AbstractObjectPool< tBase >
 {
